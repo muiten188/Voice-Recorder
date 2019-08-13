@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "578578808983",
+    "firebase_url": "https://mshop-9dd12.firebaseio.com",
+    "project_id": "mshop-9dd12",
+    "storage_bucket": "mshop-9dd12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578578808983:android:dc5d67052ca1ff6b",
+        "android_client_info": {
+          "package_name": "com.ati.mshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578578808983-e0ekguju1am5jcojkn53mmfqs630r2g2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ati.mshop",
+            "certificate_hash": "6d716458163c5e3f7b4c35b8b52795f7940243da"
+          }
+        },
+        {
+          "client_id": "578578808983-nvsj0fa5vp3k1c9ft1agnk8el9tno2b5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkhAXXYkqqGdslZPVzVLKhPwzsTyZM464"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578578808983-nvsj0fa5vp3k1c9ft1agnk8el9tno2b5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

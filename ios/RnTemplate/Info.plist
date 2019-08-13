@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>RnTemplate</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>prefs</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechromes</string>
+		<string>comgooglemaps</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>10.1.27.64</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>10.1.27.65</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>171.244.49.184</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>171.244.49.185</key>
+			<dict/>
+			<key>171.244.49.186</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>NSExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+			<key>NSIncludesSubdomains</key>
+			<true/>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập thư viện</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập Bluetooth</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập lịch</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập danh bạ</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập vị trí</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập vị trí</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập vị trí</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập cảm biến chuyển động</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập thư viện</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền sử dụng nhận diện giọng nói</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Linearicons-Free.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>SFProText-Regular.otf</string>
+		<string>SFProText-Bold.otf</string>
+		<string>SFProText-RegularItalic.otf</string>
+		<string>SFProText-Medium.otf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>
