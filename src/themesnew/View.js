@@ -42,6 +42,11 @@ export const viewStyles = {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    'column-all-start': {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+    },
     'column-start': {
         flexDirection: 'column',
         justifyContent: 'flex-start',
@@ -195,6 +200,9 @@ export const viewStyles = {
     },
     pv32: {
         paddingVertical: 32
+    },
+    pd32: {
+        padding: 32
     },
     'pv14': {
         paddingVertical: 14,

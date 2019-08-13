@@ -94,11 +94,20 @@ export const textStyles = {
     s16: {
         fontSize: 16
     },
+    s18: {
+        fontSize: 18
+    },
     s20: {
         fontSize: 20
     },
+    s24: {
+        fontSize: 24
+    },
     s30: {
         fontSize: 30
+    },
+    s48: {
+        fontSize: 48
     },
     lh16: {
         lineHeight: 16
