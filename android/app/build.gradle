@@ -153,6 +153,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-sound')
+    implementation project(':react-native-audio')
     implementation project(':react-native-reanimated')
     implementation project(':react-native-webview')
     implementation fileTree(dir: "libs", include: ["*.jar"])

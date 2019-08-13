@@ -38,6 +38,10 @@ target 'VoiceRecorder' do
   pod 'SwiftyJSON', '5.0'      
   pod 'Charts', '3.3.0' 
 
+  pod 'RNAudio', :path => '../node_modules/react-native-audio'
+
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
   target 'VoiceRecorderTests' do
     inherit! :search_paths
     # Pods for testing
