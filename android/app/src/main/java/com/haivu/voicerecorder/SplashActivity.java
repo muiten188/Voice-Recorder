@@ -1,4 +1,4 @@
-package com.ati.mshop;
+package com.haivu.voicerecorder;
 
 import android.content.Intent;
 import android.os.Bundle;

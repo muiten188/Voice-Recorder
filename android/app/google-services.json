@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:578578808983:android:dc5d67052ca1ff6b",
         "android_client_info": {
-          "package_name": "com.ati.mshop"
+          "package_name": "com.haivu.voicerecorder"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "578578808983-e0ekguju1am5jcojkn53mmfqs630r2g2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ati.mshop",
+            "package_name": "com.haivu.voicerecorder",
             "certificate_hash": "6d716458163c5e3f7b4c35b8b52795f7940243da"
           }
         },

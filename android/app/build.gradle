@@ -103,7 +103,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.ati.mshop"
+        applicationId "com.haivu.voicerecorder"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 12
@@ -164,19 +164,9 @@ dependencies {
     } else {
       implementation jscFlavor
     }
-
-    implementation project(':react-native-bluetooth-status')
-    implementation project(':react-native-ble-plx')
-    implementation project(':react-native-background-timer')
     implementation project(':react-native-sqlite-storage')
     implementation 'androidx.multidex:multidex:2.0.0'
-    implementation project(':react-native-firebase')
-    // Firebase dependencies
-    implementation "com.google.firebase:firebase-messaging:18.0.0"
-    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
-
     implementation "com.google.android.gms:play-services-base:16.1.0"
-    implementation "com.google.firebase:firebase-core:16.0.9"
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true
     }
