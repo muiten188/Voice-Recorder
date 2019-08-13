@@ -5,21 +5,20 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* RnTemplateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RnTemplateTests.m */; };
+		00E356F31AD99517003FC87E /* VoiceRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* VoiceRecorderTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1F9A1A0177735C44931F1E63 /* libPods-RnTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5598C03ECE6EDCB0EFDECE9D /* libPods-RnTemplate.a */; };
+		1F9A1A0177735C44931F1E63 /* libPods-VoiceRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5598C03ECE6EDCB0EFDECE9D /* libPods-VoiceRecorder.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* RnTemplateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RnTemplateTests.m */; };
-		336ED6581CBDF7944DDE7BF6 /* libPods-RnTemplate-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F880C74B7A96F9E68DB34C1 /* libPods-RnTemplate-tvOSTests.a */; };
-		35CA8A68B56E8253E312FCCC /* libPods-RnTemplateTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B70AE6794D1AB256B6D715 /* libPods-RnTemplateTests.a */; };
-		3E2B4BFD4A4F5327668BCA15 /* libPods-RnTemplate-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C27CF2876584566E3432A8 /* libPods-RnTemplate-tvOS.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* VoiceRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* VoiceRecorderTests.m */; };
+		336ED6581CBDF7944DDE7BF6 /* libPods-VoiceRecorder-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F880C74B7A96F9E68DB34C1 /* libPods-VoiceRecorder-tvOSTests.a */; };
+		35CA8A68B56E8253E312FCCC /* libPods-VoiceRecorderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B70AE6794D1AB256B6D715 /* libPods-VoiceRecorderTests.a */; };
+		3E2B4BFD4A4F5327668BCA15 /* libPods-VoiceRecorder-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C27CF2876584566E3432A8 /* libPods-VoiceRecorder-tvOS.a */; };
 		4AAF43104B0240398DED4D27 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80596993B91943D8B4FF603C /* MaterialCommunityIcons.ttf */; };
 		4F21738122F8104100E25BAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F21738022F8104000E25BAD /* GoogleService-Info.plist */; };
 		4F21738222F8104100E25BAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F21738022F8104000E25BAD /* GoogleService-Info.plist */; };
@@ -97,10 +96,25 @@
 		4FBD583322F807C90060C3F7 /* SFProText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4FBD581922F807C90060C3F7 /* SFProText-RegularItalic.otf */; };
 		4FBD583422F807C90060C3F7 /* SFProText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4FBD581922F807C90060C3F7 /* SFProText-RegularItalic.otf */; };
 		4FBD583522F807C90060C3F7 /* SFProText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4FBD581922F807C90060C3F7 /* SFProText-RegularItalic.otf */; };
-		B4A604C2EBD1D130D3F216A1 /* libPods-RnTemplate-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B818834A1D968548C7BF0B /* libPods-RnTemplate-tvOSTests.a */; };
-		C6D6BC459DC1225BC3B78550 /* libPods-RnTemplate-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BDB5B97B2E6229D3550B84 /* libPods-RnTemplate-tvOS.a */; };
-		FC276664A2F5C7FEC5243DF4 /* libPods-RnTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBC124D12523625B69C32D3E /* libPods-RnTemplate.a */; };
-		FE22E018EF81E48B9D4CE79C /* libPods-RnTemplateTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F401243F868546A3920B53 /* libPods-RnTemplateTests.a */; };
+		B4A604C2EBD1D130D3F216A1 /* libPods-VoiceRecorder-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B818834A1D968548C7BF0B /* libPods-VoiceRecorder-tvOSTests.a */; };
+		C6D6BC459DC1225BC3B78550 /* libPods-VoiceRecorder-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BDB5B97B2E6229D3550B84 /* libPods-VoiceRecorder-tvOS.a */; };
+		FC276664A2F5C7FEC5243DF4 /* libPods-VoiceRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBC124D12523625B69C32D3E /* libPods-VoiceRecorder.a */; };
+		FE22E018EF81E48B9D4CE79C /* libPods-VoiceRecorderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F401243F868546A3920B53 /* libPods-VoiceRecorderTests.a */; };
+		8B5ADBB3B3AB4B50849CBE7C /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB1F975626B34B02A67F3238 /* AntDesign.ttf */; };
+		8E485BD706AB413D91DA794E /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36F6E4FE62364C42B43EC004 /* Entypo.ttf */; };
+		E0FC5BC185974F9591847A6F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FF2668A9EE84719874E770E /* EvilIcons.ttf */; };
+		0B16312D1F29424ABFA01531 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 135BD0A1789E42CD8FB6BB14 /* Feather.ttf */; };
+		60D63411CD3D4329A3965A41 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE2B2D0EC274575852F673F /* FontAwesome.ttf */; };
+		5BABD8F2BC11415A907F3229 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 988D37AF253246C18792E333 /* FontAwesome5_Brands.ttf */; };
+		BDE50EEB97674F25878550F8 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC5922DF9D194AA88383166C /* FontAwesome5_Regular.ttf */; };
+		78FDCCB496B74D04BD5890C7 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 445BDA82F4ED47E0AF08024D /* FontAwesome5_Solid.ttf */; };
+		C1020690B3304D798ECD7A59 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3C8E77AADC34D89A02B2984 /* Fontisto.ttf */; };
+		5D223A47CC604446B2994930 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27B9013131194A1E90C12F33 /* Foundation.ttf */; };
+		5C7D577516954E4A9AB3B48C /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E0985E314674E97A10434E7 /* Ionicons.ttf */; };
+		16487381ED6B4F449F416B28 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1027F939DA33445E881A0906 /* MaterialIcons.ttf */; };
+		316E7AE6022B4E68B6A6A6D0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D5C8282FB04CBCAF16848C /* Octicons.ttf */; };
+		6D9A2428310F488DA30C90A2 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A82B1839CD346F8981D01CD /* SimpleLineIcons.ttf */; };
+		27F91DD5AE9E4306B7904822 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CF2F07134994FBF99C8383D /* Zocial.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,41 +123,41 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = RnTemplate;
+			remoteInfo = VoiceRecorder;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "RnTemplate-tvOS";
+			remoteInfo = "VoiceRecorder-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* RnTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RnTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* VoiceRecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceRecorderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* RnTemplateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnTemplateTests.m; sourceTree = "<group>"; };
-		03A4FCE9BFA87ADBC9B185C8 /* Pods-RnTemplate-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOS/Pods-RnTemplate-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* RnTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RnTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RnTemplate/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = RnTemplate/AppDelegate.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* VoiceRecorderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceRecorderTests.m; sourceTree = "<group>"; };
+		03A4FCE9BFA87ADBC9B185C8 /* Pods-VoiceRecorder-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOS/Pods-VoiceRecorder-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* VoiceRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = VoiceRecorder/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = VoiceRecorder/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RnTemplate/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RnTemplate/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RnTemplate/main.m; sourceTree = "<group>"; };
-		1C5ED439DE9A4D8C650AF6D2 /* Pods-RnTemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplateTests.release.xcconfig"; path = "Target Support Files/Pods-RnTemplateTests/Pods-RnTemplateTests.release.xcconfig"; sourceTree = "<group>"; };
-		1FD3E60332648CA6422EBBBD /* Pods-RnTemplate-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOSTests/Pods-RnTemplate-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		27C27CF2876584566E3432A8 /* libPods-RnTemplate-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplate-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		28C2023AD27E0ABC7DDED174 /* Pods-RnTemplate-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOS/Pods-RnTemplate-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* RnTemplate-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RnTemplate-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* RnTemplate-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RnTemplate-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		39D31718F5C78C2F63CA21BE /* Pods-RnTemplate-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOSTests/Pods-RnTemplate-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		39DF12794B71DB528F00C5F0 /* Pods-RnTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VoiceRecorder/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VoiceRecorder/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VoiceRecorder/main.m; sourceTree = "<group>"; };
+		1C5ED439DE9A4D8C650AF6D2 /* Pods-VoiceRecorderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderTests.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorderTests/Pods-VoiceRecorderTests.release.xcconfig"; sourceTree = "<group>"; };
+		1FD3E60332648CA6422EBBBD /* Pods-VoiceRecorder-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOSTests/Pods-VoiceRecorder-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		27C27CF2876584566E3432A8 /* libPods-VoiceRecorder-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		28C2023AD27E0ABC7DDED174 /* Pods-VoiceRecorder-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOS/Pods-VoiceRecorder-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* VoiceRecorder-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VoiceRecorder-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* VoiceRecorder-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VoiceRecorder-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39D31718F5C78C2F63CA21BE /* Pods-VoiceRecorder-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOSTests/Pods-VoiceRecorder-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		39DF12794B71DB528F00C5F0 /* Pods-VoiceRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.debug.xcconfig"; sourceTree = "<group>"; };
 		4F21738022F8104000E25BAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4F21D68B22F7E83A00D81895 /* RnTemplate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RnTemplate.entitlements; path = RnTemplate/RnTemplate.entitlements; sourceTree = "<group>"; };
-		4F9D710B22F8681300903BDE /* RnTemplate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RnTemplate-Bridging-Header.h"; sourceTree = "<group>"; };
+		4F21D68B22F7E83A00D81895 /* VoiceRecorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VoiceRecorder.entitlements; path = VoiceRecorder/VoiceRecorder.entitlements; sourceTree = "<group>"; };
+		4F9D710B22F8681300903BDE /* VoiceRecorder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoiceRecorder-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F9D710D22F8681400903BDE /* CandleDataExtract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleDataExtract.swift; sourceTree = "<group>"; };
 		4F9D710E22F8681400903BDE /* RNCandleStickChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNCandleStickChartView.swift; sourceTree = "<group>"; };
 		4F9D710F22F8681400903BDE /* RNCandleStickChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNCandleStickChartManager.swift; sourceTree = "<group>"; };
@@ -205,26 +219,41 @@
 		4FBD581622F807C80060C3F7 /* SFProText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-Regular.otf"; path = "../android/app/src/main/assets/fonts/SFProText-Regular.otf"; sourceTree = "<group>"; };
 		4FBD581822F807C90060C3F7 /* SFProText-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-Medium.otf"; path = "../android/app/src/main/assets/fonts/SFProText-Medium.otf"; sourceTree = "<group>"; };
 		4FBD581922F807C90060C3F7 /* SFProText-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-RegularItalic.otf"; path = "../android/app/src/main/assets/fonts/SFProText-RegularItalic.otf"; sourceTree = "<group>"; };
-		5598C03ECE6EDCB0EFDECE9D /* libPods-RnTemplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		58D7CCEC46A753D9B65B94E1 /* Pods-RnTemplateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplateTests.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplateTests/Pods-RnTemplateTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6887D3A724914F819856100A /* Pods-RnTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release.xcconfig"; sourceTree = "<group>"; };
-		73F401243F868546A3920B53 /* libPods-RnTemplateTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplateTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5598C03ECE6EDCB0EFDECE9D /* libPods-VoiceRecorder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58D7CCEC46A753D9B65B94E1 /* Pods-VoiceRecorderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderTests.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorderTests/Pods-VoiceRecorderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6887D3A724914F819856100A /* Pods-VoiceRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.release.xcconfig"; sourceTree = "<group>"; };
+		73F401243F868546A3920B53 /* libPods-VoiceRecorderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80596993B91943D8B4FF603C /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		8181C0849CFC0760CF34788B /* Pods-RnTemplate-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOSTests/Pods-RnTemplate-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		89B818834A1D968548C7BF0B /* libPods-RnTemplate-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplate-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F880C74B7A96F9E68DB34C1 /* libPods-RnTemplate-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplate-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9798B8823D94DAA6C9D39025 /* Pods-RnTemplate-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOSTests/Pods-RnTemplate-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		97B70AE6794D1AB256B6D715 /* libPods-RnTemplateTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplateTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		99726AA0E9DBD3603D4C1CE9 /* Pods-RnTemplateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplateTests.release.xcconfig"; path = "Target Support Files/Pods-RnTemplateTests/Pods-RnTemplateTests.release.xcconfig"; sourceTree = "<group>"; };
-		AE863CDF7EA61E4AF9DD5216 /* Pods-RnTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.debug.xcconfig"; sourceTree = "<group>"; };
-		B185D741D48AF5FCEA463BCC /* Pods-RnTemplate-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOS/Pods-RnTemplate-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		B48B9F60FBD8A2B7BDC28524 /* Pods-RnTemplateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplateTests.debug.xcconfig"; path = "Target Support Files/Pods-RnTemplateTests/Pods-RnTemplateTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D1FBA1109AC33F4037B134F1 /* Pods-RnTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate/Pods-RnTemplate.release.xcconfig"; sourceTree = "<group>"; };
-		D7BDB5B97B2E6229D3550B84 /* libPods-RnTemplate-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplate-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB52FBA5AA714CC9C5AA499D /* Pods-RnTemplate-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnTemplate-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RnTemplate-tvOS/Pods-RnTemplate-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		8181C0849CFC0760CF34788B /* Pods-VoiceRecorder-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOSTests/Pods-VoiceRecorder-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		89B818834A1D968548C7BF0B /* libPods-VoiceRecorder-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F880C74B7A96F9E68DB34C1 /* libPods-VoiceRecorder-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9798B8823D94DAA6C9D39025 /* Pods-VoiceRecorder-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOSTests/Pods-VoiceRecorder-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		97B70AE6794D1AB256B6D715 /* libPods-VoiceRecorderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99726AA0E9DBD3603D4C1CE9 /* Pods-VoiceRecorderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderTests.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorderTests/Pods-VoiceRecorderTests.release.xcconfig"; sourceTree = "<group>"; };
+		AE863CDF7EA61E4AF9DD5216 /* Pods-VoiceRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.debug.xcconfig"; sourceTree = "<group>"; };
+		B185D741D48AF5FCEA463BCC /* Pods-VoiceRecorder-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOS.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOS/Pods-VoiceRecorder-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		B48B9F60FBD8A2B7BDC28524 /* Pods-VoiceRecorderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderTests.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorderTests/Pods-VoiceRecorderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D1FBA1109AC33F4037B134F1 /* Pods-VoiceRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.release.xcconfig"; sourceTree = "<group>"; };
+		D7BDB5B97B2E6229D3550B84 /* libPods-VoiceRecorder-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB52FBA5AA714CC9C5AA499D /* Pods-VoiceRecorder-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOS.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOS/Pods-VoiceRecorder-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FBC124D12523625B69C32D3E /* libPods-RnTemplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RnTemplate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBC124D12523625B69C32D3E /* libPods-VoiceRecorder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB1F975626B34B02A67F3238 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		36F6E4FE62364C42B43EC004 /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3FF2668A9EE84719874E770E /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		135BD0A1789E42CD8FB6BB14 /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3FE2B2D0EC274575852F673F /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		988D37AF253246C18792E333 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Brands.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AC5922DF9D194AA88383166C /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Regular.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		445BDA82F4ED47E0AF08024D /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Solid.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D3C8E77AADC34D89A02B2984 /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		27B9013131194A1E90C12F33 /* Foundation.ttf */ = {isa = PBXFileReference; name = "Foundation.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3E0985E314674E97A10434E7 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1027F939DA33445E881A0906 /* MaterialIcons.ttf */ = {isa = PBXFileReference; name = "MaterialIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D0D5C8282FB04CBCAF16848C /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3A82B1839CD346F8981D01CD /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7CF2F07134994FBF99C8383D /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,8 +261,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE22E018EF81E48B9D4CE79C /* libPods-RnTemplateTests.a in Frameworks */,
-				35CA8A68B56E8253E312FCCC /* libPods-RnTemplateTests.a in Frameworks */,
+				FE22E018EF81E48B9D4CE79C /* libPods-VoiceRecorderTests.a in Frameworks */,
+				35CA8A68B56E8253E312FCCC /* libPods-VoiceRecorderTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,8 +270,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC276664A2F5C7FEC5243DF4 /* libPods-RnTemplate.a in Frameworks */,
-				1F9A1A0177735C44931F1E63 /* libPods-RnTemplate.a in Frameworks */,
+				FC276664A2F5C7FEC5243DF4 /* libPods-VoiceRecorder.a in Frameworks */,
+				1F9A1A0177735C44931F1E63 /* libPods-VoiceRecorder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,8 +279,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E2B4BFD4A4F5327668BCA15 /* libPods-RnTemplate-tvOS.a in Frameworks */,
-				C6D6BC459DC1225BC3B78550 /* libPods-RnTemplate-tvOS.a in Frameworks */,
+				3E2B4BFD4A4F5327668BCA15 /* libPods-VoiceRecorder-tvOS.a in Frameworks */,
+				C6D6BC459DC1225BC3B78550 /* libPods-VoiceRecorder-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,21 +288,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				336ED6581CBDF7944DDE7BF6 /* libPods-RnTemplate-tvOSTests.a in Frameworks */,
-				B4A604C2EBD1D130D3F216A1 /* libPods-RnTemplate-tvOSTests.a in Frameworks */,
+				336ED6581CBDF7944DDE7BF6 /* libPods-VoiceRecorder-tvOSTests.a in Frameworks */,
+				B4A604C2EBD1D130D3F216A1 /* libPods-VoiceRecorder-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* RnTemplateTests */ = {
+		00E356EF1AD99517003FC87E /* VoiceRecorderTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* RnTemplateTests.m */,
+				00E356F21AD99517003FC87E /* VoiceRecorderTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = RnTemplateTests;
+			path = VoiceRecorderTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -284,11 +313,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* RnTemplate */ = {
+		13B07FAE1A68108700A75B9A /* VoiceRecorder */ = {
 			isa = PBXGroup;
 			children = (
 				4F21738022F8104000E25BAD /* GoogleService-Info.plist */,
-				4F21D68B22F7E83A00D81895 /* RnTemplate.entitlements */,
+				4F21D68B22F7E83A00D81895 /* VoiceRecorder.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -297,7 +326,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = RnTemplate;
+			name = VoiceRecorder;
 			sourceTree = "<group>";
 		};
 		14D1579D072142E49E30EE99 /* Resources */ = {
@@ -309,6 +338,21 @@
 				4FBD581622F807C80060C3F7 /* SFProText-Regular.otf */,
 				4FBD581922F807C90060C3F7 /* SFProText-RegularItalic.otf */,
 				80596993B91943D8B4FF603C /* MaterialCommunityIcons.ttf */,
+				EB1F975626B34B02A67F3238 /* AntDesign.ttf */,
+				36F6E4FE62364C42B43EC004 /* Entypo.ttf */,
+				3FF2668A9EE84719874E770E /* EvilIcons.ttf */,
+				135BD0A1789E42CD8FB6BB14 /* Feather.ttf */,
+				3FE2B2D0EC274575852F673F /* FontAwesome.ttf */,
+				988D37AF253246C18792E333 /* FontAwesome5_Brands.ttf */,
+				AC5922DF9D194AA88383166C /* FontAwesome5_Regular.ttf */,
+				445BDA82F4ED47E0AF08024D /* FontAwesome5_Solid.ttf */,
+				D3C8E77AADC34D89A02B2984 /* Fontisto.ttf */,
+				27B9013131194A1E90C12F33 /* Foundation.ttf */,
+				3E0985E314674E97A10434E7 /* Ionicons.ttf */,
+				1027F939DA33445E881A0906 /* MaterialIcons.ttf */,
+				D0D5C8282FB04CBCAF16848C /* Octicons.ttf */,
+				3A82B1839CD346F8981D01CD /* SimpleLineIcons.ttf */,
+				7CF2F07134994FBF99C8383D /* Zocial.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -318,14 +362,14 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				FBC124D12523625B69C32D3E /* libPods-RnTemplate.a */,
-				27C27CF2876584566E3432A8 /* libPods-RnTemplate-tvOS.a */,
-				8F880C74B7A96F9E68DB34C1 /* libPods-RnTemplate-tvOSTests.a */,
-				73F401243F868546A3920B53 /* libPods-RnTemplateTests.a */,
-				5598C03ECE6EDCB0EFDECE9D /* libPods-RnTemplate.a */,
-				D7BDB5B97B2E6229D3550B84 /* libPods-RnTemplate-tvOS.a */,
-				89B818834A1D968548C7BF0B /* libPods-RnTemplate-tvOSTests.a */,
-				97B70AE6794D1AB256B6D715 /* libPods-RnTemplateTests.a */,
+				FBC124D12523625B69C32D3E /* libPods-VoiceRecorder.a */,
+				27C27CF2876584566E3432A8 /* libPods-VoiceRecorder-tvOS.a */,
+				8F880C74B7A96F9E68DB34C1 /* libPods-VoiceRecorder-tvOSTests.a */,
+				73F401243F868546A3920B53 /* libPods-VoiceRecorderTests.a */,
+				5598C03ECE6EDCB0EFDECE9D /* libPods-VoiceRecorder.a */,
+				D7BDB5B97B2E6229D3550B84 /* libPods-VoiceRecorder-tvOS.a */,
+				89B818834A1D968548C7BF0B /* libPods-VoiceRecorder-tvOSTests.a */,
+				97B70AE6794D1AB256B6D715 /* libPods-VoiceRecorderTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -356,7 +400,7 @@
 				4F9D712D22F8681500903BDE /* RNYAxisChartViewBase.swift */,
 				4F9D713422F8681500903BDE /* scatter */,
 				4F9D713E22F8681500903BDE /* utils */,
-				4F9D710B22F8681300903BDE /* RnTemplate-Bridging-Header.h */,
+				4F9D710B22F8681300903BDE /* VoiceRecorder-Bridging-Header.h */,
 			);
 			path = RNCharts;
 			sourceTree = "<group>";
@@ -495,9 +539,9 @@
 			isa = PBXGroup;
 			children = (
 				4F9D710A22F8680900903BDE /* RNCharts */,
-				13B07FAE1A68108700A75B9A /* RnTemplate */,
+				13B07FAE1A68108700A75B9A /* VoiceRecorder */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* RnTemplateTests */,
+				00E356EF1AD99517003FC87E /* VoiceRecorderTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				FAF7863F2A385842DEABD7EE /* Pods */,
@@ -511,10 +555,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* RnTemplate.app */,
-				00E356EE1AD99517003FC87E /* RnTemplateTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* RnTemplate-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* RnTemplate-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* VoiceRecorder.app */,
+				00E356EE1AD99517003FC87E /* VoiceRecorderTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* VoiceRecorder-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* VoiceRecorder-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -522,22 +566,22 @@
 		FAF7863F2A385842DEABD7EE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AE863CDF7EA61E4AF9DD5216 /* Pods-RnTemplate.debug.xcconfig */,
-				6887D3A724914F819856100A /* Pods-RnTemplate.release.xcconfig */,
-				28C2023AD27E0ABC7DDED174 /* Pods-RnTemplate-tvOS.debug.xcconfig */,
-				B185D741D48AF5FCEA463BCC /* Pods-RnTemplate-tvOS.release.xcconfig */,
-				1FD3E60332648CA6422EBBBD /* Pods-RnTemplate-tvOSTests.debug.xcconfig */,
-				39D31718F5C78C2F63CA21BE /* Pods-RnTemplate-tvOSTests.release.xcconfig */,
-				58D7CCEC46A753D9B65B94E1 /* Pods-RnTemplateTests.debug.xcconfig */,
-				1C5ED439DE9A4D8C650AF6D2 /* Pods-RnTemplateTests.release.xcconfig */,
-				39DF12794B71DB528F00C5F0 /* Pods-RnTemplate.debug.xcconfig */,
-				D1FBA1109AC33F4037B134F1 /* Pods-RnTemplate.release.xcconfig */,
-				03A4FCE9BFA87ADBC9B185C8 /* Pods-RnTemplate-tvOS.debug.xcconfig */,
-				DB52FBA5AA714CC9C5AA499D /* Pods-RnTemplate-tvOS.release.xcconfig */,
-				8181C0849CFC0760CF34788B /* Pods-RnTemplate-tvOSTests.debug.xcconfig */,
-				9798B8823D94DAA6C9D39025 /* Pods-RnTemplate-tvOSTests.release.xcconfig */,
-				B48B9F60FBD8A2B7BDC28524 /* Pods-RnTemplateTests.debug.xcconfig */,
-				99726AA0E9DBD3603D4C1CE9 /* Pods-RnTemplateTests.release.xcconfig */,
+				AE863CDF7EA61E4AF9DD5216 /* Pods-VoiceRecorder.debug.xcconfig */,
+				6887D3A724914F819856100A /* Pods-VoiceRecorder.release.xcconfig */,
+				28C2023AD27E0ABC7DDED174 /* Pods-VoiceRecorder-tvOS.debug.xcconfig */,
+				B185D741D48AF5FCEA463BCC /* Pods-VoiceRecorder-tvOS.release.xcconfig */,
+				1FD3E60332648CA6422EBBBD /* Pods-VoiceRecorder-tvOSTests.debug.xcconfig */,
+				39D31718F5C78C2F63CA21BE /* Pods-VoiceRecorder-tvOSTests.release.xcconfig */,
+				58D7CCEC46A753D9B65B94E1 /* Pods-VoiceRecorderTests.debug.xcconfig */,
+				1C5ED439DE9A4D8C650AF6D2 /* Pods-VoiceRecorderTests.release.xcconfig */,
+				39DF12794B71DB528F00C5F0 /* Pods-VoiceRecorder.debug.xcconfig */,
+				D1FBA1109AC33F4037B134F1 /* Pods-VoiceRecorder.release.xcconfig */,
+				03A4FCE9BFA87ADBC9B185C8 /* Pods-VoiceRecorder-tvOS.debug.xcconfig */,
+				DB52FBA5AA714CC9C5AA499D /* Pods-VoiceRecorder-tvOS.release.xcconfig */,
+				8181C0849CFC0760CF34788B /* Pods-VoiceRecorder-tvOSTests.debug.xcconfig */,
+				9798B8823D94DAA6C9D39025 /* Pods-VoiceRecorder-tvOSTests.release.xcconfig */,
+				B48B9F60FBD8A2B7BDC28524 /* Pods-VoiceRecorderTests.debug.xcconfig */,
+				99726AA0E9DBD3603D4C1CE9 /* Pods-VoiceRecorderTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -545,9 +589,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* RnTemplateTests */ = {
+		00E356ED1AD99517003FC87E /* VoiceRecorderTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RnTemplateTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "VoiceRecorderTests" */;
 			buildPhases = (
 				D7034DDA0AC67045515543B5 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -559,14 +603,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = RnTemplateTests;
-			productName = RnTemplateTests;
-			productReference = 00E356EE1AD99517003FC87E /* RnTemplateTests.xctest */;
+			name = VoiceRecorderTests;
+			productName = VoiceRecorderTests;
+			productReference = 00E356EE1AD99517003FC87E /* VoiceRecorderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* RnTemplate */ = {
+		13B07F861A680F5B00A75B9A /* VoiceRecorder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RnTemplate" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VoiceRecorder" */;
 			buildPhases = (
 				D7665E490E443007E23B3A56 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -580,14 +624,14 @@
 			);
 			dependencies = (
 			);
-			name = RnTemplate;
-			productName = RnTemplate;
-			productReference = 13B07F961A680F5B00A75B9A /* RnTemplate.app */;
+			name = VoiceRecorder;
+			productName = VoiceRecorder;
+			productReference = 13B07F961A680F5B00A75B9A /* VoiceRecorder.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* RnTemplate-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* VoiceRecorder-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnTemplate-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "VoiceRecorder-tvOS" */;
 			buildPhases = (
 				4C63C44CFE7183D6725DA42B /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -600,14 +644,14 @@
 			);
 			dependencies = (
 			);
-			name = "RnTemplate-tvOS";
-			productName = "RnTemplate-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* RnTemplate-tvOS.app */;
+			name = "VoiceRecorder-tvOS";
+			productName = "VoiceRecorder-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* VoiceRecorder-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* RnTemplate-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* VoiceRecorder-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnTemplate-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "VoiceRecorder-tvOSTests" */;
 			buildPhases = (
 				4E79189DCCE31BE732D2FFCC /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -619,9 +663,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "RnTemplate-tvOSTests";
-			productName = "RnTemplate-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* RnTemplate-tvOSTests.xctest */;
+			name = "VoiceRecorder-tvOSTests";
+			productName = "VoiceRecorder-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* VoiceRecorder-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -660,7 +704,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RnTemplate" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "VoiceRecorder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -674,10 +718,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* RnTemplate */,
-				00E356ED1AD99517003FC87E /* RnTemplateTests */,
-				2D02E47A1E0B4A5D006451C7 /* RnTemplate-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* RnTemplate-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* VoiceRecorder */,
+				00E356ED1AD99517003FC87E /* VoiceRecorderTests */,
+				2D02E47A1E0B4A5D006451C7 /* VoiceRecorder-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* VoiceRecorder-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -709,6 +753,21 @@
 				4F21738122F8104100E25BAD /* GoogleService-Info.plist in Resources */,
 				4AAF43104B0240398DED4D27 /* MaterialCommunityIcons.ttf in Resources */,
 				4FBD582E22F807C90060C3F7 /* SFProText-Medium.otf in Resources */,
+				8B5ADBB3B3AB4B50849CBE7C /* AntDesign.ttf in Resources */,
+				8E485BD706AB413D91DA794E /* Entypo.ttf in Resources */,
+				E0FC5BC185974F9591847A6F /* EvilIcons.ttf in Resources */,
+				0B16312D1F29424ABFA01531 /* Feather.ttf in Resources */,
+				60D63411CD3D4329A3965A41 /* FontAwesome.ttf in Resources */,
+				5BABD8F2BC11415A907F3229 /* FontAwesome5_Brands.ttf in Resources */,
+				BDE50EEB97674F25878550F8 /* FontAwesome5_Regular.ttf in Resources */,
+				78FDCCB496B74D04BD5890C7 /* FontAwesome5_Solid.ttf in Resources */,
+				C1020690B3304D798ECD7A59 /* Fontisto.ttf in Resources */,
+				5D223A47CC604446B2994930 /* Foundation.ttf in Resources */,
+				5C7D577516954E4A9AB3B48C /* Ionicons.ttf in Resources */,
+				16487381ED6B4F449F416B28 /* MaterialIcons.ttf in Resources */,
+				316E7AE6022B4E68B6A6A6D0 /* Octicons.ttf in Resources */,
+				6D9A2428310F488DA30C90A2 /* SimpleLineIcons.ttf in Resources */,
+				27F91DD5AE9E4306B7904822 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,7 +844,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RnTemplate-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorder-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -807,7 +866,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RnTemplate-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorder-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -822,7 +881,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -863,7 +922,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RnTemplate/Pods-RnTemplate-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D7034DDA0AC67045515543B5 /* [CP] Check Pods Manifest.lock */ = {
@@ -881,7 +940,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RnTemplateTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorderTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -903,7 +962,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RnTemplate-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorder-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -955,7 +1014,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* RnTemplateTests.m in Sources */,
+				00E356F31AD99517003FC87E /* VoiceRecorderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,7 +1092,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* RnTemplateTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* VoiceRecorderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,12 +1101,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* RnTemplate */;
+			target = 13B07F861A680F5B00A75B9A /* VoiceRecorder */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* RnTemplate-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* VoiceRecorder-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1059,7 +1118,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = RnTemplate;
+			path = VoiceRecorder;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1067,7 +1126,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B48B9F60FBD8A2B7BDC28524 /* Pods-RnTemplateTests.debug.xcconfig */;
+			baseConfigurationReference = B48B9F60FBD8A2B7BDC28524 /* Pods-VoiceRecorderTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1075,7 +1134,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = RnTemplateTests/Info.plist;
+				INFOPLIST_FILE = VoiceRecorderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1085,18 +1144,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnTemplate.app/RnTemplate";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceRecorder.app/VoiceRecorder";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 99726AA0E9DBD3603D4C1CE9 /* Pods-RnTemplateTests.release.xcconfig */;
+			baseConfigurationReference = 99726AA0E9DBD3603D4C1CE9 /* Pods-VoiceRecorderTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = RnTemplateTests/Info.plist;
+				INFOPLIST_FILE = VoiceRecorderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1106,21 +1165,21 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnTemplate.app/RnTemplate";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceRecorder.app/VoiceRecorder";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39DF12794B71DB528F00C5F0 /* Pods-RnTemplate.debug.xcconfig */;
+			baseConfigurationReference = 39DF12794B71DB528F00C5F0 /* Pods-VoiceRecorder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = RnTemplate/RnTemplate.entitlements;
+				CODE_SIGN_ENTITLEMENTS = VoiceRecorder/VoiceRecorder.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = XG7L4W66FJ;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = VoiceRecorder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1128,9 +1187,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.haivu.rntemplate;
-				PRODUCT_NAME = RnTemplate;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNCharts/RnTemplate-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.haivu.voicerecorder;
+				PRODUCT_NAME = VoiceRecorder;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNCharts/VoiceRecorder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1139,14 +1198,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1FBA1109AC33F4037B134F1 /* Pods-RnTemplate.release.xcconfig */;
+			baseConfigurationReference = D1FBA1109AC33F4037B134F1 /* Pods-VoiceRecorder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = RnTemplate/RnTemplate.entitlements;
+				CODE_SIGN_ENTITLEMENTS = VoiceRecorder/VoiceRecorder.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XG7L4W66FJ;
-				INFOPLIST_FILE = RnTemplate/Info.plist;
+				INFOPLIST_FILE = VoiceRecorder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1154,9 +1213,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.haivu.rntemplate;
-				PRODUCT_NAME = RnTemplate;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNCharts/RnTemplate-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.haivu.voicerecorder;
+				PRODUCT_NAME = VoiceRecorder;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNCharts/VoiceRecorder-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1164,7 +1223,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03A4FCE9BFA87ADBC9B185C8 /* Pods-RnTemplate-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 03A4FCE9BFA87ADBC9B185C8 /* Pods-VoiceRecorder-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1175,14 +1234,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RnTemplate-tvOS/Info.plist";
+				INFOPLIST_FILE = "VoiceRecorder-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RnTemplate-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.VoiceRecorder-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1192,7 +1251,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB52FBA5AA714CC9C5AA499D /* Pods-RnTemplate-tvOS.release.xcconfig */;
+			baseConfigurationReference = DB52FBA5AA714CC9C5AA499D /* Pods-VoiceRecorder-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1203,14 +1262,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RnTemplate-tvOS/Info.plist";
+				INFOPLIST_FILE = "VoiceRecorder-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RnTemplate-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.VoiceRecorder-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1220,7 +1279,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8181C0849CFC0760CF34788B /* Pods-RnTemplate-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 8181C0849CFC0760CF34788B /* Pods-VoiceRecorder-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1230,24 +1289,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RnTemplate-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "VoiceRecorder-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RnTemplate-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.VoiceRecorder-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnTemplate-tvOS.app/RnTemplate-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceRecorder-tvOS.app/VoiceRecorder-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9798B8823D94DAA6C9D39025 /* Pods-RnTemplate-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 9798B8823D94DAA6C9D39025 /* Pods-VoiceRecorder-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1257,17 +1316,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RnTemplate-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "VoiceRecorder-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.RnTemplate-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.VoiceRecorder-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RnTemplate-tvOS.app/RnTemplate-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceRecorder-tvOS.app/VoiceRecorder-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1374,7 +1433,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RnTemplateTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "VoiceRecorderTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1383,7 +1442,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RnTemplate" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VoiceRecorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1392,7 +1451,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnTemplate-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "VoiceRecorder-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1401,7 +1460,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RnTemplate-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "VoiceRecorder-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1410,7 +1469,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RnTemplate" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "VoiceRecorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

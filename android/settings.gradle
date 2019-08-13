@@ -1,4 +1,4 @@
-rootProject.name = 'RnTemplate'
+rootProject.name = 'VoiceRecorder'
 include ':react-native-reanimated'
 project(':react-native-reanimated').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-reanimated/android')
 include ':react-native-webview'
@@ -11,7 +11,7 @@ include ':react-native-ble-plx'
 project(':react-native-ble-plx').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-ble-plx/android')
 include ':react-native-background-timer'
 project(':react-native-background-timer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-timer/android')
-rootProject.name = 'MShop'
+rootProject.name = 'VoiceRecorder'
 include ':react-native-firebase'
 project(':react-native-firebase').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-firebase/android')
 include ':@react-native-community_async-storage'

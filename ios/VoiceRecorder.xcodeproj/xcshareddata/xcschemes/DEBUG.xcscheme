@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "RnTemplate.app"
-               BlueprintName = "RnTemplate"
-               ReferencedContainer = "container:RnTemplate.xcodeproj">
+               BuildableName = "VoiceRecorder.app"
+               BlueprintName = "VoiceRecorder"
+               ReferencedContainer = "container:VoiceRecorder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,16 +33,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnTemplate.app"
-            BlueprintName = "RnTemplate"
-            ReferencedContainer = "container:RnTemplate.xcodeproj">
+            BuildableName = "VoiceRecorder.app"
+            BlueprintName = "VoiceRecorder"
+            ReferencedContainer = "container:VoiceRecorder.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnTemplate.app"
-            BlueprintName = "RnTemplate"
-            ReferencedContainer = "container:RnTemplate.xcodeproj">
+            BuildableName = "VoiceRecorder.app"
+            BlueprintName = "VoiceRecorder"
+            ReferencedContainer = "container:VoiceRecorder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RnTemplate.app"
-            BlueprintName = "RnTemplate"
-            ReferencedContainer = "container:RnTemplate.xcodeproj">
+            BuildableName = "VoiceRecorder.app"
+            BlueprintName = "VoiceRecorder"
+            ReferencedContainer = "container:VoiceRecorder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
