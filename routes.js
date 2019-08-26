@@ -3,12 +3,14 @@ import Home from "~/src/screens/Home";
 import {
     createStackNavigator,
     createAppContainer,
+    createDrawerNavigator
 } from "react-navigation";
 
 import { Platform, Animated, Easing } from "react-native";
+import { COLORS } from "~/src/themesnew/common";
+import Drawer from '~/src/components/Drawer'
 
-
-const AppNavigator = createStackNavigator(
+const DrawerNavigator = createDrawerNavigator(
     {
         Home: {
             screen: Home,
@@ -19,7 +21,29 @@ const AppNavigator = createStackNavigator(
         },
     },
     {
-        initialRouteName: "Home",
+        hideStatusBar: false,
+        drawerBackgroundColor: COLORS.WHITE,
+        overlayColor: 'rgba(0, 0, 0, 0.5)',
+        contentOptions: {
+            activeTintColor: '#fff',
+            activeBackgroundColor: '#6b52ae',
+        },
+        contentComponent: Drawer,
+    }
+);
+
+const AppNavigator = createStackNavigator(
+    {
+        Drawer: {
+            screen: DrawerNavigator,
+            navigationOptions: () => ({
+                headerMode: "none",
+                header: null
+            })
+        },
+    },
+    {
+        initialRouteName: "Drawer",
         headerMode: "float",
         transitionConfig: () => {
             if (Platform.OS == "android") {
