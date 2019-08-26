@@ -35,8 +35,8 @@ target 'VoiceRecorder' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 #   pod 'RNCharts', :path => '../node_modules/react-native-charts-wrapper'
-  pod 'SwiftyJSON', '5.0'      
-  pod 'Charts', '3.3.0' 
+#   pod 'SwiftyJSON', '5.0'      
+#   pod 'Charts', '3.3.0' 
 
   pod 'RNAudio', :path => '../node_modules/react-native-audio'
 

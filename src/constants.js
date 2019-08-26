@@ -147,8 +147,9 @@ export const DEFAULT_VARIANT_DEFS = [
 
 export const PAYMENT_METHOD = {
     CASH: 1,
-    QR: 2,
-    CARD: 3
+    VNPAY_QR: 2,
+    CARD: 3,
+    MB_QR: 4
 }
 
 export const PAY_METHOD_DISPAY = [
@@ -163,9 +164,14 @@ export const PAY_METHOD_DISPAY = [
         type: PAYMENT_METHOD.CARD
     },
     {
-        name: I18n.t('pay_by_qr'),
+        name: I18n.t('pay_by_vnpay_qr'),
         icon: 'qrcode',
-        type: PAYMENT_METHOD.QR
+        type: PAYMENT_METHOD.VNPAY_QR
+    },
+    {
+        name: I18n.t('pay_by_mb_qr'),
+        icon: 'qrcode',
+        type: PAYMENT_METHOD.MB_QR
     },
 ]
 

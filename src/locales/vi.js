@@ -480,6 +480,8 @@ const language = {
     pay_by_cash: 'Thanh toán bằng tiền mặt',
     pay_by_atm: 'Thanh toán qua thẻ ATM',
     pay_by_qr: 'Thanh toán bằng QR code',
+    pay_by_vnpay_qr: 'Thanh toán QR Code VNPAY',
+    pay_by_mb_qr: 'Thanh toán QR Code MB',
     end_order: 'Chốt đơn',
     today: 'Hôm nay',
     order_detail: 'Chi tiết đơn',

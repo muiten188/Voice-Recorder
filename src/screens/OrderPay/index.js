@@ -215,7 +215,7 @@ class OrderPay extends PureComponent {
         const enableEndOrder = (
             this.state.payMethod == PAYMENT_METHOD.CASH
             || this.state.payMethod == PAYMENT_METHOD.CARD
-            || (this.state.payMethod == PAYMENT_METHOD.QR && this.state.orderQR)
+            || (this.state.payMethod == PAYMENT_METHOD.VNPAY_QR && this.state.orderQR)
         )
         return (
             <BottomView>
@@ -239,7 +239,7 @@ class OrderPay extends PureComponent {
     }
 
     _handlePressPayMethod = (item) => {
-        if (item.type == PAYMENT_METHOD.QR) {
+        if (item.type == PAYMENT_METHOD.VNPAY_QR) {
             if (this.state.merchantQR) {
                 const { generateQRCode } = this.props
                 const paidAmount = this.props.navigation.getParam('paidAmount')

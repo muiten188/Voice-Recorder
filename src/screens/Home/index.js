@@ -5,15 +5,34 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { COLORS } from "~/src/themesnew/common";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
+import { AudioRecorder, AudioUtils } from 'react-native-audio';
+const RECORD_STATUS = {
+    NOT_START: 'NOT_START',
+    RECORDING: 'RECORDING',
+    PAUSED: 'PAUSED',
+    STOPPED: 'STOPPED'
+}
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
+        // started / paused / stopped / recording
         this.state = {
-            recording: false,
+            recording: RECORD_STATUS.NOT_START,
             recordTime: 0,
-            permissionStatus: ''
+            permissionStatus: '',
+            audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
         }
+    }
+
+    _prepareRecordingPath(audioPath) {
+        AudioRecorder.prepareRecordingAtPath(audioPath, {
+            SampleRate: 22050,
+            Channels: 1,
+            AudioQuality: "High",
+            AudioEncoding: "aac",
+            AudioEncodingBitRate: 32000
+        });
     }
 
     componentDidMount() {
@@ -23,14 +42,46 @@ export default class Home extends Component {
         })
     }
 
-    _handlePressRecord = () => {
-        if (this.state.permissionStatus != PERMISSION_RESPONSE.AUTHORIZED) {
-            Permissions.request('microphone', { type: 'always' }).then(response => {
-                console.log('Request res', response)
-                this.setState({ permissionStatus: response })
-            })
+    _handlePressCenterButton = () => {
+        if (this.state.recording == RECORD_STATUS.NOT_START) {
+            if (this.state.permissionStatus != PERMISSION_RESPONSE.AUTHORIZED) {
+                Permissions.request('microphone', { type: 'always' }).then(response => {
+                    console.log('Request res', response)
+                    this.setState({ permissionStatus: response })
+                    if (response == PERMISSION_RESPONSE.AUTHORIZED) {
+                        this._startRecord()
+                    }
+                })
+            }
+        } else if (this.state.recording == RECORD_STATUS.PAUSED) {
+            this._resumeRecord()
+        } else if (this.state.recording == RECORD_STATUS.RECORDING) {
+            this._pauseRecord()
         }
-        this.setState({ recording: !this.state.recording })
+    }
+
+    _startRecord = () => {
+        this.setState({ recording: RECORD_STATUS.RECORDING })
+    }
+
+    _pauseRecord = () => {
+        this.setState({ recording: RECORD_STATUS.PAUSED })
+    }
+
+    _resumeRecord = () => {
+        this.setState({ recording: RECORD_STATUS.RECORDING })
+    }
+
+    _stopRecord = () => {
+        this.setState({ recording: RECORD_STATUS.STOPPED })
+    }
+
+    _handlePressRightButton = () => {
+        if (this.state.recording == RECORD_STATUS.NOT_START) {
+
+        } else {
+            this._stopRecord()
+        }
     }
 
     _formatTwoDigitNumber = (number) => {
@@ -50,7 +101,7 @@ export default class Home extends Component {
             <Container blue>
                 <View className="flex background column-end" >
                     <View className='flex pd32 column-all-start' style={{ width: '100%' }}>
-                        <Text className='s18 gray'>{this.state.recording ? 'Đang ghi âm...' : 'Ghi âm'}</Text>
+                        <Text className='s18 gray'>{(this.state.recording == RECORD_STATUS.NOT_START) ? 'Ghi âm' : 'Đang ghi âm...'}</Text>
                         <Text className='s48' style={{ marginTop: 16 }}>{this._getRecordTimeString(this.state.recordTime)}</Text>
                     </View>
                     <View style={styles.actionBlock}>
@@ -59,14 +110,14 @@ export default class Home extends Component {
                                 <Icon name='menu' size={24} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this._handlePressRecord}>
+                        <TouchableOpacity onPress={this._handlePressCenterButton}>
                             <View style={styles.iconContainerCenter}>
-                                <Icon name={this.state.recording ? 'control-pause' : 'microphone'} size={36} />
+                                <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'control-pause'} size={36} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this._handlePressRightButton}>
                             <View style={styles.iconContainer}>
-                                <Icon name='playlist' size={28} />
+                                <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'playlist' : ''} size={28} />
                             </View>
                         </TouchableOpacity>
                     </View>
