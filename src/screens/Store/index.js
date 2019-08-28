@@ -16,8 +16,8 @@ import { merchantSelector } from "~/src/store/selectors/merchant";
 import { FORM_MODE } from "~/src/constants";
 import Header from "./Header";
 import { userInfoSelector } from "~/src/store/selectors/auth";
-import { COLORS } from '~/src/themesnew/common'
-import { Text, View, Container } from '~/src/themesnew/ThemeComponent'
+import { COLORS } from '~/src/themes/common'
+import { Text, View, Container } from '~/src/themes/ThemeComponent'
 import DeviceInfo from 'react-native-device-info'
 const VERSION = DeviceInfo.getVersion()
 import { isEmployeeSelector } from "~/src/store/selectors/permission";

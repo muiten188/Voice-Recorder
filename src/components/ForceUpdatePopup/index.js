@@ -1,7 +1,7 @@
 import React from 'react'
 import { Platform, StyleSheet, Image, Linking } from 'react-native'
-import { Text, View, Button } from '~/src/themesnew/ThemeComponent'
-import { COLORS } from '~/src/themesnew/common'
+import { Text, View, Button } from '~/src/themes/ThemeComponent'
+import { COLORS } from '~/src/themes/common'
 import I18n from "~/src/I18n"
 
 

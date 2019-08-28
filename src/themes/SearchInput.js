@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Image, TextInput,TouchableWithoutFeedback } from "react-native";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import imgSearch from "~/src/image/search.png";
 import imgClear from "~/src/image/imgClear.png"
 export default class SearchInput extends Component {

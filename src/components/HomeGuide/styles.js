@@ -1,4 +1,4 @@
-import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS,Point } from "~/src/themesnew/common";
+import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS,Point } from "~/src/themes/common";
 export default (styles = {
   btnSkip: {
     width: 137*Point,

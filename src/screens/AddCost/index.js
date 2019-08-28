@@ -20,7 +20,7 @@ import {
   costGroupListSelector
 } from "~/src/store/selectors/costManage";
 import { Switch, TouchableRipple } from "react-native-paper";
-import { COLORS, SURFACE_STYLES } from "~/src/themesnew/common";
+import { COLORS, SURFACE_STYLES } from "~/src/themes/common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import LoadingModal from "~/src/components/LoadingModal";
 import lodash from "lodash";
@@ -33,7 +33,7 @@ import {
   View,
   PopupConfirm,
   MultipleTagSelector
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import imgAddOpacity from "~/src/image/add_opacity.png";
 import { MAX_LENGTH_NOTE_COST, MAX_LENGTH_TOTAL_AMOUNT } from "~/src/constants";
 import {

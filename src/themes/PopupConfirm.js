@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, View, TouchableWithoutFeedback, StyleSheet, Image } from 'react-native'
 import Text, { Title, TextBold } from './Text'
 import Button from './Button'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import I18n from "~/src/I18n"
 
 

@@ -15,7 +15,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { connect } from "react-redux";
-import { COLORS, SURFACE_STYLES } from "~/src/themesnew/common";
+import { COLORS, SURFACE_STYLES } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import { merchantIdSelector } from "~/src/store/selectors/merchant";
 import {
@@ -39,7 +39,7 @@ import {
     PopupConfirm,
     Button,
     Text
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import {
     permissionDefSelector,
     permissionSelector,

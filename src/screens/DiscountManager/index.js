@@ -8,13 +8,13 @@ import lodash from 'lodash'
 import {
     Container, Toolbar,
     Button, Text, View, SearchBox, PopupConfirm
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Accordion from 'react-native-collapsible/Accordion'
 import ProductItem from '~/src/components/ProductItem'
 import styles from './styles'
 import { generateHighlightText, chainParse, formatMoney, replacePatternString, toNormalCharacter, getWidth } from '~/src/utils'
-import { textStyles } from '~/src/themesnew/Text'
+import { textStyles } from '~/src/themes/Text'
 import { saleCampainSelector } from '~/src/store/selectors/product'
 import moment from 'moment'
 import { FORM_MODE, DISCOUNT_TYPE } from '~/src/constants'

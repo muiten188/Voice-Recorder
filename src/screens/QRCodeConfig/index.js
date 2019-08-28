@@ -8,9 +8,9 @@ import { importQRCode, deleteQRCode } from '~/src/store/actions/qrCode'
 import QRCodeComponent from 'react-native-qrcode-svg'
 import { showToast, chainParse } from '~/src/utils'
 import { getListMerchant } from '~/src/store/actions/merchant'
-import { PopupConfirm, Toolbar, Text, View, Container, Button } from '~/src/themesnew/ThemeComponent'
+import { PopupConfirm, Toolbar, Text, View, Container, Button } from '~/src/themes/ThemeComponent'
 import ToastUtils from '~/src/utils/ToastUtils'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 
 
 class QRCodeConfig extends Component {

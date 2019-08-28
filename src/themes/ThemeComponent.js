@@ -1,45 +1,49 @@
 import View from './View'
-import Text from './Text'
 import Button from './Button'
-import TextInput from './TextInput'
-import Icon from './Icon'
-import Surface from './Surface'
-import Background from './Background'
-import Toolbar from './Toolbar'
+import Text, { Caption, ActionText, TextBold, Label, Title } from './Text'
+import RoundTextInput from "./RoundTextInput";
+import TouchableOpacityHitSlop from "./TouchableOpacityHitSlop";
+
+import TextInput2 from "./TextInput2";
+import Toolbar from "./Toolbar";
+import TitleRowInput from "./TitleRowInput";
+import DateInput from "./DateInput";
+import BottomView from './BottomView'
+
+import MultipleTagSelector from './MultipleTagSelector'
+import PopupConfirm from './PopupConfirm'
+import PopupChoose from './PopupChoose'
 import Checkbox from './Checkbox'
-import TextInputPaper from './TextInputPaper'
-import TextInput2 from './TextInput2'
-import Radio from './Radio'
-import RadioGroup from './RadioGroup'
-import PickerInput from './PickerInput'
-import TextInput3 from './TextInput3'
-import TextInput4 from './TextInput4'
-import PickerInput3 from './PickerInput3'
-import SilverButton from './SilverButton'
-import TextInputEffect from './TextInputEffect'
-import OutlinedTextInput from './OutlinedTextInput'
-import DateInput from './DateInput'
+
+import RoundCheckbox from './RoundCheckbox'
+import Stepper from './Stepper'
+import RoundBottomSheet from './RoundBottomSheet'
+import SearchInput from "./SearchInput"
+import Container from './Container'
+import TextInputBase from './TextInputBase'
+import SearchDateInput from './SearchDateInput'
+import SearchBox from './SearchBox'
+import SingleRowInput from './SingleRowInput'
+import Switch from './Switch'
+import PopupConfirmImage from './PopupConfirmImage'
 
 export {
+    RoundTextInput, 
+    TouchableOpacityHitSlop,
+    Text, Title, TextBold, Caption, ActionText,
+    BottomView, Button, 
+    Label, MultipleTagSelector,
     View,
-    Text,
-    Button,
-    TextInput,
-    Icon,
-    Surface,
-    Background,
-    Toolbar,
-    Checkbox,
-    TextInputPaper,
-    TextInput2,
-    Radio,
-    RadioGroup,
-    PickerInput,
-    TextInput3,
-    PickerInput3,
-    TextInput4,
-    SilverButton,
-    TextInputEffect,
-    OutlinedTextInput,
-    DateInput
+
+    TextInput2, Toolbar,
+    TitleRowInput, DateInput,
+    PopupConfirm, Checkbox, 
+    RoundCheckbox, Stepper,
+    RoundBottomSheet, SearchInput,
+    Container, TextInputBase,
+    SearchDateInput,
+    SearchBox,
+    SingleRowInput,
+    Switch,PopupChoose,PopupConfirmImage
 }
+

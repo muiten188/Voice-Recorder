@@ -14,9 +14,9 @@ import styles from "./styles";
 import intro1 from "~/src/image/intro/intro1.png";
 import intro2 from "~/src/image/intro/intro2.png";
 import intro3 from "~/src/image/intro/intro3.png";
-import { DEVICE_WIDTH, DEVICE_HEIGHT,Point } from "~/src/themesnew/common";
-import { COLORS } from "~/src/themesnew/common";
-import { Container, View } from "~/src/themesnew/ThemeComponent";
+import { DEVICE_WIDTH, DEVICE_HEIGHT,Point } from "~/src/themes/common";
+import { COLORS } from "~/src/themes/common";
+import { Container, View } from "~/src/themes/ThemeComponent";
 import I18n from "~/src/I18n";
 
 export default class Intro extends Component {

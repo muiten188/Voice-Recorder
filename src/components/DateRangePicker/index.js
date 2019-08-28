@@ -6,7 +6,7 @@ import {
     Image,
     TouchableOpacity
 } from "react-native";
-import { Text, View } from "~/src/themesnew/ThemeComponent";
+import { Text, View } from "~/src/themes/ThemeComponent";
 import { SURFACE_STYLES } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import { COLORS } from "~/src/themes/common";

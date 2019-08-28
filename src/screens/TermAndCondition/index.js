@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import I18n from '~/src/I18n'
 import { StatusBar, Platform, ActivityIndicator, BackHandler } from 'react-native'
-import { Container, Toolbar, View, Text } from '~/src/themesnew/ThemeComponent'
-import { COLORS } from '~/src/themesnew/common';
+import { Container, Toolbar, View, Text } from '~/src/themes/ThemeComponent'
+import { COLORS } from '~/src/themes/common';
 import { WebView } from 'react-native-webview'
 
 export default class TermAndCondition extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Modal, ActivityIndicator, Platform } from 'react-native'
 import styles from './styles'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 
 export default class LoadingModal extends Component {
     constructor(props) {

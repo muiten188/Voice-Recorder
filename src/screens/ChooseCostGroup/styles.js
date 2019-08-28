@@ -1,4 +1,4 @@
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import { getFontStyle } from "~/src/utils";
 import { Dimensions } from "react-native";
 

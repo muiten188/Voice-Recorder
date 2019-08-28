@@ -1,4 +1,4 @@
-import {COLORS} from "~/src/themesnew/common"
+import {COLORS} from "~/src/themes/common"
 export default  {
     viewHeaderList: {
         backgroundColor: COLORS.BACKGROUND,

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { FlatList, Image, TouchableOpacity } from "react-native";
-import { Text, View } from "~/src/themesnew/ThemeComponent";
+import { Text, View } from "~/src/themes/ThemeComponent";
 import styles from "./styles";
 import imgArrow from "~/src/image/chevron_right_black.png";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import { getDebtBookInfo } from "~/src/store/actions/debtManage";
 import { debtBookInfoSelector } from "~/src/store/selectors/debtManage";

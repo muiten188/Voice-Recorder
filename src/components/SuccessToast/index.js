@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { Image, StyleSheet } from 'react-native'
-import { Text, View } from '~/src/themesnew/ThemeComponent'
-import { COLORS } from '~/src/themesnew/common'
+import { Text, View } from '~/src/themes/ThemeComponent'
+import { COLORS } from '~/src/themes/common'
 import { generateHighlightText } from '~/src/utils'
-import { textStyles } from '~/src/themesnew/Text'
+import { textStyles } from '~/src/themes/Text'
 import * as Animatable from 'react-native-animatable'
 
 export default class SuccessToast extends PureComponent {

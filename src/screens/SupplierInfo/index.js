@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Image, Linking, TouchableOpacity, Platform } from 'react-native'
-import { SURFACE_STYLES } from "~/src/themesnew/common";
+import { SURFACE_STYLES } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import {
     TitleRowInput as TextInput,
     Toolbar, Text, Button, View,
     Container
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import {
     createMerchant,
     getListMerchant,

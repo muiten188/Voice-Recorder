@@ -1,4 +1,4 @@
-import { COLORS, DEVICE_WIDTH } from '~/src/themesnew/common'
+import { COLORS, DEVICE_WIDTH } from '~/src/themes/common'
 
 export default {
     tabStyle: {

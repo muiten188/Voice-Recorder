@@ -1,6 +1,6 @@
 // import { COLORS } from "../../themesnew/common";
 
-import { COLORS ,Point} from "~/src/themesnew/common";
+import { COLORS ,Point} from "~/src/themes/common";
 export default (styles = {
   container: {
     // flex: 1,

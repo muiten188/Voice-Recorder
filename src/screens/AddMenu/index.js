@@ -4,8 +4,8 @@ import {
     Container, Text, Toolbar,
     Button, BottomView, View,
     TextInputBase as TextInput, SingleRowInput
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import { syncProductAndMenu } from '~/src/store/actions/backgroundSync'
 import LoadingModal from '~/src/components/LoadingModal'
 import { connect } from 'react-redux'

@@ -9,7 +9,7 @@ import { TouchableRipple } from "react-native-paper";
 import { connect } from "react-redux";
 import {
   COLORS,
-} from "~/src/themesnew/common";
+} from "~/src/themes/common";
 import { discountProductListSelector } from "~/src/store/selectors/product";
 
 import I18n from "~/src/I18n";
@@ -21,7 +21,7 @@ import { logout } from "~/src/store/actions/common";
 import { numberUnreadNotificationSelector } from "~/src/store/selectors/notification";
 import styles from "./styles";
 import imgNotifiIcon from "~/src/image/home/imgNotifiIcon.png";
-import { Text } from '~/src/themesnew/ThemeComponent'
+import { Text } from '~/src/themes/ThemeComponent'
 
 class Header extends Component {
   constructor(props) {

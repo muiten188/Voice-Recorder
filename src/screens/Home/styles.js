@@ -1,4 +1,4 @@
-import { DEVICE_WIDTH, SURFACE_STYLES, COLORS } from "~/src/themesnew/common";
+import { DEVICE_WIDTH, SURFACE_STYLES, COLORS } from "~/src/themes/common";
 
 import { toElevation, getFontStyle } from "~/src/utils";
 import { POINT as point } from "~/src/constants"

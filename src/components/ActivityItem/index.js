@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import { View, Text, Caption } from "~/src/themesnew/ThemeComponent";
+import { View, Text, Caption } from "~/src/themes/ThemeComponent";
 import { generateHighlightTextItem, formatMoney } from "~/src/utils";
 import { getOrderDetail } from "~/src/store/actions/order";
 import { getCostInfo } from "~/src/store/actions/costManage";
 import { getDebtDetail } from "~/src/store/actions/debtManage";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import moment from "moment";
 import styles from "./styles";

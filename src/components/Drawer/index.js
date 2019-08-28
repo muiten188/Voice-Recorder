@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { COLORS } from '~/src/themesnew/common'
-import { View, Text } from '~/src/themesnew/ThemeComponent'
+import { COLORS } from '~/src/themes/common'
+import { View, Text } from '~/src/themes/ThemeComponent'
 import { Image } from 'react-native'
 
 export default class Drawer extends Component {

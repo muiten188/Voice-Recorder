@@ -4,8 +4,8 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity
 } from "react-native";
-import { SURFACE_STYLES, COLORS, TEXT_STYLES } from "~/src/themesnew/common";
-import { View, Text } from "~/src/themesnew/ThemeComponent";
+import { SURFACE_STYLES, COLORS, TEXT_STYLES } from "~/src/themes/common";
+import { View, Text } from "~/src/themes/ThemeComponent";
 
 export default class TitleRowInput extends Component {
   constructor(props) {

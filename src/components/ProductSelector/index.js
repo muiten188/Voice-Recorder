@@ -8,8 +8,8 @@ import {
     View, Toolbar, BottomView, Button, Text,
     Label, TextBold, Caption, RoundBottomSheet,
     SearchBox
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Accordion from 'react-native-collapsible/Accordion'
 import styles from './styles'
 import ProductItem from '~/src/components/ProductItem'

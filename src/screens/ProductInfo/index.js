@@ -31,8 +31,8 @@ import {
     Caption, Label, ActionText, MultipleTagSelector,
     RoundCheckbox, TextInputBase as TextInput,
     PopupConfirm
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import ImagePicker from 'react-native-image-picker'
 import Image from 'react-native-fast-image'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'

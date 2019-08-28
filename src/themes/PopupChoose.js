@@ -4,21 +4,23 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   Image,
-  Dimensions
+  FlatList,
+  TouchableOpacity
 } from "react-native";
 import Text, { Title, TextBold } from "./Text";
-import {View} from "~/src/themesnew/ThemeComponent"
+import { View } from "~/src/themes/ThemeComponent";
 import Button from "./Button";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import I18n from "~/src/I18n";
-import imgEmptyItem from "~/src/image/emptyItem.png";
-const point = Dimensions.get("window").width;
+import imgTicker from "~/src/image/round_checkbox.png";
+import { from } from "rxjs";
 
-export default class PopupConfirmImage extends React.PureComponent {
+export default class PopupChoose extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      visible: !!props.visible ? true : false
+      visible: !!props.visible ? true : false,
+      valueCurrent: this.props.value
     };
   }
 
@@ -73,13 +75,51 @@ export default class PopupConfirmImage extends React.PureComponent {
     this.close();
     this.props.onPressNo && this.props.onPressNo();
   };
+  _handleOnPressItem = item => {
+    const { onChange } = this.props;
+    this.setState({
+      valueCurrent: item.id
+    });
+    onChange && onChange(item.id);
+  };
+  _renderItem = ({ item }) => {
+    const { value } = this.props;
+    const notTicker = (
+      <View
+        style={{
+          borderRadius: 8,
+          width: 16,
+          height: 16,
+          borderWidth: 1,
+          borderColor: COLORS.BORDER_COLOR
+        }}
+      />
+    );
+    const Ticker = (
+      <Image source={imgTicker} style={{ width: 16, height: 16 }} />
+    );
+    const renderTicker =
+      item.id == this.state.valueCurrent ? Ticker : notTicker;
+    return (
+      <TouchableOpacity onPress={() => this._handleOnPressItem(item)}>
+        <View
+          className="row-start pv12"
+          style={{
+            borderBottomColor: COLORS.BORDER_COLOR,
+            borderBottomWidth: item.id <= this.props.data.length - 1 ? 1 : 0
+          }}
+        >
+          {renderTicker}
+          <View style={{ marginLeft: 16 }}>
+            <Text style={{ fontSize: 14 }}>{item.content}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   render() {
-    const {
-      title = I18n.t("alert"),
-      negativeText = I18n.t("cancel"),
-      content
-    } = this.props;
+    const { title = I18n.t("options"), content } = this.props;
     return (
       <Modal
         animationType={"none"}
@@ -99,18 +139,29 @@ export default class PopupConfirmImage extends React.PureComponent {
                   <Title>{title}</Title>
                 </View>
                 <View style={styles.popupContent}>
-                  <View style={{ width: "100%", alignItems: "center" }}>
-                    <Image
-                      source={imgEmptyItem}
-                      style={{ width: 250, height: 143 }}
-                    />
-                    <View className="space8" ></View>
-                    <Text style={styles.popupText}>{this.props.content}</Text>
-                  </View>
-                  <View className="space24"></View>
+                  {/* <View style={styles.popupTextContainer}>
+                                        <Text style={styles.popupText}>{this._getHighlightContent()}</Text>
+                                    </View> */}
+                  {/* <View className="flex"> */}
+                  <View className="space10"></View>
+                  <FlatList
+                    extraData={this.state}
+                    data={this.props.data}
+                    keyExtractor={item => item.id}
+                    renderItem={this._renderItem}
+                  />
+                  <View className="space20"></View>
+                  {/* </View> */}
+
                   <View style={styles.buttonBlock}>
                     <Button
-                      text={I18n.t("close")}
+                      negative
+                      text={I18n.t("cancel")}
+                      onPress={this._handlePressNo}
+                      style={styles.buttonLeft}
+                    />
+                    <Button
+                      text={I18n.t("choose")}
                       onPress={this._handlePressYes}
                       style={styles.buttonRight}
                     />
@@ -132,10 +183,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.BACKDROP
-  },
-  imgEmptyItem: {
-    width: point * 250,
-    height: point * 143
   },
   popupOuter: {
     flexDirection: "row",
@@ -169,9 +216,9 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   popupText: {
-    fontSize: 14,
-    lineHeight: 16,
-    color: COLORS.TEXT_BLACK,
+    marginTop: 47,
+    marginBottom: 44,
+    color: COLORS.TEXT_BACK,
     textAlign: "center"
   },
   textHightLight: {
@@ -190,7 +237,6 @@ const styles = StyleSheet.create({
   },
   buttonRight: {
     borderRadius: 6,
-    width:134,
-    height:48
+    flex: 1
   }
 });

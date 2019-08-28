@@ -10,7 +10,7 @@ import ToastUtils from "~/src/utils/ToastUtils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { timeDateCostSelecttor } from "~/src/store/selectors/costManage";
 // import { Switch, TouchableRipple } from "react-native-paper";
-import { COLORS, SURFACE_STYLES } from "~/src/themesnew/common";
+import { COLORS, SURFACE_STYLES } from "~/src/themes/common";
 import LoadingModal from "~/src/components/LoadingModal";
 import lodash from "lodash";
 import {
@@ -22,7 +22,7 @@ import {
   Text,
   View,
   PopupConfirm
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 
 import { MAX_LENGTH_NOTE_COST, MAX_LENGTH_TOTAL_AMOUNT } from "~/src/constants";
 import {

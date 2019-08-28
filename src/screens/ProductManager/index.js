@@ -13,15 +13,15 @@ import lodash from 'lodash'
 import {
     Container, Toolbar, BottomView, Button, Text, View,
     TextInputBase as TextInput, SearchBox
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Accordion from 'react-native-collapsible/Accordion'
 import { allProductMenuSelector } from '~/src/store/selectors/menu'
 import ProductItem from '~/src/components/ProductItem'
 import { syncMenuFromDBToRedux } from '~/src/store/actions/menu'
 import styles from './styles'
 import { generateHighlightText, getWidth, getShortenString } from '~/src/utils'
-import { textStyles } from '~/src/themesnew/Text'
+import { textStyles } from '~/src/themes/Text'
 
 class ProductManager extends PureComponent {
     static navigationOptions = {

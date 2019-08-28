@@ -3,7 +3,7 @@ import NetInfo from "@react-native-community/netinfo"
 import styles from './styles';
 import { connect } from 'react-redux'
 import { setConnection } from '~/src/store/actions/common'
-import { Text, View } from '~/src/themesnew/ThemeComponent'
+import { Text, View } from '~/src/themes/ThemeComponent'
 import { Image, TouchableOpacity } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import I18n from '~/src/I18n'

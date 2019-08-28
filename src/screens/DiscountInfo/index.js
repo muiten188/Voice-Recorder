@@ -11,8 +11,8 @@ import {
     View, Toolbar, Button, Text,
     DateInput, Label, RoundCheckbox, TextInputBase as TextInput,
     Container, SingleRowInput, PopupConfirm
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Image from 'react-native-fast-image'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { menuSelectorWithoutOther } from '~/src/store/selectors/menu'

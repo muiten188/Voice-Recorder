@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import moment from "moment";
 import I18n from "~/src/I18n";
 import { formatMoney } from "~/src/utils";
 import imgDelete from "~/src/image/delete_red.png";
-import { Text } from "~/src/themesnew/ThemeComponent";
+import { Text } from "~/src/themes/ThemeComponent";
 
 export default class CostItem extends Component {
   constructor(props) {

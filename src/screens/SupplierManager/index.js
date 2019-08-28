@@ -19,10 +19,10 @@ import {
     Text,
     PopupConfirm,
     Container
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import EmptyList from "~/src/components/EmptyList";
 import { SURFACE_STYLES, TEXT_STYLES } from "~/src/themes/common";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import { formatPhoneNumber, chainParse, replacePatternString } from "~/src/utils";
 import { Button, TouchableRipple } from "react-native-paper";
 import I18n from "~/src/I18n";

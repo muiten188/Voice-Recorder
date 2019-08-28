@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import View from './View'
 import Text from './Text'
 import TextInput from './TextInputBase'

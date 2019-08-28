@@ -9,8 +9,8 @@ import {
     Container, View, Toolbar, Button, BottomView,
     Text, TextInputBase as TextInput, SingleRowInput,
     PopupConfirm
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { createFloor, syncFloorTableFromNetwork, removeFloor } from '~/src/store/actions/table'
 import ToastUtils from '~/src/utils/ToastUtils'

@@ -1,6 +1,6 @@
 import React from 'react'
-import { COLORS } from '~/src/themesnew/common'
-import { Caption } from '~/src/themesnew/Text'
+import { COLORS } from '~/src/themes/common'
+import { Caption } from '~/src/themes/Text'
 import { View, TouchableOpacity, StyleSheet } from 'react-native'
 
 export default MultipleTagSelector = (props) => {

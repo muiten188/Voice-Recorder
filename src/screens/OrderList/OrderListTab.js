@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { SectionList, Image } from 'react-native'
 import { chainParse } from '~/src/utils'
 import I18n from '~/src/I18n'
-import { Text, View, SearchDateInput } from '~/src/themesnew/ThemeComponent'
+import { Text, View, SearchDateInput } from '~/src/themes/ThemeComponent'
 import { getOrderForSectionList } from './utils'
 import { FORM_MODE } from '~/src/constants'
 import { FlatList } from 'react-native-gesture-handler';
 import OrderListItem from '~/src/components/OrderListItem'
 import { generateHighlightText, getWidth } from '~/src/utils'
-import { textStyles } from '~/src/themesnew/Text'
-import { DEVICE_WIDTH } from '~/src/themesnew/common'
+import { textStyles } from '~/src/themes/Text'
+import { DEVICE_WIDTH } from '~/src/themes/common'
 
 export default class OrderListTab extends Component {
 

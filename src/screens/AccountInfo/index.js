@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import I18n from '~/src/I18n'
 import { Image, TouchableOpacity, StyleSheet, StatusBar, Platform } from 'react-native'
-import { Container, Text, Toolbar, View, TextInputBase as TextInput, Button, SingleRowInput } from '~/src/themesnew/ThemeComponent'
+import { Container, Text, Toolbar, View, TextInputBase as TextInput, Button, SingleRowInput } from '~/src/themes/ThemeComponent'
 import LoadingModal from '~/src/components/LoadingModal'
 import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { COLORS } from '~/src/themesnew/common';
+import { COLORS } from '~/src/themes/common';
 import { formatPhoneNumber, isValidPhoneNumer, chainParse } from '~/src/utils'
 import { userInfoSelector } from "~/src/store/selectors/auth";
 import { updateUserInfo, getUserInfo } from '~/src/store/actions/auth'

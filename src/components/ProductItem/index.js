@@ -3,8 +3,8 @@ import { TouchableOpacity, StyleSheet } from 'react-native'
 import { formatMoney, getPrice } from '~/src/utils'
 import I18n from '~/src/I18n'
 import Image from 'react-native-fast-image'
-import { Stepper, Text, Caption, View } from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+import { Stepper, Text, Caption, View } from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 
 export default ProductItem = (props) => {
     const { data, isLastItem = false, onPress,

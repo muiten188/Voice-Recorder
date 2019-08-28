@@ -15,8 +15,8 @@ import DateRangePicker from "~/src/components/DateRangePicker";
 import LoadingModal from "~/src/components/LoadingModal";
 import { withNavigation } from "react-navigation";
 
-import { COLORS } from "~/src/themesnew/common";
-import { SearchInput } from "~/src/themesnew/ThemeComponent";
+import { COLORS } from "~/src/themes/common";
+import { SearchInput } from "~/src/themes/ThemeComponent";
 import lodash from "lodash";
 
 import {
@@ -39,7 +39,7 @@ import {
   Text,
   Container,
   Toolbar
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import ToastUtils from "~/src/utils/ToastUtils";
 
 import imgBack from "~/src/image/arrow_longleft.png";

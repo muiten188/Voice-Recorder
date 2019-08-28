@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StatusBar, Platform, SectionList, TouchableOpacity } from 'react-native';
 import I18n from '~/src/I18n'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import { merchantIdSelector } from '~/src/store/selectors/merchant'
 import { getNotification, markReadNotification, markReadNotificationOffline } from '~/src/store/actions/notification'
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import { notificationDataSelector } from '~/src/store/selectors/notification'
 import { READ_STATUS, ORDER_TAB } from '~/src/constants'
 import { updateOrderOfflineTab } from '~/src/store/actions/order'
 import moment from 'moment'
-import { Toolbar, Text, View, Container } from '~/src/themesnew/ThemeComponent'
+import { Toolbar, Text, View, Container } from '~/src/themes/ThemeComponent'
 import lodash from 'lodash'
 
 class Notification extends Component {

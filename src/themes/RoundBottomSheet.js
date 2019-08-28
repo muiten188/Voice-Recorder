@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Modal, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 import Image from 'react-native-fast-image'
-import { DEVICE_HEIGHT, COLORS } from '~/src/themesnew/common'
+import { DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 import View from './View'
 import Text from './Text'
 import * as Animatable from 'react-native-animatable'

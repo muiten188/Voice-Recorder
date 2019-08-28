@@ -19,8 +19,8 @@ import {
     Button,
     SearchInput
 
-} from "~/src/themesnew/ThemeComponent";
-import { SURFACE_STYLES, COLORS } from "~/src/themesnew/common";
+} from "~/src/themes/ThemeComponent";
+import { SURFACE_STYLES, COLORS } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import { getStaffList, removeStaff } from "~/src/store/actions/merchant";
 import styles from "./styles";

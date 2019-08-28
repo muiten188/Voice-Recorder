@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StatusBar, Platform, InputAccessoryView } from 'react-native'
 import styles from './styles'
-import { COLORS, SURFACE_STYLES } from '~/src/themesnew/common'
+import { COLORS, SURFACE_STYLES } from '~/src/themes/common'
 import I18n from '~/src/I18n'
 import { createMerchant, getListMerchant } from '~/src/store/actions/merchant'
 import { connect } from 'react-redux'
@@ -19,7 +19,7 @@ import {
     View, Toolbar, Button, Text,
     Label, TextInputBase as TextInput,
     SingleRowInput
-} from '~/src/themesnew/ThemeComponent'
+} from '~/src/themes/ThemeComponent'
 import ImagePicker from 'react-native-image-picker'
 import ToastUtils from '~/src/utils/ToastUtils'
 

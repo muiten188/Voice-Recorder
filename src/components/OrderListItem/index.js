@@ -2,8 +2,8 @@ import React, { PureComponent, Component } from 'react'
 import { TouchableOpacity, Image } from 'react-native'
 import { formatMoney, chainParse, } from '~/src/utils'
 import I18n from '~/src/I18n'
-import { Text, TextBold, View, Caption } from '~/src/themesnew/ThemeComponent'
-import { COLORS } from '~/src/themesnew/common'
+import { Text, TextBold, View, Caption } from '~/src/themes/ThemeComponent'
+import { COLORS } from '~/src/themes/common'
 import moment from 'moment'
 
 export default OrderListItem = (props) => {

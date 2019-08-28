@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, View, Text } from "~/src/themesnew/ThemeComponent";
+import { Container, View, Text } from "~/src/themes/ThemeComponent";
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';

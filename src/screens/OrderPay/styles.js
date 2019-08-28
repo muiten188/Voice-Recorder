@@ -1,5 +1,5 @@
-import { DEVICE_HEIGHT, COLORS } from '~/src/themesnew/common'
-import { textStyles } from '~/src/themesnew/Text'
+import { DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
+import { textStyles } from '~/src/themes/Text'
 
 export default {
     createOrderBtn: {

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { Image, StyleSheet, TouchableOpacity, Platform } from 'react-native'
-import { Text, View } from '~/src/themesnew/ThemeComponent'
+import { Text, View } from '~/src/themes/ThemeComponent'
 import * as Animatable from 'react-native-animatable'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import I18n from '~/src/I18n'
 
 export default class NotAvailableWhenOfflineToast extends PureComponent {

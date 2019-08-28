@@ -13,7 +13,7 @@ import { formatMoney, getWidth } from '~/src/utils'
 import { BarChart } from 'react-native-charts-wrapper'
 import { getProductReport, getTransactionReport } from '~/src/store/actions/report'
 import DateRangePicker from '~/src/components/DateRangePicker'
-import { Container, View, Text } from '~/src/themesnew/ThemeComponent'
+import { Container, View, Text } from '~/src/themes/ThemeComponent'
 import styles from './styles'
 import { topProductListSelector } from '~/src/store/selectors/report'
 

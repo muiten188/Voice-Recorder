@@ -9,7 +9,7 @@ import {
 import Icon from "react-native-vector-icons/EvilIcons";
 import AsyncStorage from "@react-native-community/async-storage";
 
-import { TextInput } from "~/src/themesnew/ThemeComponent";
+import { TextInput } from "~/src/themes/ThemeComponent";
 import { connect } from "react-redux";
 import I18n from "~/src/I18n";
 import {
@@ -39,7 +39,7 @@ import {
   DEVICE_HEIGHT,
   COLORS,
   SURFACE_STYLES
-} from "~/src/themesnew/common";
+} from "~/src/themes/common";
 import OTPInput from "~/src/components/OTPInput2";
 import {
   StatusBar,

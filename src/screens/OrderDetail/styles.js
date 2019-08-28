@@ -1,4 +1,4 @@
-import { DEVICE_HEIGHT, COLORS } from '~/src/themesnew/common'
+import { DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 
 export default {
     createOrderBtn: {

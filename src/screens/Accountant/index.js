@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Platform, StatusBar } from "react-native";
 import AccountantNavigator from "./AccountantNavigator";
-import { Container } from "~/src/themesnew/ThemeComponent";
-import { COLORS } from "~/src/themesnew/common";
+import { Container } from "~/src/themes/ThemeComponent";
+import { COLORS } from "~/src/themes/common";
 
 export default class Accountant extends Component {
     constructor(props) {

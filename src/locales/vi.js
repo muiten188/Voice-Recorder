@@ -137,8 +137,6 @@ const language = {
     email_phone: "Email/Số điện thoại",
     password: "Mật khẩu",
     login: "Đăng nhập",
-    forgot_password_question: "Quên mật khẩu?",
-    forgot_password: "Quên mật khẩu",
     or: "hoặc",
     ignore: "Bỏ qua",
     continue: "Tiếp tục",
@@ -858,6 +856,15 @@ const language = {
     exit: 'Thoát',
     surcharge: 'Phụ thu',
     all_sale_product: 'Tất cả sản phẩm bán',
+
+
+    // New
+    account: 'Tài khoản',
+    password: "Mật khẩu",
+    login: "Đăng nhập",
+    forgot_password_question: "Quên mật khẩu?",
+    forgot_password: "Quên mật khẩu",
+    save_login: 'Ghi nhớ đăng nhập'
 }
 
 // export default language;

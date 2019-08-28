@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import {
     COLORS,
     SURFACE_STYLES
-} from "~/src/themesnew/common";
-import { Text, View } from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/common";
+import { Text, View } from "~/src/themes/ThemeComponent";
 import { formatMoney } from "~/src/utils";
 import I18n from "~/src/I18n";
 import { statisticSelector } from "~/src/store/selectors/home";

@@ -2,8 +2,8 @@ import React, { PureComponent, Component } from 'react'
 import { StatusBar, Platform, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { PopupConfirm, Text, View, Container } from '~/src/themesnew/ThemeComponent'
-import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themesnew/common'
+import { PopupConfirm, Text, View, Container } from '~/src/themes/ThemeComponent'
+import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 import { TabView, TabBar } from "react-native-tab-view";
 import {
     getOrderByTab, deleteOrderOnline, searchOrder,

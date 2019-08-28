@@ -7,7 +7,7 @@ import moment from "moment";
 import I18n from "~/src/I18n";
 import { formatMoney } from "~/src/utils";
 import imgDelete from "~/src/image/delete_red.png";
-import{Text} from "~/src/themesnew/ThemeComponent"
+import{Text} from "~/src/themes/ThemeComponent"
 
 export default class CostItem extends Component {
   constructor(props) {

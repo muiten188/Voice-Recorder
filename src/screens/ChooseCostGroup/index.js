@@ -18,7 +18,7 @@ import {
   timeDateCostSelecttor,
   costGroupListSelector
 } from "~/src/store/selectors/costManage";
-import { COLORS,  } from "~/src/themesnew/common";
+import { COLORS,  } from "~/src/themes/common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import LoadingModal from "~/src/components/LoadingModal";
 import lodash from "lodash";
@@ -28,7 +28,7 @@ import {
   Text,
   View,
   MultipleTagSelector
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import imgAddOpacity from "~/src/image/add_opacity.png";
 import {
   replacePatternString

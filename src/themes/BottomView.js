@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 
 export default BottomView = styled.View`
     flex-direction: row;

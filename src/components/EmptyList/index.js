@@ -4,7 +4,7 @@ import imgEmpty from "~/src/image/imgEmpty.png"
 import imgArrow from "~/src/image/imgArrow.png"
 import I18n from "~/src/I18n";
 import { generateHighlightText } from "~/src/utils";
-import { Text, View } from "~/src/themesnew/ThemeComponent"
+import { Text, View } from "~/src/themes/ThemeComponent"
 import styles from "./styles"
 
 export default class EmptyList extends Component {

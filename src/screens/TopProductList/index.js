@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import I18n from '~/src/I18n'
 import { SURFACE_STYLES, NEW_COLORS } from '~/src/themes/common'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import { connect } from 'react-redux'
 import { getProductReport } from '~/src/store/actions/report'
-import { Container, View, Text, Toolbar } from '~/src/themesnew/ThemeComponent'
+import { Container, View, Text, Toolbar } from '~/src/themes/ThemeComponent'
 import { topProductSelector } from '~/src/store/selectors/report'
 import { chainParse } from '~/src/utils'
 

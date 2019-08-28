@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import { connect } from "react-redux";
 import commonStyle, { SURFACE_STYLES } from "~/src/themes/common";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import { TouchableRipple } from "react-native-paper";
 import I18n from "~/src/I18n";
 import ToastUtils from '~/src/utils/ToastUtils'
@@ -22,7 +22,7 @@ import {
     View,
     Container,
     Button
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import {
     merchantListSelector,
     merchantIdSelector

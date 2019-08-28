@@ -13,13 +13,13 @@ import {
   SearchInput,
   View,
   Text
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import DateRangePicker from "~/src/components/DateRangePicker";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import {
   PopupConfirm,
   PopupConfirmImage
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import { getOrderDetail } from "~/src/store/actions/order";
 import { getCostInfo } from "~/src/store/actions/costManage";
 import { getDebtDetail } from "~/src/store/actions/debtManage";

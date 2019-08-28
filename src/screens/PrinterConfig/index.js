@@ -6,12 +6,12 @@ import { Image, Alert, Linking, Platform, FlatList, AppState, TouchableOpacity, 
 import {
     Container, View, Toolbar,
     Text, Switch
-} from '~/src/themesnew/ThemeComponent'
+} from '~/src/themes/ThemeComponent'
 import { getSetting, updateSetting } from '~/src/store/actions/setting'
 import { enablePrintSelector } from '~/src/store/selectors/setting'
 import { setEnablePrint } from '~/src/store/actions/setting'
 import { generateHighlightText } from '~/src/utils'
-import { textStyles } from '~/src/themesnew/Text'
+import { textStyles } from '~/src/themes/Text'
 import { BluetoothStatus } from 'react-native-bluetooth-status'
 import BlePrintManager from '~/src/utils/BlePrintManager'
 import EscPosEncoder from '~/src/utils/EscPosEncoder'
@@ -20,7 +20,7 @@ import OpenAppSettings from 'react-native-app-settings'
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { saveBluetoothPrinter, printFromOrderScreen } from '~/src/store/actions/printer'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import ToastUtils from '~/src/utils/ToastUtils'
 
 class PrinterConfig extends Component {

@@ -1,5 +1,5 @@
 import { SURFACE_STYLES, LINE_HEIGHT } from '~/src/themes/common'
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 
 export default {
     block: {

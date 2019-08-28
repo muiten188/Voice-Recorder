@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import { StyleSheet, TouchableOpacity, Image } from 'react-native'
 import View from './View'
 import Text from './Text'

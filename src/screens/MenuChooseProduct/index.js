@@ -15,8 +15,8 @@ import {
     View, Toolbar, BottomView, Button, Text,
     Label, TextBold, Caption, RoundBottomSheet,
     SearchBox, Container
-} from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+} from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Accordion from 'react-native-collapsible/Accordion'
 import { allProductMenuSelector } from '~/src/store/selectors/menu'
 import { singleMenuSelector, tempMenuProductSelector } from '~/src/store/selectors/menu'

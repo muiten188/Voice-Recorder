@@ -3,7 +3,7 @@ import { TouchableOpacity, Image, FlatList, SectionList } from "react-native";
 import styles from "./styles";
 import I18n from "~/src/I18n";
 import { connect } from "react-redux";
-import { PopupChoose } from "~/src/themesnew/ThemeComponent";
+import { PopupChoose } from "~/src/themes/ThemeComponent";
 import LoadingModal from "~/src/components/LoadingModal";
 import ToastUtils from "~/src/utils/ToastUtils";
 
@@ -12,15 +12,15 @@ import imgChevronRight from "~/src/image/chevron_right_black.png";
 import imgAddWhite from "~/src/image/imgAddWhite.png";
 import imgDeleteRed from "~/src/image/delete_red.png";
 import CostItem from "~/src/components/CostItem";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import { formatList, replacePatternString } from "~/src/utils";
 import {
   costGroupListSelector,
   costManageListSelector,
   costListSearchSelector
 } from "~/src/store/selectors/costManage";
-import { Text, View } from "~/src/themesnew/ThemeComponent";
-import { SearchInput } from "~/src/themesnew/ThemeComponent";
+import { Text, View } from "~/src/themes/ThemeComponent";
+import { SearchInput } from "~/src/themes/ThemeComponent";
 import {
   getListCostGroup,
   searchCost,

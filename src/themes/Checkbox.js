@@ -1,43 +1,32 @@
-import React, { PureComponent } from 'react';
-import Surface from '~/src/themes/Surface'
-import Text from '~/src/themes/Text'
-import Icon from '~/src/themes/Icon'
-import { COLORS } from '~/src/themes/common'
-import { TouchableOpacity } from 'react-native'
+import React from 'react'
+import { StyleSheet, Image } from 'react-native'
+import TouchableOpacityHitSlop from './TouchableOpacityHitSlop'
+import View from './View'
+import Text from './Text'
 
+export default Checkbox = (props) => {
+    const { checked = false, text, onPress, ...passProps } = props
 
-export default class Checkbox extends PureComponent {
-    constructor(props) {
-        super(props)
-    }
-
-    componentDidMount() {
-
-    }
-
-    render() {
-        const { checked, textT, onPress } = this.props
-        return (
-            <Surface themeable={false} rowAlignStart>
-                <TouchableOpacity onPress={onPress}>
-                    <Surface rowCenter themeable={false} style={{
-                        width: 20, height: 20,
-                        borderWidth: 2,
-                        borderColor: COLORS.BLUE,
-                        borderRadius: 2,
-                        borderStyle: 'solid',
-                        backgroundColor: checked ? COLORS.BLUE : COLORS.WHITE,
-                        marginRight: 3
-                    }}>
-                        {!!checked && <Icon name='GB_checked'
-                            style={{ color: COLORS.WHITE, fontSize: 18 }}
-                        />}
-                    </Surface>
-                </TouchableOpacity>
-                {!!textT && <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
-                    <Text t={textT} flex infoResult />
-                </TouchableOpacity>}
-            </Surface>
-        )
-    }
+    return (
+        <TouchableOpacityHitSlop onPress={onPress} {...passProps}>
+            <View className='row-start'>
+                {checked ?
+                    <Image source={require('~/src/image/check_box.png')}
+                        style={styles.checkbox}
+                    />
+                    :
+                    <Image source={require('~/src/image/check_box_gray.png')}
+                        style={styles.checkbox}
+                    />
+                }
+                {!!text && <Text className='textGray s13' style={{ marginLeft: 12 }}>{text}</Text>}
+            </View>
+        </TouchableOpacityHitSlop>
+    )
 }
+
+const styles = StyleSheet.create({
+    checkbox: {
+        width: 18, height: 18
+    }
+})

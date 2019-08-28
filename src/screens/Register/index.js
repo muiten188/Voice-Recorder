@@ -7,7 +7,7 @@ import {
   View,
   Text,
   Container
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import { connect } from "react-redux";
 import I18n from "~/src/I18n";
 import {
@@ -22,7 +22,7 @@ import {
 } from "~/src/utils";
 
 import PopupConfirm from "~/src/components/PopupConfirm";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import { Image, BackHandler } from "react-native";
 import {
   PASSWORD_LENGTH,

@@ -1,113 +1,68 @@
-import React, { Component, PureComponent } from 'react'
-import commonStyle from '~/src/themes/common'
-import Ripple from 'react-native-material-ripple'
-import Surface from '~/src/themes/Surface'
-import Text from '~/src/themes/Text'
-import Icon from '~/src/themes/Icon'
-import { View } from 'react-native'
-import { BUTTON_STYLES } from '~/src/themes/common'
-import PropTypes from 'prop-types'
-import LinearGradient from 'react-native-linear-gradient'
-import { getElevation } from '~/src/utils'
+import React from 'react'
+import styled from 'styled-components/native'
+import { COLORS } from '~/src/themes/common'
+import { ButtonText as Text } from './Text'
 
-export default class Button extends PureComponent {
-    static defaultProps = {
-        textTransform: String.prototype.toUpperCase
-    }
 
-    render() {
-        const { forwardedRef, children, style, theme, icon, iconStyle, textStyle, enable,
-            buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
-            leftComponent, rightComponent, centerComponent, innerExpand,
-            t, textTransform, text,
-            gradientButton = false, gradientProps = {}, gradientStyle, rippleStyle,
-            gradientWhiteLayer = false,
-            ...rest } = this.props
-        let buttonThemeStyle = [commonStyle.button]
-        let textButtonStyle = [commonStyle.buttonText, textStyle]
-        if (enable != null && typeof (enable) != 'undefined') {
-            if (!enable) {
-                buttonThemeStyle = [...buttonThemeStyle, commonStyle.buttonDisable, buttonDisableStyle]
-                textButtonStyle = [...textButtonStyle, commonStyle.buttonTextDisable, buttonTextDisableStyle]
-            } else {
-                buttonThemeStyle = [...buttonThemeStyle, buttonEnableStyle]
-                textButtonStyle = [...textButtonStyle, buttonTextEnableStyle]
-            }
-        }
-        for (let identifier in rest) {
-            if (BUTTON_STYLES[identifier]) {
-                const { textStyle, ...restButtonStyle } = BUTTON_STYLES[identifier]
-                buttonThemeStyle.push(restButtonStyle)
-                if (textStyle) {
-                    textButtonStyle.push(textStyle)
-                }
-            }
-        }
-        buttonThemeStyle.push(style)
-        const buttonTextElement = typeof (t) != 'undefined' ? <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} /> :
-            typeof (text) != undefined ? <Text themeable={false} style={textButtonStyle}>{text}</Text> : <Surface themeable={false} />
-        const center = centerComponent ? centerComponent() : (
-            <Surface themeable={false} rowCenter
-                expand={!!innerExpand}
-            >
-                {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
-                {buttonTextElement}
-            </Surface>
-        )
-
-        const ButtonComponent = enable === false ? View : Ripple
-        if (gradientButton) {
-            if (typeof (enable) === 'undefined' || enable === true) {
-                buttonThemeStyle.push(
-                    { opacity: 1 }
-                )
-            } else if (enable === false) {
-                buttonThemeStyle.push(
-                    { opacity: 0.45 }
-                )
-            }
-            buttonThemeStyle.push(
-                getElevation(0)
-            )
-            return (
-                <ButtonComponent ref={forwardedRef}
-                    rippleColor={'white'}
-                    style={rippleStyle}
-                    {...rest}>
-                    <Surface themeable={false} style={gradientWhiteLayer ? commonStyle.buttonGradientLayer : {}}>
-                        <LinearGradient
-                            colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
-                            start={{ x: 0.0, y: 0.0 }}
-                            end={{ x: 1.0, y: 0.0 }}
-                            locations={[0.0, 1.0]}
-                            style={[buttonThemeStyle, gradientStyle]}
-                            {...gradientProps}
-                        >
-                            {!!leftComponent && leftComponent()}
-                            {center}
-                            {!!rightComponent && rightComponent()}
-                        </LinearGradient>
-                    </Surface>
-                </ButtonComponent>
-            )
-        }
-
-        return (
-            <ButtonComponent ref={forwardedRef} {...rest}
-                style={buttonThemeStyle}
-                rippleColor={'white'}
-            >
-                <Surface themeable={false} rowStart>
-                    {!!leftComponent && leftComponent()}
-                    {center}
-                    {!!rightComponent && rightComponent()}
-                </Surface>
-            </ButtonComponent>
-        )
+const getBackgroundColor = (props) => {
+    if (props.disabled) {
+        return '#dcdcdc'
+    } else if (props.passive) {
+        return COLORS.LIGHT_BLUE
+    } else if (props.negative) {
+        return COLORS.BORDER_COLOR
+    } else {
+        return COLORS.GREEN
     }
 }
 
-Button.propTypes = {
-    t: PropTypes.string,
-    textTransform: PropTypes.func
+const getTextColor = (props) => {
+    if (props.disabled) {
+        return COLORS.TEXT_GRAY
+    } else if (props.passive) {
+        return COLORS.CERULEAN
+    } else if (props.negative) {
+        return COLORS.TEXT_GRAY
+    } else {
+        return COLORS.WHITE
+    }
+}
+
+ButtonView = styled.TouchableOpacity`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 56;
+    border-radius: 28;
+    padding-horizontal: 16;
+    background-color: ${props => getBackgroundColor(props)}
+`
+
+ButtonText = styled(Text)`
+    color: ${props => getTextColor(props)};
+`
+
+
+export default ActiveButton = (props) => {
+    const { disabled, passive, negative, children, ...passProps } = props
+    return (
+        <ButtonView
+            passive={passive}
+            disabled={disabled}
+            negative={negative}
+            {...passProps}>
+            {children ?
+                children :
+                <ButtonText
+                    disabled={disabled}
+                    passive={passive}
+                    negative={negative}
+                >
+                    {props.text}
+                </ButtonText>
+            }
+
+        </ButtonView>
+    )
+
 }

@@ -8,11 +8,11 @@ import { merchantIdSelector } from '~/src/store/selectors/merchant'
 import Image from 'react-native-fast-image'
 import { FORM_MODE } from '~/src/constants'
 import { checkAndSyncMasterData } from '~/src/store/actions/backgroundSync'
-import { Container, View, Toolbar, BottomView, Button, Text, TextBold, Caption, ActionText } from '~/src/themesnew/ThemeComponent'
-import { SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+import { Container, View, Toolbar, BottomView, Button, Text, TextBold, Caption, ActionText } from '~/src/themes/ThemeComponent'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import { floorTableSelector } from '~/src/store/selectors/table'
 import { generateHighlightText, getWidth } from '~/src/utils'
-import { textStyles } from '~/src/themesnew/Text'
+import { textStyles } from '~/src/themes/Text'
 
 class FloorTableManager extends PureComponent {
     static navigationOptions = {

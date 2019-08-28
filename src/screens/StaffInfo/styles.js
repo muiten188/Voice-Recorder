@@ -1,4 +1,4 @@
-import { COLORS, SURFACE_STYLES } from "~/src/themesnew/common";
+import { COLORS, SURFACE_STYLES } from "~/src/themes/common";
 import { getFontStyle } from "~/src/utils";
 
 export default {

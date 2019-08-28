@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, Image, TouchableOpacity, FlatList,Modal,ScrollView } from "react-native";
-import { View, Container } from "~/src/themesnew/ThemeComponent";
+import { View, Container } from "~/src/themes/ThemeComponent";
 import styles from "./styles";
 import I18n from "~/src/I18n";
 import imgDone from "~/src/image/done.png";
@@ -9,9 +9,9 @@ import Carousel from "react-native-snap-carousel";
 import imgMerchant from "~/src/image/imgListMerchant.png";
 import imgMerchant2 from "~/src/image/imgListMerchant2.png";
 import imgArrow from "~/src/image/imgArrow.png"
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import {generateHighlightText} from "~/src/utils"
-import { DEVICE_WIDTH, DEVICE_HEIGHT,Point } from "~/src/themesnew/common";
+import { DEVICE_WIDTH, DEVICE_HEIGHT,Point } from "~/src/themes/common";
 
 export default class HomeGuide extends Component {
   constructor(props) {

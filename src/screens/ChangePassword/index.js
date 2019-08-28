@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from 'react-native'
 import { connect } from "react-redux";
-import { COLORS } from "~/src/themesnew/common";
+import { COLORS } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import { changePassword } from "~/src/store/actions/auth";
 import { logout } from "~/src/store/actions/common";
@@ -9,7 +9,7 @@ import LoadingModal from "~/src/components/LoadingModal";
 import { isValidPassword, sha256 } from "~/src/utils";
 import { PASSWORD_LENGTH } from "~/src/constants";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Container, SingleRowInput, Toolbar, View, Button } from '~/src/themesnew/ThemeComponent'
+import { Container, SingleRowInput, Toolbar, View, Button } from '~/src/themes/ThemeComponent'
 
 class ChangePassword extends Component {
     static navigationOptions = {

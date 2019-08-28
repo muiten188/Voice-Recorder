@@ -3,8 +3,8 @@ import { TouchableOpacity, ScrollView } from 'react-native'
 import { chainParse } from '~/src/utils'
 import I18n from '~/src/I18n'
 import Image from 'react-native-fast-image'
-import { Text, Caption, View, Button } from '~/src/themesnew/ThemeComponent'
-import { DEVICE_WIDTH, SURFACE_STYLES, COLORS } from '~/src/themesnew/common'
+import { Text, Caption, View, Button } from '~/src/themes/ThemeComponent'
+import { DEVICE_WIDTH, SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import ScrollTabHeader from '~/src/components/ScrollTabHeader'
 const NUMBER_TABLE_EACH_ROW = 4
 const TABLE_WIDTH = (DEVICE_WIDTH - 24 * 5) / NUMBER_TABLE_EACH_ROW

@@ -13,7 +13,7 @@ import {
   PopupConfirm,
   TitleRowInput as TextInput,
   Button
-} from "~/src/themesnew/ThemeComponent";
+} from "~/src/themes/ThemeComponent";
 import { replacePatternString } from "~/src/utils";
 import LoadingModal from "~/src/components/LoadingModal";
 import I18n from "~/src/I18n";

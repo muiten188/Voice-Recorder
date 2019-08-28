@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 
 export default class TextInputBase extends PureComponent {
     constructor(props) {

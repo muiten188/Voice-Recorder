@@ -1,4 +1,4 @@
-import { COLORS } from '~/src/themesnew/common'
+import { COLORS } from '~/src/themes/common'
 import { Platform } from 'react-native'
 export default {
     container: {

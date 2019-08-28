@@ -3,7 +3,7 @@ import { FlatList, Platform, Dimensions } from 'react-native';
 import { DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import styles from './styles'
 import Ripple from 'react-native-material-ripple'
-import { Text, View } from '~/src/themesnew/ThemeComponent'
+import { Text, View } from '~/src/themes/ThemeComponent'
 
 export default class ScrollTabHeader extends PureComponent {
 

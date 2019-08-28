@@ -1,4 +1,4 @@
-import { COLORS, SURFACE_STYLES } from '~/src/themesnew/common'
+import { COLORS, SURFACE_STYLES } from '~/src/themes/common'
 import { getElevation } from '~/src/utils'
 export default {
     iconContainer: {
