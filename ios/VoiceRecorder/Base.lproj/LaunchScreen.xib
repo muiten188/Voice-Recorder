@@ -15,31 +15,16 @@
             <rect key="frame" x="0.0" y="0.0" width="491" height="500"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_new" translatesAutoresizingMaskIntoConstraints="NO" id="8WQ-oY-7rM">
-                    <rect key="frame" x="170.5" y="169" width="150" height="120"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo splash" translatesAutoresizingMaskIntoConstraints="NO" id="8WQ-oY-7rM">
+                    <rect key="frame" x="-283.5" y="169" width="1058" height="120"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="f83-3z-xVg"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmE-c5-jFB">
-                    <rect key="frame" x="154" y="321" width="183.5" height="43"/>
-                    <attributedString key="attributedText">
-                        <fragment content="RẢNH TAY QUẢN LÝ  CÙNG MSHOP">
-                            <attributes>
-                                <color key="NSColor" red="0.61176470588235299" green="0.83137254901960778" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <font key="NSFont" size="18" name="SFProText-Bold"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" red="0.015686274509803921" green="0.48627450980392156" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="8WQ-oY-7rM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6At-ZJ-bEQ"/>
-                <constraint firstItem="GmE-c5-jFB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Hft-BS-lff"/>
-                <constraint firstItem="GmE-c5-jFB" firstAttribute="top" secondItem="8WQ-oY-7rM" secondAttribute="bottom" constant="32" id="Smy-nc-rBN"/>
                 <constraint firstItem="8WQ-oY-7rM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZpK-CU-zcz"/>
                 <constraint firstItem="8WQ-oY-7rM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="169" id="bjk-TZ-GgE"/>
                 <constraint firstItem="8WQ-oY-7rM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hJ8-Ao-UHp"/>
@@ -50,6 +35,6 @@
         </view>
     </objects>
     <resources>
-        <image name="logo_new" width="150" height="159"/>
+        <image name="logo splash" width="1058" height="370"/>
     </resources>
 </document>
