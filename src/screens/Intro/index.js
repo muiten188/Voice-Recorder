@@ -90,7 +90,7 @@ export default class Intro extends Component {
     _renderIndicator = () => {
         const actionText = this.state.currentIndex < this.intros.length - 1 ? I18n.t('next') : I18n.t('done')
         return (
-            <View className='row-center' style={{ width: '100%', position: 'absolute', bottom: scaleHeight(56) }}>
+            <View className='row-center' style={{ width: '100%', position: 'absolute', bottom: scaleHeight(56), left: 16, right: 16 }}>
                 {this.intros.map(this._renderIndicatorItem)}
                 <TouchableOpacityHitSlop style={styles.actionText} onPress={this._handlePressActionText}>
                     <Text className='green'>{actionText}</Text>
@@ -121,11 +121,9 @@ export default class Intro extends Component {
                         <Carousel
                             data={this.intros}
                             firstItem={this.state.currentIndex}
-                            itemWidth={DEVICE_WIDTH}
+                            itemWidth={DEVICE_WIDTH - 32}
                             onSnapToItem={this._updateCurrentIndex}
-                            sliderWidth={DEVICE_WIDTH}
-                            sliderHeight={DEVICE_HEIGHT}
-                            itemHeight={DEVICE_HEIGHT}
+                            sliderWidth={DEVICE_WIDTH - 32}
                             renderItem={this._renderItem}
                         />
                         {this._renderIndicator()}
