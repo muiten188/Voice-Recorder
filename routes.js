@@ -10,11 +10,12 @@ import { Platform, Animated, Easing } from "react-native";
 import { COLORS } from "~/src/themes/common";
 import Drawer from '~/src/components/Drawer'
 import Login from '~/src/screens/Login'
+import Intro from '~/src/screens/Intro'
 
 const DrawerNavigator = createDrawerNavigator(
     {
-        Login: {
-            screen: Login,
+        Home: {
+            screen: Home,
             navigationOptions: () => ({
                 headerMode: "none",
                 header: null
@@ -49,9 +50,16 @@ const AppNavigator = createStackNavigator(
                 header: null
             })
         },
+        Intro: {
+            screen: Intro,
+            navigationOptions: () => ({
+                headerMode: "none",
+                header: null
+            })
+        },
     },
     {
-        initialRouteName: "Login",
+        initialRouteName: "Intro",
         headerMode: "float",
         transitionConfig: () => {
             if (Platform.OS == "android") {

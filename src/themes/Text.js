@@ -6,7 +6,7 @@ import { viewStyles } from './View'
 export const textStyles = {
     ...viewStyles,
     default: {
-        fontFamily: 'SFProText-Regular',
+        // fontFamily: 'SFProText-Regular',
         color: COLORS.BLACK,
         fontSize: 14,
         includeFontPadding: false,
@@ -14,7 +14,7 @@ export const textStyles = {
         // letterSpacing: -0.2,
     },
     title: {
-        fontFamily: 'SFProText-Medium',
+        // fontFamily: 'SFProText-Medium',
         color: COLORS.TEXT_BLACK,
         fontSize: 14,
         fontSize: 16,
@@ -31,6 +31,9 @@ export const textStyles = {
     },
     orange: {
         color: COLORS.ORANGE
+    },
+    green: {
+        color: COLORS.GREEN
     },
     caption: {
         fontSize: 12,
@@ -71,10 +74,11 @@ export const textStyles = {
         textAlign: 'right'
     },
     bold: {
-        fontFamily: 'SFProText-Bold',
+        // fontFamily: 'SFProText-Bold',
+        fontWeight: 'bold'
     },
     medium: {
-        fontFamily: 'SFProText-Medium',
+        // fontFamily: 'SFProText-Medium',
     },
     s11: {
         fontSize: 11

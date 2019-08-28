@@ -130,7 +130,7 @@ export const scaleWidth = input => {
 };
 
 export const scaleHeight = input => {
-    return (height / 736) * input;
+    return (height / 812) * input;
 };
 
 export const isValidEmail = str => {
