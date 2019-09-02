@@ -10,14 +10,14 @@ import {
     TouchableOpacityHitSlop,
     Text, Checkbox
 } from "~/src/themes/ThemeComponent";
-
 import { connect } from "react-redux";
 import I18n from "~/src/I18n";
 import { DEVICE_WIDTH, DEVICE_HEIGHT } from "~/src/themes/common";
 import styles from "./styles";
 import LoadingModal from "~/src/components/LoadingModal";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { SURFACE_STYLES } from "../../themes/common";
+import { StackActions, NavigationActions } from "react-navigation";
+import lodash from 'lodash'
 
 class Login extends Component {
 
@@ -34,8 +34,17 @@ class Login extends Component {
     }
 
     _handlePressSaveLogin = () => {
-        this.setState({saveLogin: !this.state.saveLogin})
+        this.setState({ saveLogin: !this.state.saveLogin })
     }
+
+    _handleLogin = lodash.throttle(() => {
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: "Drawer" })],
+            key: undefined
+        });
+        this.props.navigation.dispatch(resetAction);
+    }, 500)
 
 
     render() {
@@ -74,13 +83,13 @@ class Login extends Component {
                         <View className='space40' />
 
                         <Button
-
+                            onPress={this._handleLogin}
                             text={I18n.t('login')}
                         />
                         <View className='space40' />
                         <View className='row-space-between'>
 
-                            <Checkbox 
+                            <Checkbox
                                 text={I18n.t('save_login')}
                                 checked={this.state.saveLogin}
                                 onPress={this._handlePressSaveLogin}

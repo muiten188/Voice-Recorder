@@ -17,6 +17,7 @@ import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from "~/src/themes/common";
 import { Text, View, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
 import I18n from "~/src/I18n";
 import { scaleHeight } from '~/src/utils'
+import { StackActions, NavigationActions } from "react-navigation";
 
 export default class Intro extends Component {
     constructor(props) {
@@ -83,7 +84,12 @@ export default class Intro extends Component {
             this.setState({ currentIndex: this.state.currentIndex + 1 })
         } else {
             this._saveIntro("true")
-            this.props.navigation.navigate("Login");
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: "Login" })],
+                key: undefined
+            });
+            this.props.navigation.dispatch(resetAction);
         }
     }
 
