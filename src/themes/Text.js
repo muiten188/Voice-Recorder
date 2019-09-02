@@ -110,6 +110,9 @@ export const textStyles = {
     s30: {
         fontSize: 30
     },
+    s44: {
+        fontSize: 44
+    },
     s48: {
         fontSize: 48
     },

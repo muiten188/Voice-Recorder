@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import { Container, View, Text } from "~/src/themes/ThemeComponent";
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import { COLORS } from "~/src/themes/common";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import { DEVICE_WIDTH } from "~/src/themes/common";
+import { scaleHeight, getFontStyle, getRecordTimeString } from '~/src/utils'
+import styles from './styles'
+
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
     RECORDING: 'RECORDING',
@@ -19,7 +22,7 @@ export default class Home extends Component {
         // started / paused / stopped / recording
         this.state = {
             recording: RECORD_STATUS.NOT_START,
-            recordTime: 0,
+            recordTime: 5000,
             permissionStatus: '',
             audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
         }
@@ -99,63 +102,41 @@ export default class Home extends Component {
     render() {
         return (
             <Container blue>
-                <View className="flex background column-end" >
-                    <View className='flex pd32 column-all-start' style={{ width: '100%' }}>
-                        <Text className='s18 gray'>{(this.state.recording == RECORD_STATUS.NOT_START) ? 'Ghi âm' : 'Đang ghi âm...'}</Text>
-                        <Text className='s48' style={{ marginTop: 16 }}>{this._getRecordTimeString(this.state.recordTime)}</Text>
+                <View className="flex background">
+                    <ImageBackground
+                        source={require('~/src/image/bg_recording.png')}
+                        style={{ width: DEVICE_WIDTH, height: scaleHeight(499) }}
+                    >
+                        <View style={{ height: scaleHeight(120) }} />
+                        <View className='column-center'>
+                            <Text className='white s24 bold'>Recording</Text>
+                            <View style={{ height: scaleHeight(44) }} />
+                            <Text className='white s44' style={getFontStyle('thin')}>{getRecordTimeString(this.state.recordTime)}</Text>
+                        </View>
+
+                    </ImageBackground>
+                    <View className='flex white column-end'>
+                        <View style={styles.actionBlock}>
+                            <TouchableOpacity>
+                                <View style={styles.iconContainer}>
+                                    <Icon name='menu' size={24} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this._handlePressCenterButton}>
+                                <View style={styles.iconContainerCenter}>
+                                    <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'control-pause'} size={36} />
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this._handlePressRightButton}>
+                                <View style={styles.iconContainer}>
+                                    <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'playlist' : ''} size={28} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.actionBlock}>
-                        <TouchableOpacity>
-                            <View style={styles.iconContainer}>
-                                <Icon name='menu' size={24} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this._handlePressCenterButton}>
-                            <View style={styles.iconContainerCenter}>
-                                <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'control-pause'} size={36} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this._handlePressRightButton}>
-                            <View style={styles.iconContainer}>
-                                <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'playlist' : ''} size={28} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+
                 </View>
             </Container>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    actionBlock: {
-        backgroundColor: COLORS.WHITE,
-        borderTopWidth: 1,
-        borderTopColor: COLORS.BORDER_COLOR2,
-        width: '100%',
-        padding: 32,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    iconContainerCenter: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        borderWidth: 2,
-        borderColor: COLORS.BORDER_COLOR2
-    },
-    iconContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 32,
-        borderWidth: 2,
-        borderColor: COLORS.BORDER_COLOR2
-    }
-})

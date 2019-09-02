@@ -849,3 +849,15 @@ export const getTableDisplayName = (tableIdArr, floorTable) => {
     })
     return tableArr.join(',')
 }
+
+const _formatTwoDigitNumber = (number) => {
+    if (+number < 10) return `0${number}`
+    return '' + number
+}
+
+export const getRecordTimeString = (recordTime) => {
+    const recordHours = Math.floor(recordTime / 3600)
+    const recordMinues = Math.floor((recordTime - 3600 * recordHours) / 60)
+    const recordSeconds = recordTime - 3600 * recordHours - 60 * recordMinues
+    return `${_formatTwoDigitNumber(recordHours)} : ${_formatTwoDigitNumber(recordMinues)} : ${_formatTwoDigitNumber(recordSeconds)}`
+}

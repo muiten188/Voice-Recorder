@@ -8,8 +8,9 @@ export default Container = (props) => {
     return (
         <SafeAreaView style={[{ flex: 1, backgroundColor }]}>
             <StatusBar
-                barStyle={'dark-content'}
-                backgroundColor={backgroundColor}
+                barStyle={'light-content'}
+                backgroundColor={'transparent'}
+                translucent={true}
             />
             {children}
         </SafeAreaView>
