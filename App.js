@@ -44,8 +44,9 @@ export default class App extends Component {
                 <Provider store={store}>
                     <PersistGate loading={this._renderLoading()} persistor={persistor}>
                         <StatusBar
-                            backgroundColor={COLORS.WHITE}
-                            barStyle={'dark-content'}
+                            backgroundColor={'transparent'}
+                            translucent={true}
+                            barStyle={'light-content'}
                         />
                         <NoInternet />
                         <AppContainer

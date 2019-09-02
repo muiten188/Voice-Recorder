@@ -15,26 +15,30 @@
             <rect key="frame" x="0.0" y="0.0" width="491" height="500"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo splash" translatesAutoresizingMaskIntoConstraints="NO" id="8WQ-oY-7rM">
-                    <rect key="frame" x="-283.5" y="169" width="1058" height="120"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="fGa-pZ-lJN">
+                    <rect key="frame" x="0.0" y="0.0" width="491" height="500"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="120" id="f83-3z-xVg"/>
+                        <constraint firstAttribute="height" constant="386" id="Ixw-IN-xbO"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.015686274509803921" green="0.48627450980392156" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstItem="8WQ-oY-7rM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6At-ZJ-bEQ"/>
-                <constraint firstItem="8WQ-oY-7rM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZpK-CU-zcz"/>
-                <constraint firstItem="8WQ-oY-7rM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="169" id="bjk-TZ-GgE"/>
-                <constraint firstItem="8WQ-oY-7rM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hJ8-Ao-UHp"/>
+                <constraint firstAttribute="bottom" secondItem="fGa-pZ-lJN" secondAttribute="bottom" id="42y-Hn-WpD"/>
+                <constraint firstAttribute="trailing" secondItem="fGa-pZ-lJN" secondAttribute="trailing" id="DEM-Lb-Qfk"/>
+                <constraint firstAttribute="trailing" secondItem="fGa-pZ-lJN" secondAttribute="trailing" id="I4y-C3-bQR"/>
+                <constraint firstItem="fGa-pZ-lJN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="R6H-yq-ocD"/>
+                <constraint firstItem="fGa-pZ-lJN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fUe-ua-THp"/>
+                <constraint firstItem="fGa-pZ-lJN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oNO-Qi-Hs6"/>
+                <constraint firstAttribute="bottom" secondItem="fGa-pZ-lJN" secondAttribute="bottom" id="sK2-dd-Lds"/>
+                <constraint firstItem="fGa-pZ-lJN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wQ9-1t-BrB"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-61.600000000000001" y="210.49475262368819"/>
+            <point key="canvasLocation" x="-62.8125" y="210.21126760563379"/>
         </view>
     </objects>
     <resources>
-        <image name="logo splash" width="1058" height="370"/>
+        <image name="splash" width="750" height="1624"/>
     </resources>
 </document>

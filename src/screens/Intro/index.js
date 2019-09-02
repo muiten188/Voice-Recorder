@@ -107,14 +107,14 @@ export default class Intro extends Component {
                 <ImageBackground
                     source={require('~/src/image/intro_background.png')}
                     style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
-                    resizeMode={'stretch'}
+                    resizeMode={'cover'}
                 >
                     <View className='flex ph16'>
                         <View style={{ height: scaleHeight(320) }} />
                         <View className='row-center'>
                             <Image source={require('~/src/image/logo_info.png')}
                                 style={{ width: scaleHeight(296), height: scaleHeight(107) }}
-                                resizeMode={'cover'}
+                                resizeMode={'contain'}
                             />
                         </View>
                         <View style={{ height: scaleHeight(46) }} />
