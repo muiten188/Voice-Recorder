@@ -16,32 +16,13 @@ export const APP_MODE = APP_MODE_DEF.DEBUG // DEBUG | RELEASE
 export const API_ENDPOINT = {
     'DEV': {
         name: 'DEV',
-        API_URL: 'http://171.244.49.185:9000',
-        IMAGE_UPLOAD_URL: 'http://171.244.49.185:9000'
-    },
-    'BETA': {
-        name: 'BETA',
-        API_URL: 'http://10.1.27.65:9000',
-        IMAGE_UPLOAD_URL: 'http://10.1.27.64:8080'
-    },
-    'CLOUD': {
-        name: 'CLOUD',
-        IMAGE_UPLOAD_URL: 'https://mshop-core.azurewebsites.net'
-    },
-    'CLOUD_DEV': {
-        name: 'CLOUD_DEV',
-        API_URL: 'http://171.244.49.186:9000',
-        IMAGE_UPLOAD_URL: 'http://171.244.49.186:9000'
-    },
-    'PRE_PROD': {
-        name: 'PRE_PROD',
-        API_URL: 'https://mshop-core-preprod.azurewebsites.net',
-        IMAGE_UPLOAD_URL: 'https://mshop-core-preprod.azurewebsites.net'
+        API_URL: 'http://10.0.0.1',
+        IMAGE_UPLOAD_URL: 'http://10.0.0.1'
     },
     'PROD': {
         name: 'PROD',
-        API_URL: 'https://api.mshop.io',
-        IMAGE_UPLOAD_URL: 'https://api.mshop.io'
+        API_URL: 'http://10.0.0.1',
+        IMAGE_UPLOAD_URL: 'http://10.0.0.1'
     }
 }
 

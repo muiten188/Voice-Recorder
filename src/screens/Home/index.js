@@ -88,18 +88,6 @@ export default class Home extends Component {
         }
     }
 
-    _formatTwoDigitNumber = (number) => {
-        if (+number < 10) return `0${number}`
-        return '' + number
-    }
-
-    _getRecordTimeString = (recordTime) => {
-        const recordHours = Math.floor(recordTime / 3600)
-        const recordMinues = Math.floor((recordTime - 3600 * recordHours) / 60)
-        const recordSeconds = recordTime - 3600 * recordHours - 60 * recordMinues
-        return `${this._formatTwoDigitNumber(recordHours)} : ${this._formatTwoDigitNumber(recordMinues)} : ${this._formatTwoDigitNumber(recordSeconds)}`
-    }
-
     render() {
         return (
             <Container blue>
