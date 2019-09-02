@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
-import { Container, View, Text } from "~/src/themes/ThemeComponent";
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { ImageBackground } from 'react-native'
+import { Container, View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import { DEVICE_WIDTH } from "~/src/themes/common";
+import { DEVICE_WIDTH, COLORS } from "~/src/themes/common";
 import { scaleHeight, getFontStyle, getRecordTimeString } from '~/src/utils'
 import styles from './styles'
+import I18n from '~/src/I18n'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -117,21 +118,28 @@ export default class Home extends Component {
                     </ImageBackground>
                     <View className='flex white column-end'>
                         <View style={styles.actionBlock}>
-                            <TouchableOpacity>
-                                <View style={styles.iconContainer}>
-                                    <Icon name='menu' size={24} />
+                            <TouchableOpacityHitSlop>
+                                <View className='row-start'>
+                                    <Icon name='delete-outline' size={24} color={COLORS.TEXT_BLACK} />
+                                    <Text className='textBlack'>{I18n.t('cancel')}</Text>
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={this._handlePressCenterButton}>
+                            </TouchableOpacityHitSlop>
+
+                            <TouchableOpacityHitSlop onPress={this._handlePressCenterButton}>
                                 <View style={styles.iconContainerCenter}>
-                                    <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'control-pause'} size={36} />
+                                    <Icon
+                                        color={COLORS.WHITE}
+                                        size={36}
+                                        name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'pause'}
+                                    />
                                 </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={this._handlePressRightButton}>
-                                <View style={styles.iconContainer}>
-                                    <Icon name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'playlist' : ''} size={28} />
+                            </TouchableOpacityHitSlop>
+                            <TouchableOpacityHitSlop onPress={this._handlePressRightButton}>
+                                <View className='row-start'>
+                                    <Icon name='stop' size={28} color={COLORS.GREEN} />
+                                    <Text className='green'>{I18n.t('done_en')}</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </TouchableOpacityHitSlop>
                         </View>
                     </View>
 

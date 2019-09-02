@@ -140,7 +140,6 @@ const language = {
     or: "hoặc",
     ignore: "Bỏ qua",
     continue: "Tiếp tục",
-    cancel: "Hủy",
     confirm_send_otp:
         "Chúng tôi sẽ gửi mã xác đến số điện thoại *****. Bạn có muốn tiếp tục?",
     hint_input_otp_phone: "Mã xác thực đã được gửi đến số điện thoại",
@@ -868,7 +867,9 @@ const language = {
     text_intro_1: 'Kênh Giao thông tần số FM 91 MHz (VOVGT) - Đài Tiếng nói Việt Nam (VOV)\nTuyên bố sở hữu và quyền tác giả Fanpage chính thức của Kênh VOV Giao thông tần số FM 91 MHz (VOVGT) - Đài Tiếng nói Việt Nam (VOV)\nKênh thông tin quốc gia, tần số FM 91 MHz - Đài tiếng nói Việt Nam (VOV)',
     text_intro_2: 'Một nội dung ngắn gọn và thú zị',
     next: 'Tiếp',
-    done: 'Xong'
+    done: 'Xong',
+    cancel: "Hủy",
+    done_en: 'Done'
 }
 
 // export default language;

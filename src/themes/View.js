@@ -240,6 +240,9 @@ export const viewStyles = {
     'pb8': {
         paddingBottom: 8,
     },
+    'ml10': {
+        marginLeft: 10,
+    },
     'ml24': {
         marginLeft: 24,
     },

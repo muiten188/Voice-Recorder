@@ -15,17 +15,6 @@ export default {
         width: 80,
         height: 80,
         borderRadius: 40,
-        borderWidth: 2,
-        borderColor: COLORS.BORDER_COLOR2
+        backgroundColor: COLORS.RED
     },
-    iconContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 32,
-        borderWidth: 2,
-        borderColor: COLORS.BORDER_COLOR2
-    }
 }

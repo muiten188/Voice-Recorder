@@ -15,6 +15,7 @@ export const COLORS = {
     GREEN: '#00a859',
     PRIMARY: "rgb(4,124,215)",
     ERROR: "#ed3338",
+    RED: '#ed3338',
 
     BLACK: '#000000',
     CERULEAN: 'rgb(4, 124, 215)',
