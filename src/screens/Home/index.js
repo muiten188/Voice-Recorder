@@ -126,13 +126,18 @@ export default class Home extends Component {
                             </TouchableOpacityHitSlop>
 
                             <TouchableOpacityHitSlop onPress={this._handlePressCenterButton}>
-                                <View style={styles.iconContainerCenter}>
-                                    <Icon
-                                        color={COLORS.WHITE}
-                                        size={36}
-                                        name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'pause'}
-                                    />
+                                <View className='column-center'>
+                                    <View style={styles.iconContainerCenter}>
+                                        <Icon
+                                            color={COLORS.WHITE}
+                                            size={36}
+                                            name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'pause'}
+                                        />
+                                    </View>
+                                    <View className='space16' />
+                                    <Text className='error s14'>{I18n.t('pause')}</Text>
                                 </View>
+
                             </TouchableOpacityHitSlop>
                             <TouchableOpacityHitSlop onPress={this._handlePressRightButton}>
                                 <View className='row-start'>

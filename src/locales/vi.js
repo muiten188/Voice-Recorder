@@ -869,7 +869,8 @@ const language = {
     next: 'Tiếp',
     done: 'Xong',
     cancel: "Hủy",
-    done_en: 'Done'
+    done_en: 'Done',
+    pause: 'Tạm dừng',
 }
 
 // export default language;
