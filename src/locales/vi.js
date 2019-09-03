@@ -130,7 +130,7 @@ const language = {
     email: "Email (Không bắt buộc nhập)",
     photo: "Ảnh",
     view_shoping_cart: "XEM GIỎ HÀNG",
-    require:"Bắt buộc",
+    require: "Bắt buộc",
 
     // Login Screen
     understand: "Tôi đã hiểu",
@@ -286,7 +286,7 @@ const language = {
     term_and_condition: "Điều khoản sử dụng",
     of_gigabank: "của MShop",
     agree: "Đồng ý",
-    
+
     label_logout: "Thoát tài khoản",
     warn_logout: "Bạn muốn đăng xuất khỏi tài khoản này?",
     tenant_code: "Mã cửa hàng",
@@ -337,7 +337,7 @@ const language = {
     delete_debt_success: "Xóa khoản nợ ***** thành công",
     search_debt: "Tìm kiếm khoản nợ",
     update_debt: "Cập nhật khoản nợ",
-    debt_has_been_delete:"Khoản nợ này đã bị xóa",
+    debt_has_been_delete: "Khoản nợ này đã bị xóa",
     // empty_cost: "Chưa có khoản chi nào",
     // guide_cost: "Hãy ấn nút \"Thêm khoản chi\" nhập khoản chi",
     empty_debt_payable: "Chưa có khoản nợ phải trả nào",
@@ -608,9 +608,9 @@ const language = {
     save_order_success: "Lưu đơn thành công",
 
     // costManage
-    options:"Lựa chọn",
-    cost_has_been_delete:"Khoản chi này đã bị xóa",
-    choose_different:"Chọn nhóm khác",
+    options: "Lựa chọn",
+    cost_has_been_delete: "Khoản chi này đã bị xóa",
+    choose_different: "Chọn nhóm khác",
     warn_delete_cost: "Bạn có chắc chắn muốn xoá khoản ***** không?",
     warn_delete_cost_group: "Bạn có chắc chắn muốn xoá nhóm chi ***** không?",
     add_cost_success: "Thêm khoản chi ***** thành công",
@@ -641,10 +641,10 @@ const language = {
     add_cost_group_success: "Tạo nhóm chi ***** thành công",
     update_cost_group_success: "Cập nhật nhóm chi ***** thành công",
     delete_cost_group_success: "Xóa nhóm chi ***** thành công",
-    choose_group_cost:"Chọn nhóm chi",
-    delete_cost_group_content:"Xóa nhóm chi này và xóa các khoản chi trong nhóm",
-    delete_cost_ground_and_remove_content:"Xóa nhóm chi này và chuyển các khoản chi trong nhóm sang nhóm khác",
-    delete_cost_group_success:"Xóa nhóm chi ***** thành công",
+    choose_group_cost: "Chọn nhóm chi",
+    delete_cost_group_content: "Xóa nhóm chi này và xóa các khoản chi trong nhóm",
+    delete_cost_ground_and_remove_content: "Xóa nhóm chi này và chuyển các khoản chi trong nhóm sang nhóm khác",
+    delete_cost_group_success: "Xóa nhóm chi ***** thành công",
 
 
 
@@ -664,7 +664,7 @@ const language = {
     payment_card: "Thẻ thanh toán",
     create_other_order: "Tạo đơn hàng khác",
     order_saved: "Đơn hàng đã lưu ở trạng thái chờ thanh toán",
-    order_has_been_delete:"Đơn hàng này đã bị xóa",
+    order_has_been_delete: "Đơn hàng này đã bị xóa",
     // Table
     guide_table: 'Trong trường hợp, cửa hàng của bạn quản lý đơn hàng theo khu vực - bàn, bạn cần tạo khu vực - bàn.\n\nĐể tạo khu vực - bàn, bạn truy cập menu "Thiết lập" - Mục"Quản lý khu vực - bàn"',
     floor_table_manager: 'Quản lý khu vực - bàn',
@@ -872,6 +872,10 @@ const language = {
     done_en: 'Done',
     pause: 'Tạm dừng',
     logout: "Đăng xuất",
+    home_title: 'Home',
+    document_title: 'Documents',
+    user_manager_title: 'User Manager',
+    setting_title: 'Settings'
 }
 
 // export default language;

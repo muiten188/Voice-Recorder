@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { Container, View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
-
+import { GradientToolbar, View, Text } from "~/src/themes/ThemeComponent";
+import I18n from '~/src/I18n'
 
 export default class Settings extends Component {
     constructor(props) {
@@ -12,12 +12,14 @@ export default class Settings extends Component {
 
     render() {
         return (
-            <Container blue>
-                <View className="flex background">
-                    <Text>Settings</Text>
 
+                <View className="flex background">
+                    <GradientToolbar 
+                        title={I18n.t('setting_title')}
+                    />
+                    <Text>Settings</Text>
                 </View>
-            </Container>
+
         );
     }
 }

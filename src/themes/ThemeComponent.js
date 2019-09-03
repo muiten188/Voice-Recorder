@@ -4,6 +4,7 @@ import SmallButton from './SmallButton'
 import Text, { Caption, ActionText, TextBold, Label, Title } from './Text'
 import RoundTextInput from "./RoundTextInput";
 import TouchableOpacityHitSlop from "./TouchableOpacityHitSlop";
+import GradientToolbar from './GradientToolbar'
 
 import TextInput2 from "./TextInput2";
 import Toolbar from "./Toolbar";
@@ -34,7 +35,7 @@ export {
     Text, Title, TextBold, Caption, ActionText,
     BottomView, Button, SmallButton,
     Label, MultipleTagSelector,
-    View,
+    View, GradientToolbar,
 
     TextInput2, Toolbar,
     TitleRowInput, DateInput,

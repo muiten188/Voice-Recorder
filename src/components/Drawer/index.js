@@ -8,22 +8,22 @@ import I18n from '~/src/I18n'
 const DRAWER_MENUS = [
     {
         key: 'Home',
-        label: 'Home',
+        label: I18n.t('home_title'),
         icon: 'home-outline'
     },
     {
         key: 'Documents',
-        label: 'Documents',
+        label: I18n.t('document_title'),
         icon: 'file-document-outline'
     },
     {
         key: 'UserManager',
-        label: 'User Manager',
+        label: I18n.t('user_manager_title'),
         icon: 'account-outline'
     },
     {
         key: 'Settings',
-        label: 'Settings',
+        label: I18n.t('setting_title'),
         icon: 'settings-outline'
     },
 ]
