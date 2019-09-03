@@ -36,6 +36,7 @@ ButtonView = styled.TouchableOpacity`
 
 ButtonText = styled(Text)`
     color: ${props => getTextColor(props)};
+    font-weight: normal;
 `
 
 

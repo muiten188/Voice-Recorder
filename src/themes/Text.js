@@ -181,7 +181,6 @@ export const Title = styled.Text`
 `
 
 export const Label = styled.Text`
-    font-family: SFProText-Regular;
     color: ${COLORS.TEXT_BLACK};
     font-size: 12;
     include-font-padding: false;
@@ -190,7 +189,7 @@ export const Label = styled.Text`
 
 
 export const TextBold = styled.Text`
-    font-family: SFProText-Bold;
+    font-weight: bold;
     color: ${COLORS.BLACK};
     font-size: 14;
     include-font-padding: false;
@@ -199,7 +198,7 @@ export const TextBold = styled.Text`
 
 export const ButtonText = styled.Text`
     font-size: 14;
-    font-family: SFProText-Bold;
+    font-weight: bold;
     include-font-padding: false;
     text-align-vertical: center;
 `
