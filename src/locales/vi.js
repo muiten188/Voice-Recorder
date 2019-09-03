@@ -877,6 +877,9 @@ const language = {
     setting_title: 'Settings',
     search_file_placeholder: 'Search file name',
     status: "Trạng thái",
+    add_new: 'Add New',
+    import: 'Import',
+    recording: 'Recording'
 }
 
 // export default language;

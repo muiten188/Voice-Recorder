@@ -35,6 +35,9 @@ export const textStyles = {
     green: {
         color: COLORS.GREEN
     },
+    blue: {
+        color: COLORS.BLUE
+    },
     caption: {
         fontSize: 12,
         color: COLORS.TEXT_GRAY

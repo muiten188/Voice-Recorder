@@ -1,20 +1,40 @@
 import { COLORS } from "~/src/themes/common"
+import { getElevation } from '~/src/utils'
 
 export default {
-    actionBlock: {
-        width: '100%',
-        padding: 32,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    iconContainerCenter: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+    floatingOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1000,
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
         alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexDirection: 'column'
+    },
+    mainFloatingButton: {
         width: 80,
         height: 80,
         borderRadius: 40,
-        backgroundColor: COLORS.RED
+        ...getElevation(2)
     },
+    importActionContainer: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.LIGHT_BLUE
+    },
+    recordActionContainer: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.LIGHT_GREEN
+    },
+
 }

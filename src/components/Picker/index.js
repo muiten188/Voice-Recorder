@@ -30,7 +30,7 @@ export default class Picker extends React.PureComponent {
 
     _renderDropdownItem = (item, index) => {
         return (
-            <MenuItem onPress={() => this._handlePressMenu(item)}>{item.label}</MenuItem>
+            <MenuItem onPress={() => this._handlePressMenu(item)} key={item.value}>{item.label}</MenuItem>
         )
 
     }

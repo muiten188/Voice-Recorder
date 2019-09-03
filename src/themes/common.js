@@ -13,6 +13,9 @@ export const COLORS = {
     BORDER_COLOR: '#efefef', // dddddd
     BACKGROUND_INPUT_COLOR: '#f8f8f8',
     GREEN: '#00a859',
+    LIGHT_GREEN: '#cceede',
+    BLUE: '#3394ed',
+    LIGHT_BLUE: '#c2dffa',
     PRIMARY: "rgb(4,124,215)",
     ERROR: "#ed3338",
     RED: '#ed3338',
