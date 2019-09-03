@@ -286,7 +286,7 @@ const language = {
     term_and_condition: "Điều khoản sử dụng",
     of_gigabank: "của MShop",
     agree: "Đồng ý",
-    logout: "Đăng xuất",
+    
     label_logout: "Thoát tài khoản",
     warn_logout: "Bạn muốn đăng xuất khỏi tài khoản này?",
     tenant_code: "Mã cửa hàng",
@@ -871,6 +871,7 @@ const language = {
     cancel: "Hủy",
     done_en: 'Done',
     pause: 'Tạm dừng',
+    logout: "Đăng xuất",
 }
 
 // export default language;

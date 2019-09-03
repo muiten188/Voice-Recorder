@@ -10,12 +10,15 @@ export const Point = Dimensions.get("window").width/375
 
 export const COLORS = {
     WHITE: '#ffffff',
-    BORDER_COLOR: '#efefef',
+    BORDER_COLOR: '#efefef', // dddddd
     BACKGROUND_INPUT_COLOR: '#f8f8f8',
     GREEN: '#00a859',
     PRIMARY: "rgb(4,124,215)",
     ERROR: "#ed3338",
     RED: '#ed3338',
+    DARK_GRAY: '#aaaaaa',
+    LIGHT_RED: '#fde1e1',
+    
 
     BLACK: '#000000',
     CERULEAN: 'rgb(4, 124, 215)',
@@ -27,7 +30,7 @@ export const COLORS = {
     LIGHT_BLUE: 'rgb(210, 235,255)',
     TEXT_BLUE_WHITE: "rgb(156,212,255)",
     TEXT_RECEIVABLE:"rgb(68,218,182)",
-    BACKGROUND: 'rgb(246, 246, 246)',
+    BACKGROUND: '#f5f5f5', // rgb(246, 246, 246)
     BACKGROUND2: '#eaeaea',
     BACKGROUND3: 'rgba(0, 0, 0, 0.05)',
     BACKDROP: 'rgba(0, 0, 0, 0.5)',

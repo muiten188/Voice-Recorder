@@ -1,5 +1,5 @@
 // Screens
-import Home from "~/src/screens/Home";
+
 import {
     createStackNavigator,
     createAppContainer,
@@ -9,21 +9,33 @@ import {
 import { Platform, Animated, Easing } from "react-native";
 import { COLORS } from "~/src/themes/common";
 import Drawer from '~/src/components/Drawer'
+import Home from "~/src/screens/Home";
+import Documents from '~/src/screens/Documents'
+import UserManager from '~/src/screens/UserManager'
+import Settings from '~/src/screens/Settings'
+
+
 import Login from '~/src/screens/Login'
 import Intro from '~/src/screens/Intro'
+import Record from '~/src/screens/Record'
 
 const DrawerNavigator = createDrawerNavigator(
     {
         Home: {
             screen: Home,
-            navigationOptions: () => ({
-                headerMode: "none",
-                header: null
-            })
+        },
+        Documents: {
+            screen: Documents,
+        },
+        UserManager: {
+            screen: UserManager,
+        },
+        Settings: {
+            screen: Settings,
         },
     },
     {
-        hideStatusBar: false,
+        hideStatusBar: true,
         drawerBackgroundColor: COLORS.WHITE,
         overlayColor: 'rgba(0, 0, 0, 0.5)',
         contentOptions: {
@@ -43,6 +55,14 @@ const AppNavigator = createStackNavigator(
                 header: null
             })
         },
+        Record: {
+            screen: Record,
+            navigationOptions: () => ({
+                headerMode: "none",
+                header: null
+            })
+        },
+
         Login: {
             screen: Login,
             navigationOptions: () => ({
@@ -59,7 +79,7 @@ const AppNavigator = createStackNavigator(
         },
     },
     {
-        initialRouteName: "Intro",
+        initialRouteName: "Drawer",
         headerMode: "float",
         transitionConfig: () => {
             if (Platform.OS == "android") {

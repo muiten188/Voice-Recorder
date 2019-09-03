@@ -1,5 +1,6 @@
 import View from './View'
 import Button from './Button'
+import SmallButton from './SmallButton'
 import Text, { Caption, ActionText, TextBold, Label, Title } from './Text'
 import RoundTextInput from "./RoundTextInput";
 import TouchableOpacityHitSlop from "./TouchableOpacityHitSlop";
@@ -31,7 +32,7 @@ export {
     RoundTextInput, 
     TouchableOpacityHitSlop,
     Text, Title, TextBold, Caption, ActionText,
-    BottomView, Button, 
+    BottomView, Button, SmallButton,
     Label, MultipleTagSelector,
     View,
 
