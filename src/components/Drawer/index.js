@@ -41,7 +41,7 @@ export default class Drawer extends Component {
 
     _renderDrawerItem = (item, index) => {
         return (
-            <TouchableOpacity onPress={() => this._handlePressItem(item)}>
+            <TouchableOpacity onPress={() => this._handlePressItem(item)} key={item.key}>
                 <View className='row-start ph16 pv16'>
                     <View style={{ marginRight: 20 }}>
                         <Icon name={item.icon} size={22} color={COLORS.DARK_GRAY} />

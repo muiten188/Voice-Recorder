@@ -1,181 +1,77 @@
 import React from "react";
-import commonStyle, {
-    DEVICE_WIDTH,
-    DEVICE_HEIGHT,
-    COLORS,
-    SURFACE_STYLES
-} from "~/src/themes/common";
-import {
-    Picker as PickerRN,
-    Text,
-    View,
-    TouchableOpacity,
-    Platform
-} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Modal from "react-native-modal";
-import { Button, Caption } from "react-native-paper";
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu'
+import { Text, View, TouchableOpacityHitSlop } from '~/src/themes/ThemeComponent'
+import { COLORS } from '~/src/themes/common'
+import lodash from 'lodash'
 
 export default class Picker extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            showingModal: false,
-            value:
-                props.defaultValue ||
-                (props.options && props.options.length > 0
-                    ? props.options[0].value
-                    : ""),
-            tempValue: ""
-        };
     }
 
-    componentDidMount() { }
-
-    componentWillUnmount() { }
-
-    getValue = () => {
-        return this.state.value;
+    _hideMenu = () => {
+        this._menu.hide();
     };
 
-    _handleCancel = () => {
-        this._closeModal();
-    };
+    _showMenu = () => {
+        this._menu.show();
+    }
 
-    _handleOk = () => {
-        this.setState({ value: this.state.tempValue, showingModal: false });
-    };
+    _handlePressMenu = (item) => {
+        console.log('_handlePressMenu', item)
+        const { value, onChangeValue } = this.props
+        this._hideMenu()
+        if (item.value != value) {
+            onChangeValue && onChangeValue(item.value)
+        }
 
-    _openModal = () => {
-        this.props.onPress(this.state.value);
-        this.setState({ tempValue: this.state.value, showingModal: true });
-    };
+    }
 
-    _closeModal = () => {
-        this.setState({ showingModal: false });
-    };
-
-    _renderPickerIOS = () => {
-        const { options, placeholder, label, value } = this.props;
-        const currentItem = options.find(item => item.value == this.state.value)
-        const valueDisplay = currentItem && currentItem.label ? currentItem.label : ''
+    _renderDropdownItem = (item, index) => {
         return (
-            <View>
-                {!!label && (
-                    <Caption style={{ color: "rgba(0, 0, 0, 0.54)" }}>{label}</Caption>
-                )}
-                <TouchableOpacity onPress={this._openModal}>
-                    <View
-                        style={[
-                            SURFACE_STYLES.rowSpacebetween,
-                            {
-                                paddingVertical: 8,
-                                borderBottomWidth: 1,
-                                borderColor: "rgba(0,0,0,0.54)"
-                            }
-                        ]}
-                    >
-                        <Text style={{ color: "rgba(0, 0, 0, 0.85)" }}>{valueDisplay}</Text>
-                        <Icon name={"chevron-down"} size={20} color={"gray"} />
-                    </View>
-                </TouchableOpacity>
-                <Modal
-                    isVisible={this.state.showingModal}
-                    deviceWidth={DEVICE_WIDTH}
-                    deviceHeight={DEVICE_HEIGHT}
-                    style={{
-                        margin: 0
-                    }}
-                    useNativeDriver={true}
-                >
-                    <View style={[SURFACE_STYLES.flex, SURFACE_STYLES.columnEnd]}>
-                        <View
-                            style={[
-                                SURFACE_STYLES.columnCenter,
-                                SURFACE_STYLES.white,
-                                { maxHeight: 200 }
-                            ]}
-                        >
-                            <View
-                                style={[
-                                    SURFACE_STYLES.rowSpacebetween,
-                                    {
-                                        width: DEVICE_WIDTH,
-                                        backgroundColor: COLORS.FEATURE_BACKGROUND
-                                    }
-                                ]}
-                            >
-                                <Button mode="text" onPress={this._handleCancel}>
-                                    Huỷ
-                </Button>
-                                <Button mode="text" onPress={this._handleOk}>
-                                    Đồng ý
-                </Button>
-                            </View>
-                            <PickerRN
+            <MenuItem onPress={() => this._handlePressMenu(item)}>{item.label}</MenuItem>
+        )
 
-                                selectedValue={this.state.tempValue}
-                                style={{ width: DEVICE_WIDTH }}
-                                onValueChange={(itemValue, itemIndex) => {
-                                    console.log("On Change Value", itemValue);
-                                    this.setState({ tempValue: itemValue });
-                                }}
-                            >
-                                {options.map((item, index) => (
-                                    <PickerRN.Item
-                                        label={item.label}
-                                        value={item.value}
-                                        key={item.value}
-                                    />
-                                ))}
-                            </PickerRN>
-                        </View>
-                    </View>
-                </Modal>
-            </View>
-        );
-    };
+    }
 
-    _renderPickerAndroid = () => {
-        const { options, placeholder, label } = this.props;
+    _getDisplayValue = lodash.memoize((value, options) => {
+        if (!value) return ''
+        const valueObj = options.find(item => item.value == value)
+        if (!valueObj) return ''
+        return valueObj.label
+    })
+
+    _renderTrigger = () => {
+        const { placeholder, value, options } = this.props
+        const displayValue = this._getDisplayValue(value, options)
         return (
-            <View>
-                {!!label && <Caption>{label}</Caption>}
-                <View
-                    style={{
-                        minWidth: 200,
-                        borderRadius: 2,
-                        borderWidth: 1,
-                        borderColor: "rgba(0,0,0,0.12)"
-                    }}
-                >
-                    <PickerRN
-                        selectedValue={this.state.value}
-                        onValueChange={(itemValue, itemIndex) => {
-                            this.props.onPress(itemValue);
+            <TouchableOpacityHitSlop onPress={this._showMenu}>
+                <View className='row-start'>
+                    <Text numberOfLines={1}>{displayValue || placeholder}</Text>
+                    <View style={{ marginLeft: 10 }}>
+                        <Icon name='chevron-down' size={16} color={COLORS.TEXT_BLACK} />
+                    </View>
 
-                            console.log("On Change Value", itemValue);
-                            this.setState({ value: itemValue });
-                        }}
-                        mode={"dropdown"}
-                    >
-                        {options.map((item, index) => (
-                            <PickerRN.Item
-                                label={item.label}
-                                value={item.value}
-                                key={item.value}
-                            />
-                        ))}
-                    </PickerRN>
                 </View>
-            </View>
-        );
-    };
+            </TouchableOpacityHitSlop>
+
+        )
+
+    }
 
     render() {
-        if (Platform.OS == "ios") {
-            return this._renderPickerIOS();
-        }
-        return this._renderPickerAndroid();
+        const { options, styles } = this.props
+        return (
+            <View style={styles}>
+                <Menu
+                    ref={ref => this._menu = ref}
+                    button={this._renderTrigger()}
+                >
+                    {!!options && options.map(this._renderDropdownItem)}
+                </Menu>
+            </View>
+
+        )
     }
 }

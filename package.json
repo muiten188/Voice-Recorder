@@ -36,9 +36,11 @@
         "react-native-keyboard-aware-scroll-view": "^0.8.0",
         "react-native-linear-gradient": "^2.5.3",
         "react-native-material-dropdown": "^0.11.1",
+        "react-native-material-menu": "^1.0.0",
         "react-native-material-ripple": "^0.8.0",
         "react-native-modal": "^7.0.2",
         "react-native-modal-datetime-picker": "^7.4.0",
+        "react-native-modal-dropdown": "^0.6.2",
         "react-native-paper": "^2.15.0",
         "react-native-permissions": "^1.1.1",
         "react-native-qrcode-svg": "^5.1.2",
@@ -70,14 +72,14 @@
         "@babel/runtime": "7.5.5",
         "@react-native-community/eslint-config": "0.0.3",
         "babel-jest": "24.8.0",
-        "eslint": "6.1.0",
-        "jest": "24.8.0",
-        "metro-react-native-babel-preset": "0.54.1",
-        "react-test-renderer": "16.8.6",
         "babel-plugin-root-import": "^6.1.0",
         "babel-plugin-transform-remove-console": "^6.9.4",
+        "eslint": "6.1.0",
         "eslint-config-google": "^0.11.0",
-        "jetifier": "^1.6.3"
+        "jest": "24.8.0",
+        "jetifier": "^1.6.3",
+        "metro-react-native-babel-preset": "0.54.1",
+        "react-test-renderer": "16.8.6"
     },
     "jest": {
         "preset": "react-native"
