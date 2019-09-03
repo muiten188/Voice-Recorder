@@ -69,7 +69,6 @@ const language = {
     full_time_format: 'HH:mm:ss',
     shipping: "Giao hàng",
     shipping_in_progress: "Đang giao",
-    status: "Trạng thái",
     update: "Cập nhật",
 
     // Store Screen
@@ -875,7 +874,9 @@ const language = {
     home_title: 'Home',
     document_title: 'Documents',
     user_manager_title: 'User Manager',
-    setting_title: 'Settings'
+    setting_title: 'Settings',
+    search_file_placeholder: 'Search file name',
+    status: "Trạng thái",
 }
 
 // export default language;

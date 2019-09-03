@@ -238,3 +238,22 @@ export const ROLES = {
 }
 
 export const DB_VERSION = 3
+
+export const VOICE_STATUS_LIST = [
+    {
+        id: 1,
+        name: 'Uploading'
+    },
+    {
+        id: 2,
+        name: 'Process'
+    },
+    {
+        id: 3,
+        name: 'Done'
+    },
+    {
+        id: 4,
+        name: 'Failed'
+    },
+]

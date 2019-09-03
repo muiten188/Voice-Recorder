@@ -168,6 +168,9 @@ export const viewStyles = {
     'ph8': {
         paddingHorizontal: 8,
     },
+    'ph14': {
+        paddingHorizontal: 14,
+    },
     'ph16': {
         paddingHorizontal: 16,
     },
@@ -197,6 +200,9 @@ export const viewStyles = {
     },
     'pv8': {
         paddingVertical: 8,
+    },
+    'pv10': {
+        paddingVertical: 10,
     },
     'pv16': {
         paddingVertical: 16,

@@ -8,7 +8,7 @@ import { COLORS } from './common'
 export default SearchBox = (props) => {
     const { keyword, onChangeKeyword, onClear, ...passProps } = props
     return (
-        <View className='row-start flex ph8' style={styles.textInputContainer}>
+        <View className='row-start flex ph14' style={styles.textInputContainer}>
             <Image source={require('~/src/image/search.png')} style={styles.searchIcon} />
             <TextInput
                 placeholderTextColor={COLORS.PLACEHOLDER_COLOR}
@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         backgroundColor: 'rgba(0, 0, 0, 0.05)',
-        height: 32,
-        borderRadius: 8
+        height: 40,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#e3e3e3'
     }
 })
