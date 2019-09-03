@@ -48,7 +48,7 @@ export default class Home extends Component {
                 <TouchableOpacity onPress={this._handlePressMainFloating}>
                     <View>
                         <View className='white row-center' style={styles.mainFloatingButton}>
-                            <Icon name='note-plus-outline' size={40} color={COLORS.GREEN} />
+                            <Icon name='file-document-outline' size={40} color={COLORS.GREEN} />
                         </View>
                         <View className='space12' />
                         <Text className='green center'>{I18n.t('add_new')}</Text>
@@ -88,29 +88,29 @@ export default class Home extends Component {
                     </TouchableOpacity>
                     <View style={{ width: 100 }} />
                     <TouchableOpacity onPress={this._handlePressRecord}>
-                    <View className='column-center'>
-                        <View style={styles.recordActionContainer}>
-                            <Icon name='microphone-outline' size={24} color={COLORS.GREEN} />
+                        <View className='column-center'>
+                            <View style={styles.recordActionContainer}>
+                                <Icon name='microphone-outline' size={24} color={COLORS.GREEN} />
+                            </View>
+                            <View className='space8' />
+                            <Text className='green'>{I18n.t('recording')}</Text>
                         </View>
-                        <View className='space8' />
-                        <Text className='green'>{I18n.t('recording')}</Text>
-                    </View>
                     </TouchableOpacity>
-            </View>
-
-            <View className='space32' />
-            <TouchableOpacity onPress={this._handlePressMainFloating}>
-                <View>
-                    <View className='white row-center' style={styles.mainFloatingButton}>
-                        <Icon name='note-plus-outline' size={40} color={COLORS.GREEN} />
-                    </View>
-                    <View className='space12' />
-                    <Text className='green center'>{I18n.t('add_new')}</Text>
-                    <View className='space32' />
                 </View>
-            </TouchableOpacity>
 
-            </View >
+                <View className='space32' />
+                <TouchableOpacity onPress={this._handlePressMainFloating}>
+                    <View>
+                        <View className='white row-center' style={styles.mainFloatingButton}>
+                            <Icon name='file-document-outline' size={40} color={COLORS.GREEN} />
+                        </View>
+                        <View className='space12' />
+                        <Text className='green center'>{I18n.t('add_new')}</Text>
+                        <View className='space32' />
+                    </View>
+                </TouchableOpacity>
+
+            </View>
         )
     }
 
