@@ -14,6 +14,7 @@ export default class UserManager extends Component {
         return (
             <View className="flex background">
                 <GradientToolbar
+                    leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('user_manager_title')}
                 />
                 <Text>User Manager</Text>

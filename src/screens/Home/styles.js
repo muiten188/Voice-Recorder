@@ -18,23 +18,12 @@ export default {
         width: 80,
         height: 80,
         borderRadius: 40,
-        ...getElevation(2)
     },
-    importActionContainer: {
+    actionContainer: {
         width: 50,
         height: 50,
         borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.LIGHT_BLUE
     },
-    recordActionContainer: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: COLORS.LIGHT_GREEN
-    },
-
 }

@@ -28,7 +28,7 @@ class GradientToolbar extends PureComponent {
     }
 
     render() {
-        const { title } = this.props
+        const { title, leftIcon = require('~/src/image/back.png') } = this.props
         const statusbarHeight = Platform.OS == 'android' ? StatusBar.currentHeight : (isIphoneX() ? 44 : 20)
         const height = statusbarHeight + TOOLBAR_HEIGHT
         return (
@@ -40,8 +40,8 @@ class GradientToolbar extends PureComponent {
             >
                 <View style={[styles.toolbar]}>
                     <TouchableOpacityHitSlop onPress={this._handlePressBack}>
-                        <Image source={imgBackWhite}
-                            style={styles.backImage}
+                        <Image source={leftIcon}
+                            style={styles.leftIcon}
                         />
                     </TouchableOpacityHitSlop>
                     <View style={styles.titleContainer} pointerEvents={'none'}>
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         zIndex: 0
     },
-    backImage: {
-        width: 46,
-        height: 46,
+    leftIcon: {
+        width: 24,
+        height: 24,
         zIndex: 100
     },
     rightContainer: {

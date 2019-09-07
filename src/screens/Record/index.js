@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { ImageBackground } from 'react-native'
-import { Container, View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
+import { ImageBackground, Image } from 'react-native'
+import { View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
@@ -64,6 +64,14 @@ export default class Home extends Component {
         }
     }
 
+    _handlePressStart = () => {
+        this.setState({ recording: RECORD_STATUS.RECORDING })
+    }
+
+    _handlePressPause = () => {
+        this.setState({ recording: RECORD_STATUS.NOT_START })
+    }
+
     _startRecord = () => {
         this.setState({ recording: RECORD_STATUS.RECORDING })
     }
@@ -88,56 +96,93 @@ export default class Home extends Component {
         }
     }
 
-    render() {
-        return (
-            <Container blue>
-                <View className="flex background">
-                    <ImageBackground
-                        source={require('~/src/image/bg_recording.png')}
-                        style={{ width: DEVICE_WIDTH, height: scaleHeight(499) }}
-                    >
-                        <View style={{ height: scaleHeight(120) }} />
+    _handlePressCancel = () => {
+        this.props.navigation.goBack()
+    }
+
+    _handlePressDone = () => {
+        this.props.navigation.goBack()
+    }
+
+    _renderActionBlock = () => {
+        if (this.state.recording == RECORD_STATUS.NOT_START) {
+            return (
+                <View style={styles.actionBlock}>
+                    <TouchableOpacityHitSlop onPress={this._handlePressCancel}>
+                        <View className='row-start'>
+                            <Image source={require('~/src/image/cancel.png')} style={{ width: 17, height: 17, marginRight: 4 }} />
+                            <Text className='s13 textBlack'>{I18n.t('cancel')}</Text>
+                        </View>
+                    </TouchableOpacityHitSlop>
+
+                    <TouchableOpacityHitSlop onPress={this._handlePressStart}>
                         <View className='column-center'>
-                            <Text className='white s24 bold'>Recording</Text>
-                            <View style={{ height: scaleHeight(44) }} />
-                            <Text className='white s44' style={getFontStyle('thin')}>{getRecordTimeString(this.state.recordTime)}</Text>
+                            <Image
+                                source={require('~/src/image/recording2.png')}
+                                style={styles.iconContainerCenter}
+                            />
+                            <View className='space8' />
+                            <Text className={'green s14'}>{I18n.t('start')}</Text>
                         </View>
 
-                    </ImageBackground>
-                    <View className='flex white column-end'>
-                        <View style={styles.actionBlock}>
-                            <TouchableOpacityHitSlop>
-                                <View className='row-start'>
-                                    <Icon name='delete-outline' size={24} color={COLORS.TEXT_BLACK} />
-                                    <Text className='textBlack'>{I18n.t('cancel')}</Text>
-                                </View>
-                            </TouchableOpacityHitSlop>
+                    </TouchableOpacityHitSlop>
+                    <View className='row-start' style={{ opacity: 0 }}>
+                        <Image source={require('~/src/image/done.png')} style={{ width: 15, height: 15, marginRight: 6 }} />
+                        <Text className='s13 green'>{I18n.t('done_en')}</Text>
+                    </View>
+                </View>
+            )
+        }
+        return (
+            <View style={styles.actionBlock}>
+                <TouchableOpacityHitSlop onPress={this._handlePressCancel}>
+                    <View className='row-start'>
+                        <Image source={require('~/src/image/cancel.png')} style={{ width: 17, height: 17, marginRight: 4 }} />
+                        <Text className='s13 textBlack'>{I18n.t('cancel')}</Text>
+                    </View>
+                </TouchableOpacityHitSlop>
 
-                            <TouchableOpacityHitSlop onPress={this._handlePressCenterButton}>
-                                <View className='column-center'>
-                                    <View style={styles.iconContainerCenter}>
-                                        <Icon
-                                            color={COLORS.WHITE}
-                                            size={36}
-                                            name={(this.state.recording == RECORD_STATUS.NOT_START) ? 'microphone' : 'pause'}
-                                        />
-                                    </View>
-                                    <View className='space16' />
-                                    <Text className='error s14'>{I18n.t('pause')}</Text>
-                                </View>
-
-                            </TouchableOpacityHitSlop>
-                            <TouchableOpacityHitSlop onPress={this._handlePressRightButton}>
-                                <View className='row-start'>
-                                    <Icon name='stop' size={28} color={COLORS.GREEN} />
-                                    <Text className='green'>{I18n.t('done_en')}</Text>
-                                </View>
-                            </TouchableOpacityHitSlop>
-                        </View>
+                <TouchableOpacityHitSlop onPress={this._handlePressPause}>
+                    <View className='column-center'>
+                        <Image source={require('~/src/image/pause.png')}
+                            style={styles.iconContainerCenter}
+                        />
+                        <View className='space8' />
+                        <Text className='error s14'>{I18n.t('pause')}</Text>
                     </View>
 
+                </TouchableOpacityHitSlop>
+                <TouchableOpacityHitSlop onPress={this._handlePressDone}>
+                    <View className='row-start'>
+                        <Image source={require('~/src/image/done.png')} style={{ width: 15, height: 15, marginRight: 6 }} />
+                        <Text className='s13 green'>{I18n.t('done_en')}</Text>
+                    </View>
+                </TouchableOpacityHitSlop>
+            </View>
+        )
+
+    }
+
+    render() {
+        return (
+            <View className="flex background">
+                <ImageBackground
+                    source={require('~/src/image/bg_recording.png')}
+                    style={{ width: DEVICE_WIDTH, height: scaleHeight(499) }}
+                    resizeMode={'cover'}
+                >
+                    <View style={{ height: scaleHeight(120) }} />
+                    <View className='column-center'>
+                        <Text className='white s24 bold'>Recording</Text>
+                        <View style={{ height: scaleHeight(44) }} />
+                        <Text className='white s44' style={getFontStyle('thin')}>{getRecordTimeString(this.state.recordTime)}</Text>
+                    </View>
+
+                </ImageBackground>
+                <View className='flex white column-end'>
+                    {this._renderActionBlock()}
                 </View>
-            </Container>
+            </View>
         );
     }
 }

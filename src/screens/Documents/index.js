@@ -14,6 +14,7 @@ export default class Documents extends Component {
         return (
             <View className="flex background">
                 <GradientToolbar
+                    leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('document_title')}
                 />
                 <Text>Documents</Text>

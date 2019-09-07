@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Image } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { VOICE_STATUS_LIST } from '~/src/constants'
 import Picker from '~/src/components/Picker'
-import { getElevation } from '~/src/utils'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS } from "~/src/themes/common";
 import styles from './styles'
@@ -47,10 +46,11 @@ export default class Home extends Component {
             <View className='bottom transparent column-center'>
                 <TouchableOpacity onPress={this._handlePressMainFloating}>
                     <View>
-                        <View className='white row-center' style={styles.mainFloatingButton}>
-                            <Icon name='file-document-outline' size={40} color={COLORS.GREEN} />
-                        </View>
-                        <View className='space12' />
+                        <Image
+                            source={require('~/src/image/add_new.png')}
+                            style={styles.mainFloatingButton}
+                        />
+                        <View className='space8' />
                         <Text className='green center'>{I18n.t('add_new')}</Text>
                         <View className='space32' />
                     </View>
@@ -66,6 +66,7 @@ export default class Home extends Component {
 
     _handlePressRecord = () => {
         this._toggleOverlay()
+        this.props.navigation.navigate('Record')
     }
 
 
@@ -79,9 +80,9 @@ export default class Home extends Component {
                 <View className='row-center'>
                     <TouchableOpacity onPress={this._handlePressImport}>
                         <View className='column-center'>
-                            <View style={styles.importActionContainer}>
-                                <Icon name='cloud-download-outline' size={24} color={COLORS.BLUE} />
-                            </View>
+                            <Image source={require('~/src/image/import.png')}
+                                style={styles.actionContainer}
+                            />
                             <View className='space8' />
                             <Text className='blue'>{I18n.t('import')}</Text>
                         </View>
@@ -89,9 +90,9 @@ export default class Home extends Component {
                     <View style={{ width: 100 }} />
                     <TouchableOpacity onPress={this._handlePressRecord}>
                         <View className='column-center'>
-                            <View style={styles.recordActionContainer}>
-                                <Icon name='microphone-outline' size={24} color={COLORS.GREEN} />
-                            </View>
+                            <Image source={require('~/src/image/recording.png')}
+                                style={styles.actionContainer}
+                            />
                             <View className='space8' />
                             <Text className='green'>{I18n.t('recording')}</Text>
                         </View>
@@ -101,10 +102,11 @@ export default class Home extends Component {
                 <View className='space32' />
                 <TouchableOpacity onPress={this._handlePressMainFloating}>
                     <View>
-                        <View className='white row-center' style={styles.mainFloatingButton}>
-                            <Icon name='file-document-outline' size={40} color={COLORS.GREEN} />
-                        </View>
-                        <View className='space12' />
+                        <Image
+                            source={require('~/src/image/add_new.png')}
+                            style={styles.mainFloatingButton}
+                        />
+                        <View className='space8' />
                         <Text className='green center'>{I18n.t('add_new')}</Text>
                         <View className='space32' />
                     </View>
@@ -121,6 +123,7 @@ export default class Home extends Component {
             <View className="flex background">
                 {this._renderFloatingOverlay()}
                 <GradientToolbar
+                    leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('home_title')}
                 />
                 <View className='ph16 pv10'>

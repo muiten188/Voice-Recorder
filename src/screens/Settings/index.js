@@ -13,12 +13,13 @@ export default class Settings extends Component {
     render() {
         return (
 
-                <View className="flex background">
-                    <GradientToolbar 
-                        title={I18n.t('setting_title')}
-                    />
-                    <Text>Settings</Text>
-                </View>
+            <View className="flex background">
+                <GradientToolbar
+                    leftIcon={require('~/src/image/menu.png')}
+                    title={I18n.t('setting_title')}
+                />
+                <Text>Settings</Text>
+            </View>
 
         );
     }
