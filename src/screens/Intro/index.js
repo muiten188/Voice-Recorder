@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import {
     Image,
     ImageBackground,
-    FlatList,
-    TouchableOpacity,
-    ScrollView
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import Carousel from "react-native-snap-carousel";
 import styles from "./styles";
-import intro1 from "~/src/image/intro/intro1.png";
-import intro2 from "~/src/image/intro/intro2.png";
-import intro3 from "~/src/image/intro/intro3.png";
 import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from "~/src/themes/common";
 import { Text, View, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
 import I18n from "~/src/I18n";

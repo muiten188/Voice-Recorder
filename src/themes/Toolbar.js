@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { COLORS } from '~/src/themes/common'
 import { withNavigation } from 'react-navigation'
-import imgBackWhite from '~/src/image/imgBackWhite.png'
+import imgBackWhite from '~/src/image/back.png'
 import Text, { Title, ActionText } from './Text'
 
 class Toolbar extends PureComponent {
@@ -33,7 +33,7 @@ class Toolbar extends PureComponent {
             <View style={[styles.container, { backgroundColor: blue ? COLORS.PRIMARY : COLORS.WHITE }]}>
                 <View style={[styles.toolbar, { backgroundColor: blue ? COLORS.PRIMARY : COLORS.WHITE }]}>
                     <TouchableOpacity onPress={this._handlePressBack}>
-                        <Image source={blue ? imgBackWhite : require('~/src/image/arrow_left.png')}
+                        <Image source={blue ? imgBackWhite : require('~/src/image/back.png')}
                             style={styles.backImage}
                         />
                     </TouchableOpacity>

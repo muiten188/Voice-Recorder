@@ -3,7 +3,7 @@ import { Image, StyleSheet, View, StatusBar, Platform } from 'react-native'
 import { Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
 import { COLORS } from '~/src/themes/common'
 import { withNavigation } from 'react-navigation'
-import imgBackWhite from '~/src/image/imgBackWhite.png'
+import imgBackWhite from '~/src/image/back.png'
 import LinearGradient from 'react-native-linear-gradient'
 const TOOLBAR_HEIGHT = 44
 import { isIphoneX } from 'react-native-iphone-x-helper'
