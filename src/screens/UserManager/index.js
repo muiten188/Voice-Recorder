@@ -9,6 +9,10 @@ export default class UserManager extends Component {
         }
     }
 
+    _handlePressLeftMenu = () => {
+        this.props.navigation.openDrawer()
+    }
+
 
     render() {
         return (
@@ -16,6 +20,7 @@ export default class UserManager extends Component {
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('user_manager_title')}
+                    onPressLeft={this._handlePressLeftMenu}
                 />
                 <Text>User Manager</Text>
 

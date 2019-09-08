@@ -9,6 +9,10 @@ export default class Settings extends Component {
         }
     }
 
+    _handlePressLeftMenu = () => {
+        this.props.navigation.openDrawer()
+    }
+
 
     render() {
         return (
@@ -17,6 +21,7 @@ export default class Settings extends Component {
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('setting_title')}
+                    onPressLeft={this._handlePressLeftMenu}
                 />
                 <Text>Settings</Text>
             </View>

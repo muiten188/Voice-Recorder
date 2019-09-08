@@ -74,9 +74,6 @@ export default class Home extends Component {
         if (!this.state.showingFloatingOverlay) return <View />
         return (
             <View style={styles.floatingOverlay}>
-
-
-
                 <View className='row-center'>
                     <TouchableOpacity onPress={this._handlePressImport}>
                         <View className='column-center'>
@@ -116,6 +113,9 @@ export default class Home extends Component {
         )
     }
 
+    _handlePressLeftMenu = () => {
+        this.props.navigation.openDrawer()
+    }
 
 
     render() {
@@ -124,6 +124,7 @@ export default class Home extends Component {
                 {this._renderFloatingOverlay()}
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
+                    onPressLeft={this._handlePressLeftMenu}
                     title={I18n.t('home_title')}
                 />
                 <View className='ph16 pv10'>

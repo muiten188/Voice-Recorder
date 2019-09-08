@@ -9,11 +9,16 @@ export default class Documents extends Component {
         }
     }
 
+    _handlePressLeftMenu = () => {
+        this.props.navigation.openDrawer()
+    }
+
 
     render() {
         return (
             <View className="flex background">
                 <GradientToolbar
+                    onPressLeft={this._handlePressLeftMenu}
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('document_title')}
                 />

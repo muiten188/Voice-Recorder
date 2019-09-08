@@ -13,7 +13,7 @@ class GradientToolbar extends PureComponent {
         super(props)
     }
 
-    _handlePressBack = () => {
+    _handlePressLeft = () => {
         const { onPressLeft } = this.props
         if (onPressLeft) {
             onPressLeft()
@@ -39,7 +39,7 @@ class GradientToolbar extends PureComponent {
                 end={{ x: 1, y: 0 }}
             >
                 <View style={[styles.toolbar]}>
-                    <TouchableOpacityHitSlop onPress={this._handlePressBack}>
+                    <TouchableOpacityHitSlop onPress={this._handlePressLeft}>
                         <Image source={leftIcon}
                             style={styles.leftIcon}
                         />
