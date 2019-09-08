@@ -15,9 +15,10 @@ import Container from './Container'
 import TextInputBase from './TextInputBase'
 import SingleRowInput from './SingleRowInput'
 import SearchBox from './SearchBox'
+import TextInput from './TextInput'
 
 export {
-    RoundTextInput,
+    RoundTextInput, TextInput,
     TouchableOpacityHitSlop,
     Text, Title, TextBold, Caption, ActionText,
     BottomView, Button, SmallButton,
@@ -28,6 +29,7 @@ export {
     PopupConfirm, Checkbox,
     Container, TextInputBase,
     SingleRowInput,
-    SearchBox
+    SearchBox,
+    
 }
 

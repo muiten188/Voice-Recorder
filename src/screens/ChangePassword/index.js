@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Image } from 'react-native'
-import { View, Text, SmallButton, TouchableOpacityHitSlop, TextInputBase as TextInput } from "~/src/themes/ThemeComponent";
+import { View, Text, SmallButton, TouchableOpacityHitSlop, TextInput } from "~/src/themes/ThemeComponent";
 import FastImage from 'react-native-fast-image'
 import I18n from '~/src/I18n'
 import styles from './styles'
@@ -56,30 +56,27 @@ export default class MyAccount extends Component {
                 <View>
                     <View className='space10' />
                     <View className='ph16 pv12'>
-                        <Text className='s13 textBlack bold'>{I18n.t('password')}</Text>
                         <TextInput
+                            label={I18n.t('password')}
                             value={this.state.password}
                             onChangeText={text => this.setState({ password: text })}
                             secureTextEntry={true}
-                            style={styles.textInput}
                         />
                     </View>
                     <View className='ph16 pv12'>
-                        <Text className='s13 textBlack bold'>{I18n.t('new_password')}</Text>
                         <TextInput
+                            label={I18n.t('new_password')}
                             value={this.state.newPassword}
                             onChangeText={text => this.setState({ newPassword: text })}
                             secureTextEntry={true}
-                            style={styles.textInput}
                         />
                     </View>
                     <View className='ph16 pv12'>
-                        <Text className='s13 textBlack bold'>{I18n.t('verify')}</Text>
                         <TextInput
+                            label={I18n.t('verify')}
                             value={this.state.code}
                             onChangeText={text => this.setState({ code: text })}
                             keyboardType={'number-pad'}
-                            style={styles.textInput}
                         />
                     </View>
                     <View className='space100' />
