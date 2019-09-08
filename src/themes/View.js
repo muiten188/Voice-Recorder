@@ -165,6 +165,10 @@ export const viewStyles = {
         width: '100%',
         height: 120,
     },
+    'space150': {
+        width: '100%',
+        height: 150,
+    },
     'ph8': {
         paddingHorizontal: 8,
     },

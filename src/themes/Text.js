@@ -8,7 +8,7 @@ export const textStyles = {
     default: {
         // fontFamily: 'SFProText-Regular',
         color: COLORS.BLACK,
-        fontSize: 14,
+        fontSize: 13,
         includeFontPadding: false,
         textAlignVertical: 'center',
         // letterSpacing: -0.2,
