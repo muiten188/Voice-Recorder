@@ -9,9 +9,10 @@ const getBackgroundColor = (props) => {
         return '#dcdcdc'
     } else if (props.red) {
         return COLORS.LIGHT_RED
-    } else {
-        return COLORS.GREEN
+    } else if (props.green){
+        return COLORS.LIGHT_GREEN
     }
+    return COLORS.GREEN
 }
 
 const getTextColor = (props) => {
@@ -19,9 +20,10 @@ const getTextColor = (props) => {
         return COLORS.TEXT_GRAY
     } else if (props.red) {
         return COLORS.RED
-    } else {
-        return COLORS.WHITE
+    } else if (props.green){
+        return COLORS.GREEN
     }
+    return COLORS.WHITE
 }
 
 ButtonView = styled.TouchableOpacity`

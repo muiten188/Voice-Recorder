@@ -28,7 +28,9 @@ const language = {
     mail: 'Mail',
     position: 'Position',
     change_password: 'Change password',
-
+    confirm: 'Xác nhận',
+    new_password: 'Mật khẩu mới',
+    verify: 'Xác thực',
 }
 
 // export default language;

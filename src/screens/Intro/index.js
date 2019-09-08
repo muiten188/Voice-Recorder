@@ -14,6 +14,11 @@ import { scaleHeight } from '~/src/utils'
 import { StackActions, NavigationActions } from "react-navigation";
 
 export default class Intro extends Component {
+    static navigationOptions = {
+        headerMode: "none",
+        header: null
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -24,6 +29,7 @@ export default class Intro extends Component {
             { id: 2, title: 'WELCOME2', content: I18n.t('text_intro_2') }
         ]
     }
+
     _renderItem = ({ item, index }) => {
         return (
             <View>

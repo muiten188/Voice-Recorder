@@ -21,6 +21,11 @@ import lodash from 'lodash'
 
 class Login extends Component {
 
+    static navigationOptions = {
+        headerMode: "none",
+        header: null
+    }
+    
     constructor(props) {
         super(props);
         this.state = {

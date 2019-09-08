@@ -20,6 +20,7 @@ import Login from '~/src/screens/Login'
 import Intro from '~/src/screens/Intro'
 import Record from '~/src/screens/Record'
 import MyAccount from '~/src/screens/MyAccount'
+import ChangePassword from '~/src/screens/ChangePassword'
 
 
 const DrawerNavigator = createDrawerNavigator(
@@ -58,27 +59,11 @@ const AppNavigator = createStackNavigator(
                 header: null
             })
         },
-        Record: {
-            screen: Record,
-        },
-
-        Login: {
-            screen: Login,
-            navigationOptions: () => ({
-                headerMode: "none",
-                header: null
-            })
-        },
-        Intro: {
-            screen: Intro,
-            navigationOptions: () => ({
-                headerMode: "none",
-                header: null
-            })
-        },
-        MyAccount: {
-            screen: MyAccount
-        }
+        Record,
+        Login,
+        Intro,
+        MyAccount,
+        ChangePassword,
     },
     {
         initialRouteName: "Drawer",
