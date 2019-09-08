@@ -17,7 +17,13 @@ const RECORD_STATUS = {
     STOPPED: 'STOPPED'
 }
 
-export default class Home extends Component {
+export default class Record extends Component {
+
+    static navigationOptions = {
+        headerMode: "none",
+        header: null
+    }
+
     constructor(props) {
         super(props);
         // started / paused / stopped / recording

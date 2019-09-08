@@ -1,12 +1,13 @@
 import React, { PureComponent } from "react";
 import { Image, StyleSheet, View, StatusBar, Platform } from 'react-native'
 import { Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
-import { COLORS } from '~/src/themes/common'
+import { STATUSBAR_HEIGHT } from '~/src/themes/common'
 import { withNavigation } from 'react-navigation'
-import imgBackWhite from '~/src/image/back.png'
 import LinearGradient from 'react-native-linear-gradient'
+import { COLORS } from "./common";
+import FastImage from "react-native-fast-image";
 const TOOLBAR_HEIGHT = 44
-import { isIphoneX } from 'react-native-iphone-x-helper'
+
 
 class GradientToolbar extends PureComponent {
     constructor(props) {
@@ -28,9 +29,8 @@ class GradientToolbar extends PureComponent {
     }
 
     render() {
-        const { title, leftIcon = require('~/src/image/back.png') } = this.props
-        const statusbarHeight = Platform.OS == 'android' ? StatusBar.currentHeight : (isIphoneX() ? 44 : 20)
-        const height = statusbarHeight + TOOLBAR_HEIGHT
+        const { title, leftIcon = require('~/src/image/back.png'), avatar } = this.props
+        const height = STATUSBAR_HEIGHT + TOOLBAR_HEIGHT
         return (
             <LinearGradient
                 colors={['#d63e3b', '#209955']}
@@ -47,6 +47,14 @@ class GradientToolbar extends PureComponent {
                     <View style={styles.titleContainer} pointerEvents={'none'}>
                         <Text className='title white'>{title}</Text>
                     </View>
+                    {!!avatar &&
+                        <View style={styles.rightContainer}>
+                            <FastImage
+                                source={{ uri: avatar }}
+                                style={styles.avatar}
+                            />
+                        </View>
+                    }
                 </View>
             </LinearGradient>
         )
@@ -87,9 +95,16 @@ const styles = StyleSheet.create({
         height: 24,
         zIndex: 100
     },
+    avatar: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        borderColor: COLORS.WHITE,
+        borderWidth: 2,
+    },
     rightContainer: {
         position: 'absolute',
-        right: 16
+        right: 12
     },
     rightText: {
         fontSize: 13

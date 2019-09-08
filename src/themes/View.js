@@ -1,8 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
 import { COLORS } from './common'
+import { STATUSBAR_HEIGHT } from '~/src/themes/common'
 
 export const viewStyles = {
+    'statusbar': {
+        height: STATUSBAR_HEIGHT
+    },
+
     'row-start': {
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -234,6 +239,12 @@ export const viewStyles = {
     },
     'background': {
         backgroundColor: COLORS.BACKGROUND,
+    },
+    mb4: {
+        marginBottom: 4
+    },
+    'mb6': {
+        marginBottom: 6,
     },
     'mb8': {
         marginBottom: 8,

@@ -126,6 +126,7 @@ export default class Home extends Component {
                     leftIcon={require('~/src/image/menu.png')}
                     onPressLeft={this._handlePressLeftMenu}
                     title={I18n.t('home_title')}
+                    avatar='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85'
                 />
                 <View className='ph16 pv10'>
                     <View className='row-start'>

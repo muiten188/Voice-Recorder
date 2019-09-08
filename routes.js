@@ -8,16 +8,19 @@ import {
 
 import { Platform, Animated, Easing } from "react-native";
 import { COLORS } from "~/src/themes/common";
+
+// Drawer screens
 import Drawer from '~/src/components/Drawer'
 import Home from "~/src/screens/Home";
 import Documents from '~/src/screens/Documents'
 import UserManager from '~/src/screens/UserManager'
 import Settings from '~/src/screens/Settings'
-
-
+// Stack screens
 import Login from '~/src/screens/Login'
 import Intro from '~/src/screens/Intro'
 import Record from '~/src/screens/Record'
+import MyAccount from '~/src/screens/MyAccount'
+
 
 const DrawerNavigator = createDrawerNavigator(
     {
@@ -57,10 +60,6 @@ const AppNavigator = createStackNavigator(
         },
         Record: {
             screen: Record,
-            navigationOptions: () => ({
-                headerMode: "none",
-                header: null
-            })
         },
 
         Login: {
@@ -77,6 +76,9 @@ const AppNavigator = createStackNavigator(
                 header: null
             })
         },
+        MyAccount: {
+            screen: MyAccount
+        }
     },
     {
         initialRouteName: "Drawer",

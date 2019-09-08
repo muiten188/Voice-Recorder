@@ -53,7 +53,7 @@ export default class UserManager extends Component {
                 />
                 <View className='row-start flex border-bottom pv16'>
                     <View className='flex'>
-                        <Text className='textBlack bold mb8'>{item.name}</Text>
+                        <Text className='textBlack bold mb8 s14'>{item.name}</Text>
                         <Text className='gray mb8'>Username: {item.username}</Text>
                         <Text className={item.status == 0 ? 'error s13' : 'green s13'}>{item.status == 0 ? 'Deactive' : 'Active'}</Text>
                     </View>
@@ -74,6 +74,7 @@ export default class UserManager extends Component {
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('user_manager_title')}
                     onPressLeft={this._handlePressLeftMenu}
+                    avatar='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85'
                 />
                 <FlatList
                     data={users}

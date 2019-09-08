@@ -21,6 +21,7 @@ export default class Documents extends Component {
                     onPressLeft={this._handlePressLeftMenu}
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('document_title')}
+                    avatar='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85'
                 />
                 <Text>Documents</Text>
 

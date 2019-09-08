@@ -57,18 +57,25 @@ export default class Drawer extends Component {
 
     }
 
+    _handlePressAccountInfo = () => {
+        this.props.navigation.closeDrawer()
+        this.props.navigation.navigate('MyAccount')
+    }
+
     render() {
         return (
             <View>
-                <View className='row-start ph16 border-bottom background' style={styles.infoContainer}>
-                    <Image source={{ uri: 'https://dsdigitaladvertisingdda.com/wp-content/uploads/2017/07/client.png' }}
-                        style={styles.avatar}
-                    />
-                    <View>
-                        <Text className='textBlack s16 bold mb10'>Hải Vũ</Text>
-                        <Text className='gray'>vu.longhai93@gmail.com</Text>
+                <TouchableOpacity onPress={this._handlePressAccountInfo}>
+                    <View className='row-start ph16 border-bottom background' style={styles.infoContainer}>
+                        <Image source={{ uri: 'https://dsdigitaladvertisingdda.com/wp-content/uploads/2017/07/client.png' }}
+                            style={styles.avatar}
+                        />
+                        <View>
+                            <Text className='textBlack s16 bold mb10'>Hải Vũ</Text>
+                            <Text className='gray'>vu.longhai93@gmail.com</Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View>
                     <View className='space16' />
                     {DRAWER_MENUS.map(this._renderDrawerItem)}
