@@ -31,12 +31,25 @@ export default {
         height: 24
     },
     actionIcon: {
-        width: 64, 
+        width: 64,
         height: 64,
         borderRadius: 32
     },
     actionContainer: {
         top: -30,
         zIndex: 1000
+    },
+    fieldIcon: {
+        width: 23,
+        height: 18,
+        marginRight: 24
+    },
+    fieldIcon2: {
+        width: 20,
+        height: 23,
+        marginRight: 24
+    },
+    infoBlock: {
+        top: -40
     }
 }
