@@ -6,8 +6,6 @@ import { VOICE_STATUS_LIST } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import styles from './styles'
 import records from './data'
-import moment from 'moment'
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 import VoiceItem from '~/src/components/VoiceItem'
 
 export default class Home extends Component {

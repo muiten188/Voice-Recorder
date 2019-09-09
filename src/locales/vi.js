@@ -41,7 +41,8 @@ const language = {
     process_waiting: 'Đang chờ',
     process_init: 'Mới khởi tạo',
     delete_audio_confirm_title: 'Bạn có chắc chắn muốn xoá tệp',
-    delete_audio: 'Xoá Audio'
+    delete_audio: 'Xoá Audio',
+    edit_by: 'Chỉnh sửa bởi'
 }
 
 // export default language;
