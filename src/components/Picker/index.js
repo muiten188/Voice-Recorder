@@ -1,6 +1,6 @@
 import React from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu'
+import { Image } from 'react-native'
+import Menu, { MenuItem } from 'react-native-material-menu'
 import { Text, View, TouchableOpacityHitSlop } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import lodash from 'lodash'
@@ -30,10 +30,10 @@ export default class Picker extends React.PureComponent {
 
     _renderDropdownItem = (item, index) => {
         return (
-            <MenuItem 
-                onPress={() => this._handlePressMenu(item)} 
+            <MenuItem
+                onPress={() => this._handlePressMenu(item)}
                 key={item.value}
-                textStyle={{color: COLORS.TEXT_BLACK}}
+                textStyle={{ color: COLORS.TEXT_BLACK }}
             >{item.label}</MenuItem>
         )
 
@@ -54,7 +54,8 @@ export default class Picker extends React.PureComponent {
                 <View className='row-start'>
                     <Text numberOfLines={1}>{displayValue || placeholder}</Text>
                     <View style={{ marginLeft: 10 }}>
-                        <Icon name='chevron-down' size={16} color={COLORS.TEXT_BLACK} />
+                        {/* <Icon name='chevron-down' size={16} color={COLORS.TEXT_BLACK} /> */}
+                        <Image source={require('~/src/image/dropdown.png')} style={{ width: 8, height: 4 }} />
                     </View>
 
                 </View>

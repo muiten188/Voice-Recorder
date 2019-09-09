@@ -22,6 +22,10 @@ export const COLORS = {
     RED: '#ed3338',
     DARK_GRAY: '#aaaaaa',
     LIGHT_RED: '#fde1e1',
+    ORANGE: '#f99928',
+    BACKGROUND: '#f5f5f5', // rgb(246, 246, 246)
+    BACKGROUND2: '#eaeaea',
+    BACKGROUND3: 'rgba(0, 0, 0, 0.05)',
     
 
     BLACK: '#000000',
@@ -31,12 +35,8 @@ export const COLORS = {
     BORDER_COLOR2: '#f2f2f2',
     DISABLE_BUTTON: 'rgb(220,220,220)',
     PLACEHOLDER_COLOR: 'rgba(0, 0, 0, 0.25)',
-    LIGHT_BLUE: 'rgb(210, 235,255)',
     TEXT_BLUE_WHITE: "rgb(156,212,255)",
     TEXT_RECEIVABLE:"rgb(68,218,182)",
-    BACKGROUND: '#f5f5f5', // rgb(246, 246, 246)
-    BACKGROUND2: '#eaeaea',
-    BACKGROUND3: 'rgba(0, 0, 0, 0.05)',
     BACKDROP: 'rgba(0, 0, 0, 0.5)',
     GREENISHTEAL: 'rgb(52, 196, 124)',
     ERROR_RED: 'rgb(224, 32, 32)',
@@ -44,37 +44,9 @@ export const COLORS = {
     BABY_BLUE: 'rgba(156, 212, 255, 0.1)',
     PALE_LILAC: 'rgb(234, 234, 235)',
     INDICATOR: "rgba(255,255,255,0.4)",
-
-
-
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.85)',
     BLUE_SKIP: "rgb(52,153,229)",
     
-    
-    // BLUE: 'rgba(17, 120, 189, 1)',
-    // BLUE_OPACITY: 'rgba(17, 120, 189, 0.5)',
-    // DARK_BLUE: 'rgba(7, 82, 133, 1)',
-    // LIGHT_BLUE: '#D7E8F8',
-    // LIGHT_BLUE2: '#a0c4e5',
-    // TRANSPARENT: 'transparent',
-    // BLACK: '#000000',
-    // GRAY: '#EAEAEC',
-    // DARK_GRAY: '#919699',
-    // LIGHT_GRAY: '#F2F2F2',
-    FEATURE_BACKGROUND: "rgb(246, 246, 246)",
-    // YELLOW: '#FDAE44',
-    // RIPPLE: 'rgba(0, 0, 0, 0.12)',
-    // TEXT_GRAY: 'rgba(0, 0, 0, 0.3)',
-    // TEXT_GRAY_MIDDLE: 'rgba(0, 0, 0, 0.6)',
-    // TEXT_BLACK: 'rgba(0, 0, 0, 0.)',
-    // STATUS_BAR: '#0255A1',
-    // WARNING: '#FFC107',
-    // RED: 'red',
-    // RED2: 'rgb(255, 51, 51)',
-    // LIGHT_RED: 'rgba(255, 153, 153, 1)',
-    ORANGE: "rgb(250, 100, 0)",
-    LIGHT_ORANGE: "rgb(247,181,0)",
-    LIGHT_ORANGE2:"rgb(255,227,209)"
 };
 
 export const SURFACE_STYLES = {

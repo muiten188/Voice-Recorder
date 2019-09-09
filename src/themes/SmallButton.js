@@ -9,8 +9,10 @@ const getBackgroundColor = (props) => {
         return '#dcdcdc'
     } else if (props.red) {
         return COLORS.LIGHT_RED
-    } else if (props.green){
+    } else if (props.green) {
         return COLORS.LIGHT_GREEN
+    } else if (props.gray) {
+        return '#e9e9e9'
     }
     return COLORS.GREEN
 }
@@ -20,8 +22,10 @@ const getTextColor = (props) => {
         return COLORS.TEXT_GRAY
     } else if (props.red) {
         return COLORS.RED
-    } else if (props.green){
+    } else if (props.green) {
         return COLORS.GREEN
+    } else if (props.gray) {
+        return '#808080'
     }
     return COLORS.WHITE
 }
@@ -43,8 +47,8 @@ ButtonText = styled(Text)`
 
 
 export default ActiveButton = (props) => {
-    const { disabled, red, green, children, ...passProps } = props
-    const tags = { disabled, red, green }
+    const { disabled, red, green, gray, children, ...passProps } = props
+    const tags = { disabled, red, green, gray }
     return (
         <ButtonView
             {...tags}

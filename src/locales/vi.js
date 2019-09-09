@@ -31,6 +31,17 @@ const language = {
     confirm: 'Xác nhận',
     new_password: 'Mật khẩu mới',
     verify: 'Xác thực',
+    full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
+    agree: 'Đồng ý',
+
+    processing: 'Đang xử lý',
+    process_done: 'Xử lý xong',
+    process_queuing: 'Đưa vào hàng chờ',
+    process_failed: 'Failed',
+    process_waiting: 'Đang chờ',
+    process_init: 'Mới khởi tạo',
+    delete_audio_confirm_title: 'Bạn có chắc chắn muốn xoá tệp',
+    delete_audio: 'Xoá Audio'
 }
 
 // export default language;

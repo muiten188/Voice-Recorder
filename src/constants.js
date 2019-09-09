@@ -239,6 +239,16 @@ export const ROLES = {
 
 export const DB_VERSION = 3
 
+export const VOICE_STATUS = {
+    
+    WAITING: 1,
+    QUEUING: 2,
+    PROCESSING: 3,
+    DONE: 4,
+    FAILED: 5,
+    INITIAL: 6,
+}
+
 export const VOICE_STATUS_LIST = [
     {
         id: 1,

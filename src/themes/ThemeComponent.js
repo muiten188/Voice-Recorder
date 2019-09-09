@@ -16,6 +16,7 @@ import TextInputBase from './TextInputBase'
 import SingleRowInput from './SingleRowInput'
 import SearchBox from './SearchBox'
 import TextInput from './TextInput'
+import PopupConfirmDelete from './PopupConfirmDelete'
 
 export {
     RoundTextInput, TextInput,
@@ -30,6 +31,6 @@ export {
     Container, TextInputBase,
     SingleRowInput,
     SearchBox,
-    
+    PopupConfirmDelete
 }
 

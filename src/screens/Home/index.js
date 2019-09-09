@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { TouchableOpacity, Image } from 'react-native'
-import { View, Text, GradientToolbar, SearchBox } from "~/src/themes/ThemeComponent"
+import { TouchableOpacity, Image, FlatList, Animated } from 'react-native'
+import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { VOICE_STATUS_LIST } from '~/src/constants'
 import Picker from '~/src/components/Picker'
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { COLORS } from "~/src/themes/common";
 import styles from './styles'
+import records from './data'
+import moment from 'moment'
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import VoiceItem from '~/src/components/VoiceItem'
 
 export default class Home extends Component {
     constructor(props) {
@@ -14,7 +16,8 @@ export default class Home extends Component {
         this.state = {
             keyword: '',
             statusFilter: '',
-            showingFloatingOverlay: false
+            showingFloatingOverlay: false,
+            popupDeleteContent: ''
         }
     }
 
@@ -69,6 +72,29 @@ export default class Home extends Component {
         this.props.navigation.navigate('Record')
     }
 
+    _handlePressInfo = (record) => {
+        console.log('_handlePressInfo', record)
+    }
+
+    _handlePressDelete = (record) => {
+        console.log('_handlePressDelete', record)
+        this.setState({ popupDeleteContent: record.name }, () => {
+            this.popupConfirmDelete && this.popupConfirmDelete.open()
+        })
+
+    }
+
+
+    _renderRecordItem = ({ item, index }) => {
+        return (
+            <VoiceItem
+                data={item}
+                onPressInfo={() => this._handlePressInfo(item)}
+                onPressDelete={() => this._handlePressDelete(item)}
+            />
+        )
+    }
+
 
     _renderFloatingOverlay = () => {
         if (!this.state.showingFloatingOverlay) return <View />
@@ -120,8 +146,14 @@ export default class Home extends Component {
 
     render() {
         return (
-            <View className="flex background">
+            <View className="flex white">
                 {this._renderFloatingOverlay()}
+                <PopupConfirmDelete
+                    ref={ref => this.popupConfirmDelete = ref}
+                    title={I18n.t('delete_audio_confirm_title')}
+                    content={this.state.popupDeleteContent}
+                    positiveText={I18n.t('delete_audio')}
+                />
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
                     onPressLeft={this._handlePressLeftMenu}
@@ -151,8 +183,11 @@ export default class Home extends Component {
 
                 </View>
                 {this._renderMainFloatingButton()}
-
-
+                <FlatList
+                    data={records}
+                    keyExtractor={item => item.id + ''}
+                    renderItem={this._renderRecordItem}
+                />
             </View>
         )
     }
