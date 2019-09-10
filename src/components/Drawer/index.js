@@ -57,8 +57,10 @@ class Drawer extends Component {
     }
 
     _handlePressLogout = () => {
-        const { logout } = this.props
-        logout()
+        this.props.navigation.closeDrawer()
+        setTimeout(() => {
+            this.props.logout()
+        }, 100)
     }
 
     _handlePressAccountInfo = () => {

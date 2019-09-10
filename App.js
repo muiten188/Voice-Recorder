@@ -9,7 +9,6 @@ import { COLORS, SURFACE_STYLES } from '~/src/themes/common'
 import NavigationUtils from '~/src/utils/NavigationUtils'
 import NoInternet from '~/src/components/NoInternet'
 import AppContainer from '~/routes'
-import Toast from '~/src/components/Toast'
 import SuccessToast from '~/src/components/SuccessToast'
 import ErrorToast from '~/src/components/ErrorToast'
 import NotAvailableWhenOfflineToast from '~/src/components/NotAvailableWhenOfflineToast'
@@ -52,7 +51,6 @@ export default class App extends Component {
                         <AppContainer
                             ref={navigationRef => NavigationUtils.setTopLevelNavigator(navigationRef)}
                         />
-                        <Toast />
                         <SuccessToast
                             ref={successToastRef => ToastUtils.setSuccessToastRef(successToastRef)}
                         />

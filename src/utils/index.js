@@ -3,13 +3,6 @@ import { Platform, PixelRatio, Dimensions, Text } from "react-native";
 import moment from "moment";
 import I18n from "~/src/I18n";
 const { width, height } = Dimensions.get("window");
-import crc from "crc";
-import { PAY_GUID } from "~/src/store/api/constants";
-import { store } from "~/src/store/configStore";
-import {
-    showToast as showToastAction,
-    hideToast
-} from "~/src/store/actions/toast";
 import APIManager from "~//src/store/api/APIManager";
 import SHA256 from "crypto-js/sha256";
 import CryptoJS from "crypto-js";
@@ -449,153 +442,10 @@ export const getImageIDFromUrl = url => {
     return splitUrl[splitUrl.length - 1];
 };
 
-// const VN_PAY_QR_CONFIG = [{
-//         name: 'Payload Format Indicator',
-//         id: '00',
-//         length: '02',
-//         value: '01'
-//     },
-//     {
-//         name: '',
-//         length: 99, // up to 99
-//         sub: [{
-//             id: '00',
-//             length: 32, // up to 32
-//             value: 'xxx'
-//         }]
-//     },
-//     {
-//         name: 'Merchant Category Code',
-//         id: '52',
-//         length: '04'
-//     },
-//     {
-//         name: 'Transaction Currency',
-//         id: '53',
-//         length: '03',
-//         value: '704'
-//     },
-//     {
-//         name: 'Transaction Amount',
-//         id: '54',
-//         length: '13', // upto 13
-//         value: 'xxx'
-//     },
-//     {
-//         name: 'Contry Code',
-//         id: '58',
-//         length: '02',
-//         value: 'VN'
-//     },
-//     {
-//         name: 'Merchant Name',
-//         id: '59',
-//         length: '25', // up to 25
-//         value: 'xxx'
-//     },
-//     {
-//         name: 'Merchant city',
-//         id: '60',
-//         length: '15', // update 15
-//         value: ''
-//     },
-//     {
-//         name: 'CRC',
-//         id: '63',
-//         length: '04',
-//         value: 'xxx'
-//     }
-// ]
-
 const getDisplayWithZero = number => {
     if (number < 0) return number;
     if (number <= 9) return `0${number}`;
     return number;
-};
-
-export const getQRCode = ({
-    method,
-    guid = PAY_GUID,
-    merchantId,
-    merchantCategoryCode = "4111",
-    transactionAmount,
-    merchantName,
-    merchantCity,
-    postalCode,
-    billNumber,
-    storeLabel,
-    terminalLabel
-}) => {
-    const payloadDataIndicatorPart = "000201";
-    //console.log('payloadDataIndicatorPart', payloadDataIndicatorPart)
-    const methodPart = method ? `0102${method}` : "";
-    //console.log('Method Part', methodPart)
-
-    const subGuidPart = `00${getDisplayWithZero(guid.length)}${guid}`;
-    const subMerchatIdPart = merchantId
-        ? `01${getDisplayWithZero(merchantId.length)}${merchantId}`
-        : "";
-    const subPart = subGuidPart + subMerchatIdPart;
-    const guidPart = `26${getDisplayWithZero(subPart.length)}${subPart}`;
-    //console.log('guidPart', guidPart)
-
-    const merchantCategoryCodePart = `5204${merchantCategoryCode}`;
-    //console.log('merchantCategoryCodePart', merchantCategoryCodePart)
-
-    const transactionCurrencyPart = `5303704`;
-    //console.log('transactionCurrencyPart', transactionCurrencyPart)
-
-    const transactionAmountPart = transactionAmount
-        ? `54${getDisplayWithZero(transactionAmount.length)}${transactionAmount}`
-        : "";
-    //console.log('transactionAmountPart', transactionAmountPart)
-
-    const countryCodePart = `5802VN`;
-    //console.log('countryCodePart', countryCodePart)
-
-    const merchantNamePart = `59${getDisplayWithZero(
-        merchantName.length
-    )}${merchantName}`;
-    //console.log('merchantNamePart', merchantNamePart)
-
-    const merchantCityPart = `60${getDisplayWithZero(
-        merchantCity.length
-    )}${merchantCity}`;
-    //console.log('merchantCityPart', merchantCityPart)
-
-    const postalCodePart = postalCode
-        ? `61${getDisplayWithZero(postalCode.length)}${postalCode}`
-        : "";
-    //console.log('PostalCode Part', postalCodePart)
-
-    const additionalBillNumberPart = billNumber
-        ? `01${getDisplayWithZero(billNumber.length)}${billNumber}`
-        : "";
-    // console.log('additionalBillNumberPart', additionalBillNumberPart)
-    const additionalStoreLabelPart = storeLabel
-        ? `03${getDisplayWithZero(storeLabel.length)}${storeLabel}`
-        : "";
-    // console.log('additionalStoreLabelPart', additionalStoreLabelPart)
-    const additionalTerminalLabelPart = terminalLabel
-        ? `07${getDisplayWithZero(terminalLabel.length)}${terminalLabel}`
-        : "";
-    // console.log('additionalTerminalLabelPart', additionalTerminalLabelPart)
-    const subAdditionalPart =
-        additionalBillNumberPart +
-        additionalStoreLabelPart +
-        additionalTerminalLabelPart;
-    // console.log('subAdditionalPart', subAdditionalPart)
-    const additionalPart = subAdditionalPart
-        ? `62${getDisplayWithZero(subAdditionalPart.length)}${subAdditionalPart}`
-        : "";
-
-    const toCRCPart = `${payloadDataIndicatorPart}${methodPart}${guidPart}${merchantCategoryCodePart}${transactionCurrencyPart}${transactionAmountPart}${countryCodePart}${merchantNamePart}${merchantCityPart}${postalCodePart}${additionalPart}6304`;
-    //console.log('To CRC Part', toCRCPart)
-    const crcValue = crc.crc16ccitt(toCRCPart).toString(16);
-    //console.log('CRC Value', crcValue)
-    const crcPart = `6304${crcValue.toUpperCase()}`;
-    //console.log('crcPart', crcPart)
-    return `${payloadDataIndicatorPart}${methodPart}${guidPart}${merchantCategoryCodePart}${transactionCurrencyPart}${transactionAmountPart}${countryCodePart}${merchantNamePart}${merchantCityPart}${postalCodePart}${additionalPart}${crcPart}`;
 };
 
 export const getImageUrl = url => {
@@ -622,13 +472,6 @@ export const getDataFromBankUserQRCode = qrData => {
 export const isTablet = () => {
     const smallestWidth = Math.min(width, height);
     return smallestWidth >= 500;
-};
-
-export const showToast = (text, duration = 2500) => {
-    store.dispatch(showToastAction(text));
-    setTimeout(() => {
-        store.dispatch(hideToast());
-    }, duration);
 };
 
 export const getIntSQL = value => {

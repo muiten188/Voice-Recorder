@@ -5,11 +5,8 @@ import { connect } from 'react-redux'
 import { setConnection } from '~/src/store/actions/common'
 import { Text, View } from '~/src/themes/ThemeComponent'
 import { Image, TouchableOpacity } from 'react-native'
-import * as Animatable from 'react-native-animatable'
 import I18n from '~/src/I18n'
 import { isConnectSelector } from '~/src/store/selectors/info'
-import { syncOrderData } from "~/src/store/actions/backgroundSync"
-import lodash from 'lodash'
 
 class NoInternet extends Component {
 
@@ -32,13 +29,6 @@ class NoInternet extends Component {
             const { setConnection } = this.props
             setConnection(isConnected)
         })
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!prevProps.isConnected && this.props.isConnected) {
-            const { syncOrderData } = this.props
-            syncOrderData()
-        }
     }
 
     componentDidMount() {
@@ -78,4 +68,4 @@ class NoInternet extends Component {
 
 export default connect(state => ({
     isConnected: isConnectSelector(state)
-}), { setConnection, syncOrderData })(NoInternet)
+}), { setConnection })(NoInternet)
