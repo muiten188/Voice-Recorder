@@ -3,6 +3,9 @@ import { COLORS } from '~/src/themes/common'
 import { View, Text, SmallButton } from '~/src/themes/ThemeComponent'
 import { Image, TouchableOpacity, StyleSheet } from 'react-native'
 import I18n from '~/src/I18n'
+import { logout } from '~/src/store/actions/common'
+import { connect } from 'react-redux'
+import { userInfoSelector } from '~/src/store/selectors/auth'
 
 const DRAWER_MENUS = [
     {
@@ -27,7 +30,7 @@ const DRAWER_MENUS = [
     },
 ]
 
-export default class Drawer extends Component {
+class Drawer extends Component {
     componentDidMount() {
         console.log('Drawer didmount')
     }
@@ -54,7 +57,8 @@ export default class Drawer extends Component {
     }
 
     _handlePressLogout = () => {
-
+        const { logout } = this.props
+        logout()
     }
 
     _handlePressAccountInfo = () => {
@@ -63,6 +67,7 @@ export default class Drawer extends Component {
     }
 
     render() {
+        const { userInfo } = this.props
         return (
             <View>
                 <TouchableOpacity onPress={this._handlePressAccountInfo}>
@@ -71,8 +76,8 @@ export default class Drawer extends Component {
                             style={styles.avatar}
                         />
                         <View>
-                            <Text className='textBlack s16 bold mb10'>Hải Vũ</Text>
-                            <Text className='gray'>vu.longhai93@gmail.com</Text>
+                            <Text className='textBlack s16 bold mb10'>{userInfo.last_name}</Text>
+                            <Text className='gray'>{userInfo.email}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -108,3 +113,7 @@ const styles = StyleSheet.create({
         paddingBottom: 14
     }
 })
+
+export default connect(state => ({
+    userInfo: userInfoSelector(state)
+}), { logout })(Drawer)

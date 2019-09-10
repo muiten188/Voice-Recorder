@@ -7,7 +7,6 @@ export const viewStyles = {
     'statusbar': {
         height: STATUSBAR_HEIGHT
     },
-
     'row-start': {
         flexDirection: 'row',
         justifyContent: 'flex-start',

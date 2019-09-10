@@ -16,13 +16,11 @@ export const APP_MODE = APP_MODE_DEF.DEBUG // DEBUG | RELEASE
 export const API_ENDPOINT = {
     'DEV': {
         name: 'DEV',
-        API_URL: 'http://10.0.0.1',
-        IMAGE_UPLOAD_URL: 'http://10.0.0.1'
+        API_URL: 'http://103.238.71.103:8888',
     },
     'PROD': {
         name: 'PROD',
         API_URL: 'http://10.0.0.1',
-        IMAGE_UPLOAD_URL: 'http://10.0.0.1'
     }
 }
 

@@ -1,7 +1,6 @@
 const initialState = {
-    firebaseToken: '',
-    tenantCode: "",
-    userName: ""
+    access_token: '',
+    refresh_token: '',
 }
 export const auth = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -12,30 +11,13 @@ export const auth = (state = initialState, { type, payload }) => {
                 ...payload
             }
         }
-        // case 'auth/genTenantCode':{
-        //     return{
-        //         ...state,
-        //         tenantCode:payload.tenantCode
-        //     }
-        // }
-        case 'auth/setFirebaseToken': {
-            return {
-                ...state,
-                firebaseToken: payload
-            }
-        }
         case 'user/setUserInfo': {
             return {
                 ...state,
                 ...payload
             }
         }
-        case 'auth/updateAccessToken': {
-            return {
-                ...state,
-                accessToken: payload
-            }
-        }
+
         case 'app/logout': {
             const { firebaseToken } = state
             return {

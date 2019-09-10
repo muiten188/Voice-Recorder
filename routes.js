@@ -9,6 +9,7 @@ import {
 import { Platform, Animated, Easing } from "react-native";
 import { COLORS } from "~/src/themes/common";
 
+import AuthLoading from '~/src/screens/AuthLoading'
 // Drawer screens
 import Drawer from '~/src/components/Drawer'
 import Home from "~/src/screens/Home";
@@ -52,6 +53,7 @@ const DrawerNavigator = createDrawerNavigator(
 
 const AppNavigator = createStackNavigator(
     {
+        AuthLoading,
         Drawer: {
             screen: DrawerNavigator,
             navigationOptions: () => ({
@@ -66,7 +68,7 @@ const AppNavigator = createStackNavigator(
         ChangePassword,
     },
     {
-        initialRouteName: "Drawer",
+        initialRouteName: "AuthLoading",
         headerMode: "float",
         transitionConfig: () => {
             if (Platform.OS == "android") {

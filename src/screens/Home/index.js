@@ -7,8 +7,10 @@ import Picker from '~/src/components/Picker'
 import styles from './styles'
 import records from './data'
 import VoiceItem from '~/src/components/VoiceItem'
+import { getUserInfo } from '~/src/store/actions/auth'
+import { connect } from 'react-redux'
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -141,6 +143,14 @@ export default class Home extends Component {
         this.props.navigation.openDrawer()
     }
 
+    componentDidMount() {
+        const { getUserInfo } = this.props
+        getUserInfo((err, data) => {
+            console.log('getUserInfo err', err)
+            console.log('getUserInfo data', data)
+        })
+    }
+
 
     render() {
         return (
@@ -190,3 +200,5 @@ export default class Home extends Component {
         )
     }
 }
+
+export default connect(null, { getUserInfo })(Home)

@@ -18,7 +18,7 @@ export default class LoadingModal extends Component {
                 onRequestClose={() => { }}>
                 <View style={styles.modalOverlay}>
                     <View style={styles.spinnerContainer}>
-                        <ActivityIndicator size={Platform.OS == 'android' ? 60 : 'large'} color={COLORS.CERULEAN} />
+                        <ActivityIndicator size={Platform.OS == 'android' ? 60 : 'large'} color={COLORS.GREEN} />
                     </View>
                 </View>
             </Modal>

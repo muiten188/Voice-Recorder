@@ -18,6 +18,10 @@ import LoadingModal from "~/src/components/LoadingModal";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StackActions, NavigationActions } from "react-navigation";
 import lodash from 'lodash'
+import { signIn, createAccessToken } from '~/src/store/actions/auth'
+import { chainParse } from '~/src/utils'
+import ToastUtils from '~/src/utils/ToastUtils'
+import AsyncStorage from "@react-native-community/async-storage";
 
 class Login extends Component {
 
@@ -25,7 +29,7 @@ class Login extends Component {
         headerMode: "none",
         header: null
     }
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -43,12 +47,44 @@ class Login extends Component {
     }
 
     _handleLogin = lodash.throttle(() => {
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: "Drawer" })],
-            key: undefined
-        });
-        this.props.navigation.dispatch(resetAction);
+        if (!this.state.userName || !this.state.password) return
+        const { signIn, createAccessToken } = this.props
+        this.setState({ loading: true })
+        signIn(this.state.userName, this.state.password, (err, data) => {
+            console.log('signIn err', err)
+            console.log('signIn data', data)
+
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            if (statusCode == 200) {
+                const refreshToken = chainParse(data, ['refresh_token'])
+                // Save refreshToken to AsyncStorage
+                AsyncStorage.setItem("refreshToken", refreshToken);
+                createAccessToken(refreshToken, (errAc, dataAc) => {
+                    console.log('createAccessToken err', errAc)
+                    console.log('createAccessToken data', dataAc)
+                    this.setState({ loading: false })
+                    const statusCodeAc = chainParse(data, ['httpHeaders', 'status'])
+                    if (statusCodeAc == 200) {
+                        const resetAction = StackActions.reset({
+                            index: 0,
+                            actions: [NavigationActions.navigate({ routeName: "Drawer" })],
+                            key: undefined
+                        });
+                        this.props.navigation.dispatch(resetAction);
+                    } else if (data && data.message) {
+                        this.setState({ loading: false })
+                        const messObj = JSON.parse(data.message)
+                        ToastUtils.showErrorToast(messObj['message'])
+                    }
+
+                })
+
+            } else if (data && data.message) {
+                this.setState({ loading: false })
+                const messObj = JSON.parse(data.message)
+                ToastUtils.showErrorToast(messObj['message'])
+            }
+        })
     }, 500)
 
 
@@ -76,6 +112,7 @@ class Login extends Component {
                             error={this.state.errUserName}
                             onChangeText={text => this.setState({ userName: text, errUserName: '' })}
                             placeholder={I18n.t('account')}
+                            autoCapitalize={'none'}
                         />
                         <View className='space16' />
                         <RoundTextInput
@@ -84,6 +121,7 @@ class Login extends Component {
                             onChangeText={text => this.setState({ password: text, errPassword: '' })}
                             placeholder={I18n.t('password')}
                             secureTextEntry={true}
+                            autoCapitalize={'none'}
                         />
                         <View className='space40' />
 
@@ -118,4 +156,9 @@ class Login extends Component {
         );
     }
 }
-export default Login
+export default connect(
+    null,
+    {
+        signIn, createAccessToken
+    }
+)(Login);

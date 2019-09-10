@@ -33,7 +33,7 @@ export default class App extends Component {
     _renderLoading = () => {
         return (
             <View style={[SURFACE_STYLES.flex, { paddingTop: 50 }]}>
-                <ActivityIndicator size={Platform.OS == 'android' ? 60 : 'large'} color={COLORS.BLUE} />
+                <ActivityIndicator size={Platform.OS == 'android' ? 60 : 'large'} color={COLORS.GREEN} />
             </View>
         )
     }

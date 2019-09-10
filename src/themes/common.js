@@ -26,9 +26,9 @@ export const COLORS = {
     BACKGROUND: '#f5f5f5', // rgb(246, 246, 246)
     BACKGROUND2: '#eaeaea',
     BACKGROUND3: 'rgba(0, 0, 0, 0.05)',
-    
-
     BLACK: '#000000',
+
+    // old
     CERULEAN: 'rgb(4, 124, 215)',
     TEXT_BLACK: 'rgba(0, 0, 0, 0.85)',
     TEXT_GRAY: 'rgba(0, 0, 0, 0.5)',
