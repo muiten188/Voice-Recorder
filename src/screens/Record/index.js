@@ -9,6 +9,7 @@ import { DEVICE_WIDTH, COLORS } from "~/src/themes/common";
 import { scaleHeight, getFontStyle, getRecordTimeString } from '~/src/utils'
 import styles from './styles'
 import I18n from '~/src/I18n'
+import ToastUtils from '~/src/utils/ToastUtils'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -29,10 +30,11 @@ export default class Record extends Component {
         // started / paused / stopped / recording
         this.state = {
             recording: RECORD_STATUS.NOT_START,
-            recordTime: 5000,
-            permissionStatus: '',
-            audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+            recordTime: 0,
+            permissionMicrophone: '',
+            permissionStorage: ''
         }
+        this.audioPath = ''
     }
 
     _prepareRecordingPath(audioPath) {
@@ -46,40 +48,97 @@ export default class Record extends Component {
     }
 
     componentDidMount() {
-        Permissions.check('microphone', { type: 'always' }).then(response => {
+        console.log('AudioUtils', AudioUtils)
+        Permissions.checkMultiple(['microphone', 'storage'], { type: 'always' }).then(response => {
             console.log('Check res', response)
-            this.setState({ permissionStatus: response })
+            this.setState({
+                permissionMicrophone: response['microphone'],
+                permissionStorage: response['storage']
+            })
         })
     }
 
-    _handlePressCenterButton = () => {
-        if (this.state.recording == RECORD_STATUS.NOT_START) {
-            if (this.state.permissionStatus != PERMISSION_RESPONSE.AUTHORIZED) {
-                Permissions.request('microphone', { type: 'always' }).then(response => {
-                    console.log('Request res', response)
-                    this.setState({ permissionStatus: response })
-                    if (response == PERMISSION_RESPONSE.AUTHORIZED) {
-                        this._startRecord()
+
+
+    // _handlePressCenterButton = () => {
+    //     if (this.state.recording == RECORD_STATUS.NOT_START) {
+    //         if (this.state.permissionMicrophone != PERMISSION_RESPONSE.AUTHORIZED) {
+    //             Permissions.request('microphone', { type: 'always' }).then(response => {
+    //                 console.log('Request res', response)
+    //                 this.setState({ permissionMicrophone: response })
+    //                 if (response == PERMISSION_RESPONSE.AUTHORIZED) {
+    //                     this._startRecord()
+    //                 }
+    //             })
+    //         }
+    //     } else if (this.state.recording == RECORD_STATUS.PAUSED) {
+    //         this._resumeRecord()
+    //     } else if (this.state.recording == RECORD_STATUS.RECORDING) {
+    //         this._pauseRecord()
+    //     }
+    // }
+
+    _checkPermission = () => {
+        return new Promise((resolve, reject) => {
+            Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {
+                console.log('Request microphone res', responseMicrophone)
+                Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                    console.log('Request storage res', responseStorage)
+                    this.setState({
+                        permissionMicrophone: responseMicrophone,
+                        permissionStorage: responseStorage
+                    })
+                    if (responseMicrophone != PERMISSION_RESPONSE.AUTHORIZED
+                        || responseStorage != PERMISSION_RESPONSE.AUTHORIZED) {
+                        reject('Permission reject')
                     }
+                    resolve('Permisson accept')
                 })
-            }
-        } else if (this.state.recording == RECORD_STATUS.PAUSED) {
-            this._resumeRecord()
-        } else if (this.state.recording == RECORD_STATUS.RECORDING) {
-            this._pauseRecord()
-        }
+            })
+        })
     }
 
     _handlePressStart = () => {
-        this.setState({ recording: RECORD_STATUS.RECORDING })
+        // this.setState({ recording: RECORD_STATUS.RECORDING })
+        if (this.state.permissionMicrophone != PERMISSION_RESPONSE.AUTHORIZED
+            || this.state.permissionStorage != PERMISSION_RESPONSE.AUTHORIZED
+        ) {
+            this._checkPermission()
+                .then(() => {
+                    this._startRecord()
+                })
+                .catch((error) => {
+                    console.log('_checkPermission catch', error)
+                })
+        } else {
+            this._startRecord()
+        }
     }
 
     _handlePressPause = () => {
         this.setState({ recording: RECORD_STATUS.NOT_START })
     }
 
-    _startRecord = () => {
+    _startRecord = async () => {
         this.setState({ recording: RECORD_STATUS.RECORDING })
+        this.audioPath = `${AudioUtils.DownloadsDirectoryPath}/phong_van_${new Date().getTime()}.aac`
+        console.log('Audio path', this.audioPath)
+        this._prepareRecordingPath(this.audioPath);
+        AudioRecorder.onProgress = (data) => {
+            this.setState({ recordTime: Math.floor(data.currentTime) });
+        };
+        AudioRecorder.onFinished = (data) => {
+            // Android callback comes in the form of a promise instead.
+            // if (Platform.OS === 'ios') {
+            //     this._finishRecording(data.status === "OK", data.audioFileURL, data.audioFileSize);
+            // }
+        };
+        try {
+            const filePath = await AudioRecorder.startRecording();
+            console.log('_startRecord filePath', filePath)
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     _pauseRecord = () => {
@@ -90,8 +149,15 @@ export default class Record extends Component {
         this.setState({ recording: RECORD_STATUS.RECORDING })
     }
 
-    _stopRecord = () => {
+    _stopRecord = async () => {
         this.setState({ recording: RECORD_STATUS.STOPPED })
+        try {
+            const filePath = await AudioRecorder.stopRecording();
+            console.log('_stopRecord filePath', filePath)
+            ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${this.audioPath}`)
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     _handlePressRightButton = () => {
@@ -106,7 +172,8 @@ export default class Record extends Component {
         this.props.navigation.goBack()
     }
 
-    _handlePressDone = () => {
+    _handlePressDone = async () => {
+        await this._stopRecord()
         this.props.navigation.goBack()
     }
 
@@ -116,7 +183,7 @@ export default class Record extends Component {
                 <View style={styles.actionBlock}>
                     <TouchableOpacityHitSlop onPress={this._handlePressCancel}>
                         <View className='row-start'>
-                            <Image source={require('~/src/image/cancel.png')} style={{ width: 17, height: 17, marginRight: 4 }} />
+                            <Image source={require('~/src/image/cancel2.png')} style={{ width: 9, height: 15, marginRight: 4 }} />
                             <Text className='s13 textBlack'>{I18n.t('cancel')}</Text>
                         </View>
                     </TouchableOpacityHitSlop>

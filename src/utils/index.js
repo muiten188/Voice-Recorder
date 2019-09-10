@@ -12,7 +12,6 @@ import {
     MAX_USERNAME_LENGTH,
     MAX_LENGTH_NAME
 } from "~/src/constants";
-import DBManager from "~/src/db/DBManager";
 
 export const chainParse = (obj, attrArr) => {
     if (!obj || typeof obj != "object") {
@@ -518,34 +517,6 @@ export const isValidUserName = userName => {
 
 export const sha256 = str => {
     return SHA256(str).toString(CryptoJS.enc.Hex);
-};
-
-export const getPrice = productItem =>
-    productItem.promotionPrice
-        ? Math.max(+productItem.price - +productItem.promotionPrice, 0)
-        : productItem.price;
-
-export const executeSql = (query, params) => {
-    return new Promise((resolve, reject) => {
-        DBManager.getInstance()
-            .then(db => {
-                db.transaction(tx => {
-                    tx.executeSql(
-                        query,
-                        params,
-                        (tx, result) => {
-                            resolve(result);
-                        },
-                        (tx, err) => {
-                            reject(err);
-                        }
-                    );
-                });
-            })
-            .catch(err => {
-                reject(err);
-            });
-    });
 };
 
 export const utf8ArrayToStr = array => {
