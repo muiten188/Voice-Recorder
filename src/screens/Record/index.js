@@ -10,6 +10,7 @@ import { scaleHeight, getFontStyle, getRecordTimeString } from '~/src/utils'
 import styles from './styles'
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
+import moment from 'moment'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -39,11 +40,11 @@ export default class Record extends Component {
 
     _prepareRecordingPath(audioPath) {
         AudioRecorder.prepareRecordingAtPath(audioPath, {
-            SampleRate: 22050,
+            SampleRate: 44100,
             Channels: 1,
             AudioQuality: "High",
             AudioEncoding: "aac",
-            AudioEncodingBitRate: 32000
+            AudioEncodingBitRate: 128000
         });
     }
 
@@ -115,13 +116,36 @@ export default class Record extends Component {
         }
     }
 
-    _handlePressPause = () => {
-        this.setState({ recording: RECORD_STATUS.NOT_START })
+    _handlePressPauseResume = () => {
+        if (this.state.recording == RECORD_STATUS.RECORDING) {
+            this._pauseRecord()
+        } else {
+            this._resumeRecord()
+        }
+    }
+
+    _pauseRecord = async () => {
+        try {
+            const filePath = await AudioRecorder.pauseRecording();
+            console.log('_pauseRecord filePath', filePath)
+            this.setState({ recording: RECORD_STATUS.PAUSED })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    _resumeRecord = async () => {
+        try {
+            await AudioRecorder.resumeRecording();
+            this.setState({ recording: RECORD_STATUS.RECORDING })
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     _startRecord = async () => {
-        this.setState({ recording: RECORD_STATUS.RECORDING })
-        this.audioPath = `${AudioUtils.DownloadsDirectoryPath}/phong_van_${new Date().getTime()}.aac`
+        const audioId = moment().format('YYYYMMDDHHmmss')
+        this.audioPath = `${AudioUtils.DownloadsDirectoryPath}/phong_van_${audioId}.aac`
         console.log('Audio path', this.audioPath)
         this._prepareRecordingPath(this.audioPath);
         AudioRecorder.onProgress = (data) => {
@@ -136,17 +160,10 @@ export default class Record extends Component {
         try {
             const filePath = await AudioRecorder.startRecording();
             console.log('_startRecord filePath', filePath)
+            this.setState({ recording: RECORD_STATUS.RECORDING })
         } catch (error) {
             console.error(error);
         }
-    }
-
-    _pauseRecord = () => {
-        this.setState({ recording: RECORD_STATUS.PAUSED })
-    }
-
-    _resumeRecord = () => {
-        this.setState({ recording: RECORD_STATUS.RECORDING })
     }
 
     _stopRecord = async () => {
@@ -157,14 +174,6 @@ export default class Record extends Component {
             ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${this.audioPath}`)
         } catch (error) {
             console.error(error);
-        }
-    }
-
-    _handlePressRightButton = () => {
-        if (this.state.recording == RECORD_STATUS.NOT_START) {
-
-        } else {
-            this._stopRecord()
         }
     }
 
@@ -201,7 +210,7 @@ export default class Record extends Component {
                     </TouchableOpacityHitSlop>
                     <View className='row-start' style={{ opacity: 0 }}>
                         <Image source={require('~/src/image/done.png')} style={{ width: 15, height: 15, marginRight: 6 }} />
-                        <Text className='s13 green'>{I18n.t('done_en')}</Text>
+                        <Text className='s13 green'>{I18n.t('done')}</Text>
                     </View>
                 </View>
             )
@@ -215,13 +224,18 @@ export default class Record extends Component {
                     </View>
                 </TouchableOpacityHitSlop>
 
-                <TouchableOpacityHitSlop onPress={this._handlePressPause}>
+                <TouchableOpacityHitSlop onPress={this._handlePressPauseResume}>
                     <View className='column-center'>
-                        <Image source={require('~/src/image/pause.png')}
+                        <Image source={this.state.recording == RECORD_STATUS.RECORDING ? require('~/src/image/pause.png') : require('~/src/image/recording2.png')}
                             style={styles.iconContainerCenter}
                         />
                         <View className='space8' />
-                        <Text className='error s14'>{I18n.t('pause')}</Text>
+                        {this.state.recording == RECORD_STATUS.RECORDING ?
+                            <Text className='error s14'>{I18n.t('pause')}</Text>
+                            :
+                            <Text className={'green s14'}>{I18n.t('continue')}</Text>
+                        }
+
                     </View>
 
                 </TouchableOpacityHitSlop>
