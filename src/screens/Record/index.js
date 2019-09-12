@@ -11,6 +11,8 @@ import styles from './styles'
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
 import moment from 'moment'
+import { addRecord } from '~/src/store/actions/localRecord'
+import { connect } from 'react-redux'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -19,7 +21,7 @@ const RECORD_STATUS = {
     STOPPED: 'STOPPED'
 }
 
-export default class Record extends Component {
+class Record extends Component {
 
     static navigationOptions = {
         headerMode: "none",
@@ -167,10 +169,13 @@ export default class Record extends Component {
     }
 
     _stopRecord = async () => {
-        this.setState({ recording: RECORD_STATUS.STOPPED })
+        
         try {
+            const { addRecord } = this.props
             const filePath = await AudioRecorder.stopRecording();
+            this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
+            addRecord(filePath)
             ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${this.audioPath}`)
         } catch (error) {
             console.error(error);
@@ -242,7 +247,7 @@ export default class Record extends Component {
                 <TouchableOpacityHitSlop onPress={this._handlePressDone}>
                     <View className='row-start'>
                         <Image source={require('~/src/image/done.png')} style={{ width: 15, height: 15, marginRight: 6 }} />
-                        <Text className='s13 green'>{I18n.t('done_en')}</Text>
+                        <Text className='s13 green'>{I18n.t('done')}</Text>
                     </View>
                 </TouchableOpacityHitSlop>
             </View>
@@ -273,3 +278,4 @@ export default class Record extends Component {
         );
     }
 }
+export default connect(null, { addRecord })(Record)

@@ -16,6 +16,7 @@ const language = {
     continue: 'Tiếp tục',
     done: 'Xong',
     cancel: "Hủy",
+    //
     logout: "Đăng xuất",
     home_title: 'Home',
     document_title: 'Documents',

@@ -6,3 +6,7 @@ export const AUTH_GET_USER_INFO = 'auth/getUserInfo'
 
 export const MEETING_CREATE_UPLOAD_URL = 'meeting/createUploadUrl'
 export const MEETING_CREATE = 'meeting/create'
+
+// Local record on device
+export const RECORD_ADD = 'record/add'
+export const RECORD_UPDATE = 'record/update'
