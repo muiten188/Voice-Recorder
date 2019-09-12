@@ -638,7 +638,7 @@ export const generateHighlightText = (text, normalStyle, highLightStyle) => {
     const splitArr = text.split("\"")
     return (
         <Text style={normalStyle} >
-            {splitArr.map((item, index) => index % 2 == 0 ?item : <Text style={highLightStyle} key={item}> "{item}"</Text>)}
+            {splitArr.map((item, index) => index % 2 == 0 ? item : <Text style={highLightStyle} key={item}> "{item}"</Text>)}
         </Text>
     )
 }
@@ -674,4 +674,20 @@ export const getRecordTimeString = (recordTime) => {
     const recordMinues = Math.floor((recordTime - 3600 * recordHours) / 60)
     const recordSeconds = recordTime - 3600 * recordHours - 60 * recordMinues
     return `${_formatTwoDigitNumber(recordHours)} : ${_formatTwoDigitNumber(recordMinues)} : ${_formatTwoDigitNumber(recordSeconds)}`
+}
+
+export const getUploadKey = (originKey, localFile) => {
+    const lastDotIndexLocalFile = localFile.lastIndexOf(".")
+    if (!lastDotIndexLocalFile) return ''
+    const localFileExtension = localFile.substr(lastDotIndexLocalFile + 1)
+    const lastDotOriginKey = originKey.lastIndexOf(".")
+    const originKeyWithoutExtension = originKey.substring(0, lastDotOriginKey)
+    return originKeyWithoutExtension + '.'+localFileExtension
+}
+
+export const getFileName = (filePath) => {
+    if (!filePath) return ''
+    const lastSlashIndex = filePath.lastIndexOf("/")
+    if (!lastSlashIndex) return ''
+    return filePath.substr(lastSlashIndex + 1)
 }

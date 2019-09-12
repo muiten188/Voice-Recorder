@@ -9,3 +9,7 @@ export const createMeeting = (...args) => ({
     type: ACTION_TYPES.MEETING_CREATE,
     args
 })
+
+export const uploadMeetingRecord = () => ({
+    type: ACTION_TYPES.MEETING_UPLOAD_RECORD
+})

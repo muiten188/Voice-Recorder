@@ -240,7 +240,7 @@ export const ROLES = {
 export const DB_VERSION = 3
 
 export const VOICE_STATUS = {
-    
+
     WAITING: 1,
     QUEUING: 2,
     PROCESSING: 3,
@@ -267,3 +267,9 @@ export const VOICE_STATUS_LIST = [
         name: 'Failed'
     },
 ]
+
+export const LOCAL_RECORD_STATUS = {
+    INITIAL: 1,
+    CREATED_MEETING_URL: 2,
+    UPLOADED: 3
+}

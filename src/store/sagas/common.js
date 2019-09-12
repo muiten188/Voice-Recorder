@@ -15,6 +15,58 @@ import { isConnectSelector } from '~/src/store/selectors/info'
 import { OFFLINE_ACTION_REQUESTER } from '~/src/store/api/constants'
 import ToastUtils from '~/src/utils/ToastUtils'
 
+export const handleCommonError = function* (response) {
+    if (!response) return false
+    const status = response.httpHeaders && response['httpHeaders']['status'] ? +response['httpHeaders']['status'] : 0
+    if (status >= 500 && status < 599) {
+        ToastUtils.showErrorToast(I18n.t('err_general'))
+        return true
+    } else if (response.code == 4903) {
+        const state = store.getState()
+        if (state && state.auth && Object.keys(state.auth).length > 0) {
+            yield put(logout())
+            const resetAction = StackActions.reset({
+                index: 0,
+                key: undefined,
+                actions: [NavigationActions.navigate({ routeName: 'Login', params: { isExpired: true } })],
+            })
+            NavigationUtils.dispatch(resetAction)
+        }
+        return true
+    }
+    else if (response.code == 1010) {
+        const state = store.getState()
+        if (state && state.auth && Object.keys(state.auth).length > 0) {
+            yield put(logout())
+            const resetAction = StackActions.reset({
+                index: 0,
+                key: undefined,
+                actions: [NavigationActions.navigate({ routeName: 'Login', params: { isResetPassWord: true } })],
+            })
+            NavigationUtils.dispatch(resetAction)
+        }
+        return true
+    }
+    else if (response.code == 1007) {
+        const state = store.getState()
+        if (state && state.auth && Object.keys(state.auth).length > 0) {
+            yield put(logout())
+            return true
+        }
+    } else if (response.code == 9001) {
+        ToastUtils.showErrorToast(I18n.t('no_permission_error'))
+        return true
+    } else if (response.errorCode == 103) {
+        ToastUtils.showForceUpdate(response.data.update_url)
+        return true
+    } else if (response.code == 104) {
+        ToastUtils.showErrorToast(response.errorMessage || I18n.t('invalid_checksum'))
+        return true
+    }
+    return false
+}
+
+
 export const createRequestSaga = ({ request, key, start, stop, success, failure, cancelled, timeout = TIMEOUT_TIME, cancel }) => {
 
     // when we dispatch a function, redux-thunk will give it a dispatch
@@ -63,52 +115,8 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
             // console.log('Data Common', data)
             // Append Argument
             if (data) {
-                const status = data.httpHeaders && data['httpHeaders']['status'] ? +data['httpHeaders']['status'] : 0
-                if (status >= 500 && status < 599) {
-                    ToastUtils.showErrorToast(I18n.t('err_general'))
-                } else if (data && data.code == 4903) { // Session Expire
-                    // yield put(invokeCallback(callback, null, data.body))
-                    const state = store.getState()
-                    if (state && state.auth && Object.keys(state.auth).length > 0) {
-                        yield put(logout())
-                        const resetAction = StackActions.reset({
-                            index: 0,
-                            key: undefined,
-                            actions: [NavigationActions.navigate({ routeName: 'Login', params: { isExpired: true } })],
-                        })
-                        NavigationUtils.dispatch(resetAction)
-                        return
-                    }
-                    return
-                }
-                else if (data && data.code == 1010) {
-                    const state = store.getState()
-                    if (state && state.auth && Object.keys(state.auth).length > 0) {
-                        yield put(logout())
-                        const resetAction = StackActions.reset({
-                            index: 0,
-                            key: undefined,
-                            actions: [NavigationActions.navigate({ routeName: 'Login', params: { isResetPassWord: true } })],
-                        })
-                        NavigationUtils.dispatch(resetAction)
-                        return
-                    }
-                    return
-                }
-                else if (data && data.code == 1007) {
-                    const state = store.getState()
-                    if (state && state.auth && Object.keys(state.auth).length > 0) {
-                        yield put(logout())
-                        return
-                    }
-                    // return
-                } else if (data && data.code == 9001) { // No Permission
-                    ToastUtils.showErrorToast(I18n.t('no_permission_error'))
-                } else if (data && data.code == 103) {
-                    ToastUtils.showForceUpdate(data.update_url)
-                } else if (data && data.code == 104) {
-                    ToastUtils.showErrorToast(data.msg || I18n.t('invalid_checksum'))
-                }
+                const hasError = yield call(handleCommonError, data)
+                if (hasError) return
                 if (data.httpHeaders && data['httpHeaders']['access-token']) {
                     yield put(updateAccessToken(data['httpHeaders']['access-token']))
                 }

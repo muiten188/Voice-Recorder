@@ -8,6 +8,7 @@ import styles from './styles'
 import records from './data'
 import VoiceItem from '~/src/components/VoiceItem'
 import { getUserInfo } from '~/src/store/actions/auth'
+import { uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
 
 class Home extends Component {
@@ -19,6 +20,10 @@ class Home extends Component {
             showingFloatingOverlay: false,
             popupDeleteContent: ''
         }
+        this.didFocusListener = props.navigation.addListener(
+            "didFocus",
+            this.componentDidFocus
+        );
     }
 
 
@@ -143,6 +148,13 @@ class Home extends Component {
         this.props.navigation.openDrawer()
     }
 
+    componentDidFocus = async () => {
+
+        console.log("Home Did Focus");
+        const { uploadMeetingRecord } = this.props
+        uploadMeetingRecord()
+    };
+
     componentDidMount() {
         const { getUserInfo } = this.props
         getUserInfo((err, data) => {
@@ -201,4 +213,4 @@ class Home extends Component {
     }
 }
 
-export default connect(null, { getUserInfo })(Home)
+export default connect(null, { getUserInfo, uploadMeetingRecord })(Home)

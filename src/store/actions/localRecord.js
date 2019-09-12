@@ -5,6 +5,7 @@ export const addRecord = (filePath) => ({
 })
 
 
-export const updateRecord = () => ({
-    type: ACTION_TYPES.RECORD_UPDATE
+export const updateRecord = (recordMeeting) => ({
+    type: ACTION_TYPES.RECORD_UPDATE,
+    payload: recordMeeting
 })
