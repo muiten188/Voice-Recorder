@@ -1,3 +1,4 @@
+import * as ACTION_TYPES from '~/src/store/types'
 // do nothing
 export const noop = () => ({
     type: 'app/noop',
@@ -17,4 +18,4 @@ export const setConnection = (data) => ({ type: 'app/setConnection', payload: da
 export const showForceUpdate = (data) => ({ type: 'app/showForceUpdate' , payload: data})
 export const setShowForceUpdate = (data) => ({ type: 'app/setShowForceUpdate' , payload: data})
 
-export const logout = () => ({ type: 'app/logout' })
+export const logout = () => ({ type: ACTION_TYPES.AUTH_LOGOUT })

@@ -1,5 +1,4 @@
 import { takeLatest, takeEvery, all } from 'redux-saga/effects'
-
 import api from '~/src/store/api'
 import { createRequestSaga } from '~/src/store/sagas/common'
 import { noop } from '~/src/store/actions/common'
@@ -7,15 +6,16 @@ import { saveUserData } from '~/src/store/actions/auth'
 import { chainParse } from '~/src/utils'
 import { StackActions, NavigationActions } from 'react-navigation'
 import NavigationUtils from '~/src/utils/NavigationUtils'
+import * as ACTION_TYPES from '~/src/store/types'
 
 const requestSignIn = createRequestSaga({
     request: api.auth.signIn,
-    key: 'auth/signIn',
+    key: ACTION_TYPES.AUTH_SIGNIN,
 })
 
 const requestCreateAccessToken = createRequestSaga({
     request: api.auth.createAccessToken,
-    key: 'auth/createAccessToken',
+    key: ACTION_TYPES.AUTH_CREATE_ACCESS_TOKEN,
     success: [
         (data) => {
             console.log('Data requestCreateAccessToken', data)
@@ -37,9 +37,9 @@ const requestLogout = function* () {
     NavigationUtils.dispatch(resetAction)
 }
 
- const requestGetUserInfo = createRequestSaga({
+const requestGetUserInfo = createRequestSaga({
     request: api.auth.getUserInfo,
-    key: 'auth/getUserInfo',
+    key: ACTION_TYPES.AUTH_GET_USER_INFO,
 })
 
 
@@ -65,10 +65,10 @@ const requestLogout = function* () {
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
-        takeEvery('auth/signIn', requestSignIn),
+        takeEvery(ACTION_TYPES.AUTH_SIGNIN, requestSignIn),
         takeLatest('app/logout', requestLogout),
-        takeEvery('auth/createAccessToken', requestCreateAccessToken),
-        takeEvery('auth/getUserInfo', requestGetUserInfo),
+        takeEvery(ACTION_TYPES.AUTH_CREATE_ACCESS_TOKEN, requestCreateAccessToken),
+        takeEvery(ACTION_TYPES.AUTH_GET_USER_INFO, requestGetUserInfo),
 
         // takeEvery('auth/changePassword', requestChangePassword),
         // takeEvery('auth/updateTokenInfo', requestUpdateTokenInfo),

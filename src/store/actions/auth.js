@@ -1,21 +1,22 @@
+import * as ACTION_TYPES from '~/src/store/types'
 export const signIn = (...args) => ({
-    type: 'auth/signIn',
+    type: ACTION_TYPES.AUTH_SIGNIN,
     args
 })
 
 export const saveUserData = (data) => ({
-    type: 'auth/saveUserData',
+    type: ACTION_TYPES.AUTH_SAVE_USER_DATA,
     payload: data
 })
 
 export const createAccessToken = (...args) => ({
-    type: 'auth/createAccessToken',
+    type: ACTION_TYPES.AUTH_CREATE_ACCESS_TOKEN,
     args
 })
 
 export const getUserInfo = (...args) => ({
-    type: 'auth/getUserInfo',
-    args 
+    type: ACTION_TYPES.AUTH_GET_USER_INFO,
+    args
 })
 
 
