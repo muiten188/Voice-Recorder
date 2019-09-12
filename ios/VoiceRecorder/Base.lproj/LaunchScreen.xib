@@ -17,21 +17,23 @@
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="fGa-pZ-lJN">
                     <rect key="frame" x="0.0" y="0.0" width="491" height="500"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="6c1-gy-qph">
+                    <rect key="frame" x="79" y="188.5" width="333" height="123"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="386" id="Ixw-IN-xbO"/>
+                        <constraint firstAttribute="width" constant="333" id="A9p-9a-gD4"/>
+                        <constraint firstAttribute="height" constant="123" id="v71-kR-eoC"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="fGa-pZ-lJN" secondAttribute="bottom" id="42y-Hn-WpD"/>
-                <constraint firstAttribute="trailing" secondItem="fGa-pZ-lJN" secondAttribute="trailing" id="DEM-Lb-Qfk"/>
                 <constraint firstAttribute="trailing" secondItem="fGa-pZ-lJN" secondAttribute="trailing" id="I4y-C3-bQR"/>
                 <constraint firstItem="fGa-pZ-lJN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="R6H-yq-ocD"/>
+                <constraint firstItem="6c1-gy-qph" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Tds-TD-7xl"/>
                 <constraint firstItem="fGa-pZ-lJN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fUe-ua-THp"/>
-                <constraint firstItem="fGa-pZ-lJN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oNO-Qi-Hs6"/>
-                <constraint firstAttribute="bottom" secondItem="fGa-pZ-lJN" secondAttribute="bottom" id="sK2-dd-Lds"/>
-                <constraint firstItem="fGa-pZ-lJN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wQ9-1t-BrB"/>
+                <constraint firstItem="6c1-gy-qph" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rJI-jr-3DR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -39,6 +41,7 @@
         </view>
     </objects>
     <resources>
-        <image name="splash" width="750" height="1624"/>
+        <image name="splash" width="1125" height="2436"/>
+        <image name="splash_logo" width="1058" height="370"/>
     </resources>
 </document>

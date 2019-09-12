@@ -6,7 +6,6 @@ import { viewStyles } from './View'
 export const textStyles = {
     ...viewStyles,
     default: {
-        // fontFamily: 'SFProText-Regular',
         color: COLORS.BLACK,
         fontSize: 13,
         includeFontPadding: false,
@@ -14,7 +13,6 @@ export const textStyles = {
         // letterSpacing: -0.2,
     },
     title: {
-        // fontFamily: 'SFProText-Medium',
         color: COLORS.TEXT_BLACK,
         fontSize: 14,
         fontSize: 16,
@@ -77,11 +75,9 @@ export const textStyles = {
         textAlign: 'right'
     },
     bold: {
-        // fontFamily: 'SFProText-Bold',
         fontWeight: 'bold'
     },
     medium: {
-        // fontFamily: 'SFProText-Medium',
     },
     s11: {
         fontSize: 11
@@ -164,14 +160,6 @@ export default StyledText = (props) => {
         <Text  {...passProps} style={[styleArr, style]} />
     )
 }
-
-// export default Text = styled.Text`
-//     font-family: SFProText-Regular;
-//     color: ${COLORS.BLACK};
-//     font-size: 14;
-//     include-font-padding: false;
-//     text-align-vertical: center;
-// `
 
 export const Title = styled.Text`
     font-family: SFProText-Medium;
