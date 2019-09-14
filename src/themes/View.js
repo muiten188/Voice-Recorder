@@ -136,6 +136,10 @@ export const viewStyles = {
         width: '100%',
         height: 26
     },
+    'space30': {
+        width: '100%',
+        height: 30
+    },
     'space32': {
         width: '100%',
         height: 32

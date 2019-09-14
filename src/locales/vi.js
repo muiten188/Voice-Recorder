@@ -45,7 +45,10 @@ const language = {
     process_init: 'Mới khởi tạo',
     delete_audio_confirm_title: 'Bạn có chắc chắn muốn xoá tệp',
     delete_audio: 'Xoá Audio',
-    edit_by: 'Chỉnh sửa bởi'
+    edit_by: 'Chỉnh sửa bởi',
+    detail: 'Chi tiết',
+    prev_10s: '- 10s',
+    next_10s: '+ 10s',
 }
 
 // export default language;

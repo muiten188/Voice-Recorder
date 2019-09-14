@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Animated, StyleSheet } from 'react-native'
+import { Image, Animated, StyleSheet, TouchableOpacity } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import moment from 'moment'
@@ -94,6 +94,11 @@ export default class VoiceItem extends Component {
         }
     }
 
+    _handlePress = () => {
+        const { data, onPress } = this.props
+        onPress && onPress(data)
+    }
+
     render() {
         const { data } = this.props
         return (
@@ -102,17 +107,19 @@ export default class VoiceItem extends Component {
                 rightThreshold={40}
                 friction={2}
             >
-                <View className='row-start'>
-                    <Image source={require('~/src/image/audio.png')} style={{ width: 22, height: 28, marginHorizontal: 16 }} />
-                    <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
-                        <Text className='bold s14 mb8'>{data.name}</Text>
-                        <View className='row-start'>
-                            <Text className='s13 gray flex'>{moment(data.create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
-                            {this._renderStatus()}
-                        </View>
+                <TouchableOpacity onPress={this._handlePress}>
+                    <View className='row-start'>
+                        <Image source={require('~/src/image/audio.png')} style={{ width: 22, height: 28, marginHorizontal: 16 }} />
+                        <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
+                            <Text className='bold s14 mb8'>{data.name}</Text>
+                            <View className='row-start'>
+                                <Text className='s13 gray flex'>{moment(data.create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
+                                {this._renderStatus()}
+                            </View>
 
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </Swipeable>
         )
     }

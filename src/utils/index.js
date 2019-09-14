@@ -676,13 +676,19 @@ export const getRecordTimeString = (recordTime) => {
     return `${_formatTwoDigitNumber(recordHours)} : ${_formatTwoDigitNumber(recordMinues)} : ${_formatTwoDigitNumber(recordSeconds)}`
 }
 
+export const getPlayerTimeString = (totalTime) => {
+    const recordMinues = Math.floor(totalTime / 60)
+    const recordSeconds = Math.floor(totalTime - 60 * recordMinues)
+    return `${_formatTwoDigitNumber(recordMinues)} : ${_formatTwoDigitNumber(recordSeconds)}`
+}
+
 export const getUploadKey = (originKey, localFile) => {
     const lastDotIndexLocalFile = localFile.lastIndexOf(".")
     if (!lastDotIndexLocalFile) return ''
     const localFileExtension = localFile.substr(lastDotIndexLocalFile + 1)
     const lastDotOriginKey = originKey.lastIndexOf(".")
     const originKeyWithoutExtension = originKey.substring(0, lastDotOriginKey)
-    return originKeyWithoutExtension + '.'+localFileExtension
+    return originKeyWithoutExtension + '.' + localFileExtension
 }
 
 export const getFileName = (filePath) => {

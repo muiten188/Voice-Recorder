@@ -17,6 +17,7 @@ export const API_ENDPOINT = {
     'DEV': {
         name: 'DEV',
         API_URL: 'http://103.238.71.103:8888',
+        AUDIO_URL: 'http://103.238.71.103:9000/meeting/'
     },
     'PROD': {
         name: 'PROD',

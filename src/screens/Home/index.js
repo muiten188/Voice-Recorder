@@ -91,6 +91,12 @@ class Home extends Component {
 
     }
 
+    _handlePressItem = (item) => {
+        console.log('Pressing', item)
+        this.props.navigation.navigate('Player', {
+            meeting: item
+        })
+    }
 
     _renderMeetingItem = ({ item, index }) => {
         return (
@@ -98,6 +104,7 @@ class Home extends Component {
                 data={item}
                 onPressInfo={() => this._handlePressInfo(item)}
                 onPressDelete={() => this._handlePressDelete(item)}
+                onPress={this._handlePressItem}
             />
         )
     }
