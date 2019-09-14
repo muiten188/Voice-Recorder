@@ -137,7 +137,7 @@ export default function* fetchWatcher() {
         takeEvery(ACTION_TYPES.MEETING_CREATE_UPLOAD_URL, requestCreateMeetingUploadUrl),
         takeEvery(ACTION_TYPES.MEETING_CREATE, requestCreateMeeting),
         takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
-        takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord)
+        takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
     ])
 }
 

@@ -2,17 +2,24 @@ import React, { Component } from "react";
 import { FlatList, Image } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { MEETING_STATUS_LIST } from '~/src/constants'
+import { MEETING_STATUS_LIST, PAGE_SIZE } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import records from './data'
 import moment from 'moment'
+import { getTranscription } from '~/src/store/actions/transcription'
+import { transcriptionListSelector } from '~/src/store/selectors/transcription'
+import { connect } from 'react-redux'
 
 
-export default class Documents extends Component {
+class Documents extends Component {
     constructor(props) {
         super(props);
         this.state = {
         }
+        this.didFocusListener = props.navigation.addListener(
+            "didFocus",
+            this.componentDidFocus
+        );
     }
 
     _handlePressLeftMenu = () => {
@@ -47,6 +54,15 @@ export default class Documents extends Component {
                 </View>
             </View>
         )
+    }
+
+    componentDidFocus = () => {
+        const { getTranscription } = this.props
+        getTranscription('', 1, PAGE_SIZE, (err, data) => {
+            console.log('getTranscription err', err)
+            console.log('getTranscription data', data)
+        })
+
     }
 
 
@@ -91,3 +107,7 @@ export default class Documents extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    transcriptionList: transcriptionListSelector(state)
+}), { getTranscription })(Documents)

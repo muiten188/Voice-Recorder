@@ -61,8 +61,8 @@ export const get = (url, params, customHeader, api) => {
             let tailUrl = convertParamToPath(params) ? url + '?' + convertParamToPath(params, true) : url
             let tailUrlDecode = convertParamToPath(params) ? url + '?' + convertParamToPath(params) : url
             api += tailUrl
-            console.log('tailUrl', tailUrl)
-            console.log('tailUrlDecode', tailUrlDecode)
+            // console.log('tailUrl', tailUrl)
+            // console.log('tailUrlDecode', tailUrlDecode)
             console.log('API GET', api)
             console.log('Header', sendHeader)
             return fetch(api, {

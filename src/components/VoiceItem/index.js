@@ -107,7 +107,7 @@ export default class VoiceItem extends Component {
                     <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
                         <Text className='bold s14 mb8'>{data.name}</Text>
                         <View className='row-start'>
-                            <Text className='s13 gray flex'>{moment(data.update_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
+                            <Text className='s13 gray flex'>{moment(data.create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
                             {this._renderStatus()}
                         </View>
 

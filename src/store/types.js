@@ -10,6 +10,9 @@ export const MEETING_CREATE = 'meeting/create'
 export const MEETING_GET = 'meeting/get'
 export const MEETING_SET = 'meeting/set'
 
+export const TRANSCRIPTION_GET = 'transcription/get'
+export const TRANSCRIPTION_SET = 'transcription/get'
+
 // Local record on device
 export const RECORD_ADD = 'record/add'
 export const RECORD_UPDATE = 'record/update'
