@@ -7,7 +7,6 @@ export default localRecord = (state = initialState, action) => {
     switch (type) {
         case ACTION_TYPES.RECORD_ADD: {
             const filePath = payload
-            console.log('Payload add record', payload)
             const newState = [...state]
             newState.push({
                 localPath: filePath,
@@ -19,11 +18,13 @@ export default localRecord = (state = initialState, action) => {
         case ACTION_TYPES.RECORD_UPDATE: {
             const recordMeetingInfo = payload
             if (!recordMeetingInfo.localPath) return state
-            console.log('recordMeetingInfo', recordMeetingInfo)
             const newState = [...state]
             const localRecordIndex = newState.findIndex(item => item.localPath == recordMeetingInfo.localPath)
             if (localRecordIndex < 0) return state
-            newState[localRecordIndex] = recordMeetingInfo
+            newState[localRecordIndex] = {
+                ...newState[localRecordIndex],
+                ...recordMeetingInfo
+            }
             return newState
         }
 

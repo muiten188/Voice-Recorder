@@ -271,5 +271,6 @@ export const VOICE_STATUS_LIST = [
 export const LOCAL_RECORD_STATUS = {
     INITIAL: 1,
     CREATED_MEETING_URL: 2,
-    UPLOADED: 3
+    UPLOADED: 3,
+    MEETING_CREATED: 4
 }
