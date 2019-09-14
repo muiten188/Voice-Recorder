@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FlatList, Image } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { VOICE_STATUS_LIST } from '~/src/constants'
+import { MEETING_STATUS_LIST } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import records from './data'
 import moment from 'moment'
@@ -69,7 +69,7 @@ export default class Documents extends Component {
                             style={{ flex: 1 }}
                         />
                         <Picker
-                            options={VOICE_STATUS_LIST.map(item => ({
+                            options={MEETING_STATUS_LIST.map(item => ({
                                 label: item.name,
                                 value: item.id
                             }))}

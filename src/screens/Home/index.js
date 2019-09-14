@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { TouchableOpacity, Image, FlatList, Animated } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { VOICE_STATUS_LIST } from '~/src/constants'
+import { MEETING_STATUS_LIST } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import styles from './styles'
 import records from './data'
 import VoiceItem from '~/src/components/VoiceItem'
 import { getUserInfo } from '~/src/store/actions/auth'
-import { uploadMeetingRecord } from '~/src/store/actions/meeting'
+import { uploadMeetingRecord, getMeeting } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
+const emptyArray = []
+import { meetingListSelector } from '~/src/store/selectors/meeting'
 
 class Home extends Component {
     constructor(props) {
@@ -90,7 +92,7 @@ class Home extends Component {
     }
 
 
-    _renderRecordItem = ({ item, index }) => {
+    _renderMeetingItem = ({ item, index }) => {
         return (
             <VoiceItem
                 data={item}
@@ -151,8 +153,12 @@ class Home extends Component {
     componentDidFocus = async () => {
 
         console.log("Home Did Focus");
-        const { uploadMeetingRecord } = this.props
-        uploadMeetingRecord()
+        const { uploadMeetingRecord, getMeeting } = this.props
+        // uploadMeetingRecord()
+        getMeeting('', (err, data) => {
+            console.log('getMeeting err', err)
+            console.log('getMeeting data', data)
+        })
     };
 
     componentDidMount() {
@@ -165,6 +171,8 @@ class Home extends Component {
 
 
     render() {
+        const { meetingList } = this.props
+        const meetingListData = meetingList.data || emptyArray
         return (
             <View className="flex white">
                 {this._renderFloatingOverlay()}
@@ -190,7 +198,7 @@ class Home extends Component {
                             style={{ flex: 1 }}
                         />
                         <Picker
-                            options={VOICE_STATUS_LIST.map(item => ({
+                            options={MEETING_STATUS_LIST.map(item => ({
                                 label: item.name,
                                 value: item.id
                             }))}
@@ -204,13 +212,15 @@ class Home extends Component {
                 </View>
                 {this._renderMainFloatingButton()}
                 <FlatList
-                    data={records}
+                    data={meetingListData}
                     keyExtractor={item => item.id + ''}
-                    renderItem={this._renderRecordItem}
+                    renderItem={this._renderMeetingItem}
                 />
             </View>
         )
     }
 }
 
-export default connect(null, { getUserInfo, uploadMeetingRecord })(Home)
+export default connect(state => ({
+    meetingList: meetingListSelector(state)
+}), { getUserInfo, uploadMeetingRecord, getMeeting })(Home)

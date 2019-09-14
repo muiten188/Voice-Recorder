@@ -4,10 +4,11 @@ import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { updateRecord } from '~/src/store/actions/localRecord'
+import { setMetting } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
 import { getUploadKey, getFileName } from '~/src/utils'
-import { chainParse } from '../../utils'
+import { chainParse } from '~/src/utils'
 
 const requestCreateMeetingUploadUrl = createRequestSaga({
     request: api.meeting.createMeetingUploadUrl,
@@ -17,6 +18,20 @@ const requestCreateMeetingUploadUrl = createRequestSaga({
 const requestCreateMeeting = createRequestSaga({
     request: api.meeting.createMeeting,
     key: ACTION_TYPES.MEETING_CREATE,
+})
+
+const requestGetMeeting = createRequestSaga({
+    request: api.meeting.getMeeting,
+    key: ACTION_TYPES.MEETING_GET,
+    success: [
+        (data) => {
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            if (statusCode == 200) {
+                return setMetting(data)
+            }
+            return noop('')
+        }
+    ]
 })
 
 const uploadRecordFile = function (record) {
@@ -121,6 +136,7 @@ export default function* fetchWatcher() {
     yield all([
         takeEvery(ACTION_TYPES.MEETING_CREATE_UPLOAD_URL, requestCreateMeetingUploadUrl),
         takeEvery(ACTION_TYPES.MEETING_CREATE, requestCreateMeeting),
+        takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
         takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord)
     ])
 }

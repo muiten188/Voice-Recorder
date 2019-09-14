@@ -6,4 +6,8 @@ export default {
     createMeeting: (audio_path, name, status) => {
         return post('/api/v2/meeting', { audio_path, name, status })
     },
+    getMeeting: (id = '') => {
+        const paramObj = id ? { id } : {}
+        return get('/api/v2/meeting', paramObj)
+    }
 }

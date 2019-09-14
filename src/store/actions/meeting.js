@@ -10,6 +10,16 @@ export const createMeeting = (...args) => ({
     args
 })
 
+export const getMeeting = (...args) => ({
+    type: ACTION_TYPES.MEETING_GET,
+    args
+})
+
+export const setMetting = (data) => ({
+    type: ACTION_TYPES.MEETING_SET,
+    payload: data
+})
+
 export const uploadMeetingRecord = () => ({
     type: ACTION_TYPES.MEETING_UPLOAD_RECORD
 })
