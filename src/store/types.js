@@ -11,7 +11,7 @@ export const MEETING_GET = 'meeting/get'
 export const MEETING_SET = 'meeting/set'
 
 export const TRANSCRIPTION_GET = 'transcription/get'
-export const TRANSCRIPTION_SET = 'transcription/get'
+export const TRANSCRIPTION_SET = 'transcription/set'
 
 // Local record on device
 export const RECORD_ADD = 'record/add'

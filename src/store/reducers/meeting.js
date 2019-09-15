@@ -10,6 +10,10 @@ export default meeting = (state = initialState, action) => {
             return meetingListResponse
         }
 
+        case ACTION_TYPES.AUTH_LOGOUT: {
+            return initialState
+        }
+        
         default:
             return state
     }

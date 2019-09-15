@@ -11,6 +11,7 @@ export const Point = Dimensions.get("window").width/375
 
 export const COLORS = {
     WHITE: '#ffffff',
+    WHITE54: 'rgba(255, 255, 255, 0.54)',
     BORDER_COLOR: '#efefef', // dddddd
     BACKGROUND_INPUT_COLOR: '#f8f8f8',
     GREEN: '#00a859',

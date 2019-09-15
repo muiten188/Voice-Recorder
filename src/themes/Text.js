@@ -53,6 +53,9 @@ export const textStyles = {
     white: {
         color: COLORS.WHITE
     },
+    white54: {
+        color: COLORS.WHITE54
+    },
     gray: {
         color: COLORS.TEXT_GRAY
     },

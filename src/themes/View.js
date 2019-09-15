@@ -41,6 +41,9 @@ export const viewStyles = {
         flex: 1
 
     },
+    'fullWidth': {
+        width: '100%'
+    },
     'column-center': {
         flexDirection: 'column',
         justifyContent: 'center',

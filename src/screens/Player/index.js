@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, Image, BackHandler } from 'react-native'
+import { ScrollView, Image, BackHandler } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop, GradientToolbar } from "~/src/themes/ThemeComponent";
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
@@ -10,11 +10,10 @@ import APIManager from '~/src/store/api/APIManager'
 import Sound from 'react-native-sound'
 import styles from './styles'
 import Slider from '@react-native-community/slider'
-import { MEETING_STATUS } from '~/src/constants'
-import { getPlayerTimeString } from '~/src/utils'
-Sound.setCategory('Playback')
-
-
+import { MEETING_STATUS, PAGE_SIZE } from '~/src/constants'
+import { getPlayerTimeString, chainParse } from '~/src/utils'
+import { getTranscription } from '~/src/store/actions/transcription'
+import { transcriptionSelector } from '~/src/store/selectors/transcription'
 
 class Player extends Component {
 
@@ -81,6 +80,15 @@ class Player extends Component {
     }
 
     componentDidMount() {
+        console.log('Player did mount')
+        if (this.meeting.status == MEETING_STATUS.DONE) {
+            const { getTranscription } = this.props
+            console.log('Meeting', this.meeting)
+            getTranscription(this.meeting.id, 1, PAGE_SIZE, (err, data) => {
+                console.log('Get transcription err', err)
+                console.log('Get transcription data', data)
+            })
+        }
         APIManager.getInstance()
             .then(apiConfig => {
                 console.log('API config', apiConfig)
@@ -89,6 +97,7 @@ class Player extends Component {
                     this._play()
                 })
             })
+
     }
 
     componentWillUnmount() {
@@ -141,12 +150,22 @@ class Player extends Component {
 
 
     render() {
+        const { transcription } = this.props
+        const transcriptionText = chainParse(transcription, ['transcript']) || ''
         return (
             <View className="flex background">
                 <GradientToolbar
                     title={I18n.t('detail')}
                 />
-                <View className='white bottom column-center' style={{ width: '100%' }}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                >
+                    <View className='column-center ph16 pv16' style={styles.transcriptContainer}>
+                        <Text className='s15 center lh24 white54'>{transcriptionText}</Text>
+                    </View>
+
+                </ScrollView>
+                <View className='white column-center fullWidth'>
                     <View className='space12' />
                     <View className='ph14'>
                         <Text className='textBlack bold s15 center'>{this.meeting.name}</Text>
@@ -187,4 +206,9 @@ class Player extends Component {
         );
     }
 }
-export default connect(null, { addRecord })(Player)
+export default connect((state, props) => {
+    const meeting = props.navigation.getParam('meeting')
+    return {
+        transcription: transcriptionSelector(state, meeting.id)
+    }
+}, { addRecord, getTranscription })(Player)

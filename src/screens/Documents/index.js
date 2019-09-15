@@ -57,11 +57,11 @@ class Documents extends Component {
     }
 
     componentDidFocus = () => {
-        const { getTranscription } = this.props
-        getTranscription('', 1, PAGE_SIZE, (err, data) => {
-            console.log('getTranscription err', err)
-            console.log('getTranscription data', data)
-        })
+        // const { getTranscription } = this.props
+        // getTranscription('', 1, PAGE_SIZE, (err, data) => {
+        //     console.log('getTranscription err', err)
+        //     console.log('getTranscription data', data)
+        // })
 
     }
 
