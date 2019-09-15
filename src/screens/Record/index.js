@@ -61,26 +61,6 @@ class Record extends Component {
         })
     }
 
-
-
-    // _handlePressCenterButton = () => {
-    //     if (this.state.recording == RECORD_STATUS.NOT_START) {
-    //         if (this.state.permissionMicrophone != PERMISSION_RESPONSE.AUTHORIZED) {
-    //             Permissions.request('microphone', { type: 'always' }).then(response => {
-    //                 console.log('Request res', response)
-    //                 this.setState({ permissionMicrophone: response })
-    //                 if (response == PERMISSION_RESPONSE.AUTHORIZED) {
-    //                     this._startRecord()
-    //                 }
-    //             })
-    //         }
-    //     } else if (this.state.recording == RECORD_STATUS.PAUSED) {
-    //         this._resumeRecord()
-    //     } else if (this.state.recording == RECORD_STATUS.RECORDING) {
-    //         this._pauseRecord()
-    //     }
-    // }
-
     _checkPermission = () => {
         return new Promise((resolve, reject) => {
             Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {

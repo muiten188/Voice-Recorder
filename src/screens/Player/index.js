@@ -65,7 +65,7 @@ class Player extends Component {
             this.player.getCurrentTime((seconds, isPlaying) => {
                 this.setState({ progress: seconds })
             })
-        }, 1000)
+        }, 500)
     }
 
     _handlePressPlayPause = () => {
@@ -103,7 +103,7 @@ class Player extends Component {
                     <Image source={require('~/src/image/moikhoitao.png')} style={{ width: 20, height: 16 }} />
                 </View>
             )
-        } else if (this.meeting.status == MEETING_STATUS.QUEUING) {
+        } else if (this.meeting.status == MEETING_STATUS.WAITING || this.meeting.status == MEETING_STATUS.QUEUING) {
             return (
                 <View className='row-start'>
                     <Text className='s12 orange' style={{ marginRight: 4 }}>{I18n.t('process_queuing')}</Text>
@@ -148,7 +148,9 @@ class Player extends Component {
                 />
                 <View className='white bottom column-center' style={{ width: '100%' }}>
                     <View className='space12' />
-                    <Text className='textBlack bold s15'>{this.meeting.name}</Text>
+                    <View className='ph14'>
+                        <Text className='textBlack bold s15 center'>{this.meeting.name}</Text>
+                    </View>
                     <View className='space20' />
                     {this._renderStatus()}
                     <View className='space30' />

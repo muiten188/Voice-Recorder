@@ -42,6 +42,8 @@ target 'VoiceRecorder' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
+  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+
   target 'VoiceRecorderTests' do
     inherit! :search_paths
     # Pods for testing

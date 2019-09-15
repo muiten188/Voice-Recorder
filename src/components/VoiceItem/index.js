@@ -63,7 +63,7 @@ export default class VoiceItem extends Component {
                     <Image source={require('~/src/image/moikhoitao.png')} style={{ width: 20, height: 16 }} />
                 </View>
             )
-        } else if (data.status == MEETING_STATUS.QUEUING) {
+        } else if (data.status == MEETING_STATUS.WAITING || data.status == MEETING_STATUS.QUEUING) {
             return (
                 <View className='row-start'>
                     <Text className='s12 orange' style={{ marginRight: 4 }}>{I18n.t('process_queuing')}</Text>

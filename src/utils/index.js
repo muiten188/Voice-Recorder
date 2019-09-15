@@ -683,9 +683,10 @@ export const getPlayerTimeString = (totalTime) => {
 }
 
 export const getUploadKey = (originKey, localFile) => {
-    const lastDotIndexLocalFile = localFile.lastIndexOf(".")
+    const localFileUrlNormailize = decodeURIComponent(localFile)
+    const lastDotIndexLocalFile = localFileUrlNormailize.lastIndexOf(".")
     if (!lastDotIndexLocalFile) return ''
-    const localFileExtension = localFile.substr(lastDotIndexLocalFile + 1)
+    const localFileExtension = localFileUrlNormailize.substr(lastDotIndexLocalFile + 1)
     const lastDotOriginKey = originKey.lastIndexOf(".")
     const originKeyWithoutExtension = originKey.substring(0, lastDotOriginKey)
     return originKeyWithoutExtension + '.' + localFileExtension
@@ -693,7 +694,8 @@ export const getUploadKey = (originKey, localFile) => {
 
 export const getFileName = (filePath) => {
     if (!filePath) return ''
-    const lastSlashIndex = filePath.lastIndexOf("/")
+    const filePathNormalize = decodeURIComponent(filePath)
+    const lastSlashIndex = filePathNormalize.lastIndexOf("/")
     if (!lastSlashIndex) return ''
-    return filePath.substr(lastSlashIndex + 1)
+    return filePathNormalize.substr(lastSlashIndex + 1)
 }

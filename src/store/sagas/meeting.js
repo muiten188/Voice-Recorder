@@ -114,6 +114,7 @@ const _uploadRercordFile = function* (record) {
                 ...meetingRecordInfo
             }
         }
+        return record
     } catch (error) {
         return record
     }

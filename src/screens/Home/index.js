@@ -12,6 +12,9 @@ import { uploadMeetingRecord, getMeeting } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
 const emptyArray = []
 import { meetingListSelector } from '~/src/store/selectors/meeting'
+import DocumentPicker from 'react-native-document-picker'
+import { addRecord } from '~/src/store/actions/localRecord'
+import ToastUtils from '~/src/utils/ToastUtils'
 
 class Home extends Component {
     constructor(props) {
@@ -64,7 +67,7 @@ class Home extends Component {
                         />
                         <View className='space8' />
                         <Text className='green center'>{I18n.t('add_new')}</Text>
-                        <View className='space32' />
+                        <View className='space12' />
                     </View>
                 </TouchableOpacity>
 
@@ -72,8 +75,28 @@ class Home extends Component {
         )
     }
 
-    _handlePressImport = () => {
+    _handlePressImport = async () => {
         this._toggleOverlay()
+        try {
+            const { addRecord } = this.props
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.audio],
+            });
+            console.log(
+                res.uri,
+                res.type, // mime type
+                res.name,
+                res.size
+            );
+            addRecord(res.uri)
+            ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${res.name}" vào hàng chờ`)
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+                // User cancelled the picker, exit any dialogs or menus and move on
+                console.log('User cancelled')
+            }
+            console.log('Picker error', err)
+        }
     }
 
     _handlePressRecord = () => {
@@ -147,7 +170,7 @@ class Home extends Component {
                         />
                         <View className='space8' />
                         <Text className='green center'>{I18n.t('add_new')}</Text>
-                        <View className='space32' />
+                        <View className='space12' />
                     </View>
                 </TouchableOpacity>
 
@@ -167,6 +190,7 @@ class Home extends Component {
         } else {
             this.setState({ loading: true })
         }
+        const { getMeeting } = this.props
         getMeeting('', (err, data) => {
             console.log('getMeeting err', err)
             console.log('getMeeting data', data)
@@ -179,11 +203,10 @@ class Home extends Component {
     }
 
     componentDidFocus = async () => {
-
         console.log("Home Did Focus");
         const { uploadMeetingRecord, getMeeting } = this.props
         uploadMeetingRecord()
-
+        this._load()
     };
 
     componentDidMount() {
@@ -242,6 +265,7 @@ class Home extends Component {
                     data={meetingListData}
                     keyExtractor={item => item.id + ''}
                     renderItem={this._renderMeetingItem}
+                    ListFooterComponent={<View className='space100' />}
                 />
             </View>
         )
@@ -250,4 +274,4 @@ class Home extends Component {
 
 export default connect(state => ({
     meetingList: meetingListSelector(state)
-}), { getUserInfo, uploadMeetingRecord, getMeeting })(Home)
+}), { getUserInfo, uploadMeetingRecord, getMeeting, addRecord })(Home)
