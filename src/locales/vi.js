@@ -49,6 +49,7 @@ const language = {
     detail: 'Chi tiết',
     prev_10s: '- 10s',
     next_10s: '+ 10s',
+    no_data: 'Không có dữ liệu',
 }
 
 // export default language;

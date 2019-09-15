@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ScrollView, Image, BackHandler } from 'react-native'
-import { View, Text, TouchableOpacityHitSlop, GradientToolbar } from "~/src/themes/ThemeComponent";
+import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider } from "~/src/themes/ThemeComponent";
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
 import moment from 'moment'
@@ -9,11 +9,12 @@ import { connect } from 'react-redux'
 import APIManager from '~/src/store/api/APIManager'
 import Sound from 'react-native-sound'
 import styles from './styles'
-import Slider from '@react-native-community/slider'
+// import Slider from '@react-native-community/slider'
 import { MEETING_STATUS, PAGE_SIZE } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
 import { getTranscription } from '~/src/store/actions/transcription'
 import { transcriptionSelector } from '~/src/store/selectors/transcription'
+// import  from "react-native-slider";
 
 class Player extends Component {
 
@@ -145,13 +146,32 @@ class Player extends Component {
 
     _getCurrentProgressForSlider = () => {
         if (this.state.duration == 0) return 0
-        return this.state.progress / this.state.duration
+        return this.state.progress / this.state.duration * 100
     }
+
+    _handlePressPrevious10s = () => {
+        this.player.getCurrentTime((seconds, isPlaying) => {
+            if (!isPlaying) return
+            if (seconds > 10) {
+                this.player.setCurrentTime(seconds - 10)
+            }
+        })
+    }
+
+    _handlePressNext10s = () => {
+        this.player.getCurrentTime((seconds, isPlaying) => {
+            if (!isPlaying) return
+            if (seconds < this.state.duration - 10) {
+                this.player.setCurrentTime(seconds + 10)
+            }
+        })
+    }
+
 
 
     render() {
         const { transcription } = this.props
-        const transcriptionText = chainParse(transcription, ['transcript']) || ''
+        const transcriptionText = chainParse(transcription, ['transcript']) || I18n.t('no_data')
         return (
             <View className="flex background">
                 <GradientToolbar
@@ -159,8 +179,9 @@ class Player extends Component {
                 />
                 <ScrollView
                     showsVerticalScrollIndicator={false}
+                    style={styles.transcriptContainer}
                 >
-                    <View className='column-center ph16 pv16' style={styles.transcriptContainer}>
+                    <View className='column-center ph16 pv16'>
                         <Text className='s15 center lh24 white54'>{transcriptionText}</Text>
                     </View>
 
@@ -176,16 +197,19 @@ class Player extends Component {
                     <View className='row-space-between ph14'>
                         <Text className='textBlack' style={{ marginRight: 10 }}>{getPlayerTimeString(this.state.progress)}</Text>
                         <Slider
-                            style={{ width: 200, height: 2, borderRadius: 1, backgroundColor: '#363636' }}
                             minimumValue={0}
-                            maximumValue={1}
+                            maximumValue={100}
                             value={this._getCurrentProgressForSlider()}
-                            thumbTintColor={'#363636'}
+                            style={{ width: 200, height: 2, borderRadius: 1, backgroundColor: '#363636', padding: 0, margin: 0 }}
+                        // thumbStyle={{ width: 8, height: 8, borderRadius: 4 }}
+                        // thumbTintColor={'transparent'}
+                        // thumbImage={require('~/src/image/slider.png')}
+                        // thumbImageStyle={{ width: 14.33, height: 13.67, borderRadius: 7 }}
                         />
                         <Text className='textBlack' style={{ marginLeft: 10 }}>{getPlayerTimeString(this.state.duration)}</Text>
                     </View>
                     <View className='row-center' style={styles.playerActionContainer}>
-                        <TouchableOpacityHitSlop>
+                        <TouchableOpacityHitSlop onPress={this._handlePressPrevious10s}>
                             <View style={styles.prevContainer}>
                                 <Image source={require('~/src/image/tua_10s.png')} style={styles.prev10sImg} />
                                 <Text className='s12 textBlack'>{I18n.t('prev_10s')}</Text>
@@ -194,7 +218,7 @@ class Player extends Component {
                         <TouchableOpacityHitSlop onPress={this._handlePressPlayPause}>
                             <Image source={this.state.playing ? require('~/src/image/pause2.png') : require('~/src/image/recording.png')} style={styles.pauseImg} />
                         </TouchableOpacityHitSlop>
-                        <TouchableOpacityHitSlop>
+                        <TouchableOpacityHitSlop onPress={this._handlePressNext10s}>
                             <View style={styles.nextContainer}>
                                 <Image source={require('~/src/image/tua_10s.png')} style={styles.next10sImg} />
                                 <Text className='s12 textBlack'>{I18n.t('next_10s')}</Text>
