@@ -4,7 +4,7 @@ import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { updateRecord } from '~/src/store/actions/localRecord'
-import { setMetting } from '~/src/store/actions/meeting'
+import { setMetting, getMeeting } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
 import { getUploadKey, getFileName } from '~/src/utils'
@@ -34,7 +34,31 @@ const requestGetMeeting = createRequestSaga({
     ]
 })
 
-const uploadRecordFile = function (record) {
+const _createMeetingUploadUrl = function* (record) {
+    if (record.status != LOCAL_RECORD_STATUS.INITIAL) return record
+    const createMeetingUploadUrlResponse = yield call(api.meeting.createMeetingUploadUrl)
+    console.log('createMeetingUploadUrlResponse', createMeetingUploadUrlResponse)
+    const hasError = yield call(handleCommonError, createMeetingUploadUrlResponse)
+    console.log('Has Error createMeetingUploadUrlResponse', hasError)
+    if (hasError) return record
+    const result = createMeetingUploadUrlResponse.result
+    if (!result || !result[0] || !result[1]) return record
+    const meetingRecordInfo = {
+        localPath: record.localPath,
+        status: LOCAL_RECORD_STATUS.CREATED_MEETING_URL,
+        uploadUrl: result[0],
+        uploadField: {
+            ...result[1]
+        }
+    }
+    yield put(updateRecord(meetingRecordInfo))
+    return {
+        ...record,
+        ...meetingRecordInfo
+    }
+}
+
+const _upload = function (record) {
     return new Promise((resolve, reject) => {
         const { localPath, uploadUrl, uploadField } = record
         const originalUploadKey = uploadField.key
@@ -72,63 +96,65 @@ const uploadRecordFile = function (record) {
     })
 }
 
+const _uploadRercordFile = function* (record) {
+    console.log('Already create upload url')
+    if (record.status != LOCAL_RECORD_STATUS.CREATED_MEETING_URL) return record
+    try {
+        const uploadResponseHeader = yield call(_upload, record)
+        console.log('respHeader', uploadResponseHeader)
+        // Upload success
+        if (uploadResponseHeader.status >= 200 && uploadResponseHeader.status < 300) {
+            const meetingRecordInfo = {
+                localPath: record.localPath,
+                status: LOCAL_RECORD_STATUS.UPLOADED,
+            }
+            yield put(updateRecord(meetingRecordInfo))
+            return {
+                ...record,
+                ...meetingRecordInfo
+            }
+        }
+    } catch (error) {
+        return record
+    }
+}
+
+const _createMeeting = function* (record) {
+    if (record.status != LOCAL_RECORD_STATUS.UPLOADED) return record
+    const { uploadField, localPath } = record
+    const originalUploadKey = uploadField.key
+    const uplodaKey = getUploadKey(originalUploadKey, localPath)
+    const name = getFileName(localPath)
+    const createMeetingResponse = yield call(api.meeting.createMeeting, uplodaKey, name, 2)
+    console.log('createMeetingResponse response', createMeetingResponse)
+    const hasError = yield call(handleCommonError, createMeetingResponse)
+    console.log('Has Error createMeetingResponse', hasError)
+    if (hasError) return record
+    // Create meeting success
+    if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
+        const meetingRecordInfo = {
+            localPath: record.localPath,
+            status: LOCAL_RECORD_STATUS.MEETING_CREATED,
+        }
+        yield put(updateRecord(meetingRecordInfo))
+        yield put(getMeeting())
+        return {
+            ...record,
+            ...meetingRecordInfo
+        }
+    }
+}
+
 const requestUploadMeetingRecord = function* () {
     const localRecord = yield select(localRecordSelector)
     console.log('localRecord sagas', localRecord)
     if (!localRecord || localRecord.length == 0) return
-    if (localRecord[0].status == LOCAL_RECORD_STATUS.INITIAL) {
-        const createMeetingUploadUrlResponse = yield call(api.meeting.createMeetingUploadUrl)
-        console.log('createMeetingUploadUrlResponse', createMeetingUploadUrlResponse)
-        const hasError = yield call(handleCommonError, createMeetingUploadUrlResponse)
-        console.log('Has Error createMeetingUploadUrlResponse', hasError)
-        if (hasError) return
-        const result = createMeetingUploadUrlResponse.result
-        if (!result || !result[0] || !result[1]) return
-        const meetingRecordInfo = {
-            localPath: localRecord[0].localPath,
-            status: LOCAL_RECORD_STATUS.CREATED_MEETING_URL,
-            uploadUrl: result[0],
-            uploadField: {
-                ...result[1]
-            }
-        }
-        yield put(updateRecord(meetingRecordInfo))
-    } else if (localRecord[0].status == LOCAL_RECORD_STATUS.CREATED_MEETING_URL) {
-        console.log('Already create upload url')
-        try {
-            const uploadResponseHeader = yield call(uploadRecordFile, localRecord[0])
-            console.log('respHeader', uploadResponseHeader)
-            // Upload success
-            if (uploadResponseHeader.status >= 200 && uploadResponseHeader.status < 300) {
-                const meetingRecordInfo = {
-                    localPath: localRecord[0].localPath,
-                    status: LOCAL_RECORD_STATUS.UPLOADED,
-                }
-                yield put(updateRecord(meetingRecordInfo))
-            }
-        } catch (error) {
-
-        }
-    } else if (localRecord[0].status == LOCAL_RECORD_STATUS.UPLOADED) {
-        const { uploadField, localPath } = localRecord[0]
-        const originalUploadKey = uploadField.key
-        const uplodaKey = getUploadKey(originalUploadKey, localPath)
-        const name = getFileName(localPath)
-        const createMeetingResponse = yield call(api.meeting.createMeeting, uplodaKey, name, 2)
-        console.log('createMeetingResponse response', createMeetingResponse)
-        const hasError = yield call(handleCommonError, createMeetingResponse)
-        console.log('Has Error createMeetingResponse', hasError)
-        if (hasError) return
-        // Create meeting success
-        if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
-            const meetingRecordInfo = {
-                localPath: localRecord[0].localPath,
-                status: LOCAL_RECORD_STATUS.MEETING_CREATED,
-            }
-            yield put(updateRecord(meetingRecordInfo))
-        }
-    }
-
+    // only record not became to a meeting
+    let record = localRecord.find(item => item.status != LOCAL_RECORD_STATUS.MEETING_CREATED)
+    if (!record) return
+    record = yield call(_createMeetingUploadUrl, record)
+    record = yield call(_uploadRercordFile, record)
+    record = yield call(_createMeeting, record)
 }
 
 // root saga reducer

@@ -145,7 +145,6 @@ class Player extends Component {
             <View className="flex background">
                 <GradientToolbar
                     title={I18n.t('detail')}
-                    avatar='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85'
                 />
                 <View className='white bottom column-center' style={{ width: '100%' }}>
                     <View className='space12' />

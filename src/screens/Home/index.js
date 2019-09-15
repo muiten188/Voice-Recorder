@@ -20,7 +20,9 @@ class Home extends Component {
             keyword: '',
             statusFilter: '',
             showingFloatingOverlay: false,
-            popupDeleteContent: ''
+            popupDeleteContent: '',
+            loading: false,
+            refresing: false
         }
         this.didFocusListener = props.navigation.addListener(
             "didFocus",
@@ -157,15 +159,31 @@ class Home extends Component {
         this.props.navigation.openDrawer()
     }
 
+
+
+    _load = (refresing = false) => {
+        if (refresing) {
+            this.setState({ refresing: true })
+        } else {
+            this.setState({ loading: true })
+        }
+        getMeeting('', (err, data) => {
+            console.log('getMeeting err', err)
+            console.log('getMeeting data', data)
+            this.setState({ refresing: false, loading: false })
+        })
+    }
+
+    _refresh = () => {
+        this._load(true)
+    }
+
     componentDidFocus = async () => {
 
         console.log("Home Did Focus");
         const { uploadMeetingRecord, getMeeting } = this.props
-        // uploadMeetingRecord()
-        getMeeting('', (err, data) => {
-            console.log('getMeeting err', err)
-            console.log('getMeeting data', data)
-        })
+        uploadMeetingRecord()
+
     };
 
     componentDidMount() {
@@ -219,6 +237,8 @@ class Home extends Component {
                 </View>
                 {this._renderMainFloatingButton()}
                 <FlatList
+                    onRefresh={this._refresh}
+                    refreshing={this.state.refresing}
                     data={meetingListData}
                     keyExtractor={item => item.id + ''}
                     renderItem={this._renderMeetingItem}
