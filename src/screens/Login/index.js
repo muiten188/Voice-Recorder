@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
     ImageBackground,
     Image,
+    InteractionManager
 } from "react-native";
 import {
     View,
@@ -49,44 +50,46 @@ class Login extends Component {
     _handleLogin = lodash.throttle(() => {
         if (!this.state.userName || !this.state.password) return
         const { signIn, createAccessToken } = this.props
-        this.setState({ loading: true })
-        signIn(this.state.userName, this.state.password, (err, data) => {
-            console.log('signIn err', err)
-            console.log('signIn data', data)
+        InteractionManager.runAfterInteractions(() => {
+            this.setState({ loading: true })
+            signIn(this.state.userName, this.state.password, (err, data) => {
+                console.log('signIn err', err)
+                console.log('signIn data', data)
 
-            const statusCode = chainParse(data, ['httpHeaders', 'status'])
-            if (statusCode == 200) {
-                const refreshToken = chainParse(data, ['refresh_token'])
-                // Save refreshToken to AsyncStorage
-                AsyncStorage.setItem("refreshToken", refreshToken);
-                createAccessToken(refreshToken, (errAc, dataAc) => {
-                    console.log('createAccessToken err', errAc)
-                    console.log('createAccessToken data', dataAc)
+                const statusCode = chainParse(data, ['httpHeaders', 'status'])
+                if (statusCode == 200) {
+                    const refreshToken = chainParse(data, ['refresh_token'])
+                    // Save refreshToken to AsyncStorage
+                    AsyncStorage.setItem("refreshToken", refreshToken);
+                    createAccessToken(refreshToken, (errAc, dataAc) => {
+                        console.log('createAccessToken err', errAc)
+                        console.log('createAccessToken data', dataAc)
+                        this.setState({ loading: false })
+                        const statusCodeAc = chainParse(data, ['httpHeaders', 'status'])
+                        if (statusCodeAc == 200) {
+                            const resetAction = StackActions.reset({
+                                index: 0,
+                                actions: [NavigationActions.navigate({ routeName: "Drawer" })],
+                                key: undefined
+                            });
+                            this.props.navigation.dispatch(resetAction);
+                        } else if (data && data.message) {
+                            this.setState({ loading: false })
+                            const messObj = JSON.parse(data.message)
+                            ToastUtils.showErrorToast(messObj['message'])
+                        } else {
+                            this.setState({ loading: false })
+                        }
+                    })
+
+                } else if (data && data.message) {
                     this.setState({ loading: false })
-                    const statusCodeAc = chainParse(data, ['httpHeaders', 'status'])
-                    if (statusCodeAc == 200) {
-                        const resetAction = StackActions.reset({
-                            index: 0,
-                            actions: [NavigationActions.navigate({ routeName: "Drawer" })],
-                            key: undefined
-                        });
-                        this.props.navigation.dispatch(resetAction);
-                    } else if (data && data.message) {
-                        this.setState({ loading: false })
-                        const messObj = JSON.parse(data.message)
-                        ToastUtils.showErrorToast(messObj['message'])
-                    } else {
-                        this.setState({ loading: false })
-                    }
-                })
-
-            } else if (data && data.message) {
-                this.setState({ loading: false })
-                const messObj = JSON.parse(data.message)
-                ToastUtils.showErrorToast(messObj['message'])
-            } else {
-                this.setState({ loading: false })
-            }
+                    const messObj = JSON.parse(data.message)
+                    ToastUtils.showErrorToast(messObj['message'])
+                } else {
+                    this.setState({ loading: false })
+                }
+            })
         })
     }, 500)
 

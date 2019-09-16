@@ -26,7 +26,12 @@ export default {
         marginTop: 30,
         marginBottom: 48
     },
-    transcriptContainer: {
+    transcriptOuter: {
         backgroundColor: '#282828',
+    },
+    transcriptContainer: {
+        
+        paddingHorizontal: 16,
+        paddingVertical: 16
     }
 }

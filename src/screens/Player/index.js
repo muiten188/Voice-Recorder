@@ -14,7 +14,11 @@ import { MEETING_STATUS, PAGE_SIZE } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
 import { getTranscription } from '~/src/store/actions/transcription'
 import { transcriptionSelector } from '~/src/store/selectors/transcription'
-// import  from "react-native-slider";
+import { COLORS } from "~/src/themes/common";
+import lodash from 'lodash'
+import { FlatList } from "react-native-gesture-handler";
+import { Item } from "react-native-paper/typings/components/List";
+const emptyArray = []
 
 class Player extends Component {
 
@@ -31,6 +35,7 @@ class Player extends Component {
             duration: 0,
             progress: 0
         }
+        this.layoutMap = {}
         this.meeting = props.navigation.getParam('meeting')
         this._didFocusSubscription = props.navigation.addListener('didFocus', this.componentDidFocus)
     }
@@ -51,8 +56,6 @@ class Player extends Component {
             if (error) {
                 // do something
             }
-
-            console.log('duration in seconds: ' + this.player.getDuration() + 'number of channels: ' + this.player.getNumberOfChannels());
             this.setState({ duration: this.player.getDuration(), playing: true })
             // play when loaded
             this.player.play();
@@ -65,7 +68,7 @@ class Player extends Component {
             this.player.getCurrentTime((seconds, isPlaying) => {
                 this.setState({ progress: seconds })
             })
-        }, 500)
+        }, 250)
     }
 
     _handlePressPlayPause = () => {
@@ -167,25 +170,108 @@ class Player extends Component {
         })
     }
 
+    _onLayoutTextView = (e, index) => {
+        if (!this.layoutMap[index]) {
+            this.layoutMap[index] = e.nativeEvent.layout.y
+        }
+    }
 
+    getTranscriptInfoForDisplay = lodash.memoize((transcriptInfo) => {
+        if (!transcriptInfo || transcriptInfo.length == 0) return emptyArray
+        const result = []
+        for (let i = 0; i < transcriptInfo.length; i++) {
+            const resultLength = result.length
+            const transcriptItem = transcriptInfo[i]
+            if (resultLength == 0 || +result[resultLength - 1].key < +transcriptItem.key) {
+                result.push(
+                    {
+                        key: transcriptItem.key,
+                        timeStart: transcriptItem.timeStart,
+                        timeEnd: transcriptItem.timeEnd,
+                        text: transcriptItem.text
+                    }
+                )
+            } else {
+                result[resultLength - 1] = {
+                    ...result[resultLength - 1],
+                    timeEnd: transcriptItem.timeEnd,
+                    text: result[resultLength - 1].text + ' ' + transcriptItem.text
+                }
+            }
+        }
+        return result
+    })
+
+    _renderTranscriptItem = ({ item, index }) => {
+        const shouldHightlight = item.timeStart <= this.state.progress && item.timeEnd >= this.state.progress
+        return (
+            <Text
+                style={{
+                    color: shouldHightlight ? '#55eaa4' : COLORS.WHITE54,
+                    fontWeight: shouldHightlight ? 'bold' : 'normal',
+                    fontSize: 15,
+                    lineHeight: 24,
+                    textAlign: 'center'
+                }}>
+                {item.text}
+            </Text>
+        )
+    }
 
     render() {
         const { transcription } = this.props
-        const transcriptionText = chainParse(transcription, ['transcript']) || I18n.t('no_data')
+        const transcriptionText = chainParse(transcription, ['transcript']) || ''
+        const transcriptInfo = chainParse(transcription, ['transcript_info']) || []
+        const transcriptDisplay = this.getTranscriptInfoForDisplay(transcriptInfo)
+        console.log('transcript display', transcriptDisplay)
+        //     <ScrollView
+        //     showsVerticalScrollIndicator={false}
+        //     style={styles.transcriptContainer}
+        // >
+        // </ScrollView>
+
+        // <View className='row-center wrap'>
+        //                     {transcriptInfo.map((item, index) => {
+        //                         const shouldHightlight = item.timeStart <= this.state.progress
+        //                         return <View onLayout={(e) => this._onLayoutTextView(e, index)}>
+        //                             <Text
+        //                                 key={index}
+        //                                 style={{
+        //                                     color: shouldHightlight ? '#55eaa4' : COLORS.WHITE54,
+        //                                     fontWeight: shouldHightlight ? 'bold' : 'normal',
+        //                                     fontSize: 15,
+        //                                     lineHeight: 24,
+        //                                     textAlign: 'center'
+        //                                 }}>
+        //                                 {item.text}{index < transcriptInfo.length - 1 ? ' ' : ''}
+        //                             </Text>
+        //                         </View>
+        //                     })}
+        //                 </View>
         return (
             <View className="flex background">
                 <GradientToolbar
                     title={I18n.t('detail')}
+                    onPressLeft={this._handleBack}
                 />
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={styles.transcriptContainer}
-                >
-                    <View className='column-center ph16 pv16'>
-                        <Text className='s15 center lh24 white54'>{transcriptionText}</Text>
-                    </View>
 
-                </ScrollView>
+                <View className='flex' style={styles.transcriptOuter}>
+                    {!transcriptionText ?
+                        <View style={styles.transcriptContainer}>
+                            <Text className='s15 center lh24 white54'>
+                                {I18n.t('no_data')}
+                            </Text>
+                        </View>
+                        :
+                        <FlatList
+                            data={transcriptDisplay}
+                            key={item => item.id + ''}
+                            renderItem={this._renderTranscriptItem}
+                            extraData={this.state.progress}
+                            style={styles.transcriptContainer}
+                        />
+                    }
+                </View>
                 <View className='white column-center fullWidth'>
                     <View className='space12' />
                     <View className='ph14'>
@@ -216,7 +302,7 @@ class Player extends Component {
                             </View>
                         </TouchableOpacityHitSlop>
                         <TouchableOpacityHitSlop onPress={this._handlePressPlayPause}>
-                            <Image source={this.state.playing ? require('~/src/image/pause2.png') : require('~/src/image/recording.png')} style={styles.pauseImg} />
+                            <Image source={this.state.playing ? require('~/src/image/pause2.png') : require('~/src/image/play.png')} style={styles.pauseImg} />
                         </TouchableOpacityHitSlop>
                         <TouchableOpacityHitSlop onPress={this._handlePressNext10s}>
                             <View style={styles.nextContainer}>
@@ -226,7 +312,7 @@ class Player extends Component {
                         </TouchableOpacityHitSlop>
                     </View>
                 </View>
-            </View>
+            </View >
         );
     }
 }
