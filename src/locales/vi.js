@@ -9,7 +9,7 @@ const language = {
     text_intro_2: 'Một nội dung ngắn gọn và thú zị',
     next: 'Tiếp',
     cancel_en: 'Cancel',
-    
+
     // Record status
     start: 'Bắt đầu',
     pause: 'Tạm dừng',
@@ -50,6 +50,7 @@ const language = {
     prev_10s: '- 10s',
     next_10s: '+ 10s',
     no_data: 'Không có dữ liệu',
+    request_time_out: 'Lỗi kết nối'
 }
 
 // export default language;

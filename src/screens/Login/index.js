@@ -75,14 +75,17 @@ class Login extends Component {
                         this.setState({ loading: false })
                         const messObj = JSON.parse(data.message)
                         ToastUtils.showErrorToast(messObj['message'])
+                    } else {
+                        this.setState({ loading: false })
                     }
-
                 })
 
             } else if (data && data.message) {
                 this.setState({ loading: false })
                 const messObj = JSON.parse(data.message)
                 ToastUtils.showErrorToast(messObj['message'])
+            } else {
+                this.setState({ loading: false })
             }
         })
     }, 500)
