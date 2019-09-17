@@ -30,7 +30,6 @@ export default {
         backgroundColor: '#282828',
     },
     transcriptContainer: {
-        
         paddingHorizontal: 16,
         paddingVertical: 16
     }

@@ -33,11 +33,14 @@ class Player extends Component {
             audioPath: '',
             playing: true,
             duration: 0,
-            progress: 0
+            progress: 0,
+            currentTranscriptKey: 0
         }
         this.layoutMap = {}
         this.meeting = props.navigation.getParam('meeting')
         this._didFocusSubscription = props.navigation.addListener('didFocus', this.componentDidFocus)
+        this.currentTranscriptKey = 1
+        this.lastTranscriptKey = 1
     }
 
     _handleBack = () => {
@@ -66,7 +69,26 @@ class Player extends Component {
     _runCheckInterval = () => {
         this.checkIntervalId = setInterval(() => {
             this.player.getCurrentTime((seconds, isPlaying) => {
-                this.setState({ progress: seconds })
+                const { transcription } = this.props
+                const transcriptInfo = chainParse(transcription, ['transcript_info']) || false
+                if (transcriptInfo) {
+                    const currentTranscriptObj = transcriptInfo.find(item => item.timeStart <= this.state.progress && item.timeEnd >= this.state.progress)
+                    if (currentTranscriptObj) {
+                        this.lastTranscriptKey = this.currentTranscriptKey
+                        this.currentTranscriptKey = currentTranscriptObj.key
+                    }
+                }
+                this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey }, () => {
+                    if (this.lastTranscriptKey != this.currentTranscriptKey) {
+                        this.transcriptList && this.transcriptList.scrollToIndex({
+                            animated: true,
+                            index: this.currentTranscriptKey - 1,
+                            viewPosition: 0,
+                            viewOffset: 50
+                        })
+                    }
+
+                })
             })
         }, 250)
     }
@@ -170,10 +192,11 @@ class Player extends Component {
         })
     }
 
-    _onLayoutTextView = (e, index) => {
-        if (!this.layoutMap[index]) {
-            this.layoutMap[index] = e.nativeEvent.layout.y
-        }
+    _onLayoutTextView = (e, item) => {
+        // console.log('Onlayout', e.nativeEvent.layout, item)
+        // if (!this.layoutMap[key]) {
+        //     this.layoutMap[index] = e.nativeEvent.layout.y
+        // }
     }
 
     getTranscriptInfoForDisplay = lodash.memoize((transcriptInfo) => {
@@ -203,18 +226,21 @@ class Player extends Component {
     })
 
     _renderTranscriptItem = ({ item, index }) => {
-        const shouldHightlight = item.timeStart <= this.state.progress && item.timeEnd >= this.state.progress
+        const shouldHightlight = item.key == this.state.currentTranscriptKey
+
         return (
-            <Text
-                style={{
-                    color: shouldHightlight ? '#55eaa4' : COLORS.WHITE54,
-                    fontWeight: shouldHightlight ? 'bold' : 'normal',
-                    fontSize: 15,
-                    lineHeight: 24,
-                    textAlign: 'center'
-                }}>
-                {item.text}
-            </Text>
+            <View className='row-center'>
+                <Text
+                    style={{
+                        color: shouldHightlight ? '#55eaa4' : COLORS.WHITE54,
+                        fontWeight: shouldHightlight ? 'bold' : 'normal',
+                        fontSize: 15,
+                        lineHeight: 24,
+                        textAlign: 'center'
+                    }}>
+                    {item.text}
+                </Text>
+            </View>
         )
     }
 
@@ -223,31 +249,6 @@ class Player extends Component {
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
         const transcriptInfo = chainParse(transcription, ['transcript_info']) || []
         const transcriptDisplay = this.getTranscriptInfoForDisplay(transcriptInfo)
-        console.log('transcript display', transcriptDisplay)
-        //     <ScrollView
-        //     showsVerticalScrollIndicator={false}
-        //     style={styles.transcriptContainer}
-        // >
-        // </ScrollView>
-
-        // <View className='row-center wrap'>
-        //                     {transcriptInfo.map((item, index) => {
-        //                         const shouldHightlight = item.timeStart <= this.state.progress
-        //                         return <View onLayout={(e) => this._onLayoutTextView(e, index)}>
-        //                             <Text
-        //                                 key={index}
-        //                                 style={{
-        //                                     color: shouldHightlight ? '#55eaa4' : COLORS.WHITE54,
-        //                                     fontWeight: shouldHightlight ? 'bold' : 'normal',
-        //                                     fontSize: 15,
-        //                                     lineHeight: 24,
-        //                                     textAlign: 'center'
-        //                                 }}>
-        //                                 {item.text}{index < transcriptInfo.length - 1 ? ' ' : ''}
-        //                             </Text>
-        //                         </View>
-        //                     })}
-        //                 </View>
         return (
             <View className="flex background">
                 <GradientToolbar
@@ -265,10 +266,10 @@ class Player extends Component {
                         :
                         <FlatList
                             data={transcriptDisplay}
-                            key={item => item.id + ''}
+                            key={item => item.key + ''}
                             renderItem={this._renderTranscriptItem}
-                            extraData={this.state.progress}
-                            style={styles.transcriptContainer}
+                            ref={ref => this.transcriptList = ref}
+                            contentContainerStyle={styles.transcriptContainer}
                         />
                     }
                 </View>
@@ -312,7 +313,7 @@ class Player extends Component {
                         </TouchableOpacityHitSlop>
                     </View>
                 </View>
-            </View >
+            </View>
         );
     }
 }
