@@ -152,11 +152,15 @@ const requestUploadMeetingRecord = function* () {
     console.log('localRecord sagas', localRecord)
     if (!localRecord || localRecord.length == 0) return
     // only record not became to a meeting
-    let record = localRecord.find(item => item.status != LOCAL_RECORD_STATUS.MEETING_CREATED)
-    if (!record) return
-    record = yield call(_createMeetingUploadUrl, record)
-    record = yield call(_uploadRercordFile, record)
-    record = yield call(_createMeeting, record)
+    let records = localRecord.find(item => item.status != LOCAL_RECORD_STATUS.MEETING_CREATED)
+    if (!records) return
+    for (let i = 0; i < localRecord.length; i++) {
+        let record = localRecord[i]
+        if (record.status == LOCAL_RECORD_STATUS.MEETING_CREATED) continue
+        record = yield call(_createMeetingUploadUrl, record)
+        record = yield call(_uploadRercordFile, record)
+        record = yield call(_createMeeting, record)
+    }
 }
 
 // const runIntervalCheck = function* () {

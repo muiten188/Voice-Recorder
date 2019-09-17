@@ -77,7 +77,7 @@ class Home extends Component {
     _handlePressImport = async () => {
         this._toggleOverlay()
         try {
-            const { addRecord } = this.props
+            const { addRecord, uploadMeetingRecord } = this.props
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
             });
@@ -88,6 +88,9 @@ class Home extends Component {
                 res.size
             );
             addRecord(res.uri)
+            setTimeout(() => {
+                uploadMeetingRecord()
+            }, 100)
             ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${res.name}" vào hàng chờ`)
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
@@ -207,17 +210,15 @@ class Home extends Component {
     };
 
     componentDidMount() {
-        const { getUserInfo, uploadMeetingRecord } = this.props
+        const { uploadMeetingRecord } = this.props
         this.checkLocalRecordInterval = setInterval(() => {
             uploadMeetingRecord()
         }, CHECK_LOCAL_RECORD_PERIOD)
-
     }
 
     componentWillUnmount() {
         clearInterval(this.checkLocalRecordInterval)
     }
-
 
     render() {
         const { meetingList } = this.props
