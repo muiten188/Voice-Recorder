@@ -14,6 +14,8 @@ import { meetingListSelector } from '~/src/store/selectors/meeting'
 import DocumentPicker from 'react-native-document-picker'
 import { addRecord } from '~/src/store/actions/localRecord'
 import ToastUtils from '~/src/utils/ToastUtils'
+import RNFetchBlob from "rn-fetch-blob"
+import { resolve } from "upath";
 
 class Home extends Component {
     constructor(props) {
@@ -81,17 +83,31 @@ class Home extends Component {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
             });
-            console.log(
-                res.uri,
-                res.type, // mime type
-                res.name,
-                res.size
-            );
-            addRecord(res.uri)
+            const uri = decodeURIComponent(res.uri)
+            let uriPromise = new Promise((resolve, reject) => {
+                RNFetchBlob.fs.stat(uri)
+                    .then(fileStats => {
+                        resolve({
+                            uri: fileStats.path,
+                            name: fileStats.filename
+                        })
+                    })
+                    .catch(err => {
+                        console.log('Error', err)
+                        resolve({
+                            uri: res.uri,
+                            name: res.name
+                        })
+                    })
+            })
+
+            let uriInfoObj = await uriPromise
+            console.log('Uri Obj', uriInfoObj)
+            addRecord(uriInfoObj.uri)
             setTimeout(() => {
                 uploadMeetingRecord()
             }, 100)
-            ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${res.name}" vào hàng chờ`)
+            ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${uriInfoObj.name}" vào hàng chờ`)
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on
