@@ -23,3 +23,11 @@ export const setMetting = (data) => ({
 export const uploadMeetingRecord = () => ({
     type: ACTION_TYPES.MEETING_UPLOAD_RECORD
 })
+
+export const startCheckUploadLocalRecord = () => ({
+    type: ACTION_TYPES.MEETING_START_CHECK_LOCAL_RECORD
+})
+
+export const stopCheckUploadLocalRecord = () => ({
+    type: ACTION_TYPES.MEETING_STOP_CHECK_LOCAL_RECORD
+})

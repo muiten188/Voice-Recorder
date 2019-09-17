@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { TouchableOpacity, Image, FlatList, Animated } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { MEETING_STATUS_LIST } from '~/src/constants'
+import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import styles from './styles'
-import records from './data'
 import VoiceItem from '~/src/components/VoiceItem'
 import { getUserInfo } from '~/src/store/actions/auth'
-import { uploadMeetingRecord, getMeeting } from '~/src/store/actions/meeting'
+import { uploadMeetingRecord, getMeeting, startCheckUploadLocalRecord, stopCheckUploadLocalRecord } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
 const emptyArray = []
 import { meetingListSelector } from '~/src/store/selectors/meeting'
@@ -204,17 +203,19 @@ class Home extends Component {
 
     componentDidFocus = async () => {
         console.log("Home Did Focus");
-        const { uploadMeetingRecord, getMeeting } = this.props
-        uploadMeetingRecord()
         this._load()
     };
 
     componentDidMount() {
-        const { getUserInfo } = this.props
-        getUserInfo((err, data) => {
-            console.log('getUserInfo err', err)
-            console.log('getUserInfo data', data)
-        })
+        const { getUserInfo, uploadMeetingRecord } = this.props
+        this.checkLocalRecordInterval = setInterval(() => {
+            uploadMeetingRecord()
+        }, CHECK_LOCAL_RECORD_PERIOD)
+
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.checkLocalRecordInterval)
     }
 
 
@@ -274,4 +275,8 @@ class Home extends Component {
 
 export default connect(state => ({
     meetingList: meetingListSelector(state)
-}), { getUserInfo, uploadMeetingRecord, getMeeting, addRecord })(Home)
+}), {
+    getUserInfo, uploadMeetingRecord,
+    getMeeting, addRecord,
+    startCheckUploadLocalRecord, stopCheckUploadLocalRecord
+})(Home)

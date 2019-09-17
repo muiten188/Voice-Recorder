@@ -5,10 +5,11 @@ import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { updateRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting } from '~/src/store/actions/meeting'
-import { LOCAL_RECORD_STATUS } from '~/src/constants'
+import { LOCAL_RECORD_STATUS, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
 import { getUploadKey, getFileName } from '~/src/utils'
 import { chainParse } from '~/src/utils'
+let checkLocalRecordInterval
 
 const requestCreateMeetingUploadUrl = createRequestSaga({
     request: api.meeting.createMeetingUploadUrl,
@@ -158,6 +159,21 @@ const requestUploadMeetingRecord = function* () {
     record = yield call(_createMeeting, record)
 }
 
+// const runIntervalCheck = function* () {
+//     console.log('running IntervalCheck')
+//     yield call(requestCheckUploadRecord)
+// }
+
+
+// const requestCheckUploadRecord = function* () {
+//     console.log('requestCheckUploadRecord')
+//     checkLocalRecordInterval = yield call(setInterval, runIntervalCheck, CHECK_LOCAL_RECORD_PERIOD)
+// }
+
+// const requestStopCheckUploadRecord = function* () {
+//     clearInterval(checkLocalRecordInterval)
+// }
+
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
@@ -165,6 +181,8 @@ export default function* fetchWatcher() {
         takeEvery(ACTION_TYPES.MEETING_CREATE, requestCreateMeeting),
         takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
         takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
+        // takeLatest(ACTION_TYPES.MEETING_START_CHECK_LOCAL_RECORD, requestCheckUploadRecord),
+        // takeLatest(ACTION_TYPES.MEETING_STOP_CHECK_LOCAL_RECORD, requestStopCheckUploadRecord)
     ])
 }
 

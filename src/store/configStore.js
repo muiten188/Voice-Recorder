@@ -2,28 +2,10 @@ import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '~/src/store/reducers'
 import logger from 'redux-logger'
 import { persistStore, persistReducer, createMigrate } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from '~/src/store/sagas'
 import { createTransform } from 'redux-persist'
-import AES from 'crypto-js/aes'
-import CryptoJS from 'crypto-js'
-import { STORE_SALT } from '~/src/constants'
 import AsyncStorage from '@react-native-community/async-storage'
-
-const encryptTransform = createTransform(
-    // transform state on its way to being serialized and persisted.
-
-    (inboundState, key) => {
-        const inbouncStateEncrypt = AES.encrypt(JSON.stringify(inboundState), STORE_SALT).toString()
-        return inbouncStateEncrypt
-    },
-    // transform state being rehydrated
-    (outboundState, key) => {
-        const outboundStateDecrypt = AES.decrypt(outboundState, STORE_SALT).toString(CryptoJS.enc.Utf8)
-        return JSON.parse(outboundStateDecrypt)
-    },
-);
 
 const seachParamTransform = createTransform(
     // transform state on its way to being serialized and persisted.
