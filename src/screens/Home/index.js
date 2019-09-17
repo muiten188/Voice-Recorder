@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity, Image, FlatList, Animated } from 'react-native'
+import { TouchableOpacity, Image, FlatList } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
@@ -11,11 +11,12 @@ import { uploadMeetingRecord, getMeeting, startCheckUploadLocalRecord, stopCheck
 import { connect } from 'react-redux'
 const emptyArray = []
 import { meetingListSelector } from '~/src/store/selectors/meeting'
+import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord'
 import DocumentPicker from 'react-native-document-picker'
 import { addRecord } from '~/src/store/actions/localRecord'
 import ToastUtils from '~/src/utils/ToastUtils'
 import RNFetchBlob from "rn-fetch-blob"
-import { resolve } from "upath";
+import lodash from 'lodash'
 
 class Home extends Component {
     constructor(props) {
@@ -236,9 +237,15 @@ class Home extends Component {
         clearInterval(this.checkLocalRecordInterval)
     }
 
+    _getDataForList = (processingLocalRecord, meetingData) => {
+        return [...processingLocalRecord, ...meetingData]
+    }
+
     render() {
-        const { meetingList } = this.props
+        const { meetingList, processingLocalRecord } = this.props
         const meetingListData = meetingList.data || emptyArray
+        const listData = this._getDataForList(processingLocalRecord, meetingListData)
+        console.log('Home listData', listData)
         return (
             <View className="flex white">
                 {this._renderFloatingOverlay()}
@@ -280,7 +287,7 @@ class Home extends Component {
                 <FlatList
                     onRefresh={this._refresh}
                     refreshing={this.state.refresing}
-                    data={meetingListData}
+                    data={listData}
                     keyExtractor={item => item.id + ''}
                     renderItem={this._renderMeetingItem}
                     ListFooterComponent={<View className='space100' />}
@@ -291,7 +298,8 @@ class Home extends Component {
 }
 
 export default connect(state => ({
-    meetingList: meetingListSelector(state)
+    meetingList: meetingListSelector(state),
+    processingLocalRecord: processingLocalRecordSelector(state)
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,

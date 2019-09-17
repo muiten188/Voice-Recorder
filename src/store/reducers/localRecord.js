@@ -1,5 +1,6 @@
 import * as ACTION_TYPES from '~/src/store/types'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
+import { getFileName } from '~/src/utils'
 
 const initialState = []
 export default localRecord = (state = initialState, action) => {
@@ -8,9 +9,16 @@ export default localRecord = (state = initialState, action) => {
         case ACTION_TYPES.RECORD_ADD: {
             const filePath = payload
             const newState = [...state]
+            const indexOfFile = newState.findIndex(item => item.localPath == filePath)
+            if (indexOfFile > 0) return state
+            const now = new Date().getTime()
             newState.push({
                 localPath: filePath,
-                status: LOCAL_RECORD_STATUS.INITIAL
+                status: LOCAL_RECORD_STATUS.INITIAL,
+                create_time: Math.floor(now / 1000),
+                id: Math.floor(now),
+                name: getFileName(filePath),
+                progress: 1
             })
             return newState
         }

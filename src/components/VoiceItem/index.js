@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent
 import I18n from '~/src/I18n'
 import moment from 'moment'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { COLORS } from "~/src/themes/common"
+import { DEVICE_WIDTH, COLORS } from "~/src/themes/common"
 import { MEETING_STATUS } from '~/src/constants'
 
 export default class VoiceItem extends Component {
@@ -47,16 +47,7 @@ export default class VoiceItem extends Component {
     _renderStatus = () => {
         const { data } = this.props
 
-        // else if (data.status == MEETING_STATUS.UPLOADING) {
-        //     return (
-        //         <View className='row-start'>
-        //             <Text className='s12 orange' style={{ marginRight: 4 }}>{I18n.t('processing')}</Text>
-        //             <Image source={require('~/src/image/dangxuly.png')} style={{ width: 16, height: 16 }} />
-        //         </View>
-        //     )
-        // }
-
-        if (data.status == MEETING_STATUS.INITIAL) {
+        if (data.localPath) {
             return (
                 <View className='row-start'>
                     <Text className='s12 green' style={{ marginRight: 4 }}>{I18n.t('process_init')}</Text>
@@ -101,6 +92,8 @@ export default class VoiceItem extends Component {
 
     render() {
         const { data } = this.props
+        const showProgress = !!data.localPath
+        const progress = data.progress || 1
         return (
             <Swipeable
                 renderRightActions={this._renderRightAction}
@@ -109,14 +102,16 @@ export default class VoiceItem extends Component {
             >
                 <TouchableOpacity onPress={this._handlePress}>
                     <View className='row-start'>
-                        <Image source={require('~/src/image/audio.png')} style={{ width: 22, height: 28, marginHorizontal: 16 }} />
+                        <Image source={require('~/src/image/audio.png')} style={styles.audioIcon} />
                         <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
                             <Text className='bold s14 mb8'>{data.name}</Text>
                             <View className='row-start'>
                                 <Text className='s13 gray flex'>{moment(data.create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
                                 {this._renderStatus()}
                             </View>
-
+                            {showProgress && <View style={styles.progressBarFull}>
+                                <View style={[styles.progressBarActive, { width: Math.floor(styles.progressBarFull.width * progress / 100) }]} />
+                            </View>}
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -130,5 +125,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.BACKGROUND
+    },
+    audioIcon: {
+        width: 22,
+        height: 28,
+        marginHorizontal: 16
+    },
+    progressBarFull: {
+        width: DEVICE_WIDTH - 54,
+        height: 3,
+        borderRadius: 2,
+        backgroundColor: '#eeeeee',
+        flexDirection: 'row',
+        marginTop: 8
+    },
+    progressBarActive: {
+        flexDirection: 'row',
+        height: 3,
+        borderRadius: 2,
+        backgroundColor: COLORS.GREEN
     }
 })

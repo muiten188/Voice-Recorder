@@ -9,7 +9,7 @@ import { LOCAL_RECORD_STATUS, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
 import { getUploadKey, getFileName } from '~/src/utils'
 import { chainParse } from '~/src/utils'
-let checkLocalRecordInterval
+import { store } from '~/src/store/configStore'
 
 const requestCreateMeetingUploadUrl = createRequestSaga({
     request: api.meeting.createMeetingUploadUrl,
@@ -84,6 +84,11 @@ const _upload = function (record) {
         }, uploadBody)
             .uploadProgress((written, total) => {
                 console.log('uploaded progress', written / total)
+                const progress = written / total * 100
+                store.dispatch(updateRecord({
+                    localPath: record.localPath,
+                    progress
+                }))
             })
             .then((resp) => {
                 console.log('Upload Resp', resp)
