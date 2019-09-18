@@ -203,22 +203,30 @@ class Home extends Component {
 
 
 
-    _load = (refresing = false) => {
+    _load = (page = 1, refresing = false) => {
         if (refresing) {
             this.setState({ refresing: true })
         } else {
             this.setState({ loading: true })
         }
         const { getMeeting } = this.props
-        getMeeting('', (err, data) => {
+        getMeeting('', page, (err, data) => {
             console.log('getMeeting err', err)
             console.log('getMeeting data', data)
             this.setState({ refresing: false, loading: false })
         })
     }
 
+    _loadMore = () => {
+        if (this.state.loading || this.state.refresing) return
+        const { meetingList } = this.props
+        console.log('meetingList', meetingList)
+        if (meetingList.next_page > 0) {
+            this._load(meetingList.next_page)
+        }
+    }
     _refresh = () => {
-        this._load(true)
+        this._load(1, true)
     }
 
     componentDidFocus = async () => {
@@ -245,7 +253,6 @@ class Home extends Component {
         const { meetingList, processingLocalRecord } = this.props
         const meetingListData = meetingList.data || emptyArray
         const listData = this._getDataForList(processingLocalRecord, meetingListData)
-        console.log('Home listData', listData)
         return (
             <View className="flex white">
                 {this._renderFloatingOverlay()}
@@ -291,6 +298,8 @@ class Home extends Component {
                     keyExtractor={item => item.id + ''}
                     renderItem={this._renderMeetingItem}
                     ListFooterComponent={<View className='space100' />}
+                    onEndReachedThreshold={0.2}
+                    onEndReached={this._loadMore}
                 />
             </View>
         )

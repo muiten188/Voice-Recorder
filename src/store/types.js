@@ -16,6 +16,7 @@ export const MEETING_STOP_CHECK_LOCAL_RECORD = 'meeting/stopCheckLocalRecord'
 // Local record on device
 export const RECORD_ADD = 'record/add'
 export const RECORD_UPDATE = 'record/update'
+export const RECORD_DELETE = 'record/delete'
 
 export const TRANSCRIPTION_GET = 'transcription/get'
 export const TRANSCRIPTION_SET = 'transcription/set'

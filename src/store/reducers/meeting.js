@@ -7,13 +7,21 @@ export default meeting = (state = initialState, action) => {
     switch (type) {
         case ACTION_TYPES.MEETING_SET: {
             const meetingListResponse = payload
-            return meetingListResponse
+            console.log('meeting list response', meetingListResponse)
+            if (meetingListResponse.next_page == 2) {
+                return meetingListResponse
+            }
+            return {
+                ...meetingListResponse,
+                data: [...state.data, ...meetingListResponse.data]
+            }
+
         }
 
         case ACTION_TYPES.AUTH_LOGOUT: {
             return initialState
         }
-        
+
         default:
             return state
     }

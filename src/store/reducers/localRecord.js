@@ -36,6 +36,15 @@ export default localRecord = (state = initialState, action) => {
             return newState
         }
 
+        case ACTION_TYPES.RECORD_DELETE: {
+            const localPath = payload
+            const newState = [...state]
+            const localRecordIndex = newState.findIndex(item => item.localPath == localPath)
+            if (localRecordIndex < 0) return state
+            newState.splice(localRecordIndex, 1)
+            return newState
+        }
+
         default:
             return state
     }

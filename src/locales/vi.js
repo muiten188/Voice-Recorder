@@ -50,7 +50,8 @@ const language = {
     prev_10s: '- 10s',
     next_10s: '+ 10s',
     no_data: 'Không có dữ liệu',
-    request_time_out: 'Lỗi kết nối'
+    request_time_out: 'Lỗi kết nối',
+    "err_general": "Có lỗi xảy ra, vui lòng thử lại sau.",
 }
 
 // export default language;

@@ -9,3 +9,8 @@ export const updateRecord = (recordMeeting) => ({
     type: ACTION_TYPES.RECORD_UPDATE,
     payload: recordMeeting
 })
+
+export const deleteRecord = (filePath) => ({
+    type: ACTION_TYPES.RECORD_DELETE,
+    payload: filePath
+})

@@ -3,7 +3,8 @@ import api from '~/src/store/api'
 import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
-import { updateRecord } from '~/src/store/actions/localRecord'
+import { noop } from '~/src/store/actions/common'
+import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
@@ -139,16 +140,14 @@ const _createMeeting = function* (record) {
     if (hasError) return record
     // Create meeting success
     if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
-        const meetingRecordInfo = {
-            localPath: record.localPath,
-            status: LOCAL_RECORD_STATUS.MEETING_CREATED,
-        }
-        yield put(updateRecord(meetingRecordInfo))
+        // const meetingRecordInfo = {
+        //     localPath: record.localPath,
+        //     status: LOCAL_RECORD_STATUS.MEETING_CREATED,
+        // }
+        // yield put(updateRecord(meetingRecordInfo))
+        yield put(deleteRecord(record.localPath))
         yield put(getMeeting())
-        return {
-            ...record,
-            ...meetingRecordInfo
-        }
+        return ''
     }
 }
 
@@ -164,7 +163,7 @@ const requestUploadMeetingRecord = function* () {
         if (record.status == LOCAL_RECORD_STATUS.MEETING_CREATED) continue
         record = yield call(_createMeetingUploadUrl, record)
         record = yield call(_uploadRercordFile, record)
-        record = yield call(_createMeeting, record)
+        yield call(_createMeeting, record)
     }
 }
 
