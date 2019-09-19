@@ -8,7 +8,8 @@ export default meeting = (state = initialState, action) => {
         case ACTION_TYPES.MEETING_SET: {
             const meetingListResponse = payload
             console.log('meeting list response', meetingListResponse)
-            if (meetingListResponse.next_page == 2) {
+            const page = meetingListResponse && meetingListResponse.args && meetingListResponse.args[1] ? meetingListResponse.args[1] : 1
+            if (page == 1) {
                 return meetingListResponse
             }
             return {

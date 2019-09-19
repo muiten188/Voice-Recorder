@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TouchableOpacity, Image, FlatList } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
+import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import styles from './styles'
 import VoiceItem from '~/src/components/VoiceItem'
@@ -33,6 +33,7 @@ class Home extends Component {
             "didFocus",
             this.componentDidFocus
         );
+        this.reloadInterval = -1
     }
 
 
@@ -213,6 +214,15 @@ class Home extends Component {
         getMeeting('', page, (err, data) => {
             console.log('getMeeting err', err)
             console.log('getMeeting data', data)
+            // If has not finished record
+            if (data && data.data && this.reloadInterval == -1) {
+                const notFinishMeeting = data.data.find(item => item.status != MEETING_STATUS.DONE || item.status != MEETING_STATUS.FAILED)
+                if (notFinishMeeting) {
+                    this.reloadInterval = setInterval(() => {
+                        this._load()
+                    }, RELOAD_PROGRESS_PERIOD)
+                }
+            }
             this.setState({ refresing: false, loading: false })
         })
     }
@@ -243,6 +253,8 @@ class Home extends Component {
 
     componentWillUnmount() {
         clearInterval(this.checkLocalRecordInterval)
+        clearInterval(this.reloadInterval)
+        this.reloadInterval = -1
     }
 
     _getDataForList = (processingLocalRecord, meetingData) => {
