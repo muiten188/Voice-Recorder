@@ -17,6 +17,8 @@ import { addRecord } from '~/src/store/actions/localRecord'
 import ToastUtils from '~/src/utils/ToastUtils'
 import RNFetchBlob from "rn-fetch-blob"
 import lodash from 'lodash'
+import Permissions from 'react-native-permissions'
+import { PERMISSION_RESPONSE } from '~/src/constants'
 
 class Home extends Component {
     constructor(props) {
@@ -87,24 +89,32 @@ class Home extends Component {
             });
             const uri = decodeURIComponent(res.uri)
             let uriPromise = new Promise((resolve, reject) => {
-                RNFetchBlob.fs.stat(uri)
-                    .then(fileStats => {
-                        resolve({
-                            uri: fileStats.path,
-                            name: fileStats.filename
-                        })
-                    })
-                    .catch(err => {
-                        console.log('Error', err)
-                        resolve({
-                            uri: res.uri,
-                            name: res.name
-                        })
-                    })
+                Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                    console.log('Request storage res', responseStorage)
+                    if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
+                        RNFetchBlob.fs.stat(uri)
+                            .then(fileStats => {
+                                resolve({
+                                    uri: fileStats.path,
+                                    name: fileStats.filename
+                                })
+                            })
+                            .catch(err => {
+                                console.log('Error', err)
+                                resolve({
+                                    uri: res.uri,
+                                    name: res.name
+                                })
+                            })
+                    } else {
+                        resolve(false)
+                    }
+                })
             })
 
             let uriInfoObj = await uriPromise
             console.log('Uri Obj', uriInfoObj)
+            if (!uriInfoObj) return
             addRecord(uriInfoObj.uri)
             setTimeout(() => {
                 uploadMeetingRecord()
