@@ -303,7 +303,7 @@ class Player extends Component {
             } else if (item.id == FILE_TYPES.PDF) {
                 const { transcription } = this.props
                 let options = {
-                    html: transcription.transcript_html,
+                    html: `<span>${transcription.transcript}</span>`,
                     fileName: `${this.meeting.name}`,
                     directory: 'Download',
                 };
