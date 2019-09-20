@@ -30,6 +30,7 @@ const CONTEXT_DATA = [
 ]
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
+import RNHTMLtoPDF from 'react-native-html-to-pdf'
 
 class Player extends Component {
 
@@ -269,9 +270,9 @@ class Player extends Component {
         })
     }
 
-    _handleChooseContextMenu = async(item) => {
+    _handleChooseContextMenu = async (item) => {
         console.log('_handleChooseContextMenu', item)
-        try{
+        try {
             await this._requestPermission()
             if (item.id == FILE_TYPES.DOCX) { // Docx
                 const { getExportToken } = this.props
@@ -300,9 +301,17 @@ class Player extends Component {
                     }
                 })
             } else if (item.id == FILE_TYPES.PDF) {
-    
+                const { transcription } = this.props
+                let options = {
+                    html: transcription.transcript_html,
+                    fileName: `${this.meeting.name}`,
+                    directory: 'Download',
+                };
+                let file = await RNHTMLtoPDF.convert(options)
+                console.log('File', file)
+                ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${file.filePath}"`)
             }
-        }catch(err){
+        } catch (err) {
             console.log('_handleChooseContextMenu err', err)
         }
     }
