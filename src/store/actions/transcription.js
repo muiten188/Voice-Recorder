@@ -9,3 +9,13 @@ export const setTranscription = (data) => ({
     type: ACTION_TYPES.TRANSCRIPTION_SET,
     payload: data
 })
+
+export const getExportToken = (...args) => ({
+    type: ACTION_TYPES.TRANSCRIPTION_GET_EXPORT_TOKEN,
+    args
+})
+
+export const exportTranscript = (...args) => ({
+    type: ACTION_TYPES.TRANSCRIPTION_EXPORT,
+    args
+})

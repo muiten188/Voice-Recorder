@@ -28,10 +28,23 @@ const requestGetTranscription = createRequestSaga({
     ]
 })
 
+
+const requestGetExportToken = createRequestSaga({
+    request: api.transcription.getExportToken,
+    key: ACTION_TYPES.TRANSCRIPTION_GET_EXPORT_TOKEN,
+})
+
+const requestExportTranscript = createRequestSaga({
+    request: api.transcription.exportTranscript,
+    key: ACTION_TYPES.TRANSCRIPTION_EXPORT,
+})
+
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
-        takeEvery(ACTION_TYPES.TRANSCRIPTION_GET, requestGetTranscription)
+        takeEvery(ACTION_TYPES.TRANSCRIPTION_GET, requestGetTranscription),
+        takeEvery(ACTION_TYPES.TRANSCRIPTION_GET_EXPORT_TOKEN, requestGetExportToken),
+        takeEvery(ACTION_TYPES.TRANSCRIPTION_EXPORT, requestExportTranscript),
     ])
 }
 

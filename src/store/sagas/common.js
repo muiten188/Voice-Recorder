@@ -112,7 +112,7 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
             let res = yield race(raceOptions)
             const { isTimeout, cancelRet } = res
             let { data } = res
-            // console.log('Data Common', data)
+            console.log('Data Common', data)
             // Append Argument
             if (data) {
                 const hasError = yield call(handleCommonError, data)

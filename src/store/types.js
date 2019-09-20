@@ -20,4 +20,7 @@ export const RECORD_DELETE = 'record/delete'
 
 export const TRANSCRIPTION_GET = 'transcription/get'
 export const TRANSCRIPTION_SET = 'transcription/set'
+export const TRANSCRIPTION_GET_EXPORT_TOKEN = 'transcription/getExportToken'
+export const TRANSCRIPTION_EXPORT = 'transcription/export'
+
 

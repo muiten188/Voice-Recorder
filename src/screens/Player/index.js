@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Image, BackHandler } from 'react-native'
+import { FlatList, Image, BackHandler } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider } from "~/src/themes/ThemeComponent";
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
@@ -12,13 +12,12 @@ import styles from './styles'
 // import Slider from '@react-native-community/slider'
 import { MEETING_STATUS, PAGE_SIZE } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
-import { getTranscription } from '~/src/store/actions/transcription'
+import { getTranscription, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
 import { transcriptionSelector } from '~/src/store/selectors/transcription'
 import { COLORS } from "~/src/themes/common";
 import lodash from 'lodash'
-import { FlatList } from "react-native-gesture-handler";
-import { Item } from "react-native-paper/typings/components/List";
 const emptyArray = []
+import RNFetchBlob from 'rn-fetch-blob'
 
 class Player extends Component {
 
@@ -107,6 +106,36 @@ class Player extends Component {
 
     componentDidMount() {
         console.log('Player did mount')
+        // const { getExportToken, exportTranscript } = this.props
+        // getExportToken(this.meeting.id, (errExportToken, dataExportToken) => {
+        //     console.log('getExportToken err', errExportToken)
+        //     console.log('getExportToken data', dataExportToken)
+        //     if (dataExportToken && dataExportToken.token) {
+        //         // exportTranscript(dataExportToken.token, (errExport, dataExport) => {
+        //         //     console.log('exportTranscript err', errExport)
+        //         //     console.log('exportTranscript data', dataExport)
+        //         // })
+        //         APIManager.getInstance()
+        //             .then(apiConfig => {
+        //                 console.log('Download url', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`)
+        //                 console.log('Save path', `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`)
+        //                 RNFetchBlob
+        //                     .config({
+        //                         path: `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`
+        //                     })
+        //                     .fetch('GET', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`, {})
+        //                     .then((res) => {
+        //                         console.log('Download res', res)
+        //                         console.log('The file saved to ', res.path())
+        //                     })
+        //                     .catch((errorMessage, statusCode) => {
+        //                         console.log('Download error', errorMessage, statusCode)
+        //                     })
+        //             })
+        //     }
+        // })
+        // })
+        
         if (this.meeting.status == MEETING_STATUS.DONE) {
             const { getTranscription } = this.props
             console.log('Meeting', this.meeting)
@@ -243,7 +272,7 @@ class Player extends Component {
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
         const transcriptInfo = chainParse(transcription, ['transcript_info']) || []
         const transcriptDisplay = this.getTranscriptInfoForDisplay(transcriptInfo)
-        console.log('transcriptDisplay', transcriptDisplay)
+        // console.log('transcriptDisplay', transcriptDisplay)
         return (
             <View className="flex background">
                 <GradientToolbar
@@ -317,4 +346,4 @@ export default connect((state, props) => {
     return {
         transcription: transcriptionSelector(state, meeting.id)
     }
-}, { addRecord, getTranscription })(Player)
+}, { addRecord, getTranscription, getExportToken, exportTranscript })(Player)
