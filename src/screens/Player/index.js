@@ -192,13 +192,6 @@ class Player extends Component {
         })
     }
 
-    _onLayoutTextView = (e, item) => {
-        // console.log('Onlayout', e.nativeEvent.layout, item)
-        // if (!this.layoutMap[key]) {
-        //     this.layoutMap[index] = e.nativeEvent.layout.y
-        // }
-    }
-
     getTranscriptInfoForDisplay = lodash.memoize((transcriptInfo) => {
         if (!transcriptInfo || transcriptInfo.length == 0) return emptyArray
         const result = []
@@ -227,7 +220,6 @@ class Player extends Component {
 
     _renderTranscriptItem = ({ item, index }) => {
         const shouldHightlight = item.key == this.state.currentTranscriptKey
-
         return (
             <View className='row-center'>
                 <Text
@@ -244,11 +236,14 @@ class Player extends Component {
         )
     }
 
+    _keyExtractor = item => item.key + ''
+
     render() {
         const { transcription } = this.props
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
         const transcriptInfo = chainParse(transcription, ['transcript_info']) || []
         const transcriptDisplay = this.getTranscriptInfoForDisplay(transcriptInfo)
+        console.log('transcriptDisplay', transcriptDisplay)
         return (
             <View className="flex background">
                 <GradientToolbar
@@ -266,7 +261,7 @@ class Player extends Component {
                         :
                         <FlatList
                             data={transcriptDisplay}
-                            key={item => item.key + ''}
+                            key={this._keyExtractor}
                             renderItem={this._renderTranscriptItem}
                             ref={ref => this.transcriptList = ref}
                             contentContainerStyle={styles.transcriptContainer}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity, Image, FlatList } from 'react-native'
+import { TouchableOpacity, Image, FlatList, Platform } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
@@ -80,38 +80,46 @@ class Home extends Component {
         )
     }
 
+    _requestPermission = () => {
+        return new Promise((resolve, reject) => {
+            if (Platform.OS == 'ios') {
+                resolve(true)
+            }
+            Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                console.log('Request storage res', responseStorage)
+                if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
+                    resolve(true)
+                }
+                reject(false)
+            })
+        })
+    }
+
     _handlePressImport = async () => {
         this._toggleOverlay()
         try {
+            await this._requestPermission()
             const { addRecord, uploadMeetingRecord } = this.props
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
             });
             const uri = decodeURIComponent(res.uri)
             let uriPromise = new Promise((resolve, reject) => {
-                Permissions.request('storage', { type: 'always' }).then(responseStorage => {
-                    console.log('Request storage res', responseStorage)
-                    if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
-                        RNFetchBlob.fs.stat(uri)
-                            .then(fileStats => {
-                                resolve({
-                                    uri: fileStats.path,
-                                    name: fileStats.filename
-                                })
-                            })
-                            .catch(err => {
-                                console.log('Error', err)
-                                resolve({
-                                    uri: res.uri,
-                                    name: res.name
-                                })
-                            })
-                    } else {
-                        resolve(false)
-                    }
-                })
+                RNFetchBlob.fs.stat(uri)
+                    .then(fileStats => {
+                        resolve({
+                            uri: fileStats.path,
+                            name: fileStats.filename
+                        })
+                    })
+                    .catch(err => {
+                        console.log('Error', err)
+                        resolve({
+                            uri: res.uri,
+                            name: res.name
+                        })
+                    })
             })
-
             let uriInfoObj = await uriPromise
             console.log('Uri Obj', uriInfoObj)
             if (!uriInfoObj) return
@@ -148,17 +156,26 @@ class Home extends Component {
 
     _handlePressItem = (item) => {
         console.log('Pressing', item)
+        if (item.localPath) return
+        const { meetingList } = this.props
+        const meetingListData = meetingList.data || emptyArray
+        const meetingItem = meetingListData.find(it => it.id == item.id)
         this.props.navigation.navigate('Player', {
-            meeting: item
+            meeting: meetingItem
         })
     }
 
     _renderMeetingItem = ({ item, index }) => {
         return (
             <VoiceItem
-                data={item}
-                onPressInfo={() => this._handlePressInfo(item)}
-                onPressDelete={() => this._handlePressDelete(item)}
+                id={item.id}
+                status={item.status}
+                localPath={item.localPath}
+                progress={item.progress}
+                name={item.name}
+                create_time={item.create_time}
+                onPressInfo={this._handlePressInfo}
+                onPressDelete={this._handlePressDelete}
                 onPress={this._handlePressItem}
             />
         )
@@ -271,6 +288,8 @@ class Home extends Component {
         return [...processingLocalRecord, ...meetingData]
     }
 
+    _keyExtractor = item => item.id + ''
+
     render() {
         const { meetingList, processingLocalRecord } = this.props
         const meetingListData = meetingList.data || emptyArray
@@ -317,7 +336,7 @@ class Home extends Component {
                     onRefresh={this._refresh}
                     refreshing={this.state.refresing}
                     data={listData}
-                    keyExtractor={item => item.id + ''}
+                    keyExtractor={this._keyExtractor}
                     renderItem={this._renderMeetingItem}
                     ListFooterComponent={<View className='space100' />}
                     onEndReachedThreshold={0.2}
