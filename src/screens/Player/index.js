@@ -303,8 +303,8 @@ class Player extends Component {
             } else if (item.id == FILE_TYPES.PDF) {
                 const { transcription } = this.props
                 let options = {
-                    html: `<span>${transcription.transcript}</span>`,
-                    fileName: `${this.meeting.name}`,
+                    html: transcription.transcript_html,
+                    fileName: this.meeting.name,
                     directory: 'Download',
                 };
                 let file = await RNHTMLtoPDF.convert(options)
