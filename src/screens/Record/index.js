@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ImageBackground, Image } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';

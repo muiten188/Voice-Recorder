@@ -9,8 +9,7 @@ import { connect } from 'react-redux'
 import APIManager from '~/src/store/api/APIManager'
 import Sound from 'react-native-sound'
 import styles from './styles'
-// import Slider from '@react-native-community/slider'
-import { MEETING_STATUS, PAGE_SIZE } from '~/src/constants'
+import { MEETING_STATUS, PAGE_SIZE, FILE_TYPES } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
 import { getTranscription, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
 import { transcriptionSelector } from '~/src/store/selectors/transcription'
@@ -18,6 +17,19 @@ import { COLORS } from "~/src/themes/common";
 import lodash from 'lodash'
 const emptyArray = []
 import RNFetchBlob from 'rn-fetch-blob'
+import ContextMenu from '~/src/components/ContextMenu'
+const CONTEXT_DATA = [
+    {
+        id: FILE_TYPES.DOCX,
+        name: I18n.t('download_transcript_docx')
+    },
+    {
+        id: FILE_TYPES.PDF,
+        name: I18n.t('download_transcript_pdf')
+    },
+]
+import Permissions from 'react-native-permissions'
+import { PERMISSION_RESPONSE } from '~/src/constants'
 
 class Player extends Component {
 
@@ -106,36 +118,6 @@ class Player extends Component {
 
     componentDidMount() {
         console.log('Player did mount')
-        // const { getExportToken, exportTranscript } = this.props
-        // getExportToken(this.meeting.id, (errExportToken, dataExportToken) => {
-        //     console.log('getExportToken err', errExportToken)
-        //     console.log('getExportToken data', dataExportToken)
-        //     if (dataExportToken && dataExportToken.token) {
-        //         // exportTranscript(dataExportToken.token, (errExport, dataExport) => {
-        //         //     console.log('exportTranscript err', errExport)
-        //         //     console.log('exportTranscript data', dataExport)
-        //         // })
-        //         APIManager.getInstance()
-        //             .then(apiConfig => {
-        //                 console.log('Download url', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`)
-        //                 console.log('Save path', `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`)
-        //                 RNFetchBlob
-        //                     .config({
-        //                         path: `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`
-        //                     })
-        //                     .fetch('GET', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`, {})
-        //                     .then((res) => {
-        //                         console.log('Download res', res)
-        //                         console.log('The file saved to ', res.path())
-        //                     })
-        //                     .catch((errorMessage, statusCode) => {
-        //                         console.log('Download error', errorMessage, statusCode)
-        //                     })
-        //             })
-        //     }
-        // })
-        // })
-        
         if (this.meeting.status == MEETING_STATUS.DONE) {
             const { getTranscription } = this.props
             console.log('Meeting', this.meeting)
@@ -267,6 +249,64 @@ class Player extends Component {
 
     _keyExtractor = item => item.key + ''
 
+    _handlePressMore = () => {
+        console.log('_handlePressMore')
+        this.contextMenu && this.contextMenu.open()
+    }
+
+    _requestPermission = () => {
+        return new Promise((resolve, reject) => {
+            if (Platform.OS == 'ios') {
+                resolve(true)
+            }
+            Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                console.log('Request storage res', responseStorage)
+                if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
+                    resolve(true)
+                }
+                reject(false)
+            })
+        })
+    }
+
+    _handleChooseContextMenu = async(item) => {
+        console.log('_handleChooseContextMenu', item)
+        try{
+            await this._requestPermission()
+            if (item.id == FILE_TYPES.DOCX) { // Docx
+                const { getExportToken } = this.props
+                getExportToken(this.meeting.id, (errExportToken, dataExportToken) => {
+                    console.log('getExportToken err', errExportToken)
+                    console.log('getExportToken data', dataExportToken)
+                    if (dataExportToken && dataExportToken.token) {
+                        APIManager.getInstance()
+                            .then(apiConfig => {
+                                console.log('Download url', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`)
+                                console.log('Save path', `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`)
+                                RNFetchBlob
+                                    .config({
+                                        path: `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`
+                                    })
+                                    .fetch('GET', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`, {})
+                                    .then((res) => {
+                                        console.log('Download res', res)
+                                        console.log('The file saved to ', res.path())
+                                        ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${res.path()}"`)
+                                    })
+                                    .catch((errorMessage, statusCode) => {
+                                        console.log('Download error', errorMessage, statusCode)
+                                    })
+                            })
+                    }
+                })
+            } else if (item.id == FILE_TYPES.PDF) {
+    
+            }
+        }catch(err){
+            console.log('_handleChooseContextMenu err', err)
+        }
+    }
+
     render() {
         const { transcription } = this.props
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
@@ -278,6 +318,14 @@ class Player extends Component {
                 <GradientToolbar
                     title={I18n.t('detail')}
                     onPressLeft={this._handleBack}
+                    rightIcon='dots-vertical'
+                    onPressRight={this._handlePressMore}
+                />
+                <ContextMenu
+                    data={CONTEXT_DATA}
+                    onPress={this._handleChooseContextMenu}
+                    ref={ref => this.contextMenu = ref}
+                    style={styles.contextMenu}
                 />
 
                 <View className='flex' style={styles.transcriptOuter}>

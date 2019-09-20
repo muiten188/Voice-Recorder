@@ -52,6 +52,9 @@ const language = {
     no_data: 'Không có dữ liệu',
     request_time_out: 'Lỗi kết nối',
     "err_general": "Có lỗi xảy ra, vui lòng thử lại sau.",
+    download_transcript_docx: 'Tải transcirpt dạng docx',
+    download_transcript_pdf: 'Tải transcirpt dạng pdf',
+    download_transcript_success: 'Đã lưu tệp vào đường dẫn',
 }
 
 // export default language;

@@ -32,5 +32,9 @@ export default {
     transcriptContainer: {
         paddingHorizontal: 16,
         paddingVertical: 16
+    },
+    contextMenu: { 
+        right: 16, 
+        top: 20 
     }
 }

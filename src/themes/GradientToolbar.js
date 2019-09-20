@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { COLORS } from "./common";
 import FastImage from "react-native-fast-image";
 const TOOLBAR_HEIGHT = 44
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 class GradientToolbar extends PureComponent {
@@ -29,7 +30,7 @@ class GradientToolbar extends PureComponent {
     }
 
     render() {
-        const { title, leftIcon = require('~/src/image/back.png'), avatar } = this.props
+        const { title, leftIcon = require('~/src/image/back.png'), avatar, rightIcon } = this.props
         const height = STATUSBAR_HEIGHT + TOOLBAR_HEIGHT
         return (
             <LinearGradient
@@ -54,6 +55,11 @@ class GradientToolbar extends PureComponent {
                                 style={styles.avatar}
                             />
                         </View>
+                    }
+                    {!!rightIcon &&
+                        <TouchableOpacityHitSlop onPress={this._handlePressRight} style={styles.rightContainer}>
+                            <Icon name={rightIcon} color={COLORS.WHITE} size={24} />
+                        </TouchableOpacityHitSlop>
                     }
                 </View>
             </LinearGradient>
