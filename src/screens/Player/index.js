@@ -351,6 +351,7 @@ class Player extends Component {
                             renderItem={this._renderTranscriptItem}
                             ref={ref => this.transcriptList = ref}
                             contentContainerStyle={styles.transcriptContainer}
+                            extraData={this.state.currentTranscriptKey}
                         />
                     }
                 </View>

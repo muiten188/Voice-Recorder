@@ -20,9 +20,9 @@ export default class SuccessToast extends PureComponent {
             visible: true,
             text
         }, () => {
-            this.animatedView && this.animatedView.slideInUp(1000)
+            this.animatedView && this.animatedView.slideInDown(1000)
             setTimeout(() => {
-                this.animatedView && this.animatedView.slideOutDown(1000)
+                this.animatedView && this.animatedView.slideOutUp(1000)
                     .then(() => {
                         this.setState({ visible: false })
                     })
@@ -39,7 +39,7 @@ export default class SuccessToast extends PureComponent {
                 useNativeDriver={true}
                 easing={'ease-in-out'}
                 duration={1500}
-                animation={'slideInUp'}
+                animation={'slideInDown'}
                 ref={ref => this.animatedView = ref}
             >
                 <View className='row-start white ph24 pv18'>
@@ -57,12 +57,13 @@ export default class SuccessToast extends PureComponent {
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        bottom: 0,
+        top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
-        borderTopWidth: 1,
-        borderTopColor: COLORS.BORDER_COLOR2
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.BORDER_COLOR2,
+        paddingTop: Platform.OS == 'ios' ? 20 : 0,
     },
     successIcon: {
         width: 24,
