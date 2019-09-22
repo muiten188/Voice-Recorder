@@ -250,15 +250,6 @@ class Home extends Component {
         getMeeting('', page, (err, data) => {
             console.log('getMeeting err', err)
             console.log('getMeeting data', data)
-            // If has not finished record
-            if (data && data.data && this.reloadInterval == -1) {
-                const notFinishMeeting = data.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
-                if (notFinishMeeting) {
-                    this.reloadInterval = setInterval(() => {
-                        this._load()
-                    }, RELOAD_PROGRESS_PERIOD)
-                }
-            }
             this.setState({ refresing: false, loading: false })
         })
     }
@@ -285,6 +276,30 @@ class Home extends Component {
         BackgroundTimer.runBackgroundTimer(() => {
             uploadMeetingRecord()
         }, CHECK_LOCAL_RECORD_PERIOD)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.meetingList != this.props.meetingList) {
+            if (!this.props.meetingList || !this.props.meetingList.data || this.props.meetingList.data.length == 0) return
+            // If has not finished record
+            if (this.reloadInterval == -1) {
+                const notFinishMeeting = this.props.meetingList.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
+                console.log('notFinishMeeting', notFinishMeeting)
+                if (notFinishMeeting) {
+                    this.reloadInterval = setInterval(() => {
+                        console.log('Running interval reload')
+                        this._load()
+                    }, RELOAD_PROGRESS_PERIOD)
+                    console.log('this.reloadInterval', this.reloadInterval)
+                }
+            } else {
+                const notFinishMeeting = this.props.meetingList.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
+                if (!notFinishMeeting) {
+                    console.log('Interval clea')
+                    clearInterval(this.reloadInterval)
+                }
+            }
+        }
     }
 
     componentWillUnmount() {
