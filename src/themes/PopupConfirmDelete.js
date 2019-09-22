@@ -18,17 +18,12 @@ export default class PopupConfirmDelete extends React.PureComponent {
         }
     }
 
-    open() {
-        this.setState({
-            visible: true
-        })
-
+    open = () => {
+        this.setState({ visible: true })
     }
 
-    close() {
-        this.setState({
-            visible: false
-        })
+    close = () => {
+        this.setState({ visible: false })
     }
 
     _onPressOverlay = () => {
@@ -78,7 +73,7 @@ export default class PopupConfirmDelete extends React.PureComponent {
                                         style={styles.deleteIcon}
                                     />
                                     <View style={styles.popupContent}>
-                                        <Text className='s16 lh24 bold textBlack'>{title}</Text>
+                                        <Text className='s16 lh24 bold textBlack center'>{title}</Text>
                                         <View className='space16' />
                                         <Text style={styles.popupText}>{this._getHighlightContent()}</Text>
                                         <View className='space32' />

@@ -7,7 +7,7 @@ import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
-import RNFetchBlob from "rn-fetch-blob";
+import RNFetchBlob from 'rn-fetch-blob'
 import { getUploadKey, getFileName, replacePatternString } from '~/src/utils'
 import { chainParse } from '~/src/utils'
 import { store } from '~/src/store/configStore'

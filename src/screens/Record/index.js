@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ImageBackground, Image } from 'react-native'
-import { View, Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
+import { View, Text, TouchableOpacityHitSlop, PopupConfirm, TextInputBase as TextInput } from "~/src/themes/ThemeComponent";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
@@ -13,6 +13,7 @@ import moment from 'moment'
 import { addRecord } from '~/src/store/actions/localRecord'
 import { uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
+import RNFetchBlob from 'rn-fetch-blob'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -35,8 +36,11 @@ class Record extends Component {
             recording: RECORD_STATUS.NOT_START,
             recordTime: 0,
             permissionMicrophone: '',
-            permissionStorage: ''
+            permissionStorage: '',
+            fileName: '',
+            fileNameInput: ''
         }
+        this.fileName = ''
         this.audioPath = ''
     }
 
@@ -127,7 +131,8 @@ class Record extends Component {
 
     _startRecord = async () => {
         const audioId = moment().format('YYYYMMDDHHmmss')
-        this.audioPath = `${AudioUtils.DownloadsDirectoryPath}/phong_van_${audioId}.aac`
+        this.fileName = `${I18n.t('interview')} ${audioId}`
+        this.audioPath = `${AudioUtils.DownloadsDirectoryPath}/${this.fileName}.aac`
         console.log('Audio path', this.audioPath)
         this._prepareRecordingPath(this.audioPath);
         AudioRecorder.onProgress = (data) => {
@@ -150,15 +155,13 @@ class Record extends Component {
 
     _stopRecord = async () => {
         try {
-            const { addRecord, uploadMeetingRecord } = this.props
+
             const filePath = await AudioRecorder.stopRecording();
             this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
-            addRecord(filePath)
-            ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${this.audioPath}`)
-            setTimeout(() => {
-                uploadMeetingRecord()
-            }, 100)
+            this.setState({ fileNameInput: this.fileName }, () => {
+                this.popupSave && this.popupSave.open()
+            })
         } catch (error) {
             console.error(error);
         }
@@ -170,7 +173,6 @@ class Record extends Component {
 
     _handlePressDone = async () => {
         await this._stopRecord()
-        this.props.navigation.goBack()
     }
 
     _renderActionBlock = () => {
@@ -237,9 +239,54 @@ class Record extends Component {
 
     }
 
+    _onChangeFileName = (text) => {
+        this.setState({ fileNameInput: text })
+    }
+
+    _handleYesFileName = async () => {
+        try {
+            console.log('File name input', this.state.fileNameInput)
+            console.log('Origin filename', this.fileName)
+            const originPath = `${AudioUtils.DownloadsDirectoryPath}/${this.fileName}.aac`
+            const newPath = `${AudioUtils.DownloadsDirectoryPath}/${this.state.fileNameInput}.aac`
+            if (this.fileName != this.state.fileNameInput) {
+                await RNFetchBlob.fs.mv(originPath, newPath)
+            }
+            const { addRecord, uploadMeetingRecord } = this.props
+            addRecord(newPath)
+            ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${newPath}`)
+            setTimeout(() => {
+                uploadMeetingRecord()
+            }, 100)
+            this.props.navigation.goBack()
+        } catch (err) {
+            console.log('_handleYesFileName err', err)
+        }
+    }
+
+    _handlePressNoFileName = () => {
+        this.props.navigation.goBack()
+    }
+
     render() {
         return (
             <View className="flex background">
+                <PopupConfirm
+                    animationType="none"
+                    title={I18n.t('save_record')}
+                    ref={ref => this.popupSave = ref}
+                    onPressYes={this._handleYesFileName}
+                    onPressNo={this._handlePressNoFileName}
+                >
+                    <View className='pv16 row-start'>
+                        <TextInput
+                            value={this.state.fileNameInput}
+                            onChangeText={this._onChangeFileName}
+                            style={styles.fileNameInput}
+                            onPressYes={this._handleYesFileName}
+                        />
+                    </View>
+                </PopupConfirm>
                 <ImageBackground
                     source={require('~/src/image/bg_recording.png')}
                     style={{ width: DEVICE_WIDTH, height: scaleHeight(499) }}

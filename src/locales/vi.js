@@ -58,6 +58,8 @@ const language = {
     delete_record_success: 'Xoá bản ghi thành công',
     notification: 'Thông báo',
     noti_upload_success: 'Bản ghi "*****" đã tải lên thành công',
+    save_record: 'Lưu bản ghi',
+    interview: 'Phỏng vấn',
 }
 
 // export default language;

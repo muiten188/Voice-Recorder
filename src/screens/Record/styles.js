@@ -16,4 +16,9 @@ export default {
         height: 80,
         borderRadius: 40,
     },
+    fileNameInput: {
+        borderBottomWidth: 1, 
+        borderBottomColor: COLORS.BORDER_COLOR, 
+        flex: 1
+    }
 }

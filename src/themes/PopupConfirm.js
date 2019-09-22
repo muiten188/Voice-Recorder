@@ -1,13 +1,13 @@
 import React from 'react'
 import { Modal, View, TouchableWithoutFeedback, StyleSheet, Image } from 'react-native'
 import Text, { Title, TextBold } from './Text'
-import Button from './Button'
+import SmallButton from './SmallButton'
 import { COLORS } from '~/src/themes/common'
 import I18n from "~/src/I18n"
 
 
 
-export default class PopupConfirmImage extends React.PureComponent {
+export default class PopupConfirm extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ export default class PopupConfirmImage extends React.PureComponent {
     }
 
     render() {
-        const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), content } = this.props
+        const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), children } = this.props
         return (
             <Modal
                 animationType={'none'}
@@ -78,18 +78,21 @@ export default class PopupConfirmImage extends React.PureComponent {
                                     <Title>{title}</Title>
                                 </View>
                                 <View style={styles.popupContent}>
-                                    <View style={styles.popupTextContainer}>
-                                        <Text style={styles.popupText}>{this._getHighlightContent()}</Text>
-                                    </View>
-
+                                    {!!children ?
+                                        children
+                                        :
+                                        <View style={styles.popupTextContainer}>
+                                            <Text style={styles.popupText}>{this._getHighlightContent()}</Text>
+                                        </View>
+                                    }
                                     <View style={styles.buttonBlock}>
-                                        <Button
-                                            negative
+                                        <SmallButton
+                                            gray
                                             text={negativeText}
                                             onPress={this._handlePressNo}
                                             style={styles.buttonLeft}
                                         />
-                                        <Button
+                                        <SmallButton
                                             text={I18n.t('agree')}
                                             onPress={this._handlePressYes}
                                             style={styles.buttonRight}
@@ -160,12 +163,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonLeft: {
-        borderRadius: 6,
         flex: 1,
         marginRight: 8
     },
     buttonRight: {
-        borderRadius: 6,
         flex: 1,
     }
 })
