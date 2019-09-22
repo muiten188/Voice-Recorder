@@ -164,6 +164,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-background-timer')
+    implementation project(':react-native-background-fetch')
     implementation project(':react-native-push-notification')
     implementation project(':react-native-html-to-pdf')
     implementation project(':react-native-document-picker')

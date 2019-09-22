@@ -15,11 +15,16 @@ import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord
 import DocumentPicker from 'react-native-document-picker'
 import RNFetchBlob from "rn-fetch-blob"
 import Permissions from 'react-native-permissions'
+import BackgroundFetch from "react-native-background-fetch"
+import PushNotification from 'react-native-push-notification'
+import BackgroundTimer from 'react-native-background-timer'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import ToastUtils from '~/src/utils/ToastUtils'
 import { chainParse } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
+
+
 
 class Home extends Component {
     constructor(props) {
@@ -247,7 +252,7 @@ class Home extends Component {
             console.log('getMeeting data', data)
             // If has not finished record
             if (data && data.data && this.reloadInterval == -1) {
-                const notFinishMeeting = data.data.find(item => item.status != MEETING_STATUS.DONE || item.status != MEETING_STATUS.FAILED)
+                const notFinishMeeting = data.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
                 if (notFinishMeeting) {
                     this.reloadInterval = setInterval(() => {
                         this._load()
@@ -277,13 +282,12 @@ class Home extends Component {
 
     componentDidMount() {
         const { uploadMeetingRecord } = this.props
-        this.checkLocalRecordInterval = setInterval(() => {
+        BackgroundTimer.runBackgroundTimer(() => {
             uploadMeetingRecord()
         }, CHECK_LOCAL_RECORD_PERIOD)
     }
 
     componentWillUnmount() {
-        clearInterval(this.checkLocalRecordInterval)
         clearInterval(this.reloadInterval)
         this.reloadInterval = -1
     }

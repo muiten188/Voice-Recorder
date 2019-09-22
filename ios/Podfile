@@ -46,6 +46,10 @@ target 'VoiceRecorder' do
 
   pod 'react-native-html-to-pdf', :path => '../node_modules/react-native-html-to-pdf'
 
+  pod 'RNBackgroundFetch', :path => '../node_modules/react-native-background-fetch'
+
+  pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
+
   target 'VoiceRecorderTests' do
     inherit! :search_paths
     # Pods for testing

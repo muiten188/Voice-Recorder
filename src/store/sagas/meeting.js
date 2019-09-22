@@ -6,7 +6,7 @@ import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting } from '~/src/store/actions/meeting'
-import { LOCAL_RECORD_STATUS, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
+import { LOCAL_RECORD_STATUS } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
 import { getUploadKey, getFileName, replacePatternString } from '~/src/utils'
 import { chainParse } from '~/src/utils'
@@ -157,11 +157,9 @@ const requestUploadMeetingRecord = function* () {
     const localRecord = yield select(localRecordSelector)
     console.log('localRecord sagas', localRecord)
     if (!localRecord || localRecord.length == 0) return
-    // only record not became to a meeting
-    let records = localRecord.find(item => item.status != LOCAL_RECORD_STATUS.MEETING_CREATED)
-    if (!records) return
     for (let i = 0; i < localRecord.length; i++) {
         let record = localRecord[i]
+        // only record not became to a meeting
         if (record.status == LOCAL_RECORD_STATUS.MEETING_CREATED) continue
         record = yield call(_createMeetingUploadUrl, record)
         record = yield call(_uploadRercordFile, record)
