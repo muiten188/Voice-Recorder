@@ -3,6 +3,7 @@ import android.app.Application;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
 import com.zmxv.RNSound.RNSoundPackage;

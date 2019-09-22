@@ -8,9 +8,11 @@ import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS, CHECK_LOCAL_RECORD_PERIOD } from '~/src/constants'
 import RNFetchBlob from "rn-fetch-blob";
-import { getUploadKey, getFileName } from '~/src/utils'
+import { getUploadKey, getFileName, replacePatternString } from '~/src/utils'
 import { chainParse } from '~/src/utils'
 import { store } from '~/src/store/configStore'
+import PushNotification from 'react-native-push-notification'
+import I18n from '~/src/I18n'
 
 const requestCreateMeetingUploadUrl = createRequestSaga({
     request: api.meeting.createMeetingUploadUrl,
@@ -164,6 +166,10 @@ const requestUploadMeetingRecord = function* () {
         record = yield call(_createMeetingUploadUrl, record)
         record = yield call(_uploadRercordFile, record)
         yield call(_createMeeting, record)
+        PushNotification.localNotification({
+            title: I18n.t('notification'),
+            message: replacePatternString(I18n.t('noti_upload_success'), record.name), // (required)
+        })
     }
 }
 

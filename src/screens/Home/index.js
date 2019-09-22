@@ -291,18 +291,18 @@ class Home extends Component {
     _deleteMeeting = () => {
         const { deleteMeeting } = this.props
         if (!this.deletingMeeting) return
-        this.setState({loadingFullscreen: true})
+        this.setState({ loadingFullscreen: true })
         deleteMeeting(this.deletingMeeting, (err, data) => {
             console.log('deleteMeeting err', err)
             console.log('deleteMeeting data', data)
             const statusCode = chainParse(data, ['httpHeaders', 'status'])
-            this.deletingMeeting = '' 
-            this.setState({loadingFullscreen: false})
-            if (statusCode == 200){
+            this.deletingMeeting = ''
+            this.setState({ loadingFullscreen: false })
+            if (statusCode == 200) {
                 ToastUtils.showSuccessToast(I18n.t('delete_record_success'))
                 this._load()
             }
-            
+
         })
     }
 

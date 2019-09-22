@@ -4,6 +4,7 @@ import { COLORS, SURFACE_STYLES } from '~/src/themes/common'
 import { connect } from 'react-redux'
 import { StackActions, NavigationActions } from 'react-navigation'
 import { userInfoSelector } from '~/src/store/selectors/auth'
+import PushNotification from 'react-native-push-notification'
 
 
 class AuthLoading extends Component {
@@ -14,6 +15,24 @@ class AuthLoading extends Component {
     }
 
     componentDidMount = async () => {
+
+        PushNotification.configure({
+            onRegister: function(token) {
+              console.log("TOKEN:", token);
+            },
+            onNotification: function(notification) {
+              console.log("NOTIFICATION:", notification);
+              // required on iOS only (see fetchCompletionHandler docs: https://github.com/react-native-community/react-native-push-notification-ios)
+              notification.finish(PushNotificationIOS.FetchResult.NoData);
+            },
+            permissions: {
+              alert: true,
+              badge: true,
+              sound: true
+            },
+            popInitialNotification: true,
+            requestPermissions: true
+          })
     }
 
     componentWillUnmount() {
