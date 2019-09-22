@@ -1,12 +1,11 @@
 import React, { PureComponent } from "react";
 import { Image, StyleSheet, View, StatusBar, Platform } from 'react-native'
 import { Text, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
-import { STATUSBAR_HEIGHT } from '~/src/themes/common'
+import { STATUSBAR_HEIGHT, TOOLBAR_HEIGHT } from '~/src/themes/common'
 import { withNavigation } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import { COLORS } from "./common";
 import FastImage from "react-native-fast-image";
-const TOOLBAR_HEIGHT = 44
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 

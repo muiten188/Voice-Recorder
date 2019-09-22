@@ -2,11 +2,11 @@ import { getFontStyle } from "~/src/utils";
 import { Dimensions, PixelRatio, StatusBar, Platform } from "react-native";
 import { isIphoneX } from 'react-native-iphone-x-helper'
 const window = Dimensions.get("window");
-import { getElevation, scaleWidth } from "~/src/utils";
 export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5);
 export const DEVICE_WIDTH = window.width;
 export const DEVICE_HEIGHT = window.height;
 export const STATUSBAR_HEIGHT = Platform.OS == 'android' ? StatusBar.currentHeight : (isIphoneX() ? 44 : 20)
+export const TOOLBAR_HEIGHT = 44
 export const Point = Dimensions.get("window").width/375
 
 export const COLORS = {

@@ -1,5 +1,4 @@
-import { COLORS, DEVICE_WIDTH } from "~/src/themes/common"
-import { getElevation } from '~/src/utils'
+import { COLORS, DEVICE_WIDTH, STATUSBAR_HEIGHT, TOOLBAR_HEIGHT } from "~/src/themes/common"
 const MAIN_FLOATING_WIDTH = 80
 
 export default {
@@ -18,7 +17,7 @@ export default {
     mainFloatingButton: {
         width: MAIN_FLOATING_WIDTH,
         height: MAIN_FLOATING_WIDTH,
-        borderRadius: MAIN_FLOATING_WIDTH/2,
+        borderRadius: MAIN_FLOATING_WIDTH / 2,
     },
     actionContainer: {
         width: 50,
@@ -32,7 +31,11 @@ export default {
     mainFloatingButtonTouchable: {
         position: 'absolute',
         bottom: 10,
-        left: ( DEVICE_WIDTH - MAIN_FLOATING_WIDTH ) / 2,
+        left: (DEVICE_WIDTH - MAIN_FLOATING_WIDTH) / 2,
         zIndex: 1000
-    }
+    },
+    contextMenu: {
+        right: 16,
+        top: STATUSBAR_HEIGHT + TOOLBAR_HEIGHT + 20
+    },
 }

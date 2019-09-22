@@ -51,6 +51,33 @@ export const MEETING_STATUS = {
     FAILED: 6
 }
 
+export const MEETING_STATUS_INFO = {
+    [-1]: {
+        id: -1,
+        name: I18n.t('all')
+    },
+    [MEETING_STATUS.WAITING]: {
+        id: MEETING_STATUS.WAITING,
+        name: I18n.t('process_waiting')
+    },
+    [MEETING_STATUS.QUEUING]: {
+        id: MEETING_STATUS.QUEUING,
+        name: I18n.t('process_queuing')
+    },
+    [MEETING_STATUS.PROCESSING]: {
+        id: MEETING_STATUS.PROCESSING,
+        name: I18n.t('processing')
+    },
+    [MEETING_STATUS.DONE]: {
+        id: MEETING_STATUS.DONE,
+        name: I18n.t('process_done')
+    },
+    [MEETING_STATUS.FAILED]: {
+        id: MEETING_STATUS.FAILED,
+        name: I18n.t('process_failed')
+    },
+}
+
 export const MEETING_STATUS_LIST = [
     {
         id: -1,

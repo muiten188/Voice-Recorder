@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import { TouchableOpacity, Image, FlatList, Platform } from 'react-native'
-import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
+import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
+import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
 import Picker from '~/src/components/Picker'
 import VoiceItem from '~/src/components/VoiceItem'
 import LoadingModal from "~/src/components/LoadingModal";
@@ -22,6 +22,7 @@ import ToastUtils from '~/src/utils/ToastUtils'
 import { chainParse, toNormalCharacter } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
+import ContextMenu from '~/src/components/ContextMenu'
 
 
 
@@ -49,26 +50,54 @@ class Home extends Component {
 
 
     _handleClearKeyword = () => {
-        this.setState({ keyword: '', isSearching: false })
+        const isSearching = !!this.state.statusFilter && this.state.statusFilter != -1
+        this.setState({ keyword: '', isSearching }, () => {
+            if (isSearching) {
+                this._search(this.state.keyword, this.state.statusFilter)
+            }
+        })
     }
 
-    _search = lodash.debounce(keyword => {
+    _search = lodash.debounce((keyword, status) => {
         const { meetingList, processingLocalRecord } = this.props
         const meetingListData = meetingList.data || emptyArray
         const listData = this._getDataForList(processingLocalRecord, meetingListData)
+        const filteredListData = (!status || status == 1) ? listData :
+            listData.filter(item => item.status == status)
         const normalizeKeyword = toNormalCharacter(keyword.toLowerCase())
-        const searchResult = listData.filter(item => toNormalCharacter(item.name.toLowerCase()).indexOf(normalizeKeyword) > -1)
+        const searchResult = filteredListData.filter(item => toNormalCharacter(item.name.toLowerCase()).indexOf(normalizeKeyword) > -1)
         this.setState({ searchResult })
     }, 300)
 
     _handleChangeKeyword = (keyword) => {
         if (!keyword) {
-            this.setState({ keyword, isSearching: false })
+            const isSearching = !!this.state.statusFilter && this.state.statusFilter != -1
+            this.setState({ keyword, isSearching }, () => {
+                if (isSearching) {
+                    this._search(this.state.keyword, this.state.statusFilter)
+                }
+            })
             return
         }
         this.setState({ keyword, isSearching: true }, () => {
-            this._search(this.state.keyword)
+            this._search(this.state.keyword, this.state.statusFilter)
         })
+    }
+
+    _handlePressStatusFilter = () => {
+        this.filterMenu && this.filterMenu.open()
+    }
+
+    _handleChooseFilter = (item) => {
+        console.log('Handle choose filter', item)
+        if (item.id != this.state.statusFilter) {
+            const isSearching = item.id != -1 || !!this.state.keyword
+            this.setState({ statusFilter: item.id, isSearching }, () => {
+                if (isSearching) {
+                    this._search(this.state.keyword, this.state.statusFilter)
+                }
+            })
+        }
     }
 
     _handleChangeStatusFilter = (value) => {
@@ -330,7 +359,6 @@ class Home extends Component {
                 ToastUtils.showSuccessToast(I18n.t('delete_record_success'))
                 this._load()
             }
-
         })
     }
 
@@ -347,6 +375,12 @@ class Home extends Component {
         return (
             <View className="flex white">
                 {this._renderFloatingOverlay()}
+                <ContextMenu
+                    data={MEETING_STATUS_LIST}
+                    onPress={this._handleChooseFilter}
+                    ref={ref => this.filterMenu = ref}
+                    style={styles.contextMenu}
+                />
                 <LoadingModal visible={this.state.loadingFullscreen} />
                 <PopupConfirmDelete
                     ref={ref => this.popupConfirmDelete = ref}
@@ -371,16 +405,14 @@ class Home extends Component {
                             placeholder={I18n.t('search_file_placeholder')}
                             style={{ flex: 1 }}
                         />
-                        <Picker
-                            options={MEETING_STATUS_LIST.map(item => ({
-                                label: item.name,
-                                value: item.id
-                            }))}
-                            placeholder={I18n.t('status')}
-                            value={this.state.statusFilter}
-                            onChangeValue={this._handleChangeStatusFilter}
-                            styles={{ marginLeft: 12 }}
-                        />
+                        <TouchableOpacityHitSlop onPress={this._handlePressStatusFilter}>
+                            <View className='row-start' style={{ marginLeft: 12 }}>
+                                <Text numberOfLines={1}>{!this.state.statusFilter ? I18n.t('status') : MEETING_STATUS_INFO[this.state.statusFilter].name}</Text>
+                                <View style={{ marginLeft: 10 }}>
+                                    <Image source={require('~/src/image/dropdown.png')} style={{ width: 8, height: 4 }} />
+                                </View>
+                            </View>
+                        </TouchableOpacityHitSlop>
                     </View>
 
                 </View>
