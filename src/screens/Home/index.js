@@ -15,12 +15,11 @@ import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord
 import DocumentPicker from 'react-native-document-picker'
 import RNFetchBlob from "rn-fetch-blob"
 import Permissions from 'react-native-permissions'
-import BackgroundFetch from "react-native-background-fetch"
-import PushNotification from 'react-native-push-notification'
 import BackgroundTimer from 'react-native-background-timer'
+import lodash from 'lodash'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import ToastUtils from '~/src/utils/ToastUtils'
-import { chainParse } from '~/src/utils'
+import { chainParse, toNormalCharacter } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
 
@@ -32,6 +31,8 @@ class Home extends Component {
         this.state = {
             keyword: '',
             statusFilter: '',
+            isSearching: false,
+            searchResult: [],
             showingFloatingOverlay: false,
             popupDeleteContent: '',
             loading: false,
@@ -48,11 +49,26 @@ class Home extends Component {
 
 
     _handleClearKeyword = () => {
-        this.setState({ keyword: '' })
+        this.setState({ keyword: '', isSearching: false })
     }
 
-    _handleChangeKeyword = (text) => {
-        this.setState({ keyword: text })
+    _search = lodash.debounce(keyword => {
+        const { meetingList, processingLocalRecord } = this.props
+        const meetingListData = meetingList.data || emptyArray
+        const listData = this._getDataForList(processingLocalRecord, meetingListData)
+        const normalizeKeyword = toNormalCharacter(keyword.toLowerCase())
+        const searchResult = listData.filter(item => toNormalCharacter(item.name.toLowerCase()).indexOf(normalizeKeyword) > -1)
+        this.setState({ searchResult })
+    }, 300)
+
+    _handleChangeKeyword = (keyword) => {
+        if (!keyword) {
+            this.setState({ keyword, isSearching: false })
+            return
+        }
+        this.setState({ keyword, isSearching: true }, () => {
+            this._search(this.state.keyword)
+        })
     }
 
     _handleChangeStatusFilter = (value) => {
@@ -71,8 +87,8 @@ class Home extends Component {
     _renderMainFloatingButton = () => {
         if (this.state.showingFloatingOverlay) return <View />
         return (
-            <TouchableOpacity 
-                onPress={this._handlePressMainFloating} 
+            <TouchableOpacity
+                onPress={this._handlePressMainFloating}
                 style={styles.mainFloatingButtonTouchable}
             >
                 <Image
@@ -369,16 +385,27 @@ class Home extends Component {
 
                 </View>
                 {this._renderMainFloatingButton()}
-                <FlatList
-                    onRefresh={this._refresh}
-                    refreshing={this.state.refresing}
-                    data={listData}
-                    keyExtractor={this._keyExtractor}
-                    renderItem={this._renderMeetingItem}
-                    ListFooterComponent={<View className='space100' />}
-                    onEndReachedThreshold={0.2}
-                    onEndReached={this._loadMore}
-                />
+                {!this.state.isSearching ?
+                    <FlatList
+                        key={'dataList'}
+                        onRefresh={this._refresh}
+                        refreshing={this.state.refresing}
+                        data={listData}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={this._renderMeetingItem}
+                        ListFooterComponent={<View className='space100' />}
+                        onEndReachedThreshold={0.2}
+                        onEndReached={this._loadMore}
+                    />
+                    :
+                    <FlatList
+                        key={'searchList'}
+                        data={this.state.searchResult}
+                        keyExtractor={this._keyExtractor}
+                        renderItem={this._renderMeetingItem}
+                        ListFooterComponent={<View className='space100' />}
+                    />
+                }
             </View>
         )
     }

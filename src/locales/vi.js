@@ -60,6 +60,7 @@ const language = {
     noti_upload_success: 'Bản ghi "*****" đã tải lên thành công',
     save_record: 'Lưu bản ghi',
     interview: 'Phỏng vấn',
+    all: 'Tất cả'
 }
 
 // export default language;

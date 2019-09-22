@@ -1,3 +1,5 @@
+import I18n from '~/src/I18n'
+
 export const BUILD_INFO = {
     'X-DATA-VERSION': 1,
     'X-VERSION': 1,
@@ -51,20 +53,28 @@ export const MEETING_STATUS = {
 
 export const MEETING_STATUS_LIST = [
     {
-        id: 1,
-        name: 'Uploading'
+        id: -1,
+        name: I18n.t('all')
     },
     {
-        id: 2,
-        name: 'Process'
+        id: MEETING_STATUS.WAITING,
+        name: I18n.t('process_waiting')
     },
     {
-        id: 3,
-        name: 'Done'
+        id: MEETING_STATUS.QUEUING,
+        name: I18n.t('process_queuing')
     },
     {
-        id: 4,
-        name: 'Failed'
+        id: MEETING_STATUS.PROCESSING,
+        name: I18n.t('processing')
+    },
+    {
+        id: MEETING_STATUS.DONE,
+        name: I18n.t('process_done')
+    },
+    {
+        id: MEETING_STATUS.FAILED,
+        name: I18n.t('process_failed')
     },
 ]
 
