@@ -9,7 +9,6 @@ import com.zmxv.RNSound.RNSoundPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import org.pgsqlite.SQLitePluginPackage;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class MainApplication extends Application implements ReactApplication {
 
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
-//            packages.add(new SQLitePluginPackage());
             return packages;
         }
 

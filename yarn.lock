@@ -964,11 +964,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-3.2.1.tgz#cd073b81a4b978f7f55f1a960a0b56c462813e02"
   integrity sha512-A2qANOnlRDVe+8kMbKMwy3/0bOlOA2+y8DyWg2Rv2KHICIfin+oxixbG0ewAOLQdLkSEyyumZXRmIVl7VI/KJg==
 
-"@react-native-community/slider@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-2.0.0.tgz#3d68f68db185fb44d812f66d05d2d7842adfd3db"
-  integrity sha512-ORokHwQnwXzas+PYQO+G8IxArRVtw2xZdx2C0wV+oQiKbhDl8DBcM6gGT6dNB3VGxVNesWX/3K0IIfVjp4zH0A==
-
 "@react-navigation/core@~3.4.1":
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.4.2.tgz#bec563e94fde40fbab3730cdc97f22afbb2a1498"
@@ -3177,10 +3172,10 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-i18n-js@3.0.11:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.0.11.tgz#f9e96bdb641c5b9d6be12759d7c422089987ef02"
-  integrity sha512-v7dG3kYJTQTyox3NqDabPDE/ZotWntyMI9kh4cYi+XlCSnsIR+KBTS2opPyObL8WndnklcLzbNU92FP/mLge3Q==
+i18n-js@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.3.0.tgz#05512f7184b5117c087ab597be649720a834c068"
+  integrity sha512-+m8jh84IIWlFwEJgwrWCkeIwIES9ilJKBOj5qx8ZTLLmlPz7bjKnCdxf254wRf6M4pkQHtgXGT9r9lGk0e9aug==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.17, iconv-lite@^0.4.24, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   version "0.4.24"
@@ -5513,13 +5508,6 @@ react-native-audio@^4.3.0:
   resolved "https://registry.yarnpkg.com/react-native-audio/-/react-native-audio-4.3.0.tgz#fae22b81f6a4dda706fd4837d0c6a89c66cf2e7e"
   integrity sha512-QQYq28eSJy+y/Ukvry0AkbwMVELAj+LcEwCVRH+7sKLqlnoBBxGd4ilhgJHjwOiC70192LueGbjXJjPPEwW3iA==
 
-react-native-camera@^3.0.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-3.1.1.tgz#3af3d1eeeed0a5ad2b667eb9aaf3c0058c029c38"
-  integrity sha512-Tg1ffUpKlWmafoBm5afGCPFfFKE/lKKiM+gZDlYT38H2IBwbjryWL5BEEbaVi8abZsvQkru5eZAnwUZXUd4vDw==
-  dependencies:
-    prop-types "^15.6.2"
-
 react-native-collapsible@^1.4.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/react-native-collapsible/-/react-native-collapsible-1.5.1.tgz#da2937b509921b28bf1b0f9eb8e50ad61c3ffb5d"
@@ -5568,13 +5556,6 @@ react-native-html-to-pdf@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/react-native-html-to-pdf/-/react-native-html-to-pdf-0.8.0.tgz#c6e27296a05de76ac3800406144ebdfd77cfe054"
   integrity sha512-64Hx7JbX3sZ1iXgouuCI25/C6o8BHyTzOO3RzvLfw4O8VcdpB+wJ4d24iWRtKjeJmArsubN9+WMOebBxQaPzJw==
-
-react-native-i18n@^2.0.15:
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"
-  integrity sha512-V8VwUP0TLda3oJvgt5tdnFaOV7WXPhTjCTLO7sXI3C2SHggSbD4bCUryMzNJhesimJidH21V2Owvj4zAylHoQQ==
-  dependencies:
-    i18n-js "3.0.11"
 
 react-native-image-picker@^0.27.2:
   version "0.27.2"
@@ -5753,11 +5734,6 @@ react-native-sound@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.11.0.tgz#ad60b55ba8c6dc89917f381ad3713f2738de530f"
   integrity sha512-4bGAZfni6E2L695NQjOZwNLBQGXgBGYC4Sy+h99K5h0HqNZjCqR0+aLel+ezASxEJDpaH83gylNObXpiqJgdwg==
-
-react-native-sqlite-storage@^3.3.10:
-  version "3.3.11"
-  resolved "https://registry.yarnpkg.com/react-native-sqlite-storage/-/react-native-sqlite-storage-3.3.11.tgz#834c26917f5b5c36a084a9e8d62b04109115422a"
-  integrity sha512-Ek2VsteYQKf1Sz8QmWr5MXjyYYcGqVt8i9FFOIrCg/6OboC6MvpdeY/RYWy4PnquHfQirB7unHPagOFZBCo3Zw==
 
 react-native-svg-uri@^1.2.3:
   version "1.2.3"

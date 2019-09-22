@@ -33,7 +33,7 @@ target 'VoiceRecorder' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+#   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 #   pod 'RNCharts', :path => '../node_modules/react-native-charts-wrapper'
 #   pod 'SwiftyJSON', '5.0'      
 #   pod 'Charts', '3.3.0' 
