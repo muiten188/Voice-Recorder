@@ -1,5 +1,6 @@
-import { COLORS } from "~/src/themes/common"
+import { COLORS, DEVICE_WIDTH } from "~/src/themes/common"
 import { getElevation } from '~/src/utils'
+const MAIN_FLOATING_WIDTH = 80
 
 export default {
     floatingOverlay: {
@@ -15,9 +16,9 @@ export default {
         flexDirection: 'column'
     },
     mainFloatingButton: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: MAIN_FLOATING_WIDTH,
+        height: MAIN_FLOATING_WIDTH,
+        borderRadius: MAIN_FLOATING_WIDTH/2,
     },
     actionContainer: {
         width: 50,
@@ -27,4 +28,11 @@ export default {
         alignItems: 'center',
         backgroundColor: COLORS.WHITE
     },
+
+    mainFloatingButtonTouchable: {
+        position: 'absolute',
+        bottom: 10,
+        left: ( DEVICE_WIDTH - MAIN_FLOATING_WIDTH ) / 2,
+        zIndex: 1000
+    }
 }

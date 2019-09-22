@@ -71,20 +71,15 @@ class Home extends Component {
     _renderMainFloatingButton = () => {
         if (this.state.showingFloatingOverlay) return <View />
         return (
-            <View className='bottom transparent column-center'>
-                <TouchableOpacity onPress={this._handlePressMainFloating}>
-                    <View>
-                        <Image
-                            source={require('~/src/image/add_new.png')}
-                            style={styles.mainFloatingButton}
-                        />
-                        <View className='space8' />
-                        <Text className='green center'>{I18n.t('add_new')}</Text>
-                        <View className='space12' />
-                    </View>
-                </TouchableOpacity>
-
-            </View>
+            <TouchableOpacity 
+                onPress={this._handlePressMainFloating} 
+                style={styles.mainFloatingButtonTouchable}
+            >
+                <Image
+                    source={require('~/src/image/add_new.png')}
+                    style={styles.mainFloatingButton}
+                />
+            </TouchableOpacity>
         )
     }
 
@@ -224,9 +219,7 @@ class Home extends Component {
                             source={require('~/src/image/add_new.png')}
                             style={styles.mainFloatingButton}
                         />
-                        <View className='space8' />
-                        <Text className='green center'>{I18n.t('add_new')}</Text>
-                        <View className='space12' />
+                        <View className='space10' />
                     </View>
                 </TouchableOpacity>
 

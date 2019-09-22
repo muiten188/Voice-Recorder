@@ -114,6 +114,12 @@ const _uploadRercordFile = function* (record) {
     console.log('Already create upload url')
     if (record.status != LOCAL_RECORD_STATUS.CREATED_MEETING_URL) return record
     try {
+        const isExists = yield call(RNFetchBlob.fs.exists, record.localPath)
+        console.log('isExists', isExists)
+        if (!isExists) {
+            yield put(deleteRecord(record.localPath))
+            return false
+        }
         const uploadResponseHeader = yield call(_upload, record)
         console.log('respHeader', uploadResponseHeader)
         // Upload success
@@ -162,7 +168,9 @@ const requestUploadMeetingRecord = function* () {
         // only record not became to a meeting
         if (record.status == LOCAL_RECORD_STATUS.MEETING_CREATED) continue
         record = yield call(_createMeetingUploadUrl, record)
+        if (!record) continue
         record = yield call(_uploadRercordFile, record)
+        if (!record) continue
         yield call(_createMeeting, record)
         PushNotification.localNotification({
             title: I18n.t('notification'),
