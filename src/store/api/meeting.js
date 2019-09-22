@@ -1,4 +1,4 @@
-import { get, post } from './common'
+import { get, post, deleteMethod } from './common'
 import { PAGE_SIZE } from '~/src/constants'
 
 export default {
@@ -12,4 +12,7 @@ export default {
         const paramObj = id ? { id, page, max_result, direction, order_bt } : { page, max_result, direction, order_bt }
         return get('/api/v2/meeting', paramObj)
     },
+    deleteMeeting: (id) => {
+        return deleteMethod('/api/v2/meeting', { id })
+    }
 }

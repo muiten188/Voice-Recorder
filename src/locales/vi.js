@@ -55,6 +55,7 @@ const language = {
     download_transcript_docx: 'Tải transcirpt dạng docx',
     download_transcript_pdf: 'Tải transcirpt dạng pdf',
     download_transcript_success: 'Đã lưu tệp vào đường dẫn',
+    delete_record_success: 'Xoá bản ghi thành công',
 }
 
 // export default language;

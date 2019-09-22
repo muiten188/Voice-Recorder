@@ -36,5 +36,13 @@ export default {
     contextMenu: { 
         right: 16, 
         top: 20 
+    },
+    slider: {
+        width: 200, 
+        height: 2, 
+        borderRadius: 1, 
+        backgroundColor: '#363636', 
+        padding: 0, 
+        margin: 0
     }
 }

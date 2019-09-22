@@ -9,6 +9,7 @@ export const MEETING_UPLOAD_RECORD = 'meeting/uploadRecord'
 export const MEETING_CREATE = 'meeting/create'
 export const MEETING_GET = 'meeting/get'
 export const MEETING_SET = 'meeting/set'
+export const MEETING_DELETE = 'meeting/delete'
 export const MEETING_START_CHECK_LOCAL_RECORD = 'meeting/startCheckLocalRecord'
 export const MEETING_STOP_CHECK_LOCAL_RECORD = 'meeting/stopCheckLocalRecord'
 

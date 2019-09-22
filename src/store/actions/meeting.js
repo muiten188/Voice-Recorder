@@ -15,6 +15,11 @@ export const getMeeting = (...args) => ({
     args
 })
 
+export const deleteMeeting = (...args) => ({
+    type: ACTION_TYPES.MEETING_DELETE,
+    args
+})
+
 export const setMetting = (data) => ({
     type: ACTION_TYPES.MEETING_SET,
     payload: data

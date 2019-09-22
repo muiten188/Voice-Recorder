@@ -36,6 +36,11 @@ const requestGetMeeting = createRequestSaga({
     ]
 })
 
+const requestDeleteMeeting = createRequestSaga({
+    request: api.meeting.deleteMeeting,
+    key: ACTION_TYPES.MEETING_DELETE,
+})
+
 const _createMeetingUploadUrl = function* (record) {
     if (record.status != LOCAL_RECORD_STATUS.INITIAL) return record
     const createMeetingUploadUrlResponse = yield call(api.meeting.createMeetingUploadUrl)
@@ -140,11 +145,6 @@ const _createMeeting = function* (record) {
     if (hasError) return record
     // Create meeting success
     if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
-        // const meetingRecordInfo = {
-        //     localPath: record.localPath,
-        //     status: LOCAL_RECORD_STATUS.MEETING_CREATED,
-        // }
-        // yield put(updateRecord(meetingRecordInfo))
         yield put(deleteRecord(record.localPath))
         yield put(getMeeting())
         return ''
@@ -189,6 +189,7 @@ export default function* fetchWatcher() {
         takeEvery(ACTION_TYPES.MEETING_CREATE, requestCreateMeeting),
         takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
         takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
+        takeEvery(ACTION_TYPES.MEETING_DELETE, requestDeleteMeeting)
         // takeLatest(ACTION_TYPES.MEETING_START_CHECK_LOCAL_RECORD, requestCheckUploadRecord),
         // takeLatest(ACTION_TYPES.MEETING_STOP_CHECK_LOCAL_RECORD, requestStopCheckUploadRecord)
     ])

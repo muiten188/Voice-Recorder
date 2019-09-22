@@ -369,11 +369,7 @@ class Player extends Component {
                             minimumValue={0}
                             maximumValue={100}
                             value={this._getCurrentProgressForSlider()}
-                            style={{ width: 200, height: 2, borderRadius: 1, backgroundColor: '#363636', padding: 0, margin: 0 }}
-                        // thumbStyle={{ width: 8, height: 8, borderRadius: 4 }}
-                        // thumbTintColor={'transparent'}
-                        // thumbImage={require('~/src/image/slider.png')}
-                        // thumbImageStyle={{ width: 14.33, height: 13.67, borderRadius: 7 }}
+                            style={styles.slider}
                         />
                         <Text className='textBlack' style={{ marginLeft: 10 }}>{getPlayerTimeString(this.state.duration)}</Text>
                     </View>

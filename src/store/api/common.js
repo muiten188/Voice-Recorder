@@ -61,8 +61,8 @@ export const get = (url, params, customHeader, api) => {
             let tailUrl = convertParamToPath(params) ? url + '?' + convertParamToPath(params, true) : url
             let tailUrlDecode = convertParamToPath(params) ? url + '?' + convertParamToPath(params) : url
             api += tailUrl
-            // console.log('tailUrl', tailUrl)
-            // console.log('tailUrlDecode', tailUrlDecode)
+            // console.log('get tailUrl', tailUrl)
+            // console.log('get tailUrlDecode', tailUrlDecode)
             console.log('API GET', api)
             console.log('Header', sendHeader)
             return fetch(api, {
@@ -107,5 +107,37 @@ export const post = (url, body, customHeader, api) => {
             })
                 .then(res => resolveResponse(res))
         })
+}
 
+export const deleteMethod = (url, params, customHeader, api) => {
+    return APIManager.getInstance()
+        .then(apiConfig => {
+            const state = store.getState()
+            const accessToken = chainParse(state, ['auth', 'access_token']) || ''
+            let sendHeader = {
+                token: accessToken,
+                ...customHeader,
+            }
+
+            if (!api) {
+                api = apiConfig.API_URL
+            }
+            let tailUrl = convertParamToPath(params) ? url + '?' + convertParamToPath(params, true) : url
+            let tailUrlDecode = convertParamToPath(params) ? url + '?' + convertParamToPath(params) : url
+            api += tailUrl
+            console.log('DELETE tailUrl', tailUrl)
+            console.log('DELETE tailUrlDecode', tailUrlDecode)
+            console.log('API DELETE', api)
+            console.log('Header', sendHeader)
+            return fetch(api, {
+                method: 'DELETE',
+                credentials: 'omit',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    ...sendHeader
+                },
+            }
+            ).then(res => resolveResponse(res))
+        })
 }

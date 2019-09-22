@@ -1,24 +1,25 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux'
 import { TouchableOpacity, Image, FlatList, Platform } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
 import Picker from '~/src/components/Picker'
-import styles from './styles'
 import VoiceItem from '~/src/components/VoiceItem'
+import LoadingModal from "~/src/components/LoadingModal";
 import { getUserInfo } from '~/src/store/actions/auth'
-import { uploadMeetingRecord, getMeeting, startCheckUploadLocalRecord, stopCheckUploadLocalRecord } from '~/src/store/actions/meeting'
-import { connect } from 'react-redux'
-const emptyArray = []
+import { uploadMeetingRecord, getMeeting, deleteMeeting } from '~/src/store/actions/meeting'
+import { addRecord } from '~/src/store/actions/localRecord'
 import { meetingListSelector } from '~/src/store/selectors/meeting'
 import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord'
 import DocumentPicker from 'react-native-document-picker'
-import { addRecord } from '~/src/store/actions/localRecord'
-import ToastUtils from '~/src/utils/ToastUtils'
 import RNFetchBlob from "rn-fetch-blob"
-import lodash from 'lodash'
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
+import ToastUtils from '~/src/utils/ToastUtils'
+import { chainParse } from '~/src/utils'
+import styles from './styles'
+const emptyArray = []
 
 class Home extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class Home extends Component {
             showingFloatingOverlay: false,
             popupDeleteContent: '',
             loading: false,
+            loadingFullscreen: false,
             refresing: false
         }
         this.didFocusListener = props.navigation.addListener(
@@ -36,6 +38,7 @@ class Home extends Component {
             this.componentDidFocus
         );
         this.reloadInterval = -1
+        this.deletingMeeting = ''
     }
 
 
@@ -148,6 +151,7 @@ class Home extends Component {
 
     _handlePressDelete = (record) => {
         console.log('_handlePressDelete', record)
+        this.deletingMeeting = record.id
         this.setState({ popupDeleteContent: record.name }, () => {
             this.popupConfirmDelete && this.popupConfirmDelete.open()
         })
@@ -284,6 +288,24 @@ class Home extends Component {
         this.reloadInterval = -1
     }
 
+    _deleteMeeting = () => {
+        const { deleteMeeting } = this.props
+        if (!this.deletingMeeting) return
+        this.setState({loadingFullscreen: true})
+        deleteMeeting(this.deletingMeeting, (err, data) => {
+            console.log('deleteMeeting err', err)
+            console.log('deleteMeeting data', data)
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            this.deletingMeeting = '' 
+            this.setState({loadingFullscreen: false})
+            if (statusCode == 200){
+                ToastUtils.showSuccessToast(I18n.t('delete_record_success'))
+                this._load()
+            }
+            
+        })
+    }
+
     _getDataForList = (processingLocalRecord, meetingData) => {
         return [...processingLocalRecord, ...meetingData]
     }
@@ -297,11 +319,14 @@ class Home extends Component {
         return (
             <View className="flex white">
                 {this._renderFloatingOverlay()}
+                <LoadingModal visible={this.state.loadingFullscreen} />
                 <PopupConfirmDelete
                     ref={ref => this.popupConfirmDelete = ref}
                     title={I18n.t('delete_audio_confirm_title')}
                     content={this.state.popupDeleteContent}
                     positiveText={I18n.t('delete_audio')}
+                    onPressYes={this._deleteMeeting}
+
                 />
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
@@ -353,5 +378,5 @@ export default connect(state => ({
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,
-    startCheckUploadLocalRecord, stopCheckUploadLocalRecord
+    deleteMeeting
 })(Home)
