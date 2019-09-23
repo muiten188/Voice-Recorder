@@ -55,7 +55,7 @@ export default class VoiceItem extends PureComponent {
     }
 
     _renderStatus = () => {
-        const { status, localPath } = this.props
+        const { status, localPath, progress } = this.props
 
         if (localPath) {
             return (
@@ -74,7 +74,7 @@ export default class VoiceItem extends PureComponent {
         } else if (status == MEETING_STATUS.PROCESSING) {
             return (
                 <View className='row-start'>
-                    <Text className='s12 blue' style={{ marginRight: 4 }}>{I18n.t('processing')}</Text>
+                    <Text className='s12 blue' style={{ marginRight: 4 }}>{I18n.t('processing')} <Text className='blue s14'> ({progress}%) </Text></Text>
                     <Image source={require('~/src/image/dangcho.png')} style={{ width: 16, height: 16 }} />
                 </View>
             )
@@ -95,13 +95,35 @@ export default class VoiceItem extends PureComponent {
         }
     }
 
+    _renderProcessingItem = () => {
+        const { localPath, progress = 0, create_time, name } = this.props
+        return (
+            <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
+                <View className='row-start'>
+                    <View className='flex'>
+                        <Text className='bold s14 mb8'>{name}</Text>
+                        <Text className='s13 gray flex'>{moment(create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
+                    </View>
+                    <View className='column-center'>
+                        <Text className='blue s16 mb8 bold'>{progress}%</Text>
+                        <View className='row-start'>
+                            <Text className='s12 blue' style={{ marginRight: 4 }}>{I18n.t('processing')}</Text>
+                            <Image source={require('~/src/image/dangcho.png')} style={{ width: 16, height: 16 }} />
+                        </View>
+                    </View>
+                </View>
+            </View>
+        )
+
+    }
+
     _handlePress = () => {
         const { id, name, localPath, onPress, status } = this.props
         onPress && onPress({ id, name, localPath, status })
     }
 
     render() {
-        const { localPath, progress = 0, create_time, name } = this.props
+        const { localPath, progress = 0, create_time, name, status } = this.props
         const showProgress = !!localPath
         return (
             <Swipeable
@@ -112,16 +134,20 @@ export default class VoiceItem extends PureComponent {
                 <TouchableOpacity onPress={this._handlePress}>
                     <View className='row-start'>
                         <Image source={require('~/src/image/audio.png')} style={styles.audioIcon} />
-                        <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
-                            <Text className='bold s14 mb8'>{name}</Text>
-                            <View className='row-start'>
-                                <Text className='s13 gray flex'>{moment(create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
-                                {this._renderStatus()}
+                        {(status == MEETING_STATUS.PROCESSING) ?
+                            this._renderProcessingItem()
+                            :
+                            <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>
+                                <Text className='bold s14 mb8'>{name}</Text>
+                                <View className='row-start'>
+                                    <Text className='s13 gray flex'>{moment(create_time * 1000).format(I18n.t('full_date_time_format'))}</Text>
+                                    {this._renderStatus()}
+                                </View>
+                                {showProgress && <View style={styles.progressBarFull}>
+                                    <View style={[styles.progressBarActive, { width: Math.floor(styles.progressBarFull.width * progress / 100) }]} />
+                                </View>}
                             </View>
-                            {showProgress && <View style={styles.progressBarFull}>
-                                <View style={[styles.progressBarActive, { width: Math.floor(styles.progressBarFull.width * progress / 100) }]} />
-                            </View>}
-                        </View>
+                        }
                     </View>
                 </TouchableOpacity>
             </Swipeable>

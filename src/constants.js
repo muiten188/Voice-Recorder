@@ -113,7 +113,7 @@ export const LOCAL_RECORD_STATUS = {
 }
 
 export const CHECK_LOCAL_RECORD_PERIOD = 60000
-export const RELOAD_PROGRESS_PERIOD = 10000
+export const RELOAD_PROGRESS_PERIOD = 2000
 
 export const FILE_TYPES = {
     DOCX: 'docx',
