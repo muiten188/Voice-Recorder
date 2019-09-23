@@ -10,20 +10,14 @@ export default meeting = (state = initialState, action) => {
             console.log('meeting list response', meetingListResponse)
             const page = meetingListResponse && meetingListResponse.args && meetingListResponse.args[1] ? meetingListResponse.args[1] : 1
             if (page == 1) {
-                const data = meetingListResponse.data
-                const sortedData = data.sort((a, b) => b.create_time - a.create_time)
-                return {
-                    ...meetingListResponse,
-                    data: sortedData
-                }
+                return meetingListResponse
             }
             const currentData = state.data || []
             const responseData = meetingListResponse.data
             const newData = [...currentData, ...responseData]
-            const newSortedData = newData.sort((a, b) => b.create_time - a.create_time)
             return {
                 ...meetingListResponse,
-                data: newSortedData
+                data: newData
             }
 
         }

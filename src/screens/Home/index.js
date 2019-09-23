@@ -50,37 +50,30 @@ class Home extends Component {
 
 
     _handleClearKeyword = () => {
-        const isSearching = !!this.state.statusFilter && this.state.statusFilter != -1
+        const isSearching = true
         this.setState({ keyword: '', isSearching }, () => {
             if (isSearching) {
-                this._search(this.state.keyword, this.state.statusFilter)
+                this._search()
             }
         })
     }
 
-    _search = lodash.debounce((keyword, status) => {
-        const { meetingList, processingLocalRecord } = this.props
-        const meetingListData = meetingList.data || emptyArray
-        const listData = this._getDataForList(processingLocalRecord, meetingListData)
-        const filteredListData = (!status || status == 1) ? listData :
-            listData.filter(item => item.status == status)
-        const normalizeKeyword = toNormalCharacter(keyword.toLowerCase())
-        const searchResult = filteredListData.filter(item => toNormalCharacter(item.name.toLowerCase()).indexOf(normalizeKeyword) > -1)
-        this.setState({ searchResult })
+    _search = lodash.debounce(() => {
+        this._load()
     }, 300)
 
     _handleChangeKeyword = (keyword) => {
         if (!keyword) {
-            const isSearching = !!this.state.statusFilter && this.state.statusFilter != -1
+            const isSearching = true
             this.setState({ keyword, isSearching }, () => {
                 if (isSearching) {
-                    this._search(this.state.keyword, this.state.statusFilter)
+                    this._search()
                 }
             })
             return
         }
         this.setState({ keyword, isSearching: true }, () => {
-            this._search(this.state.keyword, this.state.statusFilter)
+            this._search()
         })
     }
 
@@ -91,18 +84,13 @@ class Home extends Component {
     _handleChooseFilter = (item) => {
         console.log('Handle choose filter', item)
         if (item.id != this.state.statusFilter) {
-            const isSearching = item.id != -1 || !!this.state.keyword
+            const isSearching = true
             this.setState({ statusFilter: item.id, isSearching }, () => {
                 if (isSearching) {
-                    this._search(this.state.keyword, this.state.statusFilter)
+                    this._search()
                 }
             })
         }
-    }
-
-    _handleChangeStatusFilter = (value) => {
-        console.log('_handleChangeStatusFilter', value)
-        this.setState({ statusFilter: value })
     }
 
     _handlePressMainFloating = () => {
@@ -286,7 +274,8 @@ class Home extends Component {
             this.setState({ loading: true })
         }
         const { getMeeting } = this.props
-        getMeeting('', page, (err, data) => {
+        const status_in = !this.state.statusFilter || this.state.statusFilter == -1 ? '' : `[${this.state.statusFilter}]`
+        getMeeting('', page, this.state.keyword, status_in, (err, data) => {
             console.log('getMeeting err', err)
             console.log('getMeeting data', data)
             this.setState({ refresing: false, loading: false })
@@ -418,27 +407,17 @@ class Home extends Component {
 
                 </View>
                 {this._renderMainFloatingButton()}
-                {!this.state.isSearching ?
-                    <FlatList
-                        key={'dataList'}
-                        onRefresh={this._refresh}
-                        refreshing={this.state.refresing}
-                        data={listData}
-                        keyExtractor={this._keyExtractor}
-                        renderItem={this._renderMeetingItem}
-                        ListFooterComponent={<View className='space100' />}
-                        onEndReachedThreshold={0.2}
-                        onEndReached={this._loadMore}
-                    />
-                    :
-                    <FlatList
-                        key={'searchList'}
-                        data={this.state.searchResult}
-                        keyExtractor={this._keyExtractor}
-                        renderItem={this._renderMeetingItem}
-                        ListFooterComponent={<View className='space100' />}
-                    />
-                }
+                <FlatList
+                    key={'dataList'}
+                    onRefresh={this._refresh}
+                    refreshing={this.state.refresing}
+                    data={listData}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this._renderMeetingItem}
+                    ListFooterComponent={<View className='space100' />}
+                    onEndReachedThreshold={0.2}
+                    onEndReached={this._loadMore}
+                />
             </View>
         )
     }

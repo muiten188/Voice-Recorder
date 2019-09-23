@@ -8,8 +8,18 @@ export default {
     createMeeting: (audio_path, name, status) => {
         return post('/api/v2/meeting', { audio_path, name, status })
     },
-    getMeeting: (id = '', page = 1, max_result = PAGE_SIZE, direction = -1, order_bt = 'create_time') => {
-        const paramObj = id ? { id, page, max_result, direction, order_bt } : { page, max_result, direction, order_bt }
+    getMeeting: (id = '', page = 1, name__contains = '', status__in = '', max_result = PAGE_SIZE, order_direction = -1, order_by = 'create_time') => {
+
+        const paramObj = {page, max_result, order_direction, order_by}
+        if (id){
+            paramObj['id'] = id
+        }
+        if (name__contains){
+            paramObj['name__contains'] = name__contains
+        }
+        if (status__in){
+            paramObj['status__in'] = status__in
+        }
         return get('/api/v2/meeting', paramObj)
     },
     deleteMeeting: (id) => {
