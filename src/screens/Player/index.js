@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { FlatList, Image, BackHandler } from 'react-native'
-import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider } from "~/src/themes/ThemeComponent";
+import { FlatList, Image, BackHandler, AppState } from 'react-native'
+import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider, TouchableOpacity } from "~/src/themes/ThemeComponent";
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
-import moment from 'moment'
 import { addRecord } from '~/src/store/actions/localRecord'
 import { connect } from 'react-redux'
 import APIManager from '~/src/store/api/APIManager'
@@ -31,6 +30,9 @@ const CONTEXT_DATA = [
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
+import TranscriptItem from './TranscriptItem'
+
+
 
 class Player extends Component {
 
@@ -107,10 +109,12 @@ class Player extends Component {
 
     _handlePressPlayPause = () => {
         if (this.state.playing) {
+            console.log('Case pause')
             this.player.pause()
             clearInterval(this.checkIntervalId)
             this.setState({ playing: false })
         } else {
+            console.log('Case play')
             this.player.play()
             this._runCheckInterval()
             this.setState({ playing: true })
@@ -136,10 +140,25 @@ class Player extends Component {
                 })
             })
 
+        AppState.addEventListener('change', this._handleAppStateChange)
     }
+
+    _handleAppStateChange = (nextAppState) => {
+        console.log('nextAppState', nextAppState)
+        if ((Platform.OS == 'ios' && nextAppState == 'inactive')
+            || (Platform.OS == 'android' && nextAppState == 'background')) {
+            console.log('App has come to the background', this.state, this.state.playing);
+            if (this.state.playing) {
+                this._handlePressPlayPause()
+            }
+        }
+    };
 
     componentWillUnmount() {
         clearInterval(this.checkIntervalId)
+        this.player.stop()
+        this.player.release()
+        AppState.removeEventListener('change', this._handleAppStateChange)
     }
 
     _renderStatus = () => {
@@ -230,21 +249,44 @@ class Player extends Component {
         return result
     })
 
+    _handlePressTranscriptItem = (item) => {
+        clearInterval(this.checkIntervalId)
+        console.log('_handlePressTranscriptItem', item)
+        const { transcriptKey } = item
+        const { transcription } = this.props
+        const transcriptInfo = chainParse(transcription, ['transcript_info']) || false
+        if (transcriptInfo) {
+            const currentTranscriptObj = transcriptInfo.find(item => item.key == transcriptKey)
+            if (!currentTranscriptObj) {
+                this._runCheckInterval()
+                return
+            }
+            this.player.setCurrentTime(currentTranscriptObj.timeStart)
+            this.setState({ progress: currentTranscriptObj.timeStart, currentTranscriptKey: transcriptKey }, () => {
+                this.transcriptList && this.transcriptList.scrollToIndex({
+                    animated: true,
+                    index: transcriptKey - 1,
+                    viewPosition: 0,
+                    viewOffset: 50
+                })
+                setTimeout(() => {
+                    this._runCheckInterval()
+                }, 100)
+            })
+        } else {
+            this._runCheckInterval()
+        }
+    }
+
     _renderTranscriptItem = ({ item, index }) => {
         const shouldHightlight = item.key == this.state.currentTranscriptKey
         return (
-            <View className='row-center'>
-                <Text
-                    style={{
-                        color: shouldHightlight ? '#55eaa4' : COLORS.WHITE54,
-                        fontWeight: shouldHightlight ? 'bold' : 'normal',
-                        fontSize: 15,
-                        lineHeight: 24,
-                        textAlign: 'center'
-                    }}>
-                    {item.text}
-                </Text>
-            </View>
+            <TranscriptItem
+                transcriptKey={item.key}
+                text={item.text}
+                onPress={this._handlePressTranscriptItem}
+                shouldHightlight={shouldHightlight}
+            />
         )
     }
 
@@ -317,6 +359,18 @@ class Player extends Component {
         }
     }
 
+    _handleSlidingStart = (e) => {
+        clearInterval(this.checkIntervalId)
+    }
+
+    _handleSlidingComplete = (e) => {
+        const currentTime = e / 100 * this.state.duration
+        this.player.setCurrentTime(currentTime)
+        this.setState({ progress: currentTime }, () => {
+            this._runCheckInterval()
+        })
+    }
+
     render() {
         const { transcription } = this.props
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
@@ -353,6 +407,7 @@ class Player extends Component {
                             ref={ref => this.transcriptList = ref}
                             contentContainerStyle={styles.transcriptContainer}
                             extraData={this.state.currentTranscriptKey}
+                            windowSize={100}
                         />
                     }
                 </View>
@@ -371,6 +426,8 @@ class Player extends Component {
                             maximumValue={100}
                             value={this._getCurrentProgressForSlider()}
                             style={styles.slider}
+                            onSlidingStart={this._handleSlidingStart}
+                            onSlidingComplete={this._handleSlidingComplete}
                         />
                         <Text className='textBlack' style={{ marginLeft: 10 }}>{getPlayerTimeString(this.state.duration)}</Text>
                     </View>
