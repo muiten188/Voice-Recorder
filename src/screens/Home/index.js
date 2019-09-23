@@ -132,14 +132,15 @@ class Home extends Component {
         return new Promise((resolve, reject) => {
             if (Platform.OS == 'ios') {
                 resolve(true)
+            } else {
+                Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                    console.log('Request storage res', responseStorage)
+                    if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
+                        resolve(true)
+                    }
+                    reject(false)
+                })
             }
-            Permissions.request('storage', { type: 'always' }).then(responseStorage => {
-                console.log('Request storage res', responseStorage)
-                if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
-                    resolve(true)
-                }
-                reject(false)
-            })
         })
     }
 

@@ -259,14 +259,15 @@ class Player extends Component {
         return new Promise((resolve, reject) => {
             if (Platform.OS == 'ios') {
                 resolve(true)
+            } else {
+                Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                    console.log('Request storage res', responseStorage)
+                    if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
+                        resolve(true)
+                    }
+                    reject(false)
+                })
             }
-            Permissions.request('storage', { type: 'always' }).then(responseStorage => {
-                console.log('Request storage res', responseStorage)
-                if (responseStorage == PERMISSION_RESPONSE.AUTHORIZED) {
-                    resolve(true)
-                }
-                reject(false)
-            })
         })
     }
 
@@ -283,10 +284,10 @@ class Player extends Component {
                         APIManager.getInstance()
                             .then(apiConfig => {
                                 console.log('Download url', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`)
-                                console.log('Save path', `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`)
+                                console.log('Save path', `${Platform.OS == 'android' ? RNFetchBlob.fs.dirs.DownloadDir : RNFetchBlob.fs.dirs.DocumentDir}/${this.meeting.name}.docx`)
                                 RNFetchBlob
                                     .config({
-                                        path: `${RNFetchBlob.fs.dirs.DownloadDir}/${this.meeting.name}.docx`
+                                        path: `${Platform.OS == 'android' ? RNFetchBlob.fs.dirs.DownloadDir : RNFetchBlob.fs.dirs.DocumentDir}/${this.meeting.name}.docx`
                                     })
                                     .fetch('GET', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`, {})
                                     .then((res) => {
