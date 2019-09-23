@@ -78,6 +78,8 @@
 	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập vị trí</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập vị trí</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Để sử dụng tính năng này, vui lòng cấp quyền sử dụng microphone</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Để sử dụng tính năng này, vui lòng cấp quyền truy cập cảm biến chuyển động</string>
 	<key>NSPhotoLibraryUsageDescription</key>

@@ -305,7 +305,7 @@ class Player extends Component {
                 let options = {
                     html: transcription.transcript_html,
                     fileName: this.meeting.name,
-                    directory: 'Download',
+                    directory: Platform.OS == 'ios' ? 'Documents' : 'Download',
                 };
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)

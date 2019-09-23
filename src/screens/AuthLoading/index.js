@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { StackActions, NavigationActions } from 'react-navigation'
 import { userInfoSelector } from '~/src/store/selectors/auth'
 import PushNotification from 'react-native-push-notification'
-
+import PushNotificationIOS from '@react-native-community/push-notification-ios'
 
 class AuthLoading extends Component {
 

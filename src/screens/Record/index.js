@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, Image } from 'react-native'
+import { ImageBackground, Image, Platform } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop, PopupConfirm, TextInputBase as TextInput } from "~/src/themes/ThemeComponent";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
@@ -56,17 +56,28 @@ class Record extends Component {
 
     componentDidMount() {
         console.log('AudioUtils', AudioUtils)
-        Permissions.checkMultiple(['microphone', 'storage'], { type: 'always' }).then(response => {
-            console.log('Check res', response)
+        if (Platform.OS == 'ios') {
             this.setState({
-                permissionMicrophone: response['microphone'],
-                permissionStorage: response['storage']
+                permissionMicrophone: PERMISSION_RESPONSE.AUTHORIZED,
+                permissionStorage: PERMISSION_RESPONSE.AUTHORIZED
             })
-        })
+        } else {
+            Permissions.checkMultiple(['microphone', 'storage'], { type: 'always' }).then(response => {
+                console.log('Check res', response)
+                this.setState({
+                    permissionMicrophone: response['microphone'],
+                    permissionStorage: response['storage']
+                })
+            })
+        }
+
     }
 
     _checkPermission = () => {
         return new Promise((resolve, reject) => {
+            if (Platform.OS == 'ios'){
+                resolve('Permisson accept')
+            }
             Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {
                 console.log('Request microphone res', responseMicrophone)
                 Permissions.request('storage', { type: 'always' }).then(responseStorage => {
@@ -129,10 +140,17 @@ class Record extends Component {
         }
     }
 
+    _getBasePath = () => {
+        if (Platform.OS == 'ios'){
+            return AudioUtils.DocumentDirectoryPath
+        }
+        return AudioUtils.DownloadsDirectoryPath
+    }
+
     _startRecord = async () => {
         const audioId = moment().format('YYYYMMDDHHmmss')
         this.fileName = `${I18n.t('interview')} ${audioId}`
-        this.audioPath = `${AudioUtils.DownloadsDirectoryPath}/${this.fileName}.aac`
+        this.audioPath = `${this._getBasePath()}/${this.fileName}.aac`
         console.log('Audio path', this.audioPath)
         this._prepareRecordingPath(this.audioPath);
         AudioRecorder.onProgress = (data) => {
@@ -167,7 +185,9 @@ class Record extends Component {
         }
     }
 
-    _handlePressCancel = () => {
+    _handlePressCancel = async() => {
+        const filePath = await AudioRecorder.stopRecording()
+        console.log('_handlePressCancel', filePath)
         this.props.navigation.goBack()
     }
 
@@ -247,8 +267,8 @@ class Record extends Component {
         try {
             console.log('File name input', this.state.fileNameInput)
             console.log('Origin filename', this.fileName)
-            const originPath = `${AudioUtils.DownloadsDirectoryPath}/${this.fileName}.aac`
-            const newPath = `${AudioUtils.DownloadsDirectoryPath}/${this.state.fileNameInput}.aac`
+            const originPath = `${this._getBasePath()}/${this.fileName}.aac`
+            const newPath = `${this._getBasePath()}/${this.state.fileNameInput}.aac`
             if (this.fileName != this.state.fileNameInput) {
                 await RNFetchBlob.fs.mv(originPath, newPath)
             }
