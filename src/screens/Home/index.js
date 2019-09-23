@@ -206,7 +206,7 @@ class Home extends Component {
 
     _handlePressItem = (item) => {
         console.log('Pressing', item)
-        if (item.localPath) return
+        if (item.localPath || item.status != MEETING_STATUS.DONE) return
         const { meetingList } = this.props
         const meetingListData = meetingList.data || emptyArray
         const meetingItem = meetingListData.find(it => it.id == item.id)

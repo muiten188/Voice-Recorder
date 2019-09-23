@@ -360,15 +360,23 @@ class Player extends Component {
     }
 
     _handleSlidingStart = (e) => {
+        console.log('_handleSlidingStart', e)
         clearInterval(this.checkIntervalId)
     }
 
     _handleSlidingComplete = (e) => {
+        console.log('_handleSlidingComplete', e)
         const currentTime = e / 100 * this.state.duration
         this.player.setCurrentTime(currentTime)
         this.setState({ progress: currentTime }, () => {
             this._runCheckInterval()
         })
+    }
+
+    _handleSliderValueChange = (e) => {
+        console.log('_handleSliderValueChange', e)
+        const currentTime = e / 100 * this.state.duration
+        this.setState({ progress: currentTime })
     }
 
     render() {
@@ -424,7 +432,9 @@ class Player extends Component {
                         <Slider
                             minimumValue={0}
                             maximumValue={100}
+                            step={1}
                             value={this._getCurrentProgressForSlider()}
+                            onValueChange={this._handleSliderValueChange}
                             style={styles.slider}
                             onSlidingStart={this._handleSlidingStart}
                             onSlidingComplete={this._handleSlidingComplete}

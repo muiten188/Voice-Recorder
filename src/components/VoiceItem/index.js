@@ -96,8 +96,8 @@ export default class VoiceItem extends PureComponent {
     }
 
     _handlePress = () => {
-        const { id, name, localPath, onPress } = this.props
-        onPress && onPress({ id, name, localPath })
+        const { id, name, localPath, onPress, status } = this.props
+        onPress && onPress({ id, name, localPath, status })
     }
 
     render() {
