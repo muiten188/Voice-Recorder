@@ -39,9 +39,8 @@ export default {
     },
     slider: {
         width: 200, 
-        height: 2, 
+        height: 20, 
         borderRadius: 1, 
-        backgroundColor: '#363636', 
         padding: 0, 
         margin: 0
     }

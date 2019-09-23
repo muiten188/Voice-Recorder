@@ -415,7 +415,7 @@ class Player extends Component {
                             ref={ref => this.transcriptList = ref}
                             contentContainerStyle={styles.transcriptContainer}
                             extraData={this.state.currentTranscriptKey}
-                            windowSize={100}
+                            windowSize={500}
                         />
                     }
                 </View>
@@ -432,9 +432,7 @@ class Player extends Component {
                         <Slider
                             minimumValue={0}
                             maximumValue={100}
-                            step={1}
                             value={this._getCurrentProgressForSlider()}
-                            onValueChange={this._handleSliderValueChange}
                             style={styles.slider}
                             onSlidingStart={this._handleSlidingStart}
                             onSlidingComplete={this._handleSlidingComplete}
