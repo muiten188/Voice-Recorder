@@ -324,15 +324,19 @@ class Home extends Component {
                 const notFinishMeeting = this.props.meetingList.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
                 if (!notFinishMeeting) {
                     console.log('Interval clea')
-                    clearInterval(this.reloadInterval)
+                    this._clearInterval()
                 }
             }
         }
     }
 
-    componentWillUnmount() {
+    _clearInterval = () => {
         clearInterval(this.reloadInterval)
         this.reloadInterval = -1
+    }
+
+    componentWillUnmount() {
+       this._clearInterval()
     }
 
     _deleteMeeting = () => {
