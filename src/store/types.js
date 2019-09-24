@@ -24,4 +24,7 @@ export const TRANSCRIPTION_SET = 'transcription/set'
 export const TRANSCRIPTION_GET_EXPORT_TOKEN = 'transcription/getExportToken'
 export const TRANSCRIPTION_EXPORT = 'transcription/export'
 
+export const TRANSCRIPTION_SENTENCE_GET = 'transcription/getSentence'
+export const TRANSCRIPTION_SENTENCE_SET = 'transcription/setSentence'
+
 

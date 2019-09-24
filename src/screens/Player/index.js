@@ -10,8 +10,8 @@ import Sound from 'react-native-sound'
 import styles from './styles'
 import { MEETING_STATUS, PAGE_SIZE, FILE_TYPES } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
-import { getTranscription, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
-import { transcriptionSelector } from '~/src/store/selectors/transcription'
+import { getTranscription, getTranscriptionSentence, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
+import { transcriptionSelector, transcriptionSentenceSelector } from '~/src/store/selectors/transcription'
 import { COLORS } from "~/src/themes/common";
 import lodash from 'lodash'
 const emptyArray = []
@@ -83,20 +83,20 @@ class Player extends Component {
     _runCheckInterval = () => {
         this.checkIntervalId = setInterval(() => {
             this.player.getCurrentTime((seconds, isPlaying) => {
-                const { transcription } = this.props
-                const transcriptInfo = chainParse(transcription, ['transcript_info']) || false
-                if (transcriptInfo) {
-                    const currentTranscriptObj = transcriptInfo.find(item => item.timeStart <= this.state.progress && item.timeEnd >= this.state.progress)
+                const { transcriptionSentence } = this.props
+                if (transcriptionSentence) {
+                    const currentProgressMs = this.state.progress * 1000
+                    const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
                     if (currentTranscriptObj) {
                         this.lastTranscriptKey = this.currentTranscriptKey
-                        this.currentTranscriptKey = currentTranscriptObj.key
+                        this.currentTranscriptKey = currentTranscriptObj[0]
                     }
                 }
                 this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey }, () => {
                     if (this.lastTranscriptKey != this.currentTranscriptKey) {
                         this.transcriptList && this.transcriptList.scrollToIndex({
                             animated: true,
-                            index: this.currentTranscriptKey - 1,
+                            index: this.currentTranscriptKey,
                             viewPosition: 0,
                             viewOffset: 50
                         })
@@ -124,11 +124,15 @@ class Player extends Component {
     componentDidMount() {
         console.log('Player did mount')
         if (this.meeting.status == MEETING_STATUS.DONE) {
-            const { getTranscription } = this.props
+            const { getTranscription, getTranscriptionSentence } = this.props
             console.log('Meeting', this.meeting)
-            getTranscription(this.meeting.id, 1, PAGE_SIZE, (err, data) => {
+            getTranscription(this.meeting.id, (err, data) => {
                 console.log('Get transcription err', err)
                 console.log('Get transcription data', data)
+            })
+            getTranscriptionSentence(this.meeting.id, (err, data) => {
+                console.log('getTranscriptionSentence err', err)
+                console.log('getTranscriptionSentence data', data)
             })
         }
         APIManager.getInstance()
@@ -253,19 +257,19 @@ class Player extends Component {
         clearInterval(this.checkIntervalId)
         console.log('_handlePressTranscriptItem', item)
         const { transcriptKey } = item
-        const { transcription } = this.props
-        const transcriptInfo = chainParse(transcription, ['transcript_info']) || false
-        if (transcriptInfo) {
-            const currentTranscriptObj = transcriptInfo.find(item => item.key == transcriptKey)
+        const { transcriptionSentence } = this.props
+        if (transcriptionSentence) {
+            const currentTranscriptObj = transcriptionSentence.find(item => item[0] == transcriptKey)
             if (!currentTranscriptObj) {
                 this._runCheckInterval()
                 return
             }
-            this.player.setCurrentTime(currentTranscriptObj.timeStart)
-            this.setState({ progress: currentTranscriptObj.timeStart, currentTranscriptKey: transcriptKey }, () => {
+            const currentTime = currentTranscriptObj[1]/1000
+            this.player.setCurrentTime(currentTime)
+            this.setState({ progress: currentTime, currentTranscriptKey: transcriptKey }, () => {
                 this.transcriptList && this.transcriptList.scrollToIndex({
                     animated: true,
-                    index: transcriptKey - 1,
+                    index: transcriptKey,
                     viewPosition: 0,
                     viewOffset: 50
                 })
@@ -279,18 +283,18 @@ class Player extends Component {
     }
 
     _renderTranscriptItem = ({ item, index }) => {
-        const shouldHightlight = item.key == this.state.currentTranscriptKey
+        const shouldHightlight = item[0] == this.state.currentTranscriptKey
         return (
             <TranscriptItem
-                transcriptKey={item.key}
-                text={item.text}
+                transcriptKey={item[0]}
+                text={item[3]}
                 onPress={this._handlePressTranscriptItem}
                 shouldHightlight={shouldHightlight}
             />
         )
     }
 
-    _keyExtractor = item => item.key + ''
+    _keyExtractor = item => item[0] + ''
 
     _handlePressMore = () => {
         console.log('_handlePressMore')
@@ -380,11 +384,8 @@ class Player extends Component {
     }
 
     render() {
-        const { transcription } = this.props
+        const { transcription, transcriptionSentence } = this.props
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
-        const transcriptInfo = chainParse(transcription, ['transcript_info']) || []
-        const transcriptDisplay = this.getTranscriptInfoForDisplay(transcriptInfo)
-        // console.log('transcriptDisplay', transcriptDisplay)
         return (
             <View className="flex background">
                 <GradientToolbar
@@ -409,7 +410,7 @@ class Player extends Component {
                         </View>
                         :
                         <FlatList
-                            data={transcriptDisplay}
+                            data={transcriptionSentence}
                             key={this._keyExtractor}
                             renderItem={this._renderTranscriptItem}
                             ref={ref => this.transcriptList = ref}
@@ -464,6 +465,10 @@ class Player extends Component {
 export default connect((state, props) => {
     const meeting = props.navigation.getParam('meeting')
     return {
-        transcription: transcriptionSelector(state, meeting.id)
+        transcription: transcriptionSelector(state, meeting.id),
+        transcriptionSentence: transcriptionSentenceSelector(state, meeting.id)
     }
-}, { addRecord, getTranscription, getExportToken, exportTranscript })(Player)
+}, {
+    addRecord, getTranscription, getTranscriptionSentence,
+    getExportToken, exportTranscript
+})(Player)
