@@ -75,7 +75,7 @@ class Record extends Component {
 
     _checkPermission = () => {
         return new Promise((resolve, reject) => {
-            if (Platform.OS == 'ios'){
+            if (Platform.OS == 'ios') {
                 resolve('Permisson accept')
             }
             Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {
@@ -141,7 +141,7 @@ class Record extends Component {
     }
 
     _getBasePath = () => {
-        if (Platform.OS == 'ios'){
+        if (Platform.OS == 'ios') {
             return AudioUtils.DocumentDirectoryPath
         }
         return AudioUtils.DownloadsDirectoryPath
@@ -173,7 +173,6 @@ class Record extends Component {
 
     _stopRecord = async () => {
         try {
-
             const filePath = await AudioRecorder.stopRecording();
             this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
@@ -185,9 +184,11 @@ class Record extends Component {
         }
     }
 
-    _handlePressCancel = async() => {
-        const filePath = await AudioRecorder.stopRecording()
-        console.log('_handlePressCancel', filePath)
+    _handlePressCancel = async () => {
+        if (this.state.recording != RECORD_STATUS.NOT_START) {
+            const filePath = await AudioRecorder.stopRecording()
+            console.log('_handlePressCancel', filePath)
+        }
         this.props.navigation.goBack()
     }
 
