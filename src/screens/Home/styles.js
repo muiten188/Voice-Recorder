@@ -40,8 +40,13 @@ export default {
     },
     processingContainer: {
         position: 'absolute',
-        left: 20,
-        bottom: 20,
+        left: 0,
+        bottom: 0,
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
         zIndex: 2000,
+        backgroundColor: COLORS.WHITE
     }
 }

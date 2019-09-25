@@ -54,6 +54,7 @@ class Player extends Component {
         this.currentTranscriptKey = -1
         this.lastTranscriptKey = -1
         this.measureTranscript = null
+        this.unmounted = false
     }
 
     _handleBack = () => {
@@ -72,6 +73,12 @@ class Player extends Component {
             if (error) {
                 // do something
             }
+            if (this.unmounted){
+                console.log('Already unmounted')
+                this.player.stop()
+                this.player.release()
+            }
+            console.log('Playing')
             this.setState({ duration: this.player.getDuration(), playing: true })
             // play when loaded
             this.player.play();
@@ -201,6 +208,8 @@ class Player extends Component {
     };
 
     componentWillUnmount() {
+        console.log('Unmounted')
+        this.unmounted = true
         clearInterval(this.checkIntervalId)
         this.player.stop()
         this.player.release()
