@@ -14,6 +14,7 @@ import { addRecord } from '~/src/store/actions/localRecord'
 import { uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
 import RNFetchBlob from 'rn-fetch-blob'
+import ForegroundService from "@voximplant/react-native-foreground-service"
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -26,7 +27,8 @@ class Record extends Component {
 
     static navigationOptions = {
         headerMode: "none",
-        header: null
+        header: null,
+        gesturesEnabled: false,
     }
 
     constructor(props) {
@@ -42,6 +44,36 @@ class Record extends Component {
         }
         this.fileName = ''
         this.audioPath = ''
+    }
+
+    async _startService() {
+        if (Platform.OS !== 'android') return
+        if (Platform.Version >= 26) {
+            const channelConfig = {
+                id: 'VoiceRecorder',
+                name: 'Notification Channel',
+                description: 'Notification Channel for Foreground Service',
+                enableVibration: false,
+                importance: 2
+            };
+            await ForegroundService.createNotificationChannel(channelConfig);
+        }
+        const notificationConfig = {
+            id: 6996,
+            title: 'Voice Recorder',
+            text: 'Recording...',
+            icon: 'ic_launcher',
+            priority: 0
+        }
+        if (Platform.Version >= 26) {
+            notificationConfig.channelId = 'VoiceRecorder';
+        }
+        await ForegroundService.startService(notificationConfig)
+    }
+
+    async _stopService() {
+        if (Platform.OS != 'android') return
+        await ForegroundService.stopService();
     }
 
     _prepareRecordingPath(audioPath) {
@@ -165,6 +197,7 @@ class Record extends Component {
         };
         try {
             const filePath = await AudioRecorder.startRecording();
+            this._startService()
             console.log('_startRecord filePath', filePath)
             this.setState({ recording: RECORD_STATUS.RECORDING })
         } catch (error) {
@@ -175,6 +208,7 @@ class Record extends Component {
     _stopRecord = async () => {
         try {
             const filePath = await AudioRecorder.stopRecording();
+            this._stopService()
             this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
             this.setState({ fileNameInput: this.fileName }, () => {
@@ -188,6 +222,7 @@ class Record extends Component {
     _handlePressCancel = async () => {
         if (this.state.recording != RECORD_STATUS.NOT_START) {
             const filePath = await AudioRecorder.stopRecording()
+            this._stopService()
             console.log('_handlePressCancel', filePath)
         }
         this.props.navigation.goBack()
