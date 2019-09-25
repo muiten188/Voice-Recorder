@@ -38,4 +38,10 @@ export default {
         right: 16,
         top: STATUSBAR_HEIGHT + TOOLBAR_HEIGHT + 20
     },
+    processingContainer: {
+        position: 'absolute',
+        left: 20,
+        bottom: 20,
+        zIndex: 2000,
+    }
 }

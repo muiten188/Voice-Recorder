@@ -85,14 +85,11 @@ class Player extends Component {
                 const { transcriptionSentence } = this.props
                 if (transcriptionSentence) {
                     const currentProgressMs = this.state.progress * 1000
-                    console.log('currentProgressMs', currentProgressMs)
                     const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
-                    console.log('currentTranscriptObj', JSON.stringify(currentTranscriptObj))
                     if (currentTranscriptObj) {
                         this.lastTranscriptKey = this.currentTranscriptKey
                         this.currentTranscriptKey = currentTranscriptObj[0]
                     }
-                    console.log('this.lastTranscriptKey this.currentTranscriptKey', this.lastTranscriptKey, this.currentTranscriptKey)
                 }
                 this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey }, () => {
                     if (this.lastTranscriptKey != this.currentTranscriptKey) {

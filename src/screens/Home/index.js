@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
-import { TouchableOpacity, Image, FlatList, Platform } from 'react-native'
+import { TouchableOpacity, Image, FlatList, Platform, ActivityIndicator } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
-import Picker from '~/src/components/Picker'
 import VoiceItem from '~/src/components/VoiceItem'
 import LoadingModal from "~/src/components/LoadingModal";
 import { getUserInfo } from '~/src/store/actions/auth'
@@ -23,6 +22,7 @@ import { chainParse, toNormalCharacter } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
 import ContextMenu from '~/src/components/ContextMenu'
+import { COLORS } from '~/src/themes/common'
 
 
 
@@ -365,6 +365,7 @@ class Home extends Component {
     render() {
         const { meetingList, processingLocalRecord } = this.props
         const meetingListData = meetingList.data || emptyArray
+        const notFinishMeeting = meetingListData.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
         const listData = this._getDataForList(processingLocalRecord, meetingListData)
         return (
             <View className="flex white">
@@ -422,6 +423,12 @@ class Home extends Component {
                     onEndReachedThreshold={0.2}
                     onEndReached={this._loadMore}
                 />
+                {!!notFinishMeeting &&
+                    <View style={styles.processingContainer}>
+                        <ActivityIndicator size={'small'} color={COLORS.GREEN} />
+                    </View>
+                }
+                
             </View>
         )
     }
