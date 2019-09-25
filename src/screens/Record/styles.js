@@ -17,8 +17,12 @@ export default {
         borderRadius: 40,
     },
     fileNameInput: {
-        borderBottomWidth: 1, 
-        borderBottomColor: COLORS.BORDER_COLOR, 
-        flex: 1
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.BORDER_COLOR,
+        flex: 1,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 8,
+        paddingBottom: 8
     }
 }

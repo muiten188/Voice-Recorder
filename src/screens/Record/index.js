@@ -158,9 +158,10 @@ class Record extends Component {
         };
         AudioRecorder.onFinished = (data) => {
             // Android callback comes in the form of a promise instead.
-            // if (Platform.OS === 'ios') {
-            //     this._finishRecording(data.status === "OK", data.audioFileURL, data.audioFileSize);
-            // }
+            if (Platform.OS === 'ios') {
+                console.log('Finished recording ios', data)
+                // this._finishRecording(data.status === "OK", data.audioFileURL, data.audioFileSize);
+            }
         };
         try {
             const filePath = await AudioRecorder.startRecording();
