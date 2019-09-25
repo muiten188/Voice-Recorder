@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, Image, BackHandler, AppState } from 'react-native'
+import { FlatList, Image, BackHandler, AppState, PixelRatio, ScrollView } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider, TouchableOpacity } from "~/src/themes/ThemeComponent";
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
@@ -12,7 +12,7 @@ import { MEETING_STATUS, PAGE_SIZE, FILE_TYPES } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
 import { getTranscription, getTranscriptionSentence, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
 import { transcriptionSelector, transcriptionSentenceSelector } from '~/src/store/selectors/transcription'
-import { COLORS } from "~/src/themes/common";
+import { DEVICE_WIDTH } from "~/src/themes/common";
 import lodash from 'lodash'
 const emptyArray = []
 import RNFetchBlob from 'rn-fetch-blob'
@@ -32,8 +32,6 @@ import { PERMISSION_RESPONSE } from '~/src/constants'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
 import TranscriptItem from './TranscriptItem'
 
-
-
 class Player extends Component {
 
     static navigationOptions = {
@@ -48,13 +46,14 @@ class Player extends Component {
             playing: true,
             duration: 0,
             progress: 0,
-            currentTranscriptKey: 0
+            currentTranscriptKey: -1
         }
         this.layoutMap = {}
         this.meeting = props.navigation.getParam('meeting')
         this._didFocusSubscription = props.navigation.addListener('didFocus', this.componentDidFocus)
-        this.currentTranscriptKey = 1
-        this.lastTranscriptKey = 1
+        this.currentTranscriptKey = -1
+        this.lastTranscriptKey = -1
+        this.measureTranscript = null
     }
 
     _handleBack = () => {
@@ -86,16 +85,19 @@ class Player extends Component {
                 const { transcriptionSentence } = this.props
                 if (transcriptionSentence) {
                     const currentProgressMs = this.state.progress * 1000
+                    console.log('currentProgressMs', currentProgressMs)
                     const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
+                    console.log('currentTranscriptObj', JSON.stringify(currentTranscriptObj))
                     if (currentTranscriptObj) {
                         this.lastTranscriptKey = this.currentTranscriptKey
                         this.currentTranscriptKey = currentTranscriptObj[0]
                     }
+                    console.log('this.lastTranscriptKey this.currentTranscriptKey', this.lastTranscriptKey, this.currentTranscriptKey)
                 }
                 this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey }, () => {
                     if (this.lastTranscriptKey != this.currentTranscriptKey) {
                         this.transcriptList && this.transcriptList.scrollToIndex({
-                            animated: true,
+                            animated: Platform.OS == 'android' ? false : true,
                             index: this.currentTranscriptKey,
                             viewPosition: 0,
                             viewOffset: 50
@@ -121,8 +123,51 @@ class Player extends Component {
         }
     }
 
+    // _measureTranscript = async () => {
+    //     if (this.measureTranscript != null) return
+    //     const { transcriptionSentence } = this.props
+    //     const measureRatio = await this._getFontMeasureRatio()
+    //     if (transcriptionSentence && transcriptionSentence.length > 0) {
+    //         const texts = transcriptionSentence.map(item => item[3])
+    //         MeasureText.heights({
+    //             texts,
+    //             width: DEVICE_WIDTH - 32,
+    //             fontSize: 15,
+    //             lineHeight: 24,
+    //             fontFamily: Platform.OS == 'android' ? 'sans-serif' : 'system',
+    //             fontWeight: 'normal'
+    //         }).then(sizes => {
+    //             console.log('Measured sizes', sizes)
+    //             const caculatedSize = []
+    //             let sumItr = 0
+    //             for (let i = 0; i < sizes.length; i++) {
+    //                 sumItr += sizes[i] * measureRatio
+    //                 caculatedSize[i] = sumItr
+    //             }
+    //             this.measureTranscript = caculatedSize
+    //             console.log('caculatedSize', caculatedSize)
+    //         })
+    //     }
+
+    // }
+
+    // _getFontMeasureRatio = async () => {
+    //     const measureSize = await MeasureText.heights({
+    //         texts: ["A"],
+    //         width: DEVICE_WIDTH - 32,
+    //         fontSize: 15,
+    //         lineHeight: 24,
+    //         fontFamily: Platform.OS == 'android' ? 'sans-serif' : 'system',
+    //         fontWeight: 'normal'
+    //     })
+    //     const actualSize = 24
+    //     // console.log('measureSize actualSize', measureSize, actualSize)
+    //     if (!measureSize || !measureSize[0]) return 1
+    //     return actualSize / measureSize
+
+    // }
+
     componentDidMount() {
-        console.log('Player did mount')
         if (this.meeting.status == MEETING_STATUS.DONE) {
             const { getTranscription, getTranscriptionSentence } = this.props
             console.log('Meeting', this.meeting)
@@ -227,32 +272,6 @@ class Player extends Component {
         })
     }
 
-    getTranscriptInfoForDisplay = lodash.memoize((transcriptInfo) => {
-        if (!transcriptInfo || transcriptInfo.length == 0) return emptyArray
-        const result = []
-        for (let i = 0; i < transcriptInfo.length; i++) {
-            const resultLength = result.length
-            const transcriptItem = transcriptInfo[i]
-            if (resultLength == 0 || +result[resultLength - 1].key < +transcriptItem.key) {
-                result.push(
-                    {
-                        key: transcriptItem.key,
-                        timeStart: transcriptItem.timeStart,
-                        timeEnd: transcriptItem.timeEnd,
-                        text: transcriptItem.text
-                    }
-                )
-            } else {
-                result[resultLength - 1] = {
-                    ...result[resultLength - 1],
-                    timeEnd: transcriptItem.timeEnd,
-                    text: result[resultLength - 1].text + ' ' + transcriptItem.text
-                }
-            }
-        }
-        return result
-    })
-
     _handlePressTranscriptItem = (item) => {
         clearInterval(this.checkIntervalId)
         console.log('_handlePressTranscriptItem', item)
@@ -264,15 +283,9 @@ class Player extends Component {
                 this._runCheckInterval()
                 return
             }
-            const currentTime = currentTranscriptObj[1]/1000
+            const currentTime = currentTranscriptObj[1] / 1000
             this.player.setCurrentTime(currentTime)
             this.setState({ progress: currentTime, currentTranscriptKey: transcriptKey }, () => {
-                this.transcriptList && this.transcriptList.scrollToIndex({
-                    animated: true,
-                    index: transcriptKey,
-                    viewPosition: 0,
-                    viewOffset: 50
-                })
                 setTimeout(() => {
                     this._runCheckInterval()
                 }, 100)
@@ -286,6 +299,7 @@ class Player extends Component {
         const shouldHightlight = item[0] == this.state.currentTranscriptKey
         return (
             <TranscriptItem
+                key={item[0]}
                 transcriptKey={item[0]}
                 text={item[3]}
                 onPress={this._handlePressTranscriptItem}
@@ -383,6 +397,28 @@ class Player extends Component {
         this.setState({ progress: currentTime })
     }
 
+    _retryScroll = (info) => {
+        this.transcriptList.scrollToIndex({
+            animated: false,
+            index: info.highestMeasuredFrameIndex,
+            viewPosition: 0,
+            viewOffset: 50
+        })
+        setTimeout(() => {
+            this.transcriptList && this.transcriptList.scrollToIndex({
+                animated: false,
+                index: this.currentTranscriptKey,
+                viewPosition: 0,
+                viewOffset: 50
+            })
+        })
+    }
+
+    _handleScrollToIndexFailed = (info) => {
+        console.log('_handleScrollToIndexFailed', info)
+        this._retryScroll(info)
+    }
+
     render() {
         const { transcription, transcriptionSentence } = this.props
         const transcriptionText = chainParse(transcription, ['transcript']) || ''
@@ -409,6 +445,7 @@ class Player extends Component {
                             </Text>
                         </View>
                         :
+
                         <FlatList
                             data={transcriptionSentence}
                             key={this._keyExtractor}
@@ -416,7 +453,8 @@ class Player extends Component {
                             ref={ref => this.transcriptList = ref}
                             contentContainerStyle={styles.transcriptContainer}
                             extraData={this.state.currentTranscriptKey}
-                            windowSize={500}
+                            windowSize={100}
+                            onScrollToIndexFailed={this._handleScrollToIndexFailed}
                         />
                     }
                 </View>

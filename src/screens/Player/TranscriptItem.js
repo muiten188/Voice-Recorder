@@ -18,7 +18,8 @@ export default TranscriptItem = React.memo((props) => {
                         fontWeight: shouldHightlight ? 'bold' : 'normal',
                         fontSize: 15,
                         lineHeight: 24,
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        letterSpacing: 0
                     }}>
                     {text}
                 </Text>
