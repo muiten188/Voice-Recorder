@@ -47,7 +47,7 @@ class Record extends Component {
     }
 
     async _startService() {
-        if (Platform.OS !== 'android') return
+        if (Platform.OS !== 'android') return Promise.resolve('')
         if (Platform.Version >= 26) {
             const channelConfig = {
                 id: 'VoiceRecorder',
@@ -196,8 +196,8 @@ class Record extends Component {
             }
         };
         try {
-            const filePath = await AudioRecorder.startRecording();
-            this._startService()
+            await this._startService()
+            const filePath = await AudioRecorder.startRecording()
             console.log('_startRecord filePath', filePath)
             this.setState({ recording: RECORD_STATUS.RECORDING })
         } catch (error) {
