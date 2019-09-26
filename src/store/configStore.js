@@ -7,38 +7,26 @@ import rootSaga from '~/src/store/sagas'
 import { createTransform } from 'redux-persist'
 import AsyncStorage from '@react-native-community/async-storage'
 
-const seachParamTransform = createTransform(
+const uploadingTransform = createTransform(
     // transform state on its way to being serialized and persisted.
 
     (inboundState, key) => {
-        if (key != 'order') return inboundState
-        const { waitingOrderSearchParam, waitingOrderSearchResult, paidOrderSearchParam, paidOrderSearchResult, ...restOrder } = inboundState
-        return restOrder
+        return inboundState
     },
     // transform state being rehydrated
     (outboundState, key) => {
-        return outboundState
+        if (key != 'meeting') return outboundState
+        console.log('outboundState state key meeting', outboundState)
+        return { ...outboundState, uploading: false }
     },
 )
-
-const migrations = {
-    0: (state) => {
-        // migration clear out device state
-        console.log('clear out device state', state)
-        return {
-            ...state,
-            setting: undefined
-        }
-    },
-}
-// migrate: createMigrate(migrations, { debug: true })
 
 const persistConfig = {
     key: 'root',
     version: 4,
     storage: AsyncStorage,
     blacklist: ['info'],
-    transforms: [seachParamTransform],
+    transforms: [uploadingTransform],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

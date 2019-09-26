@@ -45,6 +45,10 @@ export default localRecord = (state = initialState, action) => {
             return newState
         }
 
+        case ACTION_TYPES.AUTH_LOGOUT: {
+            return initialState
+        }
+
         default:
             return state
     }

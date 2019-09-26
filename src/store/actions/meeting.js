@@ -36,3 +36,8 @@ export const startCheckUploadLocalRecord = () => ({
 export const stopCheckUploadLocalRecord = () => ({
     type: ACTION_TYPES.MEETING_STOP_CHECK_LOCAL_RECORD
 })
+
+export const setUploading = (data) => ({
+    type: ACTION_TYPES.MEETING_SET_UPLOADING,
+    payload: data
+})

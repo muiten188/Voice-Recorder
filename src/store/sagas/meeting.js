@@ -3,9 +3,10 @@ import api from '~/src/store/api'
 import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
+import { isUploadingMeetingSelector } from '~/src/store/selectors/meeting'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
-import { setMetting, getMeeting } from '~/src/store/actions/meeting'
+import { setMetting, getMeeting, setUploading } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
 import RNFetchBlob from 'rn-fetch-blob'
 import { getUploadKey, getFileName, replacePatternString } from '~/src/utils'
@@ -105,8 +106,6 @@ const _upload = function (record) {
             })
             .then((resp) => {
                 console.log('Upload Resp', resp)
-                const textData = resp.text()
-                console.log('Text Data', textData)
                 resolve(resp.respInfo)
             }).catch((err) => {
                 console.log('Upload err', err)
@@ -171,9 +170,14 @@ const _createMeeting = function* (record) {
 }
 
 const requestUploadMeetingRecord = function* () {
+    const isUploading = yield select(isUploadingMeetingSelector)
+    console.log('isUploading', isUploading)
+    if (isUploading) return
     const localRecord = yield select(localRecordSelector)
     console.log('localRecord sagas', localRecord)
     if (!localRecord || localRecord.length == 0) return
+
+    yield put(setUploading(true))
     for (let i = 0; i < localRecord.length; i++) {
         let record = localRecord[i]
         // only record not became to a meeting
@@ -188,6 +192,7 @@ const requestUploadMeetingRecord = function* () {
             message: replacePatternString(I18n.t('noti_upload_success'), record.name), // (required)
         })
     }
+    yield put(setUploading(false))
 }
 
 // root saga reducer
@@ -196,7 +201,7 @@ export default function* fetchWatcher() {
         takeEvery(ACTION_TYPES.MEETING_CREATE_UPLOAD_URL, requestCreateMeetingUploadUrl),
         takeEvery(ACTION_TYPES.MEETING_CREATE, requestCreateMeeting),
         takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
-        takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
+        takeEvery(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
         takeEvery(ACTION_TYPES.MEETING_DELETE, requestDeleteMeeting)
     ])
 }
