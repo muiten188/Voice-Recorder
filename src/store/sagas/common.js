@@ -125,17 +125,7 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
             if (isTimeout) {
                 const isConnect = yield select(isConnectSelector)
                 console.log('Is connect', isConnect)
-                if (!action || !action.type || !OFFLINE_ACTION_REQUESTER[action.type]) {
-                    if (isConnect) {
-                        console.log('Action isConnect', action)
-                        ToastUtils.showErrorToast(I18n.t('request_time_out'))
-                    } else {
-                        console.log('Action notConnect', action)
-                        // ToastUtils.showErrorToast(I18n.t('feature_not_available_when_offline'))
-                        ToastUtils.showNotAvailableWhenOfflineToast()
-                    }
-
-                }
+                ToastUtils.showErrorToast(I18n.t('request_time_out'))
                 throw TIMEOUT
             } else if (cancelRet) {
                 // callback on success
@@ -157,15 +147,7 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
             if (reason && reason.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
                 const isConnect = yield select(isConnectSelector)
                 console.log('Is connect', isConnect)
-                if (!action || !action.type || !OFFLINE_ACTION_REQUESTER[action.type]) {
-                    if (isConnect) {
-                        console.log('Action catch connect', action)
-                        ToastUtils.showErrorToast(I18n.t('request_time_out'))
-                    } else {
-                        console.log('Action catch not connect', action)
-                        ToastUtils.showNotAvailableWhenOfflineToast()
-                    }
-                }
+                ToastUtils.showErrorToast(I18n.t('request_time_out'))
             }
             // anyway, we should treat this as error to log
             if (failure) for (let actionCreator of failure) {

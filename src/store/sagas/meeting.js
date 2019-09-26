@@ -44,26 +44,31 @@ const requestDeleteMeeting = createRequestSaga({
 })
 
 const _createMeetingUploadUrl = function* (record) {
-    if (record.status != LOCAL_RECORD_STATUS.INITIAL) return record
-    const createMeetingUploadUrlResponse = yield call(api.meeting.createMeetingUploadUrl)
-    console.log('createMeetingUploadUrlResponse', createMeetingUploadUrlResponse)
-    const hasError = yield call(handleCommonError, createMeetingUploadUrlResponse)
-    console.log('Has Error createMeetingUploadUrlResponse', hasError)
-    if (hasError) return record
-    const result = createMeetingUploadUrlResponse.result
-    if (!result || !result[0] || !result[1]) return record
-    const meetingRecordInfo = {
-        localPath: record.localPath,
-        status: LOCAL_RECORD_STATUS.CREATED_MEETING_URL,
-        uploadUrl: result[0],
-        uploadField: {
-            ...result[1]
+    try {
+        if (record.status != LOCAL_RECORD_STATUS.INITIAL) return record
+        const createMeetingUploadUrlResponse = yield call(api.meeting.createMeetingUploadUrl)
+        console.log('createMeetingUploadUrlResponse', createMeetingUploadUrlResponse)
+        const hasError = yield call(handleCommonError, createMeetingUploadUrlResponse)
+        console.log('Has Error createMeetingUploadUrlResponse', hasError)
+        if (hasError) return record
+        const result = createMeetingUploadUrlResponse.result
+        if (!result || !result[0] || !result[1]) return record
+        const meetingRecordInfo = {
+            localPath: record.localPath,
+            status: LOCAL_RECORD_STATUS.CREATED_MEETING_URL,
+            uploadUrl: result[0],
+            uploadField: {
+                ...result[1]
+            }
         }
-    }
-    yield put(updateRecord(meetingRecordInfo))
-    return {
-        ...record,
-        ...meetingRecordInfo
+        yield put(updateRecord(meetingRecordInfo))
+        return {
+            ...record,
+            ...meetingRecordInfo
+        }
+    } catch (err) {
+        console.log('_createMeetingUploadUrl err', err)
+        return record
     }
 }
 
@@ -136,27 +141,33 @@ const _uploadRercordFile = function* (record) {
         }
         return record
     } catch (error) {
+        console.log('_uploadRercordFile catch', error, record)
         return record
     }
 }
 
 const _createMeeting = function* (record) {
-    if (record.status != LOCAL_RECORD_STATUS.UPLOADED) return record
-    const { uploadField, localPath } = record
-    const originalUploadKey = uploadField.key
-    const uplodaKey = getUploadKey(originalUploadKey, localPath)
-    const name = getFileName(localPath)
-    const createMeetingResponse = yield call(api.meeting.createMeeting, uplodaKey, name, 2)
-    console.log('createMeetingResponse response', createMeetingResponse)
-    const hasError = yield call(handleCommonError, createMeetingResponse)
-    console.log('Has Error createMeetingResponse', hasError)
-    if (hasError) return record
-    // Create meeting success
-    if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
-        yield put(deleteRecord(record.localPath))
-        yield put(getMeeting())
-        return ''
+    try {
+        if (record.status != LOCAL_RECORD_STATUS.UPLOADED) return record
+        const { uploadField, localPath } = record
+        const originalUploadKey = uploadField.key
+        const uplodaKey = getUploadKey(originalUploadKey, localPath)
+        const name = getFileName(localPath)
+        const createMeetingResponse = yield call(api.meeting.createMeeting, uplodaKey, name, 2)
+        console.log('createMeetingResponse response', createMeetingResponse)
+        const hasError = yield call(handleCommonError, createMeetingResponse)
+        console.log('Has Error createMeetingResponse', hasError)
+        if (hasError) return record
+        // Create meeting success
+        if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
+            yield put(deleteRecord(record.localPath))
+            yield put(getMeeting())
+            return ''
+        }
+    } catch (err) {
+        console.log('_createMeeting', err)
     }
+
 }
 
 const requestUploadMeetingRecord = function* () {
@@ -179,21 +190,6 @@ const requestUploadMeetingRecord = function* () {
     }
 }
 
-// const runIntervalCheck = function* () {
-//     console.log('running IntervalCheck')
-//     yield call(requestCheckUploadRecord)
-// }
-
-
-// const requestCheckUploadRecord = function* () {
-//     console.log('requestCheckUploadRecord')
-//     checkLocalRecordInterval = yield call(setInterval, runIntervalCheck, CHECK_LOCAL_RECORD_PERIOD)
-// }
-
-// const requestStopCheckUploadRecord = function* () {
-//     clearInterval(checkLocalRecordInterval)
-// }
-
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
@@ -202,8 +198,6 @@ export default function* fetchWatcher() {
         takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
         takeLatest(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
         takeEvery(ACTION_TYPES.MEETING_DELETE, requestDeleteMeeting)
-        // takeLatest(ACTION_TYPES.MEETING_START_CHECK_LOCAL_RECORD, requestCheckUploadRecord),
-        // takeLatest(ACTION_TYPES.MEETING_STOP_CHECK_LOCAL_RECORD, requestStopCheckUploadRecord)
     ])
 }
 
