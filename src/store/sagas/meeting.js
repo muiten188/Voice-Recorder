@@ -6,7 +6,7 @@ import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { isUploadingMeetingSelector } from '~/src/store/selectors/meeting'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
-import { setMetting, getMeeting, setUploading } from '~/src/store/actions/meeting'
+import { setMetting, getMeeting, setUploading, uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
 import RNFetchBlob from 'rn-fetch-blob'
 import { getUploadKey, getFileName, replacePatternString } from '~/src/utils'
@@ -176,7 +176,6 @@ const requestUploadMeetingRecord = function* () {
     const localRecord = yield select(localRecordSelector)
     console.log('localRecord sagas', localRecord)
     if (!localRecord || localRecord.length == 0) return
-
     yield put(setUploading(true))
     for (let i = 0; i < localRecord.length; i++) {
         let record = localRecord[i]
@@ -193,6 +192,11 @@ const requestUploadMeetingRecord = function* () {
         })
     }
     yield put(setUploading(false))
+    const reCheckLocalRecord = yield select(localRecordSelector)
+    console.log('reCheckLocalRecord', reCheckLocalRecord)
+    if (reCheckLocalRecord && reCheckLocalRecord.length > 0){
+        yield put(uploadMeetingRecord())
+    }
 }
 
 // root saga reducer
