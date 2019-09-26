@@ -73,7 +73,7 @@ class Player extends Component {
             if (error) {
                 // do something
             }
-            if (this.unmounted){
+            if (this.unmounted) {
                 console.log('Already unmounted')
                 this.player.stop()
                 this.player.release()
@@ -98,7 +98,7 @@ class Player extends Component {
                         this.currentTranscriptKey = currentTranscriptObj[0]
                     }
                 }
-                this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey }, () => {
+                this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey, playing: isPlaying }, () => {
                     if (this.lastTranscriptKey != this.currentTranscriptKey) {
                         this.transcriptList && this.transcriptList.scrollToIndex({
                             animated: Platform.OS == 'android' ? false : true,
@@ -263,18 +263,14 @@ class Player extends Component {
     _handlePressPrevious10s = () => {
         this.player.getCurrentTime((seconds, isPlaying) => {
             if (!isPlaying) return
-            if (seconds > 10) {
-                this.player.setCurrentTime(seconds - 10)
-            }
+            this.player.setCurrentTime(Math.min(seconds - 10, 0))
         })
     }
 
     _handlePressNext10s = () => {
         this.player.getCurrentTime((seconds, isPlaying) => {
             if (!isPlaying) return
-            if (seconds < this.state.duration - 10) {
-                this.player.setCurrentTime(seconds + 10)
-            }
+            this.player.setCurrentTime(Math.min(this.state.duration, seconds + 10))
         })
     }
 
