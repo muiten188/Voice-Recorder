@@ -699,3 +699,11 @@ export const getFileName = (filePath) => {
     if (!lastSlashIndex) return ''
     return filePathNormalize.substr(lastSlashIndex + 1)
 }
+
+export const getPathAndroid = (filePath) => {
+    if (Platform.OS == 'ios') return filePath
+    const decodeFilePath = decodeURIComponent(filePath)
+    const rawIndex = decodeFilePath.indexOf('raw:')
+    if (rawIndex < 0) return filePath
+    return decodeFilePath.substr(rawIndex + 'raw:'.length)
+}

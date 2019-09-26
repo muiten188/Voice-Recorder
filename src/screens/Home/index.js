@@ -18,7 +18,7 @@ import BackgroundTimer from 'react-native-background-timer'
 import lodash from 'lodash'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import ToastUtils from '~/src/utils/ToastUtils'
-import { chainParse, toNormalCharacter } from '~/src/utils'
+import { chainParse, toNormalCharacter, getPathAndroid } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
 import ContextMenu from '~/src/components/ContextMenu'
@@ -145,14 +145,14 @@ class Home extends Component {
                 RNFetchBlob.fs.stat(uri)
                     .then(fileStats => {
                         resolve({
-                            uri: fileStats.path,
+                            uri: getPathAndroid(fileStats.path),
                             name: fileStats.filename
                         })
                     })
                     .catch(err => {
                         console.log('Error', err)
                         resolve({
-                            uri: res.uri,
+                            uri: getPathAndroid(res.uri),
                             name: res.name
                         })
                     })
