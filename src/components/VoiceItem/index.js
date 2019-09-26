@@ -60,7 +60,7 @@ export default class VoiceItem extends PureComponent {
         if (localPath) {
             return (
                 <View className='row-start'>
-                    <Text className='s12 green' style={{ marginRight: 4 }}>{I18n.t('process_init')}</Text>
+                    <Text className='s12 green' style={{ marginRight: 4 }}>{I18n.t('uploading')}</Text>
                     <Image source={require('~/src/image/moikhoitao.png')} style={{ width: 20, height: 16 }} />
                 </View>
             )

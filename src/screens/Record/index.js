@@ -51,8 +51,8 @@ class Record extends Component {
         if (Platform.Version >= 26) {
             const channelConfig = {
                 id: 'VoiceRecorder',
-                name: 'Notification Channel',
-                description: 'Notification Channel for Foreground Service',
+                name: 'VoiceRecorder Notification Channel',
+                description: 'VoiceRecorder Notification Channel for Foreground Service',
                 enableVibration: false,
                 importance: 2
             };
@@ -60,8 +60,8 @@ class Record extends Component {
         }
         const notificationConfig = {
             id: 6996,
-            title: 'Voice Recorder',
-            text: 'Recording...',
+            title: I18n.t('app_name'),
+            text: I18n.t('recording'),
             icon: 'ic_launcher',
             priority: 0
         }

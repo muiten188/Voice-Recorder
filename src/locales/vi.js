@@ -26,7 +26,7 @@ const language = {
     status: "Trạng thái",
     add_new: 'Add New',
     import: 'Import',
-    recording: 'Recording',
+    record: 'Record',
     phone: 'Phone',
     mail: 'Mail',
     position: 'Position',
@@ -60,7 +60,10 @@ const language = {
     noti_upload_success: 'Bản ghi "*****" đã tải lên thành công',
     save_record: 'Lưu bản ghi',
     interview: 'Phỏng vấn',
-    all: 'Tất cả'
+    all: 'Tất cả',
+    app_name: 'Voice Recorder',
+    recording: 'Đang ghi âm...',
+    uploading: 'Đang upload'
 }
 
 // export default language;

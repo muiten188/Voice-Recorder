@@ -241,7 +241,7 @@ class Home extends Component {
                                 style={styles.actionContainer}
                             />
                             <View className='space8' />
-                            <Text className='green'>{I18n.t('recording')}</Text>
+                            <Text className='green'>{I18n.t('record')}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -301,6 +301,7 @@ class Home extends Component {
 
     componentDidMount() {
         const { uploadMeetingRecord } = this.props
+        uploadMeetingRecord()
         BackgroundTimer.runBackgroundTimer(() => {
             uploadMeetingRecord()
         }, CHECK_LOCAL_RECORD_PERIOD)
@@ -336,7 +337,7 @@ class Home extends Component {
     }
 
     componentWillUnmount() {
-       this._clearInterval()
+        this._clearInterval()
     }
 
     _deleteMeeting = () => {
@@ -428,7 +429,7 @@ class Home extends Component {
                         <ActivityIndicator size={'small'} color={COLORS.GREEN} />
                     </View>
                 }
-                
+
             </View>
         )
     }

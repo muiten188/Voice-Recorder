@@ -91,7 +91,7 @@ const _upload = function (record) {
             'Content-Type': 'multipart/form-data'
         }, uploadBody)
             .uploadProgress((written, total) => {
-                console.log('uploaded progress', written / total)
+                console.log('uploaded progress', written, total, written / total)
                 const progress = written / total * 100
                 store.dispatch(updateRecord({
                     localPath: record.localPath,
