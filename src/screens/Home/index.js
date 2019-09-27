@@ -23,6 +23,7 @@ import styles from './styles'
 const emptyArray = []
 import ContextMenu from '~/src/components/ContextMenu'
 import { COLORS } from '~/src/themes/common'
+import RNGetRealPath from 'react-native-get-real-path'
 
 
 
@@ -140,31 +141,19 @@ class Home extends Component {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
             });
-            const uri = decodeURIComponent(res.uri)
-            let uriPromise = new Promise((resolve, reject) => {
-                RNFetchBlob.fs.stat(uri)
-                    .then(fileStats => {
-                        resolve({
-                            uri: getPathAndroid(fileStats.path),
-                            name: fileStats.filename
-                        })
-                    })
-                    .catch(err => {
-                        console.log('Error', err)
-                        resolve({
-                            uri: getPathAndroid(res.uri),
-                            name: res.name
-                        })
-                    })
-            })
-            let uriInfoObj = await uriPromise
-            console.log('Uri Obj', uriInfoObj)
-            if (!uriInfoObj) return
-            addRecord(uriInfoObj.uri)
-            setTimeout(() => {
-                uploadMeetingRecord()
-            }, 100)
-            ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${uriInfoObj.name}" vào hàng chờ`)
+            console.log('res', res)
+            RNGetRealPath.getRealPathFromURI(res.uri)
+                .then(filePath => {
+                    console.log('filePath', filePath)
+                    addRecord(filePath)
+                    setTimeout(() => {
+                        uploadMeetingRecord()
+                    }, 100)
+                    ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${res.name}" vào hàng chờ`)
+                })
+                .catch((err) => {
+                    console.log('file path err', err)
+                })
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on

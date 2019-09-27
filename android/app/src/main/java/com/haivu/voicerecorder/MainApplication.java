@@ -3,6 +3,7 @@ import android.app.Application;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.rngrp.RNGRPPackage;
 import com.voximplant.foregroundservice.VIForegroundServicePackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;

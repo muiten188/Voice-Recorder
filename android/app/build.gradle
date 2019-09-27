@@ -164,6 +164,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-get-real-path')
     implementation project(':@voximplant_react-native-foreground-service')
     implementation project(':react-native-background-timer')
     implementation project(':react-native-background-fetch')
