@@ -147,7 +147,7 @@ const _uploadRercordFile = function* (record) {
 
 const _createMeeting = function* (record) {
     try {
-        if (record.status != LOCAL_RECORD_STATUS.UPLOADED) return record
+        if (record.status != LOCAL_RECORD_STATUS.UPLOADED) return false
         const { uploadField, localPath } = record
         const originalUploadKey = uploadField.key
         const uplodaKey = getUploadKey(originalUploadKey, localPath)
@@ -156,15 +156,22 @@ const _createMeeting = function* (record) {
         console.log('createMeetingResponse response', createMeetingResponse)
         const hasError = yield call(handleCommonError, createMeetingResponse)
         console.log('Has Error createMeetingResponse', hasError)
-        if (hasError) return record
+        if (hasError) return false
         // Create meeting success
         if (chainParse(createMeetingResponse, ['httpHeaders', 'status']) == 200) {
             yield put(deleteRecord(record.localPath))
             yield put(getMeeting())
-            return ''
+            return true
+        } else {
+            yield put(updateRecord({
+                localPath: record.localPath,
+                status: LOCAL_RECORD_STATUS.INITIAL
+            }))
+            return false
         }
     } catch (err) {
         console.log('_createMeeting', err)
+        return false
     }
 
 }
@@ -185,16 +192,19 @@ const requestUploadMeetingRecord = function* () {
         if (!record) continue
         record = yield call(_uploadRercordFile, record)
         if (!record) continue
-        yield call(_createMeeting, record)
-        PushNotification.localNotification({
-            title: I18n.t('notification'),
-            message: replacePatternString(I18n.t('noti_upload_success'), record.name), // (required)
-        })
+        const isCreateMeetingSuccess = yield call(_createMeeting, record)
+        if (isCreateMeetingSuccess) {
+            PushNotification.localNotification({
+                title: I18n.t('notification'),
+                message: replacePatternString(I18n.t('noti_upload_success'), record.name), // (required)
+            })
+        }
+
     }
     yield put(setUploading(false))
     const reCheckLocalRecord = yield select(localRecordSelector)
     console.log('reCheckLocalRecord', reCheckLocalRecord)
-    if (reCheckLocalRecord && reCheckLocalRecord.length > 0){
+    if (reCheckLocalRecord && reCheckLocalRecord.length > 0) {
         yield put(uploadMeetingRecord())
     }
 }

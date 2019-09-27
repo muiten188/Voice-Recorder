@@ -18,8 +18,8 @@ export default class VoiceItem extends PureComponent {
     }
 
     _handlePressDelete = () => {
-        const { onPressDelete, id, name } = this.props
-        onPressDelete && onPressDelete({ id, name })
+        const { onPressDelete, id, name, localPath } = this.props
+        onPressDelete && onPressDelete({ id, name, localPath })
     }
 
 

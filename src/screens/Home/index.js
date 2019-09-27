@@ -8,7 +8,7 @@ import VoiceItem from '~/src/components/VoiceItem'
 import LoadingModal from "~/src/components/LoadingModal";
 import { getUserInfo } from '~/src/store/actions/auth'
 import { uploadMeetingRecord, getMeeting, deleteMeeting } from '~/src/store/actions/meeting'
-import { addRecord } from '~/src/store/actions/localRecord'
+import { addRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { meetingListSelector } from '~/src/store/selectors/meeting'
 import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord'
 import DocumentPicker from 'react-native-document-picker'
@@ -18,7 +18,7 @@ import BackgroundTimer from 'react-native-background-timer'
 import lodash from 'lodash'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import ToastUtils from '~/src/utils/ToastUtils'
-import { chainParse, toNormalCharacter, getPathAndroid } from '~/src/utils'
+import { chainParse } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
 import ContextMenu from '~/src/components/ContextMenu'
@@ -47,6 +47,7 @@ class Home extends Component {
         );
         this.reloadInterval = -1
         this.deletingMeeting = ''
+        this.deletingLocalPath = ''
     }
 
 
@@ -175,6 +176,7 @@ class Home extends Component {
     _handlePressDelete = (record) => {
         console.log('_handlePressDelete', record)
         this.deletingMeeting = record.id
+        this.deletingLocalPath = record.localPath
         this.setState({ popupDeleteContent: record.name }, () => {
             this.popupConfirmDelete && this.popupConfirmDelete.open()
         })
@@ -330,8 +332,12 @@ class Home extends Component {
     }
 
     _deleteMeeting = () => {
-        const { deleteMeeting } = this.props
-        if (!this.deletingMeeting) return
+        const { deleteMeeting, deleteRecord } = this.props
+        if (!this.deletingMeeting && !this.deletingLocalPath) return
+        if (this.deletingLocalPath) {
+            deleteRecord(this.deletingLocalPath)
+            return
+        }
         this.setState({ loadingFullscreen: true })
         deleteMeeting(this.deletingMeeting, (err, data) => {
             console.log('deleteMeeting err', err)
@@ -430,5 +436,5 @@ export default connect(state => ({
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,
-    deleteMeeting
+    deleteMeeting, deleteRecord
 })(Home)
