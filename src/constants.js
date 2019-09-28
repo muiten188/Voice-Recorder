@@ -119,3 +119,8 @@ export const FILE_TYPES = {
     DOCX: 'docx',
     PDF: 'pdf'
 }
+
+export const FOREGROUND_NOTIFICATION_ID = {
+    RECORD: 6996,
+    UPLOAD: 7997
+}

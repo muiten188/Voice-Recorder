@@ -7,11 +7,11 @@ import APIManager from "~//src/store/api/APIManager";
 import SHA256 from "crypto-js/sha256";
 import CryptoJS from "crypto-js";
 import {
-    PASSWORD_LENGTH,
     MIN_USERNAME_LENGTH,
     MAX_USERNAME_LENGTH,
     MAX_LENGTH_NAME
 } from "~/src/constants";
+import ForegroundService from "@voximplant/react-native-foreground-service"
 
 export const chainParse = (obj, attrArr) => {
     if (!obj || typeof obj != "object") {
@@ -706,4 +706,34 @@ export const getPathAndroid = (filePath) => {
     const rawIndex = decodeFilePath.indexOf('raw:')
     if (rawIndex < 0) return filePath
     return decodeFilePath.substr(rawIndex + 'raw:'.length)
+}
+
+export const startForegroundService = async (id, message) => {
+    if (Platform.OS !== 'android') return Promise.resolve('')
+    if (Platform.Version >= 26) {
+        const channelConfig = {
+            id: 'VoiceRecorder',
+            name: 'VoiceRecorder Notification Channel',
+            description: 'VoiceRecorder Notification Channel for Foreground Service',
+            enableVibration: false,
+            importance: 2
+        };
+        await ForegroundService.createNotificationChannel(channelConfig);
+    }
+    const notificationConfig = {
+        id: id,
+        title: I18n.t('app_name'),
+        text: message,
+        icon: 'ic_launcher',
+        priority: 0
+    }
+    if (Platform.Version >= 26) {
+        notificationConfig.channelId = 'VoiceRecorder';
+    }
+    await ForegroundService.startService(notificationConfig)
+}
+
+export const stopForegroundService = async () => {
+    if (Platform.OS != 'android') return Promise.resolve('')
+    await ForegroundService.stopService();
 }

@@ -1,4 +1,5 @@
 import { takeEvery, all, select, call, put } from 'redux-saga/effects'
+import { Platform } from 'react-native'
 import api from '~/src/store/api'
 import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
@@ -8,10 +9,11 @@ import { appStateSelector } from '~/src/store/selectors/info'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting, setUploading, uploadMeetingRecord } from '~/src/store/actions/meeting'
-import { LOCAL_RECORD_STATUS } from '~/src/constants'
+import { LOCAL_RECORD_STATUS, FOREGROUND_NOTIFICATION_ID } from '~/src/constants'
 import RNFetchBlob from 'rn-fetch-blob'
-import { getUploadKey, getFileName, replacePatternString } from '~/src/utils'
-import { chainParse } from '~/src/utils'
+import { getUploadKey, getFileName, replacePatternString,
+    chainParse, startForegroundService, stopForegroundService
+} from '~/src/utils'
 import { store } from '~/src/store/configStore'
 import PushNotification from 'react-native-push-notification'
 import I18n from '~/src/I18n'
@@ -125,6 +127,8 @@ const _uploadRercordFile = function* (record) {
             yield put(deleteRecord(record.localPath))
             return false
         }
+        const fileName = getFileName(record.localPath)
+        yield call(startForegroundService, FOREGROUND_NOTIFICATION_ID.UPLOAD, replacePatternString(I18n.t('uploading_noti'), fileName))
         const uploadResponseHeader = yield call(_upload, record)
         console.log('respHeader', uploadResponseHeader)
         // Upload success
@@ -134,13 +138,16 @@ const _uploadRercordFile = function* (record) {
                 status: LOCAL_RECORD_STATUS.UPLOADED,
             }
             yield put(updateRecord(meetingRecordInfo))
+            yield call(stopForegroundService)
             return {
                 ...record,
                 ...meetingRecordInfo
             }
         }
+        yield call(stopForegroundService)
         return record
     } catch (error) {
+        yield call(stopForegroundService)
         console.log('_uploadRercordFile catch', error, record)
         return record
     }
@@ -174,7 +181,6 @@ const _createMeeting = function* (record) {
         console.log('_createMeeting', err)
         return false
     }
-
 }
 
 const requestUploadMeetingRecord = function* () {

@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { ImageBackground, Image, Platform } from 'react-native'
 import { View, Text, TouchableOpacityHitSlop, PopupConfirm, TextInputBase as TextInput } from "~/src/themes/ThemeComponent";
 import Permissions from 'react-native-permissions'
-import { PERMISSION_RESPONSE } from '~/src/constants'
+import { PERMISSION_RESPONSE, FOREGROUND_NOTIFICATION_ID } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import { DEVICE_WIDTH, COLORS } from "~/src/themes/common";
-import { scaleHeight, getFontStyle, getRecordTimeString } from '~/src/utils'
+import { scaleHeight, getFontStyle, getRecordTimeString, startForegroundService, stopForegroundService } from '~/src/utils'
 import styles from './styles'
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
@@ -14,7 +14,6 @@ import { addRecord } from '~/src/store/actions/localRecord'
 import { uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { connect } from 'react-redux'
 import RNFetchBlob from 'rn-fetch-blob'
-import ForegroundService from "@voximplant/react-native-foreground-service"
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -44,36 +43,6 @@ class Record extends Component {
         }
         this.fileName = ''
         this.audioPath = ''
-    }
-
-    async _startService() {
-        if (Platform.OS !== 'android') return Promise.resolve('')
-        if (Platform.Version >= 26) {
-            const channelConfig = {
-                id: 'VoiceRecorder',
-                name: 'VoiceRecorder Notification Channel',
-                description: 'VoiceRecorder Notification Channel for Foreground Service',
-                enableVibration: false,
-                importance: 2
-            };
-            await ForegroundService.createNotificationChannel(channelConfig);
-        }
-        const notificationConfig = {
-            id: 6996,
-            title: I18n.t('app_name'),
-            text: I18n.t('recording'),
-            icon: 'ic_launcher',
-            priority: 0
-        }
-        if (Platform.Version >= 26) {
-            notificationConfig.channelId = 'VoiceRecorder';
-        }
-        await ForegroundService.startService(notificationConfig)
-    }
-
-    async _stopService() {
-        if (Platform.OS != 'android') return
-        await ForegroundService.stopService();
     }
 
     _prepareRecordingPath(audioPath) {
@@ -196,7 +165,7 @@ class Record extends Component {
             }
         };
         try {
-            await this._startService()
+            await startForegroundService(FOREGROUND_NOTIFICATION_ID.RECORD, I18n.t('recording'))
             const filePath = await AudioRecorder.startRecording()
             console.log('_startRecord filePath', filePath)
             this.setState({ recording: RECORD_STATUS.RECORDING })
@@ -208,7 +177,7 @@ class Record extends Component {
     _stopRecord = async () => {
         try {
             const filePath = await AudioRecorder.stopRecording();
-            this._stopService()
+            stopForegroundService()
             this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
             this.setState({ fileNameInput: this.fileName }, () => {
@@ -222,7 +191,7 @@ class Record extends Component {
     _handlePressCancel = async () => {
         if (this.state.recording != RECORD_STATUS.NOT_START) {
             const filePath = await AudioRecorder.stopRecording()
-            this._stopService()
+            stopForegroundService()
             console.log('_handlePressCancel', filePath)
         }
         this.props.navigation.goBack()

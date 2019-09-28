@@ -65,7 +65,8 @@ const language = {
     app_name: 'Voice Recorder',
     recording: 'Đang ghi âm...',
     uploading: 'Đang upload',
-    no_internet_hint: 'Không có kết nối mạng'
+    no_internet_hint: 'Không có kết nối mạng',
+    uploading_noti: 'Đang tải lên bản ghi "*****" ...'
 }
 
 // export default language;
