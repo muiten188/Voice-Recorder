@@ -1,42 +1,28 @@
+import * as ACTION_TYPES from '~/src/store/types'
 const initialState = {
     showingForceUpdate: false,
     toastVisible: false,
     toastText: '',
-    isConnected: true
+    isConnected: true,
+    appState: 'active'
 }
 export const info = (state = initialState, { type, payload }) => {
     switch (type) {
-        case 'app/setConnection': {
+        case ACTION_TYPES.INFO_SET_CONNECTION: {
             return {
                 ...state,
                 isConnected: payload
             }
         }
 
-        case 'app/setShowForceUpdate': {
+        case ACTION_TYPES.INFO_SET_APPSTATE: {
             return {
                 ...state,
-                showingForceUpdate: payload
+                appState: payload
             }
         }
 
-        case 'toast/show': {
-            return {
-                ...state,
-                toastVisible: true,
-                toastText: payload
-            }
-        }
-
-        case 'toast/hide': {
-            return {
-                ...state,
-                toastVisible: false,
-                toastText: ''
-            }
-        }
-
-        case 'app/logout': {
+        case ACTION_TYPES.AUTH_LOGOUT: {
             return initialState
         }
 

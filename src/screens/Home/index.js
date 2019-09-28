@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { TouchableOpacity, Image, FlatList, Platform, ActivityIndicator } from 'react-native'
+import { TouchableOpacity, Image, FlatList, Platform, ActivityIndicator, AppState } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
 import VoiceItem from '~/src/components/VoiceItem'
-import LoadingModal from "~/src/components/LoadingModal";
+import LoadingModal from "~/src/components/LoadingModal"
+import { setAppState } from '~/src/store/actions/common'
 import { getUserInfo } from '~/src/store/actions/auth'
 import { uploadMeetingRecord, getMeeting, deleteMeeting } from '~/src/store/actions/meeting'
 import { addRecord, deleteRecord } from '~/src/store/actions/localRecord'
@@ -18,7 +19,7 @@ import BackgroundTimer from 'react-native-background-timer'
 import lodash from 'lodash'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import ToastUtils from '~/src/utils/ToastUtils'
-import { chainParse } from '~/src/utils'
+import { chainParse, replacePatternString } from '~/src/utils'
 import styles from './styles'
 const emptyArray = []
 import ContextMenu from '~/src/components/ContextMenu'
@@ -29,7 +30,7 @@ import RNGetRealPath from 'react-native-get-real-path'
 
 class Home extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             keyword: '',
             statusFilter: '',
@@ -44,7 +45,7 @@ class Home extends Component {
         this.didFocusListener = props.navigation.addListener(
             "didFocus",
             this.componentDidFocus
-        );
+        )
         this.reloadInterval = -1
         this.deletingMeeting = ''
         this.deletingLocalPath = ''
@@ -141,25 +142,16 @@ class Home extends Component {
             const { addRecord, uploadMeetingRecord } = this.props
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
-            });
+            })
             console.log('res', res)
-            RNGetRealPath.getRealPathFromURI(res.uri)
-                .then(filePath => {
-                    console.log('filePath', filePath)
-                    addRecord(filePath)
-                    setTimeout(() => {
-                        uploadMeetingRecord()
-                    }, 100)
-                    ToastUtils.showSuccessToast(`Đã đưa tệp ghi âm "${res.name}" vào hàng chờ`)
-                })
-                .catch((err) => {
-                    console.log('file path err', err)
-                })
+            const filePath = await RNGetRealPath.getRealPathFromURI(res.uri)
+            console.log('filePath', filePath)
+            addRecord(filePath)
+            setTimeout(() => {
+                uploadMeetingRecord()
+            }, 100)
+            ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), res.name))
         } catch (err) {
-            if (DocumentPicker.isCancel(err)) {
-                // User cancelled the picker, exit any dialogs or menus and move on
-                console.log('User cancelled')
-            }
             console.log('Picker error', err)
         }
     }
@@ -286,9 +278,15 @@ class Home extends Component {
     }
 
     componentDidFocus = async () => {
-        console.log("Home Did Focus");
+        console.log("Home Did Focus")
         this._load()
-    };
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        const { setAppState } = this.props
+        setAppState(nextAppState)
+    }
+
 
     componentDidMount() {
         const { uploadMeetingRecord } = this.props
@@ -296,6 +294,7 @@ class Home extends Component {
         BackgroundTimer.runBackgroundTimer(() => {
             uploadMeetingRecord()
         }, CHECK_LOCAL_RECORD_PERIOD)
+        AppState.addEventListener('change', this._handleAppStateChange)
     }
 
     componentDidUpdate(prevProps) {
@@ -329,6 +328,7 @@ class Home extends Component {
 
     componentWillUnmount() {
         this._clearInterval()
+        AppState.removeEventListener('change', this._handleAppStateChange)
     }
 
     _deleteMeeting = () => {
@@ -436,5 +436,6 @@ export default connect(state => ({
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,
-    deleteMeeting, deleteRecord
+    deleteMeeting, deleteRecord,
+    setAppState
 })(Home)

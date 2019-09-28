@@ -1,9 +1,10 @@
-import { takeLatest, takeEvery, all, select, call, put } from 'redux-saga/effects'
+import { takeEvery, all, select, call, put } from 'redux-saga/effects'
 import api from '~/src/store/api'
 import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { isUploadingMeetingSelector } from '~/src/store/selectors/meeting'
+import { appStateSelector } from '~/src/store/selectors/info'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting, setUploading, uploadMeetingRecord } from '~/src/store/actions/meeting'
@@ -193,7 +194,8 @@ const requestUploadMeetingRecord = function* () {
         record = yield call(_uploadRercordFile, record)
         if (!record) continue
         const isCreateMeetingSuccess = yield call(_createMeeting, record)
-        if (isCreateMeetingSuccess) {
+        const appState = yield select(appStateSelector)
+        if (isCreateMeetingSuccess && appState != 'active') {
             PushNotification.localNotification({
                 title: I18n.t('notification'),
                 message: replacePatternString(I18n.t('noti_upload_success'), record.name), // (required)

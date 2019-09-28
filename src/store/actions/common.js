@@ -10,12 +10,6 @@ export const invokeCallback = (callback, ...args) => ({
     payload: callback && callback.call(null, ...args),
 })
 
-
-export const openDrawer = () => ({ type: 'app/openDrawer' })
-export const closeDrawer = () => ({ type: 'app/closeDrawer' })
-export const setConnection = (data) => ({ type: 'app/setConnection', payload: data })
-
-export const showForceUpdate = (data) => ({ type: 'app/showForceUpdate' , payload: data})
-export const setShowForceUpdate = (data) => ({ type: 'app/setShowForceUpdate' , payload: data})
-
+export const setAppState = (data) => ({ type: ACTION_TYPES.INFO_SET_APPSTATE, payload: data })
+export const setConnection = (data) => ({ type: ACTION_TYPES.INFO_SET_CONNECTION, payload: data })
 export const logout = () => ({ type: ACTION_TYPES.AUTH_LOGOUT })

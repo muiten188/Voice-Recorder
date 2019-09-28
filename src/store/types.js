@@ -28,4 +28,8 @@ export const TRANSCRIPTION_EXPORT = 'transcription/export'
 export const TRANSCRIPTION_SENTENCE_GET = 'transcription/getSentence'
 export const TRANSCRIPTION_SENTENCE_SET = 'transcription/setSentence'
 
+// info
+export const INFO_SET_APPSTATE = 'info/setAppState'
+export const INFO_SET_CONNECTION = 'app/setConnection'
+
 

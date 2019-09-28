@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { FlatList, Image, BackHandler, AppState, PixelRatio, ScrollView } from 'react-native'
-import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider, TouchableOpacity } from "~/src/themes/ThemeComponent";
+import { FlatList, Image, BackHandler, AppState } from 'react-native'
+import { View, Text, TouchableOpacityHitSlop, GradientToolbar, Slider } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
 import { addRecord } from '~/src/store/actions/localRecord'
@@ -8,13 +8,10 @@ import { connect } from 'react-redux'
 import APIManager from '~/src/store/api/APIManager'
 import Sound from 'react-native-sound'
 import styles from './styles'
-import { MEETING_STATUS, PAGE_SIZE, FILE_TYPES } from '~/src/constants'
+import { MEETING_STATUS, FILE_TYPES } from '~/src/constants'
 import { getPlayerTimeString, chainParse } from '~/src/utils'
 import { getTranscription, getTranscriptionSentence, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
 import { transcriptionSelector, transcriptionSentenceSelector } from '~/src/store/selectors/transcription'
-import { DEVICE_WIDTH } from "~/src/themes/common";
-import lodash from 'lodash'
-const emptyArray = []
 import RNFetchBlob from 'rn-fetch-blob'
 import ContextMenu from '~/src/components/ContextMenu'
 const CONTEXT_DATA = [
@@ -40,7 +37,7 @@ class Player extends Component {
     }
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             audioPath: '',
             playing: true,
@@ -81,9 +78,9 @@ class Player extends Component {
             console.log('Playing')
             this.setState({ duration: this.player.getDuration(), playing: true })
             // play when loaded
-            this.player.play();
+            this.player.play()
             this._runCheckInterval()
-        });
+        })
     }
 
     _runCheckInterval = () => {
@@ -200,12 +197,12 @@ class Player extends Component {
         console.log('nextAppState', nextAppState)
         if ((Platform.OS == 'ios' && nextAppState == 'inactive')
             || (Platform.OS == 'android' && nextAppState == 'background')) {
-            console.log('App has come to the background', this.state, this.state.playing);
+            console.log('App has come to the background', this.state, this.state.playing)
             if (this.state.playing) {
                 this._handlePressPlayPause()
             }
         }
-    };
+    }
 
     componentWillUnmount() {
         console.log('Unmounted')
@@ -369,7 +366,7 @@ class Player extends Component {
                     html: transcription.transcript_html,
                     fileName: this.meeting.name,
                     directory: Platform.OS == 'ios' ? 'Documents' : 'Download',
-                };
+                }
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)
                 ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${file.filePath}"`)
@@ -499,7 +496,7 @@ class Player extends Component {
                     </View>
                 </View>
             </View>
-        );
+        )
     }
 }
 export default connect((state, props) => {

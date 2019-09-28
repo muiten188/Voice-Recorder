@@ -36,6 +36,7 @@ const language = {
     verify: 'Xác thực',
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
     agree: 'Đồng ý',
+    added_record_to_queue: 'Đã đưa tệp ghi âm **** vào hàng chờ',
 
     processing: 'Đang xử lý',
     process_done: 'Xử lý xong',
