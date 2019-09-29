@@ -25,6 +25,7 @@ const emptyArray = []
 import ContextMenu from '~/src/components/ContextMenu'
 import { COLORS } from '~/src/themes/common'
 import RNGetRealPath from 'react-native-get-real-path'
+import { isConnectSelector } from '~/src/store/selectors/info'
 
 class Home extends Component {
     constructor(props) {
@@ -305,7 +306,10 @@ class Home extends Component {
                 if (notFinishMeeting) {
                     this.reloadInterval = setInterval(() => {
                         console.log('Running interval reload')
-                        this._load()
+                        const { isConnect } = this.props
+                        if (isConnect) {
+                            this._load()
+                        }
                     }, RELOAD_PROGRESS_PERIOD)
                     console.log('this.reloadInterval', this.reloadInterval)
                 }
@@ -430,7 +434,8 @@ class Home extends Component {
 
 export default connect(state => ({
     meetingList: meetingListSelector(state),
-    processingLocalRecord: processingLocalRecordSelector(state)
+    processingLocalRecord: processingLocalRecordSelector(state),
+    isConnect: isConnectSelector(state)
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,
