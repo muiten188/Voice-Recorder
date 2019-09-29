@@ -7,6 +7,7 @@ import DeviceInfo from 'react-native-device-info'
 import { Platform } from 'react-native'
 import md5 from 'md5'
 import lodash from 'lodash'
+import { TIMEOUT_TIME, NETWORD_ERROR_EXCEPTION, TIMEOUT, NETWORK_ERROR } from '~/src/constants'
 
 const convertParamToPath = (data, encode = false) => data ? Object.keys(data).map((key) => key + '=' + (encode ? encodeURIComponent(data[key]) : data[key])).join('&') : ''
 
@@ -45,7 +46,8 @@ const resolveResponse = async (res) => {
     }
 }
 
-export const get = (url, params, customHeader, api) => {
+export const get = (url, params, extra = {}) => {
+    const { customHeader = {}, api = '', timeout = TIMEOUT_TIME } = extra
     return APIManager.getInstance()
         .then(apiConfig => {
             const state = store.getState()
@@ -54,31 +56,48 @@ export const get = (url, params, customHeader, api) => {
                 token: accessToken,
                 ...customHeader,
             }
-
-            if (!api) {
-                api = apiConfig.API_URL
-            }
+            let apiEndpoint = api || apiConfig.API_URL
             let tailUrl = convertParamToPath(params) ? url + '?' + convertParamToPath(params, true) : url
-            let tailUrlDecode = convertParamToPath(params) ? url + '?' + convertParamToPath(params) : url
-            api += tailUrl
-            // console.log('get tailUrl', tailUrl)
-            // console.log('get tailUrlDecode', tailUrlDecode)
-            console.log('API GET', api)
+            apiEndpoint += tailUrl
+            console.log('API GET', apiEndpoint)
             console.log('Header', sendHeader)
-            return fetch(api, {
-                method: 'GET',
-                credentials: 'omit',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    ...sendHeader
-                },
-            }
-            ).then(res => resolveResponse(res))
+            return new Promise((resolve, reject) => {
+                Promise.race([
+                    fetch(apiEndpoint, {
+                        method: 'GET',
+                        credentials: 'omit',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            ...sendHeader
+                        },
+                    }).then(res => resolveResponse(res)),
+                    new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve(TIMEOUT)
+                        }, timeout)
+                    })
+                ])
+                    .then(value => {
+                        console.log('value', value)
+                        if (value == TIMEOUT) {
+                            resolve({ code: TIMEOUT })
+                        } else {
+                            resolve(value)
+                        }
+                    })
+                    .catch(err => {
+                        console.log('get error', err)
+                        if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
+                            resolve({ code: NETWORK_ERROR })
+                        }
+                    })
+            })
         })
 }
 
-export const post = (url, body, customHeader, api) => {
+export const post = (url, body, extra = {}) => {
+    const { customHeader = {}, api = '', timeout = TIMEOUT_TIME } = extra
     return APIManager.getInstance()
         .then(apiConfig => {
             const state = store.getState()
@@ -88,28 +107,50 @@ export const post = (url, body, customHeader, api) => {
                 token: accessToken,
                 ...customHeader,
             }
-            if (!api) {
-                api = apiConfig.API_URL
-            }
-            console.log('API Post', api + url)
+            const apiEndpoint = api || apiConfig.API_URL
+            console.log('API Post', apiEndpoint + url)
             console.log('Header', sendHeader)
             console.log('Post body', body)
 
-            return fetch(api + url, {
-                method: 'POST',
-                credentials: 'omit',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    ...sendHeader
-                },
-                body: stringifyBody
+
+            return new Promise((resolve, reject) => {
+                Promise.race([
+                    fetch(apiEndpoint + url, {
+                        method: 'POST',
+                        credentials: 'omit',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            ...sendHeader
+                        },
+                        body: stringifyBody
+                    }).then(res => resolveResponse(res)),
+                    new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve(TIMEOUT)
+                        }, timeout)
+                    })
+                ])
+                    .then(value => {
+                        console.log('value', value)
+                        if (value == TIMEOUT) {
+                            resolve({ code: TIMEOUT })
+                        } else {
+                            resolve(value)
+                        }
+                    })
+                    .catch(err => {
+                        console.log('get error', err)
+                        if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
+                            resolve({ code: NETWORK_ERROR })
+                        }
+                    })
             })
-                .then(res => resolveResponse(res))
         })
 }
 
-export const deleteMethod = (url, params, customHeader, api) => {
+export const deleteMethod = (url, params, extra = {}) => {
+    const { customHeader = {}, api = '', timeout = TIMEOUT_TIME } = extra
     return APIManager.getInstance()
         .then(apiConfig => {
             const state = store.getState()
@@ -119,25 +160,44 @@ export const deleteMethod = (url, params, customHeader, api) => {
                 ...customHeader,
             }
 
-            if (!api) {
-                api = apiConfig.API_URL
-            }
+            let apiEndpoint = api || apiConfig.API_URL
             let tailUrl = convertParamToPath(params) ? url + '?' + convertParamToPath(params, true) : url
-            let tailUrlDecode = convertParamToPath(params) ? url + '?' + convertParamToPath(params) : url
-            api += tailUrl
+            apiEndpoint += tailUrl
             console.log('DELETE tailUrl', tailUrl)
-            console.log('DELETE tailUrlDecode', tailUrlDecode)
-            console.log('API DELETE', api)
+            console.log('API DELETE', apiEndpoint)
             console.log('Header', sendHeader)
-            return fetch(api, {
-                method: 'DELETE',
-                credentials: 'omit',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    ...sendHeader
-                },
-            }
-            ).then(res => resolveResponse(res))
+
+            return new Promise((resolve, reject) => {
+                Promise.race([
+                    fetch(apiEndpoint, {
+                        method: 'DELETE',
+                        credentials: 'omit',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            ...sendHeader
+                        },
+                    }).then(res => resolveResponse(res)),
+                    new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve(TIMEOUT)
+                        }, timeout)
+                    })
+                ])
+                    .then(value => {
+                        console.log('value', value)
+                        if (value == TIMEOUT) {
+                            resolve({ code: TIMEOUT })
+                        } else {
+                            resolve(value)
+                        }
+                    })
+                    .catch(err => {
+                        console.log('get error', err)
+                        if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
+                            resolve({ code: NETWORK_ERROR })
+                        }
+                    })
+            })
         })
 }

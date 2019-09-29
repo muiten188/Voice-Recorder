@@ -1,17 +1,17 @@
 import { takeEvery, all, select, call, put } from 'redux-saga/effects'
-import { Platform } from 'react-native'
 import api from '~/src/store/api'
 import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
 import { localRecordSelector } from '~/src/store/selectors/localRecord'
 import { isUploadingMeetingSelector } from '~/src/store/selectors/meeting'
-import { appStateSelector } from '~/src/store/selectors/info'
+import { appStateSelector, isConnectSelector } from '~/src/store/selectors/info'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting, setUploading, uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS, FOREGROUND_NOTIFICATION_ID } from '~/src/constants'
 import RNFetchBlob from 'rn-fetch-blob'
-import { getUploadKey, getFileName, replacePatternString,
+import {
+    getUploadKey, getFileName, replacePatternString,
     chainParse, startForegroundService, stopForegroundService
 } from '~/src/utils'
 import { store } from '~/src/store/configStore'
@@ -111,8 +111,10 @@ const _upload = function (record) {
                 console.log('Upload Resp', resp)
                 resolve(resp.respInfo)
             }).catch((err) => {
-                console.log('Upload err', err)
-                reject(false)
+                if (err.toString().indexOf('Failed to connect') > -1) {
+                    reject({ code: 'NETWORD_ERROR' })
+                }
+                reject(err)
             })
     })
 }
@@ -210,6 +212,8 @@ const requestUploadMeetingRecord = function* () {
 
     }
     yield put(setUploading(false))
+    const isConnect = yield select(isConnectSelector)
+    if (!isConnect) return
     const reCheckLocalRecord = yield select(localRecordSelector)
     console.log('reCheckLocalRecord', reCheckLocalRecord)
     if (reCheckLocalRecord && reCheckLocalRecord.length > 0) {
