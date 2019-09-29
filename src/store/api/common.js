@@ -87,7 +87,6 @@ export const get = (url, params, extra = {}) => {
                         }
                     })
                     .catch(err => {
-                        console.log('get error', err)
                         if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
                             resolve({ code: NETWORK_ERROR })
                         }
@@ -140,7 +139,6 @@ export const post = (url, body, extra = {}) => {
                         }
                     })
                     .catch(err => {
-                        console.log('get error', err)
                         if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
                             resolve({ code: NETWORK_ERROR })
                         }
@@ -193,7 +191,6 @@ export const deleteMethod = (url, params, extra = {}) => {
                         }
                     })
                     .catch(err => {
-                        console.log('get error', err)
                         if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
                             resolve({ code: NETWORK_ERROR })
                         }

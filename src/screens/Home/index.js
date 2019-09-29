@@ -26,8 +26,6 @@ import ContextMenu from '~/src/components/ContextMenu'
 import { COLORS } from '~/src/themes/common'
 import RNGetRealPath from 'react-native-get-real-path'
 
-
-
 class Home extends Component {
     constructor(props) {
         super(props)

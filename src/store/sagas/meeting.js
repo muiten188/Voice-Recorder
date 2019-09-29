@@ -2,13 +2,13 @@ import { takeEvery, all, select, call, put } from 'redux-saga/effects'
 import api from '~/src/store/api'
 import { createRequestSaga, handleCommonError } from '~/src/store/sagas/common'
 import * as ACTION_TYPES from '~/src/store/types'
-import { localRecordSelector } from '~/src/store/selectors/localRecord'
+import { notFailedLocalRecordSelector } from '~/src/store/selectors/localRecord'
 import { isUploadingMeetingSelector } from '~/src/store/selectors/meeting'
 import { appStateSelector, isConnectSelector } from '~/src/store/selectors/info'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { setMetting, getMeeting, setUploading, uploadMeetingRecord } from '~/src/store/actions/meeting'
-import { LOCAL_RECORD_STATUS, FOREGROUND_NOTIFICATION_ID } from '~/src/constants'
+import { LOCAL_RECORD_STATUS, FOREGROUND_NOTIFICATION_ID, NUMBER_TRY_UPLOAD } from '~/src/constants'
 import RNFetchBlob from 'rn-fetch-blob'
 import {
     getUploadKey, getFileName, replacePatternString,
@@ -54,9 +54,9 @@ const _createMeetingUploadUrl = function* (record) {
         console.log('createMeetingUploadUrlResponse', createMeetingUploadUrlResponse)
         const hasError = yield call(handleCommonError, createMeetingUploadUrlResponse)
         console.log('Has Error createMeetingUploadUrlResponse', hasError)
-        if (hasError) return record
+        if (hasError) return false
         const result = createMeetingUploadUrlResponse.result
-        if (!result || !result[0] || !result[1]) return record
+        if (!result || !result[0] || !result[1]) return false
         const meetingRecordInfo = {
             localPath: record.localPath,
             status: LOCAL_RECORD_STATUS.CREATED_MEETING_URL,
@@ -72,7 +72,7 @@ const _createMeetingUploadUrl = function* (record) {
         }
     } catch (err) {
         console.log('_createMeetingUploadUrl err', err)
-        return record
+        return false
     }
 }
 
@@ -143,15 +143,30 @@ const _uploadRercordFile = function* (record) {
             yield call(stopForegroundService)
             return {
                 ...record,
-                ...meetingRecordInfo
+                ...meetingRecordInfo,
+                numberTryUpload: 0
             }
         }
         yield call(stopForegroundService)
-        return record
+        const currentTry = record.numberTryUpload ? record.numberTryUpload + 1 : 1
+        const status = currentTry >= NUMBER_TRY_UPLOAD ? LOCAL_RECORD_STATUS.FAILED : record.status
+        yield put(updateRecord({
+            ...record,
+            numberTryUpload: currentTry,
+            status
+        }))
+        return false
     } catch (error) {
         yield call(stopForegroundService)
         console.log('_uploadRercordFile catch', error, record)
-        return record
+        const currentTry = record.numberTryUpload ? record.numberTryUpload + 1 : 1
+        const status = currentTry >= NUMBER_TRY_UPLOAD ? LOCAL_RECORD_STATUS.FAILED : record.status
+        yield put(updateRecord({
+            ...record,
+            numberTryUpload: currentTry,
+            status
+        }))
+        return false
     }
 }
 
@@ -173,9 +188,12 @@ const _createMeeting = function* (record) {
             yield put(getMeeting())
             return true
         } else {
+            const currentTry = record.numberTryUpload ? record.numberTryUpload + 1 : 1
+            const status = currentTry >= NUMBER_TRY_UPLOAD ? LOCAL_RECORD_STATUS.FAILED : record.status
             yield put(updateRecord({
-                localPath: record.localPath,
-                status: LOCAL_RECORD_STATUS.INITIAL
+                ...record,
+                numberTryUpload: currentTry,
+                status
             }))
             return false
         }
@@ -189,7 +207,7 @@ const requestUploadMeetingRecord = function* () {
     const isUploading = yield select(isUploadingMeetingSelector)
     console.log('isUploading', isUploading)
     if (isUploading) return
-    const localRecord = yield select(localRecordSelector)
+    const localRecord = yield select(notFailedLocalRecordSelector)
     console.log('localRecord sagas', localRecord)
     if (!localRecord || localRecord.length == 0) return
     yield put(setUploading(true))
@@ -209,12 +227,11 @@ const requestUploadMeetingRecord = function* () {
                 message: replacePatternString(I18n.t('noti_upload_success'), record.name), // (required)
             })
         }
-
     }
     yield put(setUploading(false))
     const isConnect = yield select(isConnectSelector)
     if (!isConnect) return
-    const reCheckLocalRecord = yield select(localRecordSelector)
+    const reCheckLocalRecord = yield select(notFailedLocalRecordSelector)
     console.log('reCheckLocalRecord', reCheckLocalRecord)
     if (reCheckLocalRecord && reCheckLocalRecord.length > 0) {
         yield put(uploadMeetingRecord())
