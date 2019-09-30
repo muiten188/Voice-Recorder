@@ -27,7 +27,8 @@ export default class PopupConfirmDelete extends React.PureComponent {
     }
 
     _onPressOverlay = () => {
-        const { onPressOverlay } = this.props;
+        const { onPressOverlay, closeOnBack = false } = this.props;
+        if (!closeOnBack) return
         this.setState({
             visible: false
         }, () => {
@@ -55,6 +56,12 @@ export default class PopupConfirmDelete extends React.PureComponent {
         this.props.onPressNo && this.props.onPressNo()
     }
 
+    _handleRequestClose = () => {
+        const { closeOnBack = false } = this.props
+        if (!closeOnBack) return
+        this.close()
+    }
+
     render() {
         const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), positiveText = I18n.t('agree') } = this.props
         return (
@@ -62,7 +69,7 @@ export default class PopupConfirmDelete extends React.PureComponent {
                 animationType={'none'}
                 visible={this.state.visible}
                 transparent={true}
-                onRequestClose={() => this.close()}
+                onRequestClose={this._handleRequestClose}
             >
                 <TouchableWithoutFeedback onPress={this._onPressOverlay}>
                     <View style={styles.backdrop}>

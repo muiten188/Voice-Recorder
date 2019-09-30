@@ -143,7 +143,12 @@ class Home extends Component {
                 type: [DocumentPicker.types.audio],
             })
             console.log('res', res)
-            const filePath = await RNGetRealPath.getRealPathFromURI(res.uri)
+            let filePath = res.uri
+            if (Platform.OS == 'android') {
+                filePath = await RNGetRealPath.getRealPathFromURI(res.uri)
+            }else{
+                filePath = decodeURIComponent(filePath).replace('file://', '')
+            }
             console.log('filePath', filePath)
             addRecord(filePath)
             setTimeout(() => {
