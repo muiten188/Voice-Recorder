@@ -18,7 +18,7 @@ export default meeting = (state = initialState, action) => {
                     meetingData: meetingListResponse
                 }
             }
-            const currentData = state.data || []
+            const currentData = chainParse(state, ['meetingData', 'data']) || []
             const responseData = meetingListResponse.data
             const newData = [...currentData, ...responseData]
             return {
