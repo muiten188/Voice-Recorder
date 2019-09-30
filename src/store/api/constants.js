@@ -16,7 +16,7 @@ export const APP_MODE = APP_MODE_DEF.DEBUG // DEBUG | RELEASE
 export const API_ENDPOINT = {
     'DEV': {
         name: 'DEV',
-        API_URL: 'http://103.238.71.103:8899',
+        API_URL: 'http://103.238.71.103:8888',
         AUDIO_URL: 'http://103.238.71.103:9000/meeting/'
     },
     'PROD': {
