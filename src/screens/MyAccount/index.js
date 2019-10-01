@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Image } from 'react-native'
-import { View, Text, SmallButton, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
+import { View, Text, TextInput, SmallButton, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
 import FastImage from 'react-native-fast-image'
 import I18n from '~/src/I18n'
 import styles from './styles'

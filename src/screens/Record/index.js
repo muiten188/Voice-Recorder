@@ -12,6 +12,7 @@ import ToastUtils from '~/src/utils/ToastUtils'
 import moment from 'moment'
 import { addRecord } from '~/src/store/actions/localRecord'
 import { uploadMeetingRecord } from '~/src/store/actions/meeting'
+import { settingSelector } from '~/src/store/selectors/setting'
 import { connect } from 'react-redux'
 import RNFetchBlob from 'rn-fetch-blob'
 
@@ -45,10 +46,18 @@ class Record extends Component {
         this.audioPath = ''
     }
 
-    _prepareRecordingPath(audioPath) {
+    _prepareRecordingPath = (audioPath) => {
+        const { setting } = this.props
+        console.log('Prepare', {
+            SampleRate: setting.sampleRate,
+            Channels: setting.chanel,
+            AudioQuality: "High",
+            AudioEncoding: "aac",
+            AudioEncodingBitRate: 128000
+        })
         AudioRecorder.prepareRecordingAtPath(audioPath, {
-            SampleRate: 44100,
-            Channels: 1,
+            SampleRate: setting.sampleRate,
+            Channels: setting.chanel,
             AudioQuality: "High",
             AudioEncoding: "aac",
             AudioEncodingBitRate: 128000
@@ -149,8 +158,9 @@ class Record extends Component {
     }
 
     _startRecord = async () => {
+        const { setting } = this.props
         const audioId = moment().format('YYYYMMDDHHmmss')
-        this.fileName = `${I18n.t('interview')} ${audioId}`
+        this.fileName = `${setting.defaultName} ${audioId}`
         this.audioPath = `${this._getBasePath()}/${this.fileName}.aac`
         console.log('Audio path', this.audioPath)
         this._prepareRecordingPath(this.audioPath);
@@ -333,4 +343,6 @@ class Record extends Component {
         );
     }
 }
-export default connect(null, { addRecord, uploadMeetingRecord })(Record)
+export default connect(state => ({
+    setting: settingSelector(state)
+}), { addRecord, uploadMeetingRecord })(Record)

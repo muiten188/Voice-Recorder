@@ -1,18 +1,20 @@
+import * as ACTION_TYPES from '~/src/store/types'
+import I18n from '~/src/I18n'
+
 const initialState = {
-    ENABLE_PRINT: false
+    chanel: 1,
+    sampleRate: 22050,
+    defaultName: I18n.t('default_meeting_name')
 }
 export default setting = (state = initialState, { type, payload }) => {
     switch (type) {
-        case 'setting/setEnablePrint': {
+        case ACTION_TYPES.SETTING_UPDATE: {
             return {
                 ...state,
-                ENABLE_PRINT: payload
+                ...payload
             }
         }
-        case 'setting/saveSettingObject': {
-            return payload
-        }
-        case 'app/logout': {
+        case ACTION_TYPES.AUTH_LOGOUT: {
             return initialState
         }
 

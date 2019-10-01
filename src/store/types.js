@@ -32,4 +32,7 @@ export const TRANSCRIPTION_SENTENCE_SET = 'transcription/setSentence'
 export const INFO_SET_APPSTATE = 'info/setAppState'
 export const INFO_SET_CONNECTION = 'app/setConnection'
 
+// setting
+export const SETTING_UPDATE = 'setting/update'
+
 

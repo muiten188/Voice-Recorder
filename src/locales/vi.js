@@ -68,7 +68,12 @@ const language = {
     no_internet_hint: 'Không có kết nối mạng',
     uploading_noti: 'Đang tải lên bản ghi "*****" ...',
     choose: 'Chọn',
-    chanel: 'Chanel'
+    chanel: 'Kênh',
+    choose_chanel: 'Chọn kênh',
+    bit_rate: 'Tốc độ bit',
+    sample_rate: 'Tốc độ lấy mẫu',
+    default_meeting_name: 'Phỏng vấn',
+    default_name: 'Tên mặc định',
 }
 
 // export default language;

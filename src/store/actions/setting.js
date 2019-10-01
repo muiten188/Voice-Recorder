@@ -1,20 +1,6 @@
-export const getSetting = (...args) => ({
-    type: 'setting/getSetting',
-    args
-})
+import * as ACTION_TYPES from '~/src/store/types'
 
-export const updateSetting = (...args) => ({
-    type: 'setting/updateSetting',
-    args
-})
-
-export const setEnablePrint = (data) => ({
-    type: 'setting/setEnablePrint',
+export const updateSetting = (data) => ({
+    type: ACTION_TYPES.SETTING_UPDATE,
     payload: data
 })
-
-export const saveSettingObject = (data) => ({
-    type: 'setting/saveSettingObject',
-    payload: data
-})
-
