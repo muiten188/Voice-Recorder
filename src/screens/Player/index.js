@@ -287,7 +287,7 @@ class Player extends Component {
             this.setState({ progress: currentTime, currentTranscriptKey: transcriptKey }, () => {
                 setTimeout(() => {
                     this._runCheckInterval()
-                }, 100)
+                }, 500)
             })
         } else {
             this._runCheckInterval()
@@ -330,6 +330,17 @@ class Player extends Component {
         })
     }
 
+    _openFile = (path, type) => {
+        if (Platform.OS == 'android') {
+            const mimeType = type == 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                : type == 'pdf' ? 'application/pdf' : ''
+            console.log('Mime type', mimeType)
+            RNFetchBlob.android.actionViewIntent(path, mimeType)
+        } else {
+            RNFetchBlob.ios.openDocument(path)
+        }
+    }
+
     _handleChooseContextMenu = async (item) => {
         console.log('_handleChooseContextMenu', item)
         try {
@@ -353,6 +364,10 @@ class Player extends Component {
                                         console.log('Download res', res)
                                         console.log('The file saved to ', res.path())
                                         ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${res.path()}"`)
+                                        setTimeout(() => {
+                                            this._openFile(res.path(), 'docx')
+                                        }, 500)
+
                                     })
                                     .catch((errorMessage, statusCode) => {
                                         console.log('Download error', errorMessage, statusCode)
@@ -370,6 +385,10 @@ class Player extends Component {
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)
                 ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${file.filePath}"`)
+                setTimeout(() => {
+                    this._openFile(file.filePath, 'pdf')
+                }, 500)
+
             }
         } catch (err) {
             console.log('_handleChooseContextMenu err', err)
