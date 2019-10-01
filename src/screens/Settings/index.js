@@ -20,6 +20,15 @@ const SAMPLE_RATE_DATA = [
     { value: 48000, name: '48,000 Hz' },
 ]
 
+const BIT_RATE_DATA = [
+    { value: 64000, name: '64 kbps' },
+    { value: 128000, name: '128 kbps' },
+    { value: 160000, name: '160 kbps' },
+    { value: 192000, name: '192 kbps' },
+    { value: 224000, name: '224 kbps' },
+    { value: 256000, name: '256 kbps' },
+    { value: 320000, name: '320 kbps' },
+]
 class Settings extends Component {
     constructor(props) {
         super(props);
@@ -48,6 +57,13 @@ class Settings extends Component {
     _handleChangeDefaultName = (text) => {
         const { updateSetting } = this.props
         updateSetting({ defaultName: text })
+    }
+
+    _handleChooseBitRate = (value) => {
+        const { setting, updateSetting } = this.props
+        if (value != setting.bitRate) {
+            updateSetting({ bitRate: value })
+        }
     }
 
     render() {
@@ -91,6 +107,15 @@ class Settings extends Component {
                             values={SAMPLE_RATE_DATA}
                             popupTitle={I18n.t('choose')}
                             onPressItem={this._handleChooseSampleRate}
+                        />
+                    </View>
+                    <View className='ph16 pv12 white'>
+                        <DropdownInput
+                            label={I18n.t('bit_rate')}
+                            value={setting.bitRate}
+                            values={BIT_RATE_DATA}
+                            popupTitle={I18n.t('choose')}
+                            onPressItem={this._handleChooseBitRate}
                         />
                     </View>
                 </ScrollView>

@@ -13,11 +13,6 @@ const DRAWER_MENUS = [
         label: I18n.t('home_title'),
         icon: require('~/src/image/home.png')
     },
-    // {
-    //     key: 'Documents',
-    //     label: I18n.t('document_title'),
-    //     icon: require('~/src/image/document.png')
-    // },
     {
         key: 'UserManager',
         label: I18n.t('user_manager_title'),
@@ -38,6 +33,7 @@ class Drawer extends Component {
     _handlePressItem = (item) => {
         console.log('Pressing Item', item)
         console.log('Props', this.props)
+        this.props.navigation.closeDrawer()
         this.props.navigation.navigate(item.key)
     }
 

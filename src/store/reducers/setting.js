@@ -4,7 +4,8 @@ import I18n from '~/src/I18n'
 const initialState = {
     chanel: 1,
     sampleRate: 22050,
-    defaultName: I18n.t('default_meeting_name')
+    defaultName: I18n.t('default_meeting_name'),
+    bitRate: 128000
 }
 export default setting = (state = initialState, { type, payload }) => {
     switch (type) {
