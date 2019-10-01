@@ -1,11 +1,13 @@
 import React, { Component } from "react"
-import { GradientToolbar, View, DropdownInput, ScrollView } from "~/src/themes/ThemeComponent";
+import { GradientToolbar, View, DropdownInput } from "~/src/themes/ThemeComponent";
+import { ScrollView } from 'react-native'
 import I18n from '~/src/I18n'
 
 const CHANEL_DATA = [
-    { id: 1, name: 'Mono chanel' },
-    { id: 2, name: 'Stereo chanel' }
+    { value: 1, name: 'Mono chanel' },
+    { value: 2, name: 'Stereo chanel' }
 ]
+
 export default class Settings extends Component {
     constructor(props) {
         super(props);
@@ -19,15 +21,14 @@ export default class Settings extends Component {
     }
 
     _handleChooseChanel = (item) => {
-        if (item.id != this.state.chanel) {
-            this.setState({ chanel: item.id })
+        if (item.value != this.state.chanel) {
+            this.setState({ chanel: item.value })
         }
     }
 
     render() {
         return (
-
-            <View className="flex background">
+            <View className="flex white">
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('setting_title')}
@@ -35,8 +36,10 @@ export default class Settings extends Component {
                     avatar='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85'
                 />
                 <ScrollView>
-                    <View>
+                    <View className='space16' />
+                    <View className='ph16 pv12 white'>
                         <DropdownInput
+                            label={I18n.t('chanel')}
                             value={this.state.chanel}
                             values={CHANEL_DATA}
                             popupTitle={I18n.t('choose')}

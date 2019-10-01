@@ -68,6 +68,7 @@ const language = {
     no_internet_hint: 'Không có kết nối mạng',
     uploading_noti: 'Đang tải lên bản ghi "*****" ...',
     choose: 'Chọn',
+    chanel: 'Chanel'
 }
 
 // export default language;

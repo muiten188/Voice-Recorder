@@ -46,11 +46,11 @@ export default class DropdownInput extends Component {
         const { values } = this.props
         const currentValue = values.find(item => item.value == this.state.value)
         if (!currentValue) return ''
-        return currentValue.content
+        return currentValue.name
     }
 
     render() {
-        const { style, popupTitle, values } = this.props
+        const { style, popupTitle, values, label } = this.props
         return (
             <View style={style}>
                 <Modal
@@ -77,10 +77,12 @@ export default class DropdownInput extends Component {
                     </TouchableWithoutFeedback>
                 </Modal>
                 <TouchableOpacity onPress={this._handleOnPressShow}>
-                    <View className="white row-start">
-                        <Text style={{ fontSize: 12, color: COLORS.TEXT_GRAY }}>{this._getDisplayValue()}</Text>
-                        {/* <Image source={imgChevronDown} style={{ width: 24, height: 24 }}></Image> */}
-                        <Image source={require('~/src/image/dropdown.png')} style={{ width: 8, height: 4 }} />
+                    <View>
+                        {!!label && <Text className='bold s15 textBlack mb8'>{label}</Text>}
+                        <View className="white row-start">
+                            <Text className='s13 textBlack flex'>{this._getDisplayValue()}</Text>
+                            <Image source={require('~/src/image/dropdown.png')} style={{ width: 8, height: 4 }} />
+                        </View>
                     </View>
                 </TouchableOpacity>
             </View>
