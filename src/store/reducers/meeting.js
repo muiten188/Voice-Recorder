@@ -1,5 +1,6 @@
 import * as ACTION_TYPES from '~/src/store/types'
 import { LOCAL_RECORD_STATUS } from '~/src/constants'
+import { chainParse } from '~/src/utils'
 
 const initialState = {
     uploading: false,

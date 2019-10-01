@@ -66,7 +66,8 @@ const language = {
     recording: 'Đang ghi âm...',
     uploading: 'Đang upload',
     no_internet_hint: 'Không có kết nối mạng',
-    uploading_noti: 'Đang tải lên bản ghi "*****" ...'
+    uploading_noti: 'Đang tải lên bản ghi "*****" ...',
+    choose: 'Chọn',
 }
 
 // export default language;

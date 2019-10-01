@@ -18,6 +18,7 @@ import SearchBox from './SearchBox'
 import TextInput from './TextInput'
 import PopupConfirmDelete from './PopupConfirmDelete'
 import Slider from './Slider'
+import DropdownInput from './DropdownInput'
 
 export {
     RoundTextInput, TextInput,
@@ -33,6 +34,7 @@ export {
     SingleRowInput,
     SearchBox,
     PopupConfirmDelete,
-    Slider
+    Slider,
+    DropdownInput
 }
 

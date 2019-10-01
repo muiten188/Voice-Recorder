@@ -146,7 +146,7 @@ class Home extends Component {
             let filePath = res.uri
             if (Platform.OS == 'android') {
                 filePath = await RNGetRealPath.getRealPathFromURI(res.uri)
-            }else{
+            } else {
                 filePath = decodeURIComponent(filePath).replace('file://', '')
             }
             console.log('filePath', filePath)
@@ -306,7 +306,7 @@ class Home extends Component {
             if (!this.props.meetingList || !this.props.meetingList.data || this.props.meetingList.data.length == 0) return
             // If has not finished record
             if (this.reloadInterval == -1) {
-                const notFinishMeeting = this.props.meetingList.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
+                const notFinishMeeting = this.props.meetingList.data.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED && !(item.status == MEETING_STATUS.PROCESSING && item.progress == 0))
                 console.log('notFinishMeeting', notFinishMeeting)
                 if (notFinishMeeting) {
                     this.reloadInterval = setInterval(() => {
@@ -368,7 +368,7 @@ class Home extends Component {
     render() {
         const { meetingList, processingLocalRecord } = this.props
         const meetingListData = meetingList.data || emptyArray
-        const notFinishMeeting = meetingListData.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED)
+        const notFinishMeeting = meetingListData.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED && !(item.status == MEETING_STATUS.PROCESSING && item.progress == 0))
         const listData = this._getDataForList(processingLocalRecord, meetingListData)
         return (
             <View className="flex white">

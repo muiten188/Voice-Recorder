@@ -79,7 +79,6 @@ export const get = (url, params, extra = {}) => {
                     })
                 ])
                     .then(value => {
-                        console.log('value', value)
                         if (value == TIMEOUT) {
                             resolve({ code: TIMEOUT })
                         } else {
@@ -131,7 +130,6 @@ export const post = (url, body, extra = {}) => {
                     })
                 ])
                     .then(value => {
-                        console.log('value', value)
                         if (value == TIMEOUT) {
                             resolve({ code: TIMEOUT })
                         } else {
@@ -183,7 +181,6 @@ export const deleteMethod = (url, params, extra = {}) => {
                     })
                 ])
                     .then(value => {
-                        console.log('value', value)
                         if (value == TIMEOUT) {
                             resolve({ code: TIMEOUT })
                         } else {
