@@ -19,6 +19,10 @@ export const getUserInfo = (...args) => ({
     args
 })
 
+export const updateUserInfo = (...args) => ({
+    type: ACTION_TYPES.AUTH_UPDATE_USER_INFO,
+    args
+})
 
 // export const getProfile = (...args)=>({
 //     type:'auth/getProfile',

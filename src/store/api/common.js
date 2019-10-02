@@ -145,6 +145,58 @@ export const post = (url, body, extra = {}) => {
         })
 }
 
+export const put = (url, body, extra = {}) => {
+    const { customHeader = {}, api = '', timeout = TIMEOUT_TIME } = extra
+    return APIManager.getInstance()
+        .then(apiConfig => {
+            const state = store.getState()
+            const accessToken = chainParse(state, ['auth', 'access_token'])
+            let stringifyBody = JSON.stringify(body)
+            let sendHeader = {
+                token: accessToken,
+                ...customHeader,
+            }
+            const apiEndpoint = api || apiConfig.API_URL
+            console.log('API Post', apiEndpoint + url)
+            console.log('Header', sendHeader)
+            console.log('Post body', body)
+
+
+            return new Promise((resolve, reject) => {
+                Promise.race([
+                    fetch(apiEndpoint + url, {
+                        method: 'POST',
+                        credentials: 'omit',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            ...sendHeader
+                        },
+                        body: stringifyBody
+                    }).then(res => resolveResponse(res)),
+                    new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            resolve(TIMEOUT)
+                        }, timeout)
+                    })
+                ])
+                    .then(value => {
+                        if (value == TIMEOUT) {
+                            resolve({ code: TIMEOUT })
+                        } else {
+                            resolve(value)
+                        }
+                    })
+                    .catch(err => {
+                        if (err.toString().indexOf(NETWORD_ERROR_EXCEPTION) == 0) {
+                            resolve({ code: NETWORK_ERROR })
+                        }
+                    })
+            })
+        })
+}
+
+
 export const deleteMethod = (url, params, extra = {}) => {
     const { customHeader = {}, api = '', timeout = TIMEOUT_TIME } = extra
     return APIManager.getInstance()

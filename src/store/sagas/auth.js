@@ -42,6 +42,11 @@ const requestGetUserInfo = createRequestSaga({
     key: ACTION_TYPES.AUTH_GET_USER_INFO,
 })
 
+const requestUpdateUserInfo = createRequestSaga({
+    request: api.auth.updateUserInfo,
+    key: ACTION_TYPES.AUTH_UPDATE_USER_INFO,
+})
+
 
 // export const requestChangePassword = createRequestSaga({
 //     request: api.auth.changePassword,
@@ -69,6 +74,7 @@ export default function* fetchWatcher() {
         takeLatest('app/logout', requestLogout),
         takeEvery(ACTION_TYPES.AUTH_CREATE_ACCESS_TOKEN, requestCreateAccessToken),
         takeEvery(ACTION_TYPES.AUTH_GET_USER_INFO, requestGetUserInfo),
+        takeEvery(ACTION_TYPES.AUTH_UPDATE_USER_INFO, requestUpdateUserInfo)
 
         // takeEvery('auth/changePassword', requestChangePassword),
         // takeEvery('auth/updateTokenInfo', requestUpdateTokenInfo),

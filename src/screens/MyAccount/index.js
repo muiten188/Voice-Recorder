@@ -139,7 +139,7 @@ export default class MyAccount extends Component {
                     >
                         <View>
                             <View className='statusbar' />
-                            <TouchableOpacityHitSlop onPress={this._handleBack}>
+                            <TouchableOpacityHitSlop onPress={this._handleBack} style={styles.backIconTouchable}>
                                 <Image source={require('~/src/image/back.png')}
                                     style={styles.backIcon}
                                 />
