@@ -29,7 +29,7 @@ export default {
         zIndex: 100,
     },
     backIcon: {
-       
+
         width: 24,
         height: 24
     },
@@ -54,5 +54,12 @@ export default {
     },
     infoBlock: {
         top: -40
+    },
+    dropdown: {
+        flex: 1,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ededed',
+        paddingBottom: 6
+
     }
 }

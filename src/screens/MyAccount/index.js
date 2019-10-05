@@ -1,13 +1,20 @@
 import React, { Component } from "react"
 import { Image } from 'react-native'
-import { View, Text, TextInput, SmallButton, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent";
+import { View, Text, TextInput, SmallButton, TouchableOpacityHitSlop, DropdownInput } from "~/src/themes/ThemeComponent";
 import FastImage from 'react-native-fast-image'
 import I18n from '~/src/I18n'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-export default class MyAccount extends Component {
+import { logout } from '~/src/store/actions/common'
+import { connect } from 'react-redux'
+import { updateUserInfo } from '~/src/store/actions/auth'
+import { userInfoSelector } from '~/src/store/selectors/auth'
+import { chainParse } from '~/src/utils'
+import { ROLES_LIST } from '~/src/constants'
+import LoadingModal from '~/src/components/LoadingModal'
+import { getUserInfo } from '~/src/store/actions/auth'
+class MyAccount extends Component {
 
     static navigationOptions = {
         headerMode: "none",
@@ -16,11 +23,13 @@ export default class MyAccount extends Component {
 
     constructor(props) {
         super(props);
+        console.log('UserInfo', props.userInfo)
         this.state = {
             isEditing: false,
             phone: '0977865062',
-            mail: 'vu.longhai93@gmail.com',
-            position: 'Traffic Reporter',
+            email: chainParse(props, ['userInfo', 'email']),
+            role: chainParse(props, ['userInfo', 'role']),
+            loading: false
         }
     }
 
@@ -30,7 +39,22 @@ export default class MyAccount extends Component {
 
     _handlePressEdit = () => {
         console.log('Pressing Edit')
-        this.setState({ isEditing: !this.state.isEditing })
+        if (!this.state.isEditing) {
+            this.setState({ isEditing: true })
+        } else {
+            const { updateUserInfo } = this.props
+            this.setState({ loading: true })
+            updateUserInfo(this.state.email, {
+                role: this.state.role,
+            }, (err, data) => {
+                console.log('updateUserInfo err', err)
+                console.log('updateUserInfo data', data)
+                const { getUserInfo } = this.props
+                getUserInfo()
+                this.setState({ loading: false, isEditing: false })
+            })
+        }
+
     }
 
     _handlePressLogout = () => {
@@ -39,6 +63,18 @@ export default class MyAccount extends Component {
 
     _handlePressChangePassword = () => {
         this.props.navigation.navigate('ChangePassword')
+    }
+
+    _getDisplayRole = (role) => {
+        const roleObj = ROLES_LIST.find(item => item.value == role)
+        if (!roleObj) return ''
+        return roleObj.name
+    }
+
+    _handleChangeRole = (role) => {
+        if (role != this.state.role) {
+            this.setState({ role })
+        }
     }
 
     _render = () => {
@@ -56,14 +92,14 @@ export default class MyAccount extends Component {
                         <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
-                            <Text className='textBlack s13'>{this.state.mail}</Text>
+                            <Text className='textBlack s13'>{this.state.email}</Text>
                         </View>
                     </View>
                     <View className='row-start pv16 ph16'>
                         <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('position')}</Text>
-                            <Text className='textBlack s13'>{this.state.position}</Text>
+                            <Text className='textBlack s13'>{this._getDisplayRole(this.state.role)}</Text>
                         </View>
                     </View>
                     <View className='row-start pv16 ph16'>
@@ -75,9 +111,7 @@ export default class MyAccount extends Component {
                                 <TouchableOpacityHitSlop onPress={this._handlePressChangePassword}>
                                     <Text className='green s13'>{I18n.t('change_password')} ›</Text>
                                 </TouchableOpacityHitSlop>
-
                             </View>
-
                         </View>
                     </View>
                 </View>
@@ -101,21 +135,22 @@ export default class MyAccount extends Component {
                         <View className='flex'>
                             <TextInput
                                 label={I18n.t('mail')}
-                                value={this.state.mail}
-                                onChangeText={text => this.setState({ mail: text })}
+                                value={this.state.email}
+                                onChangeText={text => this.setState({ email: text })}
                             />
                         </View>
 
                     </View>
-                    <View className='row-start pv16 ph16'>
+                    <View className='ph16 pv16 white row-start'>
                         <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
-                        <View className='flex'>
-                            <TextInput
-                                label={I18n.t('position')}
-                                value={this.state.position}
-                                onChangeText={text => this.setState({ position: text })}
-                            />
-                        </View>
+                        <DropdownInput
+                            label={I18n.t('position')}
+                            value={this.state.role}
+                            values={ROLES_LIST}
+                            popupTitle={I18n.t('choose_position')}
+                            onPressItem={this._handleChangeRole}
+                            style={styles.dropdown}
+                        />
                     </View>
                 </View>
             )
@@ -125,6 +160,7 @@ export default class MyAccount extends Component {
     render() {
         return (
             <View className="flex white">
+                <LoadingModal visible={this.state.loading} />
                 <KeyboardAwareScrollView
                     showsVerticalScrollIndicator={false}
                     bounces={false}
@@ -177,3 +213,9 @@ export default class MyAccount extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    userInfo: userInfoSelector(state)
+}), {
+    updateUserInfo, logout, getUserInfo
+})(MyAccount)

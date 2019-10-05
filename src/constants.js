@@ -156,3 +156,30 @@ export const ROLES = {
     }
 }
 
+export const ROLES_LIST = [
+    {
+        value: 1,
+        name: I18n.t('role_admin')
+    },
+    {
+        value: 2,
+        name: I18n.t('role_editor')
+    },
+    {
+        value: 3,
+        name: I18n.t('role_manager')
+    },
+    {
+        value: 4,
+        name: I18n.t('role_chairman')
+    },
+    {
+        value: 5,
+        name: I18n.t('role_deputy')
+    },
+    {
+        value: 6,
+        name: I18n.t('role_user')
+    }
+]
+

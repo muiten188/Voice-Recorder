@@ -84,6 +84,7 @@ const language = {
     err_invalid_repassword: 'Nhập lại mật khẩu không đúng',
     err_invalid_current_password: 'Mật khẩu hiện tại không đúng',
     change_password_success: 'Thay đổi mật khẩu thành công, vui lòng đăng nhập lại',
+    choose_position: 'Chọn vị trí'
 }
 
 // export default language;

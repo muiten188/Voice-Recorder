@@ -293,7 +293,8 @@ class Home extends Component {
 
 
     componentDidMount() {
-        const { uploadMeetingRecord } = this.props
+        const { uploadMeetingRecord, getUserInfo } = this.props
+        getUserInfo()
         uploadMeetingRecord()
         BackgroundTimer.runBackgroundTimer(() => {
             uploadMeetingRecord()

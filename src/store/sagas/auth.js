@@ -40,6 +40,15 @@ const requestLogout = function* () {
 const requestGetUserInfo = createRequestSaga({
     request: api.auth.getUserInfo,
     key: ACTION_TYPES.AUTH_GET_USER_INFO,
+    success: [
+        (data) => {
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            if (statusCode == 200) {
+                return saveUserData(data)
+            }
+            return noop('')
+        }
+    ]
 })
 
 const requestUpdateUserInfo = createRequestSaga({
