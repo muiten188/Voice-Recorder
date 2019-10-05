@@ -4,15 +4,16 @@ import View from './View'
 import Text from './Text'
 
 export default TextInput = (props) => {
-    const { label, style, ...passProps } = props
+    const { label, error, style, ...passProps } = props
     return (
-        <View>
+        <View style={style}>
             {!!label && <Text className='s13 textBlack bold'>{label}</Text>}
             <TextInputRN
                 underlineColorAndroid={'transparent'}
                 {...passProps}
                 style={[styles.textInput, style]}
             />
+            {!!error && <Text className='error pt8'>{error}</Text>}
         </View>
 
     )

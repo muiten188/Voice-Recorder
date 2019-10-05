@@ -5,8 +5,15 @@ import FastImage from 'react-native-fast-image'
 import I18n from '~/src/I18n'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
+import { updateUserInfo } from '~/src/store/actions/auth'
+import { connect } from 'react-redux'
+import { userInfoSelector } from '~/src/store/selectors/auth'
+import LoadingModal from '~/src/components/LoadingModal'
+import { chainParse } from '~/src/utils'
+import { logout } from '~/src/store/actions/common'
+import ToastUtils from '~/src/utils/ToastUtils'
 
-export default class MyAccount extends Component {
+class ChangePassword extends Component {
 
     static navigationOptions = {
         headerMode: "none",
@@ -18,17 +25,53 @@ export default class MyAccount extends Component {
         this.state = {
             password: '',
             newPassword: '',
-            code: ''
+            rePassword: '',
+            errPassword: '',
+            errRepassword: '',
+            code: '',
+            loading: false
         }
     }
 
     _handlePressConfirm = () => {
-        this.props.navigation.goBack()
+        if (this.state.newPassword != this.state.rePassword) {
+            this.setState({ errRepassword: I18n.t('err_invalid_repassword') })
+            return
+        }
+        this.setState({ loading: true })
+        const { updateUserInfo } = this.props
+        updateUserInfo('', {
+            current_password: this.state.password,
+            password: this.state.newPassword
+        }, (err, data) => {
+            console.log('Change pass err', err)
+            console.log('Change pass data', data)
+            this.setState({ loading: false })
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            if (data && data.code && data.message) {
+                try {
+                    const messObj = JSON.parse(data.message)
+                    if (messObj.code == 6) {
+                        this.setState({ errPassword: I18n.t('err_invalid_current_password') })
+                    }
+                } catch (err) {
+                    console.log('Parse json error', err)
+                }
+            } else if (statusCode == 200) {
+                const { logout } = this.props
+                ToastUtils.showSuccessToast(I18n.t('change_password_success'))
+                logout()
+                
+            }
+
+        })
     }
 
     render() {
+        const { userInfo } = this.props
         return (
             <View className="flex white">
+                <LoadingModal visible={this.state.loading} />
                 <LinearGradient
                     colors={['#d63e3b', '#209955']}
                     style={[styles.gradientContainer]}
@@ -47,7 +90,7 @@ export default class MyAccount extends Component {
                                 source={{ uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85' }}
                                 style={styles.avatar}
                             />
-                            <Text className='white bold s14 mb4'>Vũ Long Hải</Text>
+                            <Text className='white bold s14 mb4'>{userInfo.last_name}</Text>
                             <Text className='white s12'>Admintrator</Text>
                         </View>
 
@@ -59,8 +102,9 @@ export default class MyAccount extends Component {
                         <TextInput
                             label={I18n.t('password')}
                             value={this.state.password}
-                            onChangeText={text => this.setState({ password: text })}
+                            onChangeText={text => this.setState({ password: text, errPassword: '' })}
                             secureTextEntry={true}
+                            error={this.state.errPassword}
                         />
                     </View>
                     <View className='ph16 pv12'>
@@ -73,10 +117,11 @@ export default class MyAccount extends Component {
                     </View>
                     <View className='ph16 pv12'>
                         <TextInput
-                            label={I18n.t('verify')}
-                            value={this.state.code}
-                            onChangeText={text => this.setState({ code: text })}
-                            keyboardType={'number-pad'}
+                            label={I18n.t('re_new_password')}
+                            value={this.state.rePassword}
+                            onChangeText={text => this.setState({ rePassword: text, errRepassword: '' })}
+                            secureTextEntry={true}
+                            error={this.state.errRepassword}
                         />
                     </View>
                     <View className='space100' />
@@ -94,3 +139,10 @@ export default class MyAccount extends Component {
         );
     }
 }
+
+export default connect(state => ({
+    userInfo: userInfoSelector(state)
+}), {
+    updateUserInfo, logout
+})(ChangePassword)
+

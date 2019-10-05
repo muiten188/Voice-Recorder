@@ -157,15 +157,15 @@ export const put = (url, body, extra = {}) => {
                 ...customHeader,
             }
             const apiEndpoint = api || apiConfig.API_URL
-            console.log('API Post', apiEndpoint + url)
+            console.log('API Put', apiEndpoint + url)
             console.log('Header', sendHeader)
-            console.log('Post body', body)
+            console.log('Put body', body)
 
 
             return new Promise((resolve, reject) => {
                 Promise.race([
                     fetch(apiEndpoint + url, {
-                        method: 'POST',
+                        method: 'PUT',
                         credentials: 'omit',
                         headers: {
                             'Content-Type': 'application/json',

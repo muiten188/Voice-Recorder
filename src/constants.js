@@ -128,3 +128,31 @@ export const FOREGROUND_NOTIFICATION_ID = {
 }
 
 export const NUMBER_TRY_UPLOAD = 3
+
+export const ROLES = {
+    admin: {
+        id: 1,
+        name: I18n.t('role_admin')
+    },
+    editor: {
+        id: 2,
+        name: I18n.t('role_editor')
+    },
+    manager: {
+        id: 3,
+        name: I18n.t('role_manager')
+    },
+    chairman: {
+        id: 4,
+        name: I18n.t('role_chairman')
+    },
+    deputy: {
+        id: 5,
+        name: I18n.t('role_deputy')
+    },
+    user: {
+        id: 6,
+        name: I18n.t('role_user')
+    }
+}
+

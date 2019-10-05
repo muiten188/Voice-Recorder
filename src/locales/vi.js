@@ -33,6 +33,7 @@ const language = {
     change_password: 'Change password',
     confirm: 'Xác nhận',
     new_password: 'Mật khẩu mới',
+    re_new_password: 'Nhập lại mật khẩu mới',
     verify: 'Xác thực',
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
     agree: 'Đồng ý',
@@ -74,6 +75,15 @@ const language = {
     sample_rate: 'Tốc độ lấy mẫu',
     default_meeting_name: 'Phỏng vấn',
     default_name: 'Tên mặc định',
+    role_admin: 'Quản trị',
+    role_editor: 'Biên tập',
+    role_manager: 'Quản lý',
+    role_chairman: 'Chủ toạ',
+    role_deputy: 'Đại biểu',
+    role_user: 'Ngừoi dùng',
+    err_invalid_repassword: 'Nhập lại mật khẩu không đúng',
+    err_invalid_current_password: 'Mật khẩu hiện tại không đúng',
+    change_password_success: 'Thay đổi mật khẩu thành công, vui lòng đăng nhập lại',
 }
 
 // export default language;
