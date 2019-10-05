@@ -27,18 +27,31 @@ const language = {
     add_new: 'Add New',
     import: 'Nhập',
     record: 'Ghi âm',
+
+    // Thông tin ngừoi dùng
     phone: 'Phone',
-    mail: 'Mail',
+    mail: 'Hộp thư',
     position: 'Position',
-    change_password: 'Change password',
+    role: 'Quyền',
+    choose_role: 'Chọn quyền',
+    change_password: 'Đổi mật khẩu',
     confirm: 'Xác nhận',
     new_password: 'Mật khẩu mới',
     re_new_password: 'Nhập lại mật khẩu mới',
     verify: 'Xác thực',
+    first_name: 'Họ',
+    last_name: 'Đệm và tên',
+
+    male: 'Nam',
+    female: 'Nữ',
+    other_sex: 'Khác',
+    sex: 'Giới tính',
+    choose_sex: 'Chọn giới tính',
+    
+
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
     agree: 'Đồng ý',
     added_record_to_queue: 'Đã đưa tệp ghi âm "*****" vào hàng chờ',
-
     processing: 'Đang xử lý',
     process_done: 'Xử lý xong',
     process_queuing: 'Đưa vào hàng chờ',
@@ -80,11 +93,11 @@ const language = {
     role_manager: 'Quản lý',
     role_chairman: 'Chủ toạ',
     role_deputy: 'Đại biểu',
-    role_user: 'Ngừoi dùng',
+    role_user: 'Người dùng',
     err_invalid_repassword: 'Nhập lại mật khẩu không đúng',
     err_invalid_current_password: 'Mật khẩu hiện tại không đúng',
     change_password_success: 'Thay đổi mật khẩu thành công, vui lòng đăng nhập lại',
-    choose_position: 'Chọn vị trí'
+    choose_position: 'Chọn vị trí',
 }
 
 // export default language;

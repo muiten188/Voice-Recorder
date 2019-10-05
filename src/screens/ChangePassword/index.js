@@ -12,6 +12,7 @@ import LoadingModal from '~/src/components/LoadingModal'
 import { chainParse } from '~/src/utils'
 import { logout } from '~/src/store/actions/common'
 import ToastUtils from '~/src/utils/ToastUtils'
+import { ROLES_LIST } from '~/src/constants'
 
 class ChangePassword extends Component {
 
@@ -67,6 +68,17 @@ class ChangePassword extends Component {
         })
     }
 
+    _getDisplayRole = (role) => {
+        const roleObj = ROLES_LIST.find(item => item.value === role)
+        if (!roleObj) return ''
+        return roleObj.name
+    }
+
+    _handleBack = () => {
+        this.props.navigation.goBack()
+        return true
+    }
+
     render() {
         const { userInfo } = this.props
         return (
@@ -80,18 +92,18 @@ class ChangePassword extends Component {
                 >
                     <View>
                         <View className='statusbar' />
-                        <TouchableOpacityHitSlop onPress={this._handleBack}>
+                        <TouchableOpacityHitSlop onPress={this._handleBack} style={styles.backIconTouchable}>
                             <Image source={require('~/src/image/back.png')}
                                 style={styles.backIcon}
                             />
                         </TouchableOpacityHitSlop>
                         <View className='column-center' style={{ marginTop: 25 }}>
                             <FastImage
-                                source={{ uri: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85' }}
+                                source={require('~/src/image/default_avatar.jpg')}
                                 style={styles.avatar}
                             />
-                            <Text className='white bold s14 mb4'>{userInfo.last_name}</Text>
-                            <Text className='white s12'>Admintrator</Text>
+                            <Text className='white bold s14 mb4'>{userInfo.first_name} {userInfo.last_name}</Text>
+                            <Text className='white s12'>{this._getDisplayRole(userInfo.role)}</Text>
                         </View>
 
                     </View>

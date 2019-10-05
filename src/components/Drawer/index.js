@@ -70,11 +70,11 @@ class Drawer extends Component {
             <View>
                 <TouchableOpacity onPress={this._handlePressAccountInfo}>
                     <View className='row-start ph16 border-bottom background' style={styles.infoContainer}>
-                        <Image source={{ uri: 'https://dsdigitaladvertisingdda.com/wp-content/uploads/2017/07/client.png' }}
+                        <Image source={require('~/src/image/default_avatar.jpg')}
                             style={styles.avatar}
                         />
                         <View>
-                            <Text className='textBlack s16 bold mb10'>{userInfo.last_name}</Text>
+                            <Text className='textBlack s16 bold mb4'>{userInfo.first_name} {userInfo.last_name}</Text>
                             <Text className='gray'>{userInfo.email}</Text>
                         </View>
                     </View>

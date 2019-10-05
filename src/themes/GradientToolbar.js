@@ -50,7 +50,7 @@ class GradientToolbar extends PureComponent {
                     {!!avatar &&
                         <View style={styles.rightContainer}>
                             <FastImage
-                                source={{ uri: avatar }}
+                                source={avatar}
                                 style={styles.avatar}
                             />
                         </View>

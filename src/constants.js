@@ -183,3 +183,17 @@ export const ROLES_LIST = [
     }
 ]
 
+export const SEX_LIST = [
+    {
+        value: 0,
+        name: I18n.t('male')
+    },
+    {
+        value: 1,
+        name: I18n.t('female')
+    },
+    {
+        value: 2,
+        name: I18n.t('other_sex')
+    }
+]

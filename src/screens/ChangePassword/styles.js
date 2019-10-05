@@ -22,11 +22,13 @@ export default {
     gradientContainer: {
         height: 166 + STATUSBAR_HEIGHT
     },
-    backIcon: {
+    backIconTouchable: {
         position: 'absolute',
-        top: 12,
+        top: 12 + STATUSBAR_HEIGHT,
         left: 12,
         zIndex: 100,
+    },
+    backIcon: {
         width: 24,
         height: 24
     },

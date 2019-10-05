@@ -74,7 +74,7 @@ class Settings extends Component {
                     leftIcon={require('~/src/image/menu.png')}
                     title={I18n.t('setting_title')}
                     onPressLeft={this._handlePressLeftMenu}
-                    avatar='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fewedit.files.wordpress.com%2F2016%2F10%2Fdr-strange.jpg&w=400&c=sc&poi=face&q=85'
+                    avatar={require('~/src/image/default_avatar.jpg')}
                 />
                 <ScrollView>
                     <View className='space16' />
