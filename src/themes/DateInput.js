@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, TouchableOpacity, DatePickerAndroid, DatePickerIOS, Platform } from "react-native";
+import { StyleSheet, TouchableOpacity, DatePickerAndroid, DatePickerIOS, Platform } from "react-native";
 import { SURFACE_STYLES, COLORS } from "~/src/themes/common";
 import I18n from "~/src/I18n";
 import { View } from "~/src/themes/ThemeComponent"
@@ -10,16 +10,10 @@ export default class DateInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            colorText: COLORS.BLACK,
             value: props.value || ""
-
-        };
+        }
     }
-    
-    getDisplayDate = () => {
-        if (!this.state.value) return "";
-        return this.state.value.format(I18n.t("date_format"));
-    };
+
     _handlePressChooseDate = async () => {
         const { onChange, minDate, maxDate } = this.props;
         if (Platform.OS == "android") {
@@ -90,14 +84,14 @@ export default class DateInput extends Component {
     getDisplayDate = () => {
         if (!this.state.value) return "";
         return this.state.value.format(I18n.t("date_format"));
-    };
+    }
+
     closeValue = () => {
-        this.setState({
-            value: ""
-        });
+        this.setState({ value: "" })
     };
+
     render() {
-        const { title, height, style, hasError, showCalendar = false, placeholder, ...props } = this.props;
+        const { label, style, touchableStyle, hasError, placeholder, ...props } = this.props;
         const initDate = this.state.value
             ? new Date(
                 this.state.value.year(),
@@ -106,65 +100,10 @@ export default class DateInput extends Component {
             )
             : new Date();
         return (
-            <View style={{ width: "100%" }}>
-                <View
-                    style={[
-                        {
-                            width: "100%",
-                            flexDirection: "row",
-                            alignItems: 'center',
-                            backgroundColor: COLORS.WHITE,
-                            height: height ? height : 45
-                        },
-                        style
-                    ]}
-                >
-                    <View
-                        // className ="pv16"
-                        style={{
-                            width: 118,
-                            backgroundColor: COLORS.WHITE,
-                            paddingLeft: 24,
-                            paddingRight: 16
-                            // alignItems: "center",
-                            // justifyContent: "center"
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: COLORS.TEXT_BLACK,
-                                // fontWeight: "bold",
-                                fontSize: 12
-                            }}
-                        >
-                            {title}
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            backgroundColor: COLORS.FEATURE_BACKGROUND,
-                            height: height ? height : 45,
-                            width: 1,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    />
-                    <Text
-                        style={[
-                            {
-                                // paddingLeft:15,
-                                marginLeft: 16,
-                                color: this.state.value ? COLORS.TEXT_BLACK : COLORS.PLACEHOLDER_COLOR,
-                                fontSize: 14,
-                                // fontWeight: "bold",
-                            }
-                        ]}
-                    >
-                        {this.getDisplayDate() || placeholder || ""}
-                    </Text>
-
-
+            <TouchableOpacity onPress={this._handlePressChooseDate} style={touchableStyle}>
+                <View style={[styles.contaierStyle, style]}>
+                    {!!label && <Text className='s13 textBlack bold'>{label}</Text>}
+                    <Text style={styles.dateText}>{this.getDisplayDate()}</Text>
                     <BottomSheetContainer ref={ref => (this.bottomSheet = ref)}>
                         <View
                             style={[
@@ -174,14 +113,12 @@ export default class DateInput extends Component {
                         >
                             <TouchableOpacity onPress={this._handleCancelDatePicker}>
                                 <View style={{ paddingHorizontal: 8, paddingVertical: 10 }}>
-                                    <Text style={{ color: COLORS.TEXT_BLACK }}>
-                                        {I18n.t("cancel")}
-                                    </Text>
+                                    <Text className='textBlack'>{I18n.t("cancel")}</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this._handleChooseDatePicker}>
                                 <View style={{ paddingHorizontal: 8, paddingVertical: 10 }}>
-                                    <Text style={{ color: COLORS.BLUE }}>{I18n.t("choose")}</Text>
+                                    <Text className='green'>{I18n.t("choose")}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -193,18 +130,21 @@ export default class DateInput extends Component {
                             maximumDate={this.props.maxDate}
                         />
                     </BottomSheetContainer>
-                    <TouchableOpacity disabled={this.props.disabledEdit} style={{ height: 45, marginLeft: 'auto', justifyContent: 'center' }} onPress={this._handlePressChooseDate}>
-                        {!!showCalendar ?
-                            <Image source={require('~/src/image/calendar.png')} style={{ width: 24, height: 24, marginRight: 24 }} />
-                            :
-                            <Text
-                                style={{ marginRight: 24, fontSize: 16, color: COLORS.PRIMARY }}
-                            >{I18n.t("edit")}</Text>
-                        }
-                    </TouchableOpacity>
                 </View>
-
-            </View>
+            </TouchableOpacity>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    dateText: {
+        paddingTop: 6,
+        paddingBottom: 6,
+        fontSize: 13,
+        color: COLORS.TEXT_BLACK
+    },
+    contaierStyle: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ededed',
+    }
+})

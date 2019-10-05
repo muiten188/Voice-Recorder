@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Image } from 'react-native'
-import { View, Text, TextInput, SmallButton, TouchableOpacityHitSlop, DropdownInput } from "~/src/themes/ThemeComponent";
+import { View, Text, TextInput, SmallButton, TouchableOpacityHitSlop, DropdownInput, DateInput } from "~/src/themes/ThemeComponent";
 import FastImage from 'react-native-fast-image'
 import I18n from '~/src/I18n'
 import styles from './styles'
@@ -14,6 +14,8 @@ import { chainParse } from '~/src/utils'
 import { ROLES_LIST, SEX_LIST } from '~/src/constants'
 import LoadingModal from '~/src/components/LoadingModal'
 import { getUserInfo } from '~/src/store/actions/auth'
+import moment from "moment"
+import ToastUtils from '~/src/utils/ToastUtils'
 class MyAccount extends Component {
 
     static navigationOptions = {
@@ -24,6 +26,7 @@ class MyAccount extends Component {
     constructor(props) {
         super(props);
         console.log('UserInfo', props.userInfo)
+        const dateOfBirth = +chainParse(props, ['userInfo', 'date_of_birth'])
         this.state = {
             isEditing: false,
             email: chainParse(props, ['userInfo', 'email']),
@@ -31,14 +34,33 @@ class MyAccount extends Component {
             firstName: chainParse(props, ['userInfo', 'first_name']),
             lastName: chainParse(props, ['userInfo', 'last_name']),
             sex: chainParse(props, ['userInfo', 'sex']),
+            dateOfBirth: dateOfBirth ? moment(dateOfBirth * 1000) : '',
             changed: false,
-            loading: false
+            loading: false,
         }
     }
 
     _handleBack = () => {
         this.props.navigation.goBack()
         return true
+    }
+
+    _loadUserInfo = () => {
+        const { getUserInfo } = this.props
+        getUserInfo((err, data) => {
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            if (statusCode == 200) {
+                const dateOfBirth = +chainParse(data, ['date_of_birth'])
+                this.setState({
+                    email: chainParse(data, ['email']),
+                    role: chainParse(data, ['role']),
+                    firstName: chainParse(data, ['first_name']),
+                    lastName: chainParse(data, ['last_name']),
+                    sex: chainParse(data, ['sex']),
+                    dateOfBirth: dateOfBirth ? moment(dateOfBirth * 1000) : '',
+                })
+            }
+        })
     }
 
     _handlePressEdit = () => {
@@ -52,13 +74,19 @@ class MyAccount extends Component {
                 role: this.state.role,
                 first_name: this.state.firstName,
                 last_name: this.state.lastName,
-                sex: this.state.sex
+                sex: this.state.sex,
+                date_of_birth: this.state.dateOfBirth ? this.state.dateOfBirth.unix() : ''
             }, (err, data) => {
                 console.log('updateUserInfo err', err)
                 console.log('updateUserInfo data', data)
-                const { getUserInfo } = this.props
-                getUserInfo()
+                const statusCode = chainParse(data, ['httpHeaders', 'status'])
                 this.setState({ loading: false, isEditing: false })
+                if (statusCode == 200){
+                    ToastUtils.showSuccessToast(I18n.t('update_profile_success'))
+                    this._loadUserInfo()
+                }
+                
+                
             })
         }
 
@@ -96,19 +124,30 @@ class MyAccount extends Component {
         }
     }
 
+    _handleChangeDateOfBirth = (newDob) => {
+        console.log('New dob', newDob)
+        this.setState({ dateOfBirth: newDob })
+    }
+
+    componentDidMount() {
+        this._loadUserInfo()
+    }
+
     _render = () => {
         if (!this.state.isEditing) {
             return (
                 <View style={styles.infoBlock}>
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} />
+                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                        <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
                             <Text className='textBlack s13'>{this.state.email}</Text>
                         </View>
                     </View>
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
+                        {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('first_name')}</Text>
                             <Text className='textBlack s13'>{this.state.firstName}</Text>
@@ -116,7 +155,8 @@ class MyAccount extends Component {
                     </View>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
+                        {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('last_name')}</Text>
                             <Text className='textBlack s13'>{this.state.lastName}</Text>
@@ -124,15 +164,17 @@ class MyAccount extends Component {
                     </View>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
+                        {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <View>
-                            <Text className='bold s14 mb4'>{I18n.t('role')}</Text>
-                            <Text className='textBlack s13'>{this._getDisplayRole(this.state.role)}</Text>
+                            <Text className='bold s14 mb4'>{I18n.t('date_of_birth')}</Text>
+                            <Text className='textBlack s13'>{this.state.dateOfBirth ? this.state.dateOfBirth.format(I18n.t('date_format')) : ''}</Text>
                         </View>
                     </View>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
+                        {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('sex')}</Text>
                             <Text className='textBlack s13'>{this._getDisplaySex(this.state.sex)}</Text>
@@ -140,7 +182,18 @@ class MyAccount extends Component {
                     </View>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/password.png')} style={styles.fieldIcon2} />
+
+                        <View style={styles.leftSpace} />
+                        <View>
+                            <Text className='bold s14 mb4'>{I18n.t('role')}</Text>
+                            <Text className='textBlack s13'>{this._getDisplayRole(this.state.role)}</Text>
+                        </View>
+                    </View>
+
+
+                    <View className='row-start pv16 ph16'>
+                        {/* <Image source={require('~/src/image/password.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <View className='flex'>
                             <Text className='bold s14 mb4'>{I18n.t('password')}</Text>
                             <View className='row-start'>
@@ -158,7 +211,8 @@ class MyAccount extends Component {
                 <View style={styles.infoBlock}>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} />
+                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                        <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
                             <Text className='textBlack s13'>{this.state.email}</Text>
@@ -166,7 +220,8 @@ class MyAccount extends Component {
                     </View>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} />
+                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                        <View style={styles.leftSpace} />
                         <View className='flex'>
                             <TextInput
                                 label={I18n.t('first_name')}
@@ -178,7 +233,8 @@ class MyAccount extends Component {
                     </View>
 
                     <View className='row-start pv16 ph16'>
-                        <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} />
+                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                        <View style={styles.leftSpace} />
                         <View className='flex'>
                             <TextInput
                                 label={I18n.t('last_name')}
@@ -188,8 +244,18 @@ class MyAccount extends Component {
                         </View>
 
                     </View>
+                    <View className='ph16 pv16 row-start'>
+                        <View style={styles.leftSpace} />
+                        <DateInput
+                            label={I18n.t('date_of_birth')}
+                            value={this.state.dateOfBirth}
+                            onChange={this._handleChangeDateOfBirth}
+                            touchableStyle={{ flex: 1 }}
+                        />
+                    </View>
                     <View className='ph16 pv16 white row-start'>
-                        <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
+                        {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <DropdownInput
                             label={I18n.t('sex')}
                             value={this.state.sex}
@@ -200,7 +266,8 @@ class MyAccount extends Component {
                         />
                     </View>
                     <View className='ph16 pv16 white row-start'>
-                        <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} />
+                        {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
+                        <View style={styles.leftSpace} />
                         <DropdownInput
                             label={I18n.t('role')}
                             value={this.state.role}

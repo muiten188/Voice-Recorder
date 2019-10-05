@@ -74,7 +74,7 @@ class Drawer extends Component {
                             style={styles.avatar}
                         />
                         <View>
-                            <Text className='textBlack s16 bold mb4'>{userInfo.first_name} {userInfo.last_name}</Text>
+                            <Text className='textBlack s15 bold mb4'>{userInfo.first_name} {userInfo.last_name}</Text>
                             <Text className='gray'>{userInfo.email}</Text>
                         </View>
                     </View>

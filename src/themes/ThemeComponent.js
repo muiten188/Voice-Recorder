@@ -19,7 +19,7 @@ import TextInput from './TextInput'
 import PopupConfirmDelete from './PopupConfirmDelete'
 import Slider from './Slider'
 import DropdownInput from './DropdownInput'
-
+import DateInput from './DateInput'
 export {
     RoundTextInput, TextInput,
     TouchableOpacityHitSlop,
@@ -35,6 +35,7 @@ export {
     SearchBox,
     PopupConfirmDelete,
     Slider,
-    DropdownInput
+    DropdownInput,
+    DateInput
 }
 

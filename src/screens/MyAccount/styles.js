@@ -60,6 +60,9 @@ export default {
         borderBottomWidth: 1,
         borderBottomColor: '#ededed',
         paddingBottom: 6
-
+    },
+    leftSpace: {
+        width: 47,
+        height: 10,
     }
 }

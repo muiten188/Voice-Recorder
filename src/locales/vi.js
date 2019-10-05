@@ -47,6 +47,8 @@ const language = {
     other_sex: 'Khác',
     sex: 'Giới tính',
     choose_sex: 'Chọn giới tính',
+    date_of_birth: 'Ngày sinh',
+    update_profile_success: 'Cập nhật thông tin thành công',
     
 
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
@@ -98,6 +100,7 @@ const language = {
     err_invalid_current_password: 'Mật khẩu hiện tại không đúng',
     change_password_success: 'Thay đổi mật khẩu thành công, vui lòng đăng nhập lại',
     choose_position: 'Chọn vị trí',
+    date_format: 'DD/MM/YYYY',
 }
 
 // export default language;
