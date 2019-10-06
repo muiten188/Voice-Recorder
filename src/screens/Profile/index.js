@@ -36,6 +36,8 @@ class Profile extends Component {
             sex: chainParse(props, ['userInfo', 'sex']),
             username: chainParse(props, ['userInfo', 'username']),
             dateOfBirth: dateOfBirth ? moment(dateOfBirth * 1000) : '',
+            firstNameError: '',
+            lastNameError: '',
             changed: false,
             loading: false,
         }
@@ -69,6 +71,13 @@ class Profile extends Component {
         if (!this.state.isEditing) {
             this.setState({ isEditing: true })
         } else {
+            if (!this.state.firstName || !this.state.firstName.trim()) {
+                this.setState({ firstNameError: I18n.t('err_filed_require') })
+                return
+            } else if (!this.state.lastName || !this.state.lastName.trim()) {
+                this.setState({ lastNameError: I18n.t('err_filed_require') })
+                return
+            }
             const { updateUserInfo } = this.props
             this.setState({ loading: true })
             updateUserInfo(this.state.email, {
@@ -81,13 +90,28 @@ class Profile extends Component {
                 console.log('updateUserInfo err', err)
                 console.log('updateUserInfo data', data)
                 const statusCode = chainParse(data, ['httpHeaders', 'status'])
-                this.setState({ loading: false, isEditing: false })
-                if (statusCode == 200){
+
+                if (data && data.code && data.message) {
+                    this.setState({ loading: false })
+                    try {
+                        const messageObj = JSON.parse(data.message)
+                        if (messageObj.message) {
+                            ToastUtils.showErrorToast(messageObj.message)
+                        }
+                    } catch (err) {
+                        console.log('Parse json err', err)
+                        ToastUtils.showErrorToast(data.message)
+                    }
+
+                } else if (statusCode == 200) {
+                    this.setState({ loading: false, isEditing: false })
                     ToastUtils.showSuccessToast(I18n.t('update_profile_success'))
                     this._loadUserInfo()
+                } else {
+                    this.setState({ loading: false })
                 }
-                
-                
+
+
             })
         }
 
@@ -239,7 +263,8 @@ class Profile extends Component {
                             <TextInput
                                 label={I18n.t('first_name')}
                                 value={this.state.firstName}
-                                onChangeText={text => this.setState({ firstName: text })}
+                                onChangeText={text => this.setState({ firstName: text, firstNameError: '' })}
+                                error={this.state.firstNameError}
                             />
                         </View>
 
@@ -251,7 +276,8 @@ class Profile extends Component {
                             <TextInput
                                 label={I18n.t('last_name')}
                                 value={this.state.lastName}
-                                onChangeText={text => this.setState({ lastName: text })}
+                                onChangeText={text => this.setState({ lastName: text, lastNameError: '' })}
+                                error={this.state.lastNameError}
                             />
                         </View>
 
