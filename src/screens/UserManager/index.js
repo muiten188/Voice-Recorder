@@ -25,7 +25,7 @@ class UserManager extends Component {
     }
 
     _handlePressAddUser = () => {
-
+        this.props.navigation.navigate('UserInfo')
     }
 
     _load = (page = 1, refreshing = false) => {

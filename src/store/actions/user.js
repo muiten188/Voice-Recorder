@@ -14,3 +14,8 @@ export const updateOtherUserInfo = (...args) => ({
     type: ACTION_TYPES.USER_UPDATE_INFO,
     args
 })
+
+export const createUser = (...args) => ({
+    type: ACTION_TYPES.USER_CREATE,
+    args
+})

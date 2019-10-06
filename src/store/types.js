@@ -40,5 +40,6 @@ export const SETTING_UPDATE = 'setting/update'
 export const USER_GET_LIST = 'user/getList'
 export const USER_SET_LIST = 'user/setList'
 export const USER_UPDATE_INFO = 'user/updateInfo'
+export const USER_CREATE = 'user/create'
 
 
