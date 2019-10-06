@@ -1,4 +1,4 @@
-package com.haivu.voicerecorder;
+package com.sbd.vovrecorder;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

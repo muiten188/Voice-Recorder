@@ -1,8 +1,6 @@
-package com.haivu.voicerecorder;
+package com.sbd.vovrecorder;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;

@@ -56,6 +56,7 @@ const language = {
     err_filed_require: 'Trường này không được để trống',
     err_invalid_email: 'Email không hợp lệ',
     create_user_success: 'Tạo người dùng thành công',
+    session_expire: 'Phiên đăng nhập đã hết vui lòng đăng nhập lại',
 
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
     agree: 'Đồng ý',

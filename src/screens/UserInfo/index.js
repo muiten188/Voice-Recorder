@@ -131,7 +131,6 @@ class UserInfo extends Component {
                 sex: this.state.sex,
                 date_of_birth: this.state.dateOfBirth ? this.state.dateOfBirth.unix() : '',
                 activated: this.state.activated,
-                username: this.state.username,
                 ...(this.state.password && this.state.password.trim()) && { password: this.state.password }
             }, (err, data) => {
                 console.log('updateOtherUserInfo err', err)

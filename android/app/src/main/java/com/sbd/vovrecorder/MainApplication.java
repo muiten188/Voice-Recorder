@@ -1,17 +1,8 @@
-package com.haivu.voicerecorder;
+package com.sbd.vovrecorder;
 import android.app.Application;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.rngrp.RNGRPPackage;
-import com.voximplant.foregroundservice.VIForegroundServicePackage;
-import com.ocetnik.timer.BackgroundTimerPackage;
-import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
-import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
-import com.zmxv.RNSound.RNSoundPackage;
-import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
