@@ -6,5 +6,8 @@ export default {
     },
     createUser: (userInfo) => {
         return post('/api/v2/user', userInfo)
+    },
+    updateUser: (id, body) => {
+        return put(`/api/v2/user?id=${id}`, body)
     }
 }

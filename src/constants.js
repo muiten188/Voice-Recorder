@@ -197,3 +197,14 @@ export const SEX_LIST = [
         name: I18n.t('other_sex')
     }
 ]
+
+export const USER_STATUS_LIST = [
+    {
+        value: true,
+        name: I18n.t('active')
+    },
+    {
+        value: false,
+        name: I18n.t('inactive')
+    },
+]

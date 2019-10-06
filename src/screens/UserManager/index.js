@@ -85,26 +85,34 @@ class UserManager extends Component {
         console.log('PressingMore')
     }
 
+    _handlePressUser = (userInfo) => {
+        console.log('_handlePressUser', userInfo)
+        this.props.navigation.navigate('UserInfo', { userInfo })
+    }
+
     _renderUserItem = ({ item, index }) => {
         return (
-            <View className='row-start'>
-                <FastImage
-                    style={styles.avatar}
-                    source={require('~/src/image/default_avatar.jpg')}
-                />
-                <View className='row-start flex border-bottom pv16'>
-                    <View className='flex'>
-                        <Text className='textBlack bold mb8 s14'>{item.first_name} {item.last_name}</Text>
-                        <Text className='gray mb8'>{I18n.t('username')}: {item.username}</Text>
-                        <Text className='gray mb8'>{I18n.t('mail')}: {item.email}</Text>
-                        <Text className={item.activated ? 'green s13' : 'error s13'}>{item.activated ? I18n.t('active') : I18n.t('inactive')}</Text>
-                    </View>
-                    <TouchableOpacityHitSlop onPress={this._handlePressMore}>
-                        <Image source={require('~/src/image/more.png')} style={styles.moreIcon} />
-                    </TouchableOpacityHitSlop>
+            <TouchableOpacity onPress={() => this._handlePressUser(item)}>
+                <View className='row-start'>
+                    <FastImage
+                        style={styles.avatar}
+                        source={require('~/src/image/default_avatar.jpg')}
+                    />
+                    <View className='row-start flex border-bottom pv16'>
+                        <View className='flex'>
+                            <Text className='textBlack bold mb8 s14'>{item.first_name} {item.last_name}</Text>
+                            <Text className='gray mb8'>{I18n.t('username')}: {item.username}</Text>
+                            <Text className='gray mb8'>{I18n.t('mail')}: {item.email}</Text>
+                            <Text className={item.activated ? 'green s13' : 'error s13'}>{item.activated ? I18n.t('active') : I18n.t('inactive')}</Text>
+                        </View>
+                        <TouchableOpacityHitSlop onPress={this._handlePressMore}>
+                            <Image source={require('~/src/image/more.png')} style={styles.moreIcon} />
+                        </TouchableOpacityHitSlop>
 
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
+
         )
     }
 

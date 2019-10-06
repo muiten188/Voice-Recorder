@@ -160,8 +160,6 @@ export const put = (url, body, extra = {}) => {
             console.log('API Put', apiEndpoint + url)
             console.log('Header', sendHeader)
             console.log('Put body', body)
-
-
             return new Promise((resolve, reject) => {
                 Promise.race([
                     fetch(apiEndpoint + url, {

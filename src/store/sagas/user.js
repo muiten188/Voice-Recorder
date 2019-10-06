@@ -22,11 +22,17 @@ const requestGetListUser = createRequestSaga({
     ]
 })
 
+const requestUpdateOtherUserInfo = createRequestSaga({
+    request: api.user.updateUser,
+    key: ACTION_TYPES.USER_UPDATE_INFO,
+})
+
 
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
         takeEvery(ACTION_TYPES.USER_GET_LIST, requestGetListUser),
+        takeEvery(ACTION_TYPES.USER_UPDATE_INFO, requestUpdateOtherUserInfo)
     ])
 }
 
