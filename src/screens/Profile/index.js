@@ -34,6 +34,7 @@ class Profile extends Component {
             firstName: chainParse(props, ['userInfo', 'first_name']),
             lastName: chainParse(props, ['userInfo', 'last_name']),
             sex: chainParse(props, ['userInfo', 'sex']),
+            username: chainParse(props, ['userInfo', 'username']),
             dateOfBirth: dateOfBirth ? moment(dateOfBirth * 1000) : '',
             changed: false,
             loading: false,
@@ -137,15 +138,21 @@ class Profile extends Component {
         if (!this.state.isEditing) {
             return (
                 <View style={styles.infoBlock}>
-                    <View className='row-start pv16 ph16'>
-                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                    <View className='row-start pv10 ph16'>
                         <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
                             <Text className='textBlack s13'>{this.state.email}</Text>
                         </View>
                     </View>
-                    <View className='row-start pv16 ph16'>
+                    <View className='row-start pv10 ph16'>
+                        <View style={styles.leftSpace} />
+                        <View>
+                            <Text className='bold s14 mb4'>{I18n.t('username')}</Text>
+                            <Text className='textBlack s13'>{this.state.username}</Text>
+                        </View>
+                    </View>
+                    <View className='row-start pv10 ph16'>
                         {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <View>
@@ -154,7 +161,7 @@ class Profile extends Component {
                         </View>
                     </View>
 
-                    <View className='row-start pv16 ph16'>
+                    <View className='row-start pv10 ph16'>
                         {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <View>
@@ -163,7 +170,7 @@ class Profile extends Component {
                         </View>
                     </View>
 
-                    <View className='row-start pv16 ph16'>
+                    <View className='row-start pv10 ph16'>
                         {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <View>
@@ -172,7 +179,7 @@ class Profile extends Component {
                         </View>
                     </View>
 
-                    <View className='row-start pv16 ph16'>
+                    <View className='row-start pv10 ph16'>
                         {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <View>
@@ -181,7 +188,7 @@ class Profile extends Component {
                         </View>
                     </View>
 
-                    <View className='row-start pv16 ph16'>
+                    <View className='row-start pv10 ph16'>
 
                         <View style={styles.leftSpace} />
                         <View>
@@ -191,7 +198,7 @@ class Profile extends Component {
                     </View>
 
 
-                    <View className='row-start pv16 ph16'>
+                    <View className='row-start pv10 ph16'>
                         {/* <Image source={require('~/src/image/password.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <View className='flex'>
@@ -210,8 +217,7 @@ class Profile extends Component {
             return (
                 <View style={styles.infoBlock}>
 
-                    <View className='row-start pv16 ph16'>
-                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                    <View className='row-start pv10 ph16'>
                         <View style={styles.leftSpace} />
                         <View>
                             <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
@@ -219,8 +225,15 @@ class Profile extends Component {
                         </View>
                     </View>
 
-                    <View className='row-start pv16 ph16'>
-                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                    <View className='row-start pv10 ph16'>
+                        <View style={styles.leftSpace} />
+                        <View>
+                            <Text className='bold s14 mb4'>{I18n.t('username')}</Text>
+                            <Text className='textBlack s13'>{this.state.username}</Text>
+                        </View>
+                    </View>
+
+                    <View className='row-start pv10 ph16'>
                         <View style={styles.leftSpace} />
                         <View className='flex'>
                             <TextInput
@@ -232,8 +245,7 @@ class Profile extends Component {
 
                     </View>
 
-                    <View className='row-start pv16 ph16'>
-                        {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
+                    <View className='row-start pv10 ph16'>
                         <View style={styles.leftSpace} />
                         <View className='flex'>
                             <TextInput
@@ -244,7 +256,7 @@ class Profile extends Component {
                         </View>
 
                     </View>
-                    <View className='ph16 pv16 row-start'>
+                    <View className='ph16 pv10 row-start'>
                         <View style={styles.leftSpace} />
                         <DateInput
                             label={I18n.t('date_of_birth')}
@@ -253,7 +265,7 @@ class Profile extends Component {
                             touchableStyle={{ flex: 1 }}
                         />
                     </View>
-                    <View className='ph16 pv16 white row-start'>
+                    <View className='ph16 pv10 white row-start'>
                         {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <DropdownInput
@@ -265,7 +277,7 @@ class Profile extends Component {
                             style={styles.dropdown}
                         />
                     </View>
-                    <View className='ph16 pv16 white row-start'>
+                    <View className='ph16 pv10 white row-start'>
                         {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
                         <View style={styles.leftSpace} />
                         <DropdownInput
