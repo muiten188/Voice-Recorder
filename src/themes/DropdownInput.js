@@ -50,7 +50,7 @@ export default class DropdownInput extends Component {
     }
 
     render() {
-        const { style, popupTitle, values, label } = this.props
+        const { style, popupTitle, values, label, error } = this.props
         return (
             <View style={style}>
                 <Modal
@@ -83,6 +83,7 @@ export default class DropdownInput extends Component {
                             <Text className='s13 textBlack flex'>{this._getDisplayValue()}</Text>
                             <Image source={require('~/src/image/dropdown.png')} style={{ width: 8, height: 4 }} />
                         </View>
+                        {!!error && <Text className='error'>{error}</Text>}
                     </View>
                 </TouchableOpacity>
             </View>

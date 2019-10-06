@@ -130,70 +130,58 @@ export const FOREGROUND_NOTIFICATION_ID = {
 export const NUMBER_TRY_UPLOAD = 3
 
 export const ROLES = {
-    admin: {
-        id: 1,
-        name: I18n.t('role_admin')
-    },
-    editor: {
-        id: 2,
-        name: I18n.t('role_editor')
-    },
-    manager: {
-        id: 3,
-        name: I18n.t('role_manager')
-    },
-    chairman: {
-        id: 4,
-        name: I18n.t('role_chairman')
-    },
-    deputy: {
-        id: 5,
-        name: I18n.t('role_deputy')
-    },
-    user: {
-        id: 6,
-        name: I18n.t('role_user')
-    }
+    ADMIN: 1,
+    EDITOR: 2,
+    MANAGER: 3,
+    CHAIRMAN: 4,
+    DEPUTY: 5,
+    USER: 6
 }
 
 export const ROLES_LIST = [
     {
-        value: 1,
+        value: ROLES.ADMIN,
         name: I18n.t('role_admin')
     },
     {
-        value: 2,
+        value: ROLES.EDITOR,
         name: I18n.t('role_editor')
     },
     {
-        value: 3,
+        value: ROLES.MANAGER,
         name: I18n.t('role_manager')
     },
     {
-        value: 4,
+        value: ROLES.CHAIRMAN,
         name: I18n.t('role_chairman')
     },
     {
-        value: 5,
+        value: ROLES.DEPUTY,
         name: I18n.t('role_deputy')
     },
     {
-        value: 6,
+        value: ROLES.USER,
         name: I18n.t('role_user')
     }
 ]
 
+export const SEX = {
+    MALE: 0,
+    FEMALE: 1,
+    OTHER: 2
+}
+
 export const SEX_LIST = [
     {
-        value: 0,
+        value: SEX.MALE,
         name: I18n.t('male')
     },
     {
-        value: 1,
+        value: SEX.FEMALE,
         name: I18n.t('female')
     },
     {
-        value: 2,
+        value: SEX.OTHER,
         name: I18n.t('other_sex')
     }
 ]

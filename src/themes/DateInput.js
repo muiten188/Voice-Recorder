@@ -91,7 +91,7 @@ export default class DateInput extends Component {
     };
 
     render() {
-        const { label, style, touchableStyle, hasError, placeholder, ...props } = this.props;
+        const { label, style, touchableStyle, hasError, placeholder, error, ...props } = this.props;
         const initDate = this.state.value
             ? new Date(
                 this.state.value.year(),
@@ -103,7 +103,11 @@ export default class DateInput extends Component {
             <TouchableOpacity onPress={this._handlePressChooseDate} style={touchableStyle}>
                 <View style={[styles.contaierStyle, style]}>
                     {!!label && <Text className='s13 textBlack bold'>{label}</Text>}
-                    <Text style={styles.dateText}>{this.getDisplayDate()}</Text>
+                    <View style={styles.dateTextContainer}>
+                        <Text style={styles.dateText}>{this.getDisplayDate()}</Text>
+                    </View>
+
+                    {!!error && <Text className='error pt8'>{error}</Text>}
                     <BottomSheetContainer ref={ref => (this.bottomSheet = ref)}>
                         <View
                             style={[
@@ -141,10 +145,14 @@ const styles = StyleSheet.create({
         paddingTop: 6,
         paddingBottom: 6,
         fontSize: 13,
-        color: COLORS.TEXT_BLACK
+        color: COLORS.TEXT_BLACK,
+
     },
-    contaierStyle: {
+    dateTextContainer: {
         borderBottomWidth: 1,
         borderBottomColor: '#ededed',
+    },
+    contaierStyle: {
+
     }
 })

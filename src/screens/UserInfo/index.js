@@ -9,8 +9,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { logout } from '~/src/store/actions/common'
 import { connect } from 'react-redux'
 import { getListUser, updateOtherUserInfo, createUser } from '~/src/store/actions/user'
-import { chainParse } from '~/src/utils'
-import { ROLES_LIST, SEX_LIST, USER_STATUS_LIST } from '~/src/constants'
+import { chainParse, isValidEmail } from '~/src/utils'
+import { ROLES_LIST, ROLES, SEX_LIST, USER_STATUS_LIST, SEX } from '~/src/constants'
 import LoadingModal from '~/src/components/LoadingModal'
 import { getUserInfo } from '~/src/store/actions/auth'
 import moment from "moment"
@@ -32,16 +32,23 @@ class UserInfo extends Component {
             isEditing: !userId,
             id: userId,
             email: chainParse(userInfo, ['email']),
-            role: chainParse(userInfo, ['role']),
+            role: chainParse(userInfo, ['role']) || ROLES.ADMIN,
             username: chainParse(userInfo, ['username']),
             firstName: chainParse(userInfo, ['first_name']),
             lastName: chainParse(userInfo, ['last_name']),
-            sex: chainParse(userInfo, ['sex']),
-            activated: chainParse(userInfo, ['activated']),
+            sex: chainParse(userInfo, ['sex']) || SEX.MALE,
+            activated: chainParse(userInfo, ['activated']) || true,
             password: '',
             dateOfBirth: dateOfBirth ? moment(dateOfBirth * 1000) : '',
             changed: false,
             loading: false,
+            dobError: '',
+            emailError: '',
+            usernameError: '',
+            firstNameError: '',
+            lastNameError: '',
+            passwordError: ''
+
         }
     }
 
@@ -55,6 +62,28 @@ class UserInfo extends Component {
         // Create User
         if (!this.state.id) {
             const { createUser, getListUser } = this.props
+            if (!this.state.email || !this.state.email.trim()) {
+                this.setState({ emailError: I18n.t('err_filed_require') })
+                return
+            } else if (!isValidEmail(this.state.email)) {
+                this.setState({ emailError: I18n.t('err_invalid_email') })
+                return
+            } else if (!this.state.username || !this.state.username.trim()) {
+                this.setState({ usernameError: I18n.t('err_filed_require') })
+                return
+            } else if (!this.state.firstName || !this.state.firstName.trim()) {
+                this.setState({ firstNameError: I18n.t('err_filed_require') })
+                return
+            } else if (!this.state.lastName || !this.state.lastName.trim()) {
+                this.setState({ lastNameError: I18n.t('err_filed_require') })
+                return
+            } else if (!this.state.dateOfBirth) {
+                this.setState({ dobError: I18n.t('err_filed_require') })
+                return
+            } else if (!this.state.password || !this.state.password.trim()) {
+                this.setState({ passwordError: I18n.t('err_filed_require') })
+                return
+            }
             this.setState({ loading: true })
             createUser({
                 role: this.state.role,
@@ -72,20 +101,21 @@ class UserInfo extends Component {
                 console.log('role err', err)
                 console.log('role data', data)
                 const statusCode = chainParse(data, ['httpHeaders', 'status'])
-                this.setState({ loading: false, isEditing: false })
+                this.setState({ loading: false })
                 if (data && data.code && data.message) {
                     try {
                         const messageObj = JSON.parse(data.message)
                         if (messageObj.message) {
                             ToastUtils.showErrorToast(messageObj.message)
                         }
-                    }catch(err){
+                    } catch (err) {
                         console.log('Parse json err', err)
+                        ToastUtils.showErrorToast(data.message)
                     }
-                    
+
                 } else if (statusCode == 200) {
                     getListUser()
-                    ToastUtils.showSuccessToast(I18n.t('update_profile_success'))
+                    ToastUtils.showSuccessToast(I18n.t('create_user_success'))
                     this.props.navigation.goBack()
                 }
             })
@@ -152,7 +182,7 @@ class UserInfo extends Component {
 
     _handleChangeDateOfBirth = (newDob) => {
         console.log('New dob', newDob)
-        this.setState({ dateOfBirth: newDob })
+        this.setState({ dateOfBirth: newDob, dobError: '' })
     }
 
     _handleChangeStatus = (status) => {
@@ -361,7 +391,10 @@ class UserInfo extends Component {
                         <TextInput
                             label={I18n.t('mail')}
                             value={this.state.email}
-                            onChangeText={text => this.setState({ email: text })}
+                            onChangeText={text => this.setState({ email: text, emailError: '' })}
+                            error={this.state.emailError}
+                            keyboardType={'email-address'}
+                            autoCapitalize={'none'}
                         />
                     </View>
                 </View>
@@ -372,7 +405,9 @@ class UserInfo extends Component {
                         <TextInput
                             label={I18n.t('username')}
                             value={this.state.username}
-                            onChangeText={text => this.setState({ username: text })}
+                            onChangeText={text => this.setState({ username: text, usernameError: '' })}
+                            error={this.state.usernameError}
+                            autoCapitalize={'none'}
                         />
                     </View>
                 </View>
@@ -383,7 +418,8 @@ class UserInfo extends Component {
                         <TextInput
                             label={I18n.t('first_name')}
                             value={this.state.firstName}
-                            onChangeText={text => this.setState({ firstName: text })}
+                            onChangeText={text => this.setState({ firstName: text, firstNameError: '' })}
+                            error={this.state.firstNameError}
                         />
                     </View>
 
@@ -395,7 +431,8 @@ class UserInfo extends Component {
                         <TextInput
                             label={I18n.t('last_name')}
                             value={this.state.lastName}
-                            onChangeText={text => this.setState({ lastName: text })}
+                            onChangeText={text => this.setState({ lastName: text, lastNameError: '' })}
+                            error={this.state.lastNameError}
                         />
                     </View>
 
@@ -406,6 +443,7 @@ class UserInfo extends Component {
                         label={I18n.t('date_of_birth')}
                         value={this.state.dateOfBirth}
                         onChange={this._handleChangeDateOfBirth}
+                        error={this.state.dobError}
                         touchableStyle={{ flex: 1 }}
                     />
                 </View>
@@ -438,7 +476,8 @@ class UserInfo extends Component {
                         <TextInput
                             label={I18n.t('password')}
                             value={this.state.password}
-                            onChangeText={text => this.setState({ password: text })}
+                            onChangeText={text => this.setState({ password: text, passwordError: '' })}
+                            error={this.state.passwordError}
                         />
                     </View>
 

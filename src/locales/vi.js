@@ -53,7 +53,9 @@ const language = {
     inactive: 'Dừng hoạt động',
     username: 'Tên người dùng',
     choose_status: 'Chọn trạng thái',
-    
+    err_filed_require: 'Trường này không được để trống',
+    err_invalid_email: 'Email không hợp lệ',
+    create_user_success: 'Tạo người dùng thành công',
 
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',
     agree: 'Đồng ý',
