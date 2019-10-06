@@ -49,6 +49,9 @@ const language = {
     choose_sex: 'Chọn giới tính',
     date_of_birth: 'Ngày sinh',
     update_profile_success: 'Cập nhật thông tin thành công',
+    active: 'Đang hoạt động',
+    inactive: 'Dừng hoạt động',
+    username: 'Tên người dùng',
     
 
     full_date_time_format: 'HH:mm:ss DD/MM/YYYY',

@@ -36,4 +36,8 @@ export const INFO_SET_CONNECTION = 'app/setConnection'
 // setting
 export const SETTING_UPDATE = 'setting/update'
 
+// user
+export const USER_GET_LIST = 'user/getList'
+export const USER_SET_LIST = 'user/setList'
+
 

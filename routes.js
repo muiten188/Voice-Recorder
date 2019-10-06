@@ -20,7 +20,7 @@ import Settings from '~/src/screens/Settings'
 import Login from '~/src/screens/Login'
 import Intro from '~/src/screens/Intro'
 import Record from '~/src/screens/Record'
-import MyAccount from '~/src/screens/MyAccount'
+import Profile from '~/src/screens/Profile'
 import ChangePassword from '~/src/screens/ChangePassword'
 import Player from '~/src/screens/Player'
 
@@ -65,7 +65,7 @@ const AppNavigator = createStackNavigator(
         Record,
         Login,
         Intro,
-        MyAccount,
+        Profile,
         ChangePassword,
         Player
     },

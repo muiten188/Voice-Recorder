@@ -5,6 +5,7 @@ import localRecord from '~/src/store/reducers/localRecord'
 import meeting from '~/src/store/reducers/meeting'
 import setting from '~/src/store/reducers/setting'
 import transcription from '~/src/store/reducers/transcription'
+import user from '~/src/store/reducers/user'
 
 
 const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     localRecord,
     meeting,
     transcription,
-    setting
+    setting,
+    user
 });
 
 export default rootReducer;

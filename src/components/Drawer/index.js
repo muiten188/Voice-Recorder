@@ -61,7 +61,7 @@ class Drawer extends Component {
 
     _handlePressAccountInfo = () => {
         this.props.navigation.closeDrawer()
-        this.props.navigation.navigate('MyAccount')
+        this.props.navigation.navigate('Profile')
     }
 
     render() {

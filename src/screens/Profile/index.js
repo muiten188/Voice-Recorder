@@ -16,7 +16,7 @@ import LoadingModal from '~/src/components/LoadingModal'
 import { getUserInfo } from '~/src/store/actions/auth'
 import moment from "moment"
 import ToastUtils from '~/src/utils/ToastUtils'
-class MyAccount extends Component {
+class Profile extends Component {
 
     static navigationOptions = {
         headerMode: "none",
@@ -344,4 +344,4 @@ export default connect(state => ({
     userInfo: userInfoSelector(state)
 }), {
     updateUserInfo, logout, getUserInfo
-})(MyAccount)
+})(Profile)
