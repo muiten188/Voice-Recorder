@@ -538,14 +538,6 @@ class UserInfo extends Component {
                         </TouchableOpacityHitSlop>
                     </View>
                     {this._render()}
-
-                    {!this.state.isEditing && <View className='row-center'>
-                        <SmallButton
-                            red
-                            text={I18n.t('logout')}
-                            onPress={this._handlePressLogout}
-                        />
-                    </View>}
                     <View className='space32' />
                 </KeyboardAwareScrollView>
             </View>
