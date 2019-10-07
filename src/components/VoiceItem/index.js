@@ -37,8 +37,13 @@ export default class VoiceItem extends PureComponent {
             outputRange: [1, 0],
             extrapolate: 'clamp',
         });
+        const opacity = dragX.interpolate({
+            inputRange: [-120, 0],
+            outputRange: [1, 0],
+            extrapolate: 'clamp',
+        });
         return (
-            <Animated.View style={[styles.container, { transform: [{ scale }] }]}>
+            <Animated.View style={[styles.container, { transform: [{ scale }], opacity }]}>
                 <View className='row-start'>
                     <TouchableOpacityHitSlop onPress={this._handlePressInfo}>
                         <View
