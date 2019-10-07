@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { TouchableOpacity, Image, FlatList, Platform, ActivityIndicator, AppState } from 'react-native'
-import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop } from "~/src/themes/ThemeComponent"
+import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop, PopupConfirm } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
 import VoiceItem from '~/src/components/VoiceItem'
@@ -13,7 +13,6 @@ import { addRecord, deleteRecord } from '~/src/store/actions/localRecord'
 import { meetingListSelector } from '~/src/store/selectors/meeting'
 import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord'
 import DocumentPicker from 'react-native-document-picker'
-import RNFetchBlob from "rn-fetch-blob"
 import Permissions from 'react-native-permissions'
 import BackgroundTimer from 'react-native-background-timer'
 import lodash from 'lodash'
@@ -26,6 +25,7 @@ import ContextMenu from '~/src/components/ContextMenu'
 import { COLORS } from '~/src/themes/common'
 import RNGetRealPath from 'react-native-get-real-path'
 import { isConnectSelector } from '~/src/store/selectors/info'
+import moment from "moment"
 
 class Home extends Component {
     constructor(props) {
@@ -39,7 +39,8 @@ class Home extends Component {
             popupDeleteContent: '',
             loading: false,
             loadingFullscreen: false,
-            refresing: false
+            refresing: false,
+            recordInfo: null
         }
         this.didFocusListener = props.navigation.addListener(
             "didFocus",
@@ -165,8 +166,12 @@ class Home extends Component {
         this.props.navigation.navigate('Record')
     }
 
-    _handlePressInfo = (record) => {
-        console.log('_handlePressInfo', record)
+    _handlePressInfo = (recordInfo) => {
+        console.log('_handlePressInfo', recordInfo)
+        this.setState({ recordInfo }, () => {
+            this.popupInfo && this.popupInfo.open()
+        })
+
     }
 
     _handlePressDelete = (record) => {
@@ -199,6 +204,9 @@ class Home extends Component {
                 progress={item.progress}
                 name={item.name}
                 create_time={item.create_time}
+                first_name={chainParse(item, ['user_info', 'first_name'])}
+                last_name={chainParse(item, ['user_info', 'last_name'])}
+                email={chainParse(item, ['user_info', 'email'])}
                 onPressInfo={this._handlePressInfo}
                 onPressDelete={this._handlePressDelete}
                 onPress={this._handlePressItem}
@@ -387,14 +395,28 @@ class Home extends Component {
                     content={this.state.popupDeleteContent}
                     positiveText={I18n.t('delete_audio')}
                     onPressYes={this._deleteMeeting}
-
                 />
+                <PopupConfirm
+                    oneButton={true}
+                    ref={ref => this.popupInfo = ref}
+                    title={I18n.t('info')}
+                >
+                    {this.state.recordInfo ?
+                        <View className='pv16'>
+                            <Text className='s14 mb8'>{I18n.t('record_name')}: <Text className='textBlack bold s15'>{chainParse(this.state, ['recordInfo', 'name'])}</Text></Text>
+                            <Text className='s14 mb8'>{I18n.t('create_time')}: <Text className='textBlack bold s15'>{chainParse(this.state, ['recordInfo', 'create_time']) ? moment(chainParse(this.state, ['recordInfo', 'create_time']) * 1000).format(I18n.t('full_date_time_format')) : ''}</Text></Text>
+                            <Text className='s14 mb8'>{I18n.t('create_by')}: <Text className='textBlack bold s15'>{chainParse(this.state, ['recordInfo', 'first_name'])} {chainParse(this.state, ['recordInfo', 'last_name'])}</Text></Text>
+                        </View>
+                        :
+                        <View />
+                    }
+                </PopupConfirm>
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
                     onPressLeft={this._handlePressLeftMenu}
                     title={I18n.t('home_title')}
-                    avatar={require('~/src/image/default_avatar.jpg')} 
-                    />
+                    avatar={require('~/src/image/default_avatar.jpg')}
+                />
                 <View className='ph16 pv10'>
                     <View className='row-start'>
                         <SearchBox

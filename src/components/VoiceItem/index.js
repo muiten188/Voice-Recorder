@@ -13,8 +13,8 @@ export default class VoiceItem extends PureComponent {
     }
 
     _handlePressInfo = () => {
-        const { onPressInfo, id, name } = this.props
-        onPressInfo && onPressInfo({ id, name })
+        const { onPressInfo, id, name, status, create_time, first_name, last_name, email } = this.props
+        onPressInfo && onPressInfo({ id, name, create_time, first_name, last_name, email, status })
     }
 
     _handlePressDelete = () => {

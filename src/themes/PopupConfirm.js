@@ -41,6 +41,7 @@ export default class PopupConfirm extends React.PureComponent {
 
     _getHighlightContent = () => {
         const { content } = this.props
+        if (!content) return <Text></Text>
         const splitArr = content.split("\"")
         return (
             <Text style={styles.popupText}>
@@ -66,7 +67,7 @@ export default class PopupConfirm extends React.PureComponent {
     }
 
     render() {
-        const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), children } = this.props
+        const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), oneButton = false, children } = this.props
         return (
             <Modal
                 animationType={'none'}
@@ -92,19 +93,29 @@ export default class PopupConfirm extends React.PureComponent {
                                             <Text style={styles.popupText}>{this._getHighlightContent()}</Text>
                                         </View>
                                     }
-                                    <View style={styles.buttonBlock}>
-                                        <SmallButton
-                                            gray
-                                            text={negativeText}
-                                            onPress={this._handlePressNo}
-                                            style={styles.buttonLeft}
-                                        />
-                                        <SmallButton
-                                            text={I18n.t('agree')}
-                                            onPress={this._handlePressYes}
-                                            style={styles.buttonRight}
-                                        />
-                                    </View>
+                                    {oneButton ?
+                                        <View style={styles.buttonBlock}>
+                                            <SmallButton
+                                                text={I18n.t('close')}
+                                                onPress={this._handlePressYes}
+                                            />
+                                        </View>
+                                        :
+                                        <View style={styles.buttonBlock}>
+                                            {!!negativeText && <SmallButton
+                                                gray
+                                                text={negativeText}
+                                                onPress={this._handlePressNo}
+                                                style={styles.buttonLeft}
+                                            />}
+                                            <SmallButton
+                                                text={I18n.t('agree')}
+                                                onPress={this._handlePressYes}
+                                                style={styles.buttonRight}
+                                            />
+                                        </View>
+                                    }
+
                                 </View>
                             </View>
                         </View>
