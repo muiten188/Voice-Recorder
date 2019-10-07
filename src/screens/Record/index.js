@@ -5,7 +5,7 @@ import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE, FOREGROUND_NOTIFICATION_ID } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import { DEVICE_WIDTH, COLORS } from "~/src/themes/common";
-import { scaleHeight, getFontStyle, getRecordTimeString, startForegroundService, stopForegroundService } from '~/src/utils'
+import { scaleHeight, getFontStyle, getRecordTimeString, startForegroundService, stopForegroundService, prepareSaveFilePath } from '~/src/utils'
 import styles from './styles'
 import I18n from '~/src/I18n'
 import ToastUtils from '~/src/utils/ToastUtils'
@@ -44,6 +44,7 @@ class Record extends Component {
         }
         this.fileName = ''
         this.audioPath = ''
+        this.basePath = ''
     }
 
     _prepareRecordingPath = (audioPath) => {
@@ -150,18 +151,12 @@ class Record extends Component {
         }
     }
 
-    _getBasePath = () => {
-        if (Platform.OS == 'ios') {
-            return AudioUtils.DocumentDirectoryPath
-        }
-        return AudioUtils.DownloadsDirectoryPath
-    }
-
     _startRecord = async () => {
         const { setting } = this.props
         const audioId = moment().format('YYYYMMDDHHmmss')
         this.fileName = `${setting.defaultName} ${audioId}`
-        this.audioPath = `${this._getBasePath()}/${this.fileName}.aac`
+        this.basePath = await prepareSaveFilePath()
+        this.audioPath = `${this.basePath}/${this.fileName}.aac`
         console.log('Audio path', this.audioPath)
         this._prepareRecordingPath(this.audioPath);
         AudioRecorder.onProgress = (data) => {
@@ -283,8 +278,8 @@ class Record extends Component {
         try {
             console.log('File name input', this.state.fileNameInput)
             console.log('Origin filename', this.fileName)
-            const originPath = `${this._getBasePath()}/${this.fileName}.aac`
-            const newPath = `${this._getBasePath()}/${this.state.fileNameInput}.aac`
+            const originPath = `${this.basePath}/${this.fileName}.aac`
+            const newPath = `${this.basePath}/${this.state.fileNameInput}.aac`
             if (this.fileName != this.state.fileNameInput) {
                 await RNFetchBlob.fs.mv(originPath, newPath)
             }

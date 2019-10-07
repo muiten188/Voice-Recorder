@@ -8,8 +8,8 @@ import { connect } from 'react-redux'
 import APIManager from '~/src/store/api/APIManager'
 import Sound from 'react-native-sound'
 import styles from './styles'
-import { MEETING_STATUS, FILE_TYPES } from '~/src/constants'
-import { getPlayerTimeString, chainParse } from '~/src/utils'
+import { MEETING_STATUS, FILE_TYPES, APP_FOLDER } from '~/src/constants'
+import { getPlayerTimeString, chainParse, prepareSaveFilePath } from '~/src/utils'
 import { getTranscription, getTranscriptionSentence, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
 import { transcriptionSelector, transcriptionSentenceSelector } from '~/src/store/selectors/transcription'
 import RNFetchBlob from 'rn-fetch-blob'
@@ -123,50 +123,6 @@ class Player extends Component {
             this.setState({ playing: true })
         }
     }
-
-    // _measureTranscript = async () => {
-    //     if (this.measureTranscript != null) return
-    //     const { transcriptionSentence } = this.props
-    //     const measureRatio = await this._getFontMeasureRatio()
-    //     if (transcriptionSentence && transcriptionSentence.length > 0) {
-    //         const texts = transcriptionSentence.map(item => item[3])
-    //         MeasureText.heights({
-    //             texts,
-    //             width: DEVICE_WIDTH - 32,
-    //             fontSize: 15,
-    //             lineHeight: 24,
-    //             fontFamily: Platform.OS == 'android' ? 'sans-serif' : 'system',
-    //             fontWeight: 'normal'
-    //         }).then(sizes => {
-    //             console.log('Measured sizes', sizes)
-    //             const caculatedSize = []
-    //             let sumItr = 0
-    //             for (let i = 0; i < sizes.length; i++) {
-    //                 sumItr += sizes[i] * measureRatio
-    //                 caculatedSize[i] = sumItr
-    //             }
-    //             this.measureTranscript = caculatedSize
-    //             console.log('caculatedSize', caculatedSize)
-    //         })
-    //     }
-
-    // }
-
-    // _getFontMeasureRatio = async () => {
-    //     const measureSize = await MeasureText.heights({
-    //         texts: ["A"],
-    //         width: DEVICE_WIDTH - 32,
-    //         fontSize: 15,
-    //         lineHeight: 24,
-    //         fontFamily: Platform.OS == 'android' ? 'sans-serif' : 'system',
-    //         fontWeight: 'normal'
-    //     })
-    //     const actualSize = 24
-    //     // console.log('measureSize actualSize', measureSize, actualSize)
-    //     if (!measureSize || !measureSize[0]) return 1
-    //     return actualSize / measureSize
-
-    // }
 
     componentDidMount() {
         if (this.meeting.status == MEETING_STATUS.DONE) {
@@ -345,7 +301,9 @@ class Player extends Component {
         console.log('_handleChooseContextMenu', item)
         try {
             await this._requestPermission()
+            
             if (item.id == FILE_TYPES.DOCX) { // Docx
+                const filePath = await prepareSaveFilePath(`${this.meeting.name}.docx`)
                 const { getExportToken } = this.props
                 getExportToken(this.meeting.id, (errExportToken, dataExportToken) => {
                     console.log('getExportToken err', errExportToken)
@@ -354,10 +312,10 @@ class Player extends Component {
                         APIManager.getInstance()
                             .then(apiConfig => {
                                 console.log('Download url', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`)
-                                console.log('Save path', `${Platform.OS == 'android' ? RNFetchBlob.fs.dirs.DownloadDir : RNFetchBlob.fs.dirs.DocumentDir}/${this.meeting.name}.docx`)
+                                console.log('Save path', filePath)
                                 RNFetchBlob
                                     .config({
-                                        path: `${Platform.OS == 'android' ? RNFetchBlob.fs.dirs.DownloadDir : RNFetchBlob.fs.dirs.DocumentDir}/${this.meeting.name}.docx`
+                                        path: filePath
                                     })
                                     .fetch('GET', `${apiConfig.API_URL}/api/v2/meeting/export?token=${dataExportToken.token}`, {})
                                     .then((res) => {
@@ -376,11 +334,12 @@ class Player extends Component {
                     }
                 })
             } else if (item.id == FILE_TYPES.PDF) {
+                await prepareSaveFilePath(`${this.meeting.name}.pdf`)
                 const { transcription } = this.props
                 let options = {
                     html: transcription.transcript_html,
                     fileName: this.meeting.name,
-                    directory: Platform.OS == 'ios' ? 'Documents' : 'Download',
+                    directory: Platform.OS == 'ios' ? 'Documents' : APP_FOLDER,
                 }
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)

@@ -9,9 +9,10 @@ import CryptoJS from "crypto-js";
 import {
     MIN_USERNAME_LENGTH,
     MAX_USERNAME_LENGTH,
-    MAX_LENGTH_NAME
+    MAX_LENGTH_NAME, APP_FOLDER
 } from "~/src/constants";
 import ForegroundService from "@voximplant/react-native-foreground-service"
+import RNFetchBlob from 'rn-fetch-blob'
 
 export const chainParse = (obj, attrArr) => {
     if (!obj || typeof obj != "object") {
@@ -736,4 +737,15 @@ export const startForegroundService = async (id, message) => {
 export const stopForegroundService = async () => {
     if (Platform.OS != 'android') return Promise.resolve('')
     await ForegroundService.stopService();
+}
+
+export const prepareSaveFilePath = async (fileName) => {
+    const fileNameWithSplash = fileName ? '/' + fileName : ''
+    if (Platform.OS == 'ios') return RNFetchBlob.fs.dirs.DocumentDir + fileNameWithSplash
+    const androidDir = RNFetchBlob.fs.dirs.SDCardDir + '/' + APP_FOLDER
+    const isDirExist = RNFetchBlob.fs.exists(androidDir)
+    if (!isDirExist) {
+        await RNFetchBlob.fs.mkdir(androidDir)
+    }
+    return androidDir + fileNameWithSplash
 }

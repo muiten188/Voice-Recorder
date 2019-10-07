@@ -196,3 +196,5 @@ export const USER_STATUS_LIST = [
         name: I18n.t('inactive')
     },
 ]
+
+export const APP_FOLDER = 'Vov Recorder'
