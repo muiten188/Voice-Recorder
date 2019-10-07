@@ -13,13 +13,21 @@ export default class VoiceItem extends PureComponent {
     }
 
     _handlePressInfo = () => {
-        const { onPressInfo, id, name, status, create_time, first_name, last_name, email } = this.props
-        onPressInfo && onPressInfo({ id, name, create_time, first_name, last_name, email, status })
+        this.swipeable && this.swipeable.close()
+        setTimeout(() => {
+            const { onPressInfo, id, name, status, create_time, first_name, last_name, email } = this.props
+            onPressInfo && onPressInfo({ id, name, create_time, first_name, last_name, email, status })
+        }, 0)
+
     }
 
     _handlePressDelete = () => {
-        const { onPressDelete, id, name, localPath } = this.props
-        onPressDelete && onPressDelete({ id, name, localPath })
+        this.swipeable && this.swipeable.close()
+        setTimeout(() => {
+            const { onPressDelete, id, name, localPath } = this.props
+            onPressDelete && onPressDelete({ id, name, localPath })
+        }, 0)
+
     }
 
 
@@ -130,6 +138,7 @@ export default class VoiceItem extends PureComponent {
                 renderRightActions={this._renderRightAction}
                 rightThreshold={40}
                 friction={2}
+                ref={ref => this.swipeable = ref}
             >
                 <TouchableOpacity onPress={this._handlePress}>
                     <View className='row-start'>
