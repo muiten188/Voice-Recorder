@@ -108,6 +108,7 @@ const language = {
     change_password_success: 'Thay đổi mật khẩu thành công, vui lòng đăng nhập lại',
     choose_position: 'Chọn vị trí',
     date_format: 'DD/MM/YYYY',
+    loading_transcription: 'Đang tải văn bản...'
 }
 
 // export default language;

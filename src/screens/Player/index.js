@@ -418,7 +418,7 @@ class Player extends Component {
                     {!transcriptionText ?
                         <View style={styles.transcriptContainer}>
                             <Text className='s15 center lh24 white54'>
-                                {I18n.t('no_data')}
+                                {I18n.t('loading_transcription')}
                             </Text>
                         </View>
                         :
