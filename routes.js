@@ -25,6 +25,7 @@ import ChangePassword from '~/src/screens/ChangePassword'
 import Player from '~/src/screens/Player'
 import UserInfo from '~/src/screens/UserInfo'
 import Files from '~/src/screens/Files'
+import PlayerLocal from '~/src/screens/PlayerLocal'
 
 
 const DrawerNavigator = createDrawerNavigator(
@@ -73,7 +74,8 @@ const AppNavigator = createStackNavigator(
         Profile,
         ChangePassword,
         Player,
-        UserInfo
+        UserInfo,
+        PlayerLocal
     },
     {
         initialRouteName: "AuthLoading",
