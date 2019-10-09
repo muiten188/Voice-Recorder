@@ -114,6 +114,9 @@ const language = {
     create_time: 'Thời gian tạo',
     create_by: 'Tạo bởi',
     record_name: 'Tên',
+    register_account: 'Đăng ký tài khoản',
+    register_new_account: 'Đăng ký tài khoản mới',
+    register_content: "Liên hệ quản trị VOV hotline\n84 24 22105148"
 }
 
 // export default language;

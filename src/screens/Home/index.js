@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { TouchableOpacity, Image, Platform, ActivityIndicator, AppState } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity, Image, Platform, ActivityIndicator, AppState } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop, PopupConfirm } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'

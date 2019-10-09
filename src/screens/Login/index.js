@@ -9,7 +9,8 @@ import {
     RoundTextInput,
     Button,
     TouchableOpacityHitSlop,
-    Text, Checkbox
+    Text, Checkbox,
+    PopupConfirm
 } from "~/src/themes/ThemeComponent";
 import { connect } from "react-redux";
 import I18n from "~/src/I18n";
@@ -94,11 +95,31 @@ class Login extends Component {
     }, 500)
 
 
+    _handlePressRegister = () => {
+        console.log('_handlePressRegister')
+        this.popupRegister && this.popupRegister.open()
+    }
+
     render() {
 
         return (
             <View className='flex white'>
                 <LoadingModal visible={this.state.loading} />
+                <PopupConfirm
+                    ref={ref => this.popupRegister = ref}
+                    oneButton={true}
+                    showHeader={false}
+                >
+                    <View className='column-center'>
+                        <View className='pv16'>
+                            <Text className='s18 lh24 bold textBlack center'>{I18n.t('register_new_account')}</Text>
+                        </View>
+                        <View className='pv16'>
+                            <Text className='s14 lh24 textBlack center'>{I18n.t('register_content')}</Text>
+                        </View>
+                    </View>
+
+                </PopupConfirm>
                 <ImageBackground
                     source={require('~/src/image/bg_login.png')}
                     style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
@@ -155,6 +176,11 @@ class Login extends Component {
                             enableOnAndroid={true}
                         >
                         </KeyboardAwareScrollView> */}
+                        <View style={styles.registerContainer}>
+                            <TouchableOpacityHitSlop onPress={this._handlePressRegister}>
+                                <Text className='green'>{I18n.t('register_account')}</Text>
+                            </TouchableOpacityHitSlop>
+                        </View>
                     </View>
 
                 </ImageBackground>

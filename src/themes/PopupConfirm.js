@@ -67,7 +67,7 @@ export default class PopupConfirm extends React.PureComponent {
     }
 
     render() {
-        const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), oneButton = false, children } = this.props
+        const { title = I18n.t('confirm'), negativeText = I18n.t('cancel'), oneButton = false, showHeader = true, children } = this.props
         return (
             <Modal
                 animationType={'none'}
@@ -79,12 +79,12 @@ export default class PopupConfirm extends React.PureComponent {
                     <View style={styles.backdrop}>
                         <View style={styles.popupOuter}>
                             <View style={styles.popupContainer}>
-                                <View style={styles.header}>
+                                {showHeader && <View style={styles.header}>
                                     <Image source={require('~/src/image/warning.png')}
                                         style={styles.warningIcon}
                                     />
                                     <Title>{title}</Title>
-                                </View>
+                                </View>}
                                 <View style={styles.popupContent}>
                                     {!!children ?
                                         children
