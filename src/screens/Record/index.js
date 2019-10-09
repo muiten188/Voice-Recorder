@@ -15,6 +15,7 @@ import { uploadMeetingRecord } from '~/src/store/actions/meeting'
 import { settingSelector } from '~/src/store/selectors/setting'
 import { connect } from 'react-redux'
 import RNFetchBlob from 'rn-fetch-blob'
+import { userInfoSelector } from '~/src/store/selectors/auth'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -152,10 +153,10 @@ class Record extends Component {
     }
 
     _startRecord = async () => {
-        const { setting } = this.props
+        const { setting, userInfo } = this.props
         const audioId = moment().format('YYYYMMDDHHmmss')
         this.fileName = `${setting.defaultName} ${audioId}`
-        this.basePath = await prepareSaveFilePath()
+        this.basePath = await prepareSaveFilePath(userInfo.username)
         this.audioPath = `${this.basePath}/${this.fileName}.aac`
         console.log('Audio path', this.audioPath)
         this._prepareRecordingPath(this.audioPath);
@@ -339,5 +340,6 @@ class Record extends Component {
     }
 }
 export default connect(state => ({
-    setting: settingSelector(state)
+    setting: settingSelector(state),
+    userInfo: userInfoSelector(state)
 }), { addRecord, uploadMeetingRecord })(Record)

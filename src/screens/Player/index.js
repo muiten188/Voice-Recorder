@@ -12,6 +12,7 @@ import { MEETING_STATUS, FILE_TYPES, APP_FOLDER } from '~/src/constants'
 import { getPlayerTimeString, chainParse, prepareSaveFilePath } from '~/src/utils'
 import { getTranscription, getTranscriptionSentence, getExportToken, exportTranscript } from '~/src/store/actions/transcription'
 import { transcriptionSelector, transcriptionSentenceSelector } from '~/src/store/selectors/transcription'
+import { userInfoSelector } from '~/src/store/selectors/auth'
 import RNFetchBlob from 'rn-fetch-blob'
 import ContextMenu from '~/src/components/ContextMenu'
 const CONTEXT_DATA = [
@@ -301,9 +302,9 @@ class Player extends Component {
         console.log('_handleChooseContextMenu', item)
         try {
             await this._requestPermission()
-            
+            const { userInfo } = this.props
             if (item.id == FILE_TYPES.DOCX) { // Docx
-                const filePath = await prepareSaveFilePath(`${this.meeting.name}.docx`)
+                const filePath = await prepareSaveFilePath(userInfo.username, `${this.meeting.name}.docx`)
                 const { getExportToken } = this.props
                 getExportToken(this.meeting.id, (errExportToken, dataExportToken) => {
                     console.log('getExportToken err', errExportToken)
@@ -334,12 +335,12 @@ class Player extends Component {
                     }
                 })
             } else if (item.id == FILE_TYPES.PDF) {
-                await prepareSaveFilePath(`${this.meeting.name}.pdf`)
+                await prepareSaveFilePath(userInfo.username, `${this.meeting.name}.pdf`)
                 const { transcription } = this.props
                 let options = {
                     html: transcription.transcript_html,
                     fileName: this.meeting.name,
-                    directory: Platform.OS == 'ios' ? 'Documents' : APP_FOLDER,
+                    directory: Platform.OS == 'ios' ? 'Documents' : APP_FOLDER + '/' + userInfo.username,
                 }
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)
@@ -481,7 +482,8 @@ export default connect((state, props) => {
     const meeting = props.navigation.getParam('meeting')
     return {
         transcription: transcriptionSelector(state, meeting.id),
-        transcriptionSentence: transcriptionSentenceSelector(state, meeting.id)
+        transcriptionSentence: transcriptionSentenceSelector(state, meeting.id),
+        userInfo: userInfoSelector(state)
     }
 }, {
     addRecord, getTranscription, getTranscriptionSentence,

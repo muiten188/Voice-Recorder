@@ -38,6 +38,7 @@ export default class PopupConfirmDelete extends React.PureComponent {
 
     _getHighlightContent = () => {
         const { content } = this.props
+        if (!content) return <View />
         const splitArr = content.split("\"")
         return (
             <Text className='textBlack s13 center'>

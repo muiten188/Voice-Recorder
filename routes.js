@@ -24,6 +24,7 @@ import Profile from '~/src/screens/Profile'
 import ChangePassword from '~/src/screens/ChangePassword'
 import Player from '~/src/screens/Player'
 import UserInfo from '~/src/screens/UserInfo'
+import Files from '~/src/screens/Files'
 
 
 const DrawerNavigator = createDrawerNavigator(
@@ -36,6 +37,9 @@ const DrawerNavigator = createDrawerNavigator(
         },
         UserManager: {
             screen: UserManager,
+        },
+        Files: {
+            screen: Files
         },
         Settings: {
             screen: Settings,

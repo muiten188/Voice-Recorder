@@ -739,13 +739,21 @@ export const stopForegroundService = async () => {
     await ForegroundService.stopService();
 }
 
-export const prepareSaveFilePath = async (fileName) => {
+export const prepareSaveFilePath = async (username, fileName) => {
     const fileNameWithSplash = fileName ? '/' + fileName : ''
     if (Platform.OS == 'ios') return RNFetchBlob.fs.dirs.DocumentDir + fileNameWithSplash
-    const androidDir = RNFetchBlob.fs.dirs.SDCardDir + '/' + APP_FOLDER
-    const isDirExist = RNFetchBlob.fs.exists(androidDir)
-    if (!isDirExist) {
-        await RNFetchBlob.fs.mkdir(androidDir)
+    const androidAppDir = RNFetchBlob.fs.dirs.SDCardDir + '/' + APP_FOLDER
+    const androidAppDirByUser = RNFetchBlob.fs.dirs.SDCardDir + '/' + APP_FOLDER + '/' + username
+    const isAppDirExists = await RNFetchBlob.fs.exists(androidAppDir)
+    if (!isAppDirExists) {
+        await RNFetchBlob.fs.mkdir(androidAppDir)
+        await RNFetchBlob.fs.mkdir(androidAppDirByUser)
+    } else {
+        const isAppDirByUserExists = await RNFetchBlob.fs.exists(androidAppDirByUser)
+        if (!isAppDirByUserExists) {
+            await RNFetchBlob.fs.mkdir(androidAppDirByUser)
+        }
     }
-    return androidDir + fileNameWithSplash
+
+    return androidAppDirByUser + fileNameWithSplash
 }

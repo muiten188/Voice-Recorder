@@ -19,10 +19,16 @@ const DRAWER_MENUS = [
         icon: require('~/src/image/usermanager.png')
     },
     {
+        key: 'Files',
+        label: I18n.t('record_file'),
+        icon: require('~/src/image/document.png')
+    },
+    {
         key: 'Settings',
         label: I18n.t('setting_title'),
         icon: require('~/src/image/setting.png')
     },
+    
 ]
 
 class Drawer extends Component {
