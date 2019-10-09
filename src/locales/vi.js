@@ -118,6 +118,7 @@ const language = {
     register_new_account: 'Đăng ký tài khoản mới',
     register_content: "Liên hệ quản trị VOV hotline\n84 24 22105148",
     record_file: 'Tệp ghi âm',
+    delete_file_success: 'Xoá tệp "*****" thành công',
 }
 
 // export default language;

@@ -6,13 +6,19 @@ import I18n from '~/src/I18n'
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { userInfoSelector } from '~/src/store/selectors/auth'
-import { prepareSaveFilePath } from '~/src/utils'
+import { prepareSaveFilePath, replacePatternString } from '~/src/utils'
+import RNFetchBlob from "rn-fetch-blob"
+import FileItem from './FileItem'
+import ToastUtils from '~/src/utils/ToastUtils'
 
 class Files extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            files: [],
+            popupDeleteContent: ''
         }
+        this.filePath = ''
         this.didFocusListener = props.navigation.addListener(
             "didFocus",
             this.componentDidFocus
@@ -24,8 +30,27 @@ class Files extends Component {
         this.props.navigation.openDrawer()
     }
 
+    _loadFiles = async () => {
+        try {
+            const { userInfo } = this.props
+            console.log('userInfio', userInfo)
+            this.filePath = await prepareSaveFilePath(userInfo.username)
+            const files = await RNFetchBlob.fs.ls(this.filePath)
+            const audioFiles = files.filter(item => item.endsWith('aac') || item.endsWith('mp3'))
+            this.setState({ files: audioFiles })
+        } catch (err) {
+            console.log('Files err', err)
+        }
+    }
+
     componentDidFocus = async () => {
         console.log("Files Did Focus")
+        try {
+            await this._requestPermission()
+            this._loadFiles()
+        } catch (err) {
+            console.log('Permission err', err)
+        }
     }
 
 
@@ -45,17 +70,43 @@ class Files extends Component {
         })
     }
 
-    componentDidMount = async () => {
-        try {
-            const { userInfo } = this.props
-            console.log('userInfio', userInfo)
-            await this._requestPermission()
-        } catch (err) {
-            console.log('Files err', err)
-        }
+    componentDidMount = () => {
     }
 
-    _keyExtractor = item => item.id + ''
+    _keyExtractor = item => item
+
+    _handlePress = (item) => {
+        console.log('Pressing Item', item)
+    }
+
+    _handlePressDelete = (item) => {
+        console.log('_handlePressDelete', item)
+        this.deletingItem = item
+        this.setState({ popupDeleteContent: item }, () => {
+            this.popupConfirmDelete && this.popupConfirmDelete.open()
+        })
+    }
+
+    _deleteFile = async () => {
+        console.log('_deleteFile', this.deletingItem)
+        if (!this.deletingItem) return
+        await RNFetchBlob.fs.unlink(this.filePath + '/' + this.deletingItem)
+        ToastUtils.showSuccessToast(replacePatternString(I18n.t('delete_file_success'), this.deletingItem))
+        this.deletingItem = ''
+        this._loadFiles()
+    }
+
+    _renderFileItem = ({ item, index }) => {
+        return (
+            <FileItem
+                item={item}
+                onPress={this._handlePress}
+                onPressDelete={this._handlePressDelete}
+            />
+        )
+    }
+
+
 
     render() {
 
@@ -66,7 +117,7 @@ class Files extends Component {
                     title={I18n.t('delete_audio_confirm_title')}
                     content={this.state.popupDeleteContent}
                     positiveText={I18n.t('delete_audio')}
-                    onPressYes={this._deleteMeeting}
+                    onPressYes={this._deleteFile}
                 />
                 <GradientToolbar
                     leftIcon={require('~/src/image/menu.png')}
@@ -74,17 +125,12 @@ class Files extends Component {
                     title={I18n.t('record_file')}
                     avatar={require('~/src/image/default_avatar.jpg')}
                 />
-                {/* <FlatList
-                    key={'dataList'}
-                    onRefresh={this._refresh}
-                    refreshing={this.state.refresing}
-                    data={listData}
+                <FlatList
+                    data={this.state.files}
                     keyExtractor={this._keyExtractor}
-                    renderItem={this._renderMeetingItem}
+                    renderItem={this._renderFileItem}
                     ListFooterComponent={<View className='space100' />}
-                    onEndReachedThreshold={0.2}
-                    onEndReached={this._loadMore}
-                /> */}
+                />
 
             </View>
         )
