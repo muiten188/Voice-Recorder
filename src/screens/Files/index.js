@@ -35,6 +35,7 @@ class Files extends Component {
             const { userInfo } = this.props
             console.log('userInfio', userInfo)
             this.filePath = await prepareSaveFilePath(userInfo.username)
+            console.log('Filepath', this.filePath)
             const files = await RNFetchBlob.fs.ls(this.filePath)
             const audioFiles = files.filter(item => item.endsWith('aac') || item.endsWith('mp3'))
             this.setState({ files: audioFiles })

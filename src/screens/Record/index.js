@@ -69,9 +69,12 @@ class Record extends Component {
     componentDidMount() {
         console.log('AudioUtils', AudioUtils)
         if (Platform.OS == 'ios') {
-            this.setState({
-                permissionMicrophone: PERMISSION_RESPONSE.AUTHORIZED,
-                permissionStorage: PERMISSION_RESPONSE.AUTHORIZED
+            Permissions.check('microphone', { type: 'always' }).then(response => {
+                console.log('Check res microphone ios', response)
+                this.setState({
+                    permissionMicrophone: response,
+                    permissionStorage: PERMISSION_RESPONSE.AUTHORIZED
+                })
             })
         } else {
             Permissions.checkMultiple(['microphone', 'storage'], { type: 'always' }).then(response => {
@@ -88,23 +91,40 @@ class Record extends Component {
     _checkPermission = () => {
         return new Promise((resolve, reject) => {
             if (Platform.OS == 'ios') {
-                resolve('Permisson accept')
-            }
-            Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {
-                console.log('Request microphone res', responseMicrophone)
-                Permissions.request('storage', { type: 'always' }).then(responseStorage => {
-                    console.log('Request storage res', responseStorage)
+                console.log('Requesting iOS')
+                Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {
+                    console.log('Request microphone res', responseMicrophone)
                     this.setState({
                         permissionMicrophone: responseMicrophone,
-                        permissionStorage: responseStorage
+                        permissionStorage: PERMISSION_RESPONSE.AUTHORIZED
                     })
-                    if (responseMicrophone != PERMISSION_RESPONSE.AUTHORIZED
-                        || responseStorage != PERMISSION_RESPONSE.AUTHORIZED) {
+                    if (responseMicrophone != PERMISSION_RESPONSE.AUTHORIZED) {
                         reject('Permission reject')
+                        return
                     }
                     resolve('Permisson accept')
+                    return
                 })
-            })
+            } else {
+                Permissions.request('microphone', { type: 'always' }).then(responseMicrophone => {
+                    console.log('Request microphone res', responseMicrophone)
+                    Permissions.request('storage', { type: 'always' }).then(responseStorage => {
+                        console.log('Request storage res', responseStorage)
+                        this.setState({
+                            permissionMicrophone: responseMicrophone,
+                            permissionStorage: responseStorage
+                        })
+                        if (responseMicrophone != PERMISSION_RESPONSE.AUTHORIZED
+                            || responseStorage != PERMISSION_RESPONSE.AUTHORIZED) {
+                            reject('Permission reject')
+                            return
+                        }
+                        resolve('Permisson accept')
+                        return
+                    })
+                })
+            }
+
         })
     }
 

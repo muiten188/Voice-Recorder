@@ -144,7 +144,6 @@ export const textStyles = {
     },
     inputAccessoryText: {
         fontSize: 15,
-        fontFamily: 'SFProText-Medium',
         color: COLORS.CERULEAN,
         paddingHorizontal: 16,
         paddingVertical: 12
@@ -165,7 +164,6 @@ export default StyledText = (props) => {
 }
 
 export const Title = styled.Text`
-    font-family: SFProText-Medium;
     color: ${COLORS.TEXT_BLACK};
     font-size: 16;
     lineHeight: 24;

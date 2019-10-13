@@ -741,7 +741,14 @@ export const stopForegroundService = async () => {
 
 export const prepareSaveFilePath = async (username, fileName) => {
     const fileNameWithSplash = fileName ? '/' + fileName : ''
-    if (Platform.OS == 'ios') return RNFetchBlob.fs.dirs.DocumentDir + fileNameWithSplash
+    if (Platform.OS == 'ios') {
+        const iosAppDirByUser = RNFetchBlob.fs.dirs.DocumentDir + '/' + username
+        const isAppDirByUserExists = await RNFetchBlob.fs.exists(iosAppDirByUser)
+        if (!isAppDirByUserExists){
+            await RNFetchBlob.fs.mkdir(iosAppDirByUser)
+        }
+        return iosAppDirByUser + fileNameWithSplash
+    }
     const androidAppDir = RNFetchBlob.fs.dirs.SDCardDir + '/' + APP_FOLDER
     const androidAppDirByUser = RNFetchBlob.fs.dirs.SDCardDir + '/' + APP_FOLDER + '/' + username
     const isAppDirExists = await RNFetchBlob.fs.exists(androidAppDir)
