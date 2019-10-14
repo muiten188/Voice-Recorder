@@ -78,9 +78,10 @@ class Files extends Component {
 
     _handlePress = (item) => {
         console.log('Pressing Item', item)
+        
         this.props.navigation.navigate('PlayerLocal', {
             name: item,
-            path: this.filePath + '/' + item
+            path: Platform.OS == 'ios' ? encodeURI(this.filePath + '/' + item) : this.filePath + '/' + item
         })
     }
 

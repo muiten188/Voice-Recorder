@@ -335,7 +335,8 @@ class Player extends Component {
                     }
                 })
             } else if (item.id == FILE_TYPES.PDF) {
-                await prepareSaveFilePath(userInfo.username, `${this.meeting.name}.pdf`)
+                const savePath = await prepareSaveFilePath(userInfo.username, `${this.meeting.name}.pdf`)
+                console.log('Save Path', savePath)
                 const { transcription } = this.props
                 let options = {
                     html: transcription.transcript_html,
@@ -344,9 +345,12 @@ class Player extends Component {
                 }
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)
-                ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${file.filePath}"`)
+                if (Platform.OS == 'ios'){
+                    await RNFetchBlob.fs.mv(file.filePath, savePath)
+                }
+                ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${savePath}"`)
                 setTimeout(() => {
-                    this._openFile(file.filePath, 'pdf')
+                    this._openFile(savePath, 'pdf')
                 }, 500)
 
             }
