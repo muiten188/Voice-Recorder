@@ -10,6 +10,8 @@ import { prepareSaveFilePath, replacePatternString } from '~/src/utils'
 import RNFetchBlob from "rn-fetch-blob"
 import FileItem from './FileItem'
 import ToastUtils from '~/src/utils/ToastUtils'
+import { addRecord } from '~/src/store/actions/localRecord'
+import { uploadMeetingRecord } from '~/src/store/actions/meeting'
 
 class Files extends Component {
     constructor(props) {
@@ -78,7 +80,7 @@ class Files extends Component {
 
     _handlePress = (item) => {
         console.log('Pressing Item', item)
-        
+
         this.props.navigation.navigate('PlayerLocal', {
             name: item,
             path: Platform.OS == 'ios' ? encodeURI(this.filePath + '/' + item) : this.filePath + '/' + item
@@ -92,6 +94,19 @@ class Files extends Component {
             this.popupConfirmDelete && this.popupConfirmDelete.open()
         })
     }
+
+    _handlePressUpload = (item) => {
+        console.log('_handlePressUpload', item)
+        const { addRecord } = this.props
+        const filePath = this.filePath + '/' + item
+        addRecord(filePath)
+        setTimeout(() => {
+            uploadMeetingRecord()
+        }, 100)
+        ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), item))
+        this.props.navigation.navigate('Home')
+    }
+
 
     _deleteFile = async () => {
         console.log('_deleteFile', this.deletingItem)
@@ -108,6 +123,7 @@ class Files extends Component {
                 item={item}
                 onPress={this._handlePress}
                 onPressDelete={this._handlePressDelete}
+                onPressUpload={this._handlePressUpload}
             />
         )
     }
@@ -145,4 +161,4 @@ class Files extends Component {
 
 export default connect(state => ({
     userInfo: userInfoSelector(state)
-}))(Files)
+}), { addRecord, uploadMeetingRecord })(Files)

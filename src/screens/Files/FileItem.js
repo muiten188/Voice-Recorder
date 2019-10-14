@@ -18,24 +18,39 @@ export default class FileItem extends PureComponent {
             const { onPressDelete, item } = this.props
             onPressDelete && onPressDelete(item)
         }, 0)
+    }
 
+    _handlePressUpload = () => {
+        this.swipeable && this.swipeable.close()
+        setTimeout(() => {
+            const { onPressUpload, item } = this.props
+            onPressUpload && onPressUpload(item)
+        }, 0)
     }
 
 
     _renderRightAction = (progress, dragX) => {
         const scale = dragX.interpolate({
-            inputRange: [-60, 0],
+            inputRange: [-120, 0],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         });
         const opacity = dragX.interpolate({
-            inputRange: [-60, 0],
+            inputRange: [-120, 0],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         });
         return (
             <Animated.View style={[styles.container, { transform: [{ scale }], opacity }]}>
                 <View className='row-start'>
+                    <TouchableOpacityHitSlop onPress={this._handlePressUpload}>
+                        <View
+                            className='row-center'
+                            style={{ width: 60, height: 55 }}
+                        >
+                            <Image source={require('~/src/image/import.png')} style={{ width: 20, height: 20 }} />
+                        </View>
+                    </TouchableOpacityHitSlop>
                     <TouchableOpacityHitSlop onPress={this._handlePressDelete}>
                         <View
                             className='row-center'
