@@ -97,7 +97,7 @@ class Files extends Component {
 
     _handlePressUpload = (item) => {
         console.log('_handlePressUpload', item)
-        const { addRecord } = this.props
+        const { addRecord, uploadMeetingRecord } = this.props
         const filePath = this.filePath + '/' + item
         addRecord(filePath)
         setTimeout(() => {
