@@ -45,7 +45,7 @@ export default class FileItem extends PureComponent {
                 <View className='row-start'>
                     <TouchableOpacityHitSlop onPress={this._handlePressUpload}>
                         <View
-                            className='row-center'
+                            className='row-center border-right'
                             style={{ width: 60, height: 55 }}
                         >
                             <Image source={require('~/src/image/import.png')} style={{ width: 20, height: 20 }} />
