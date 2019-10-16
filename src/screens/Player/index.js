@@ -60,7 +60,7 @@ class Player extends Component {
         // this.player.stop()
         // this.player.release()
         TrackPlayer.stop()
-        TrackPlayer.reset()
+        TrackPlayer.destroy()
         this.props.navigation.goBack()
         return true
     }
@@ -85,24 +85,30 @@ class Player extends Component {
         //     this.player.play()
         //     this._runCheckInterval()
         // })
-        await TrackPlayer.setupPlayer({
+        await TrackPlayer.setupPlayer()
+        await TrackPlayer.updateOptions({
             stopWithApp: true
         })
         const track = {
-            id: this.meeting.id, // Must be a string, required
-            url: this.state.audioPath, // Load media from the network
+            id: this.meeting.id,
+            url: this.state.audioPath,
+            artist: this.meeting.name,
+            title: this.meeting.name
         }
+        console.log('Track', track)
         await TrackPlayer.add(track)
         const duration = await TrackPlayer.getDuration()
         this.setState({ duration, playing: true })
-        TrackPlayer.play()
+        await TrackPlayer.play()
         this._runCheckInterval()
     }
 
     _runCheckInterval = () => {
         this.checkIntervalId = setInterval(async () => {
             const seconds = await TrackPlayer.getPosition()
+            const currentState = await TrackPlayer.getState()
             const { transcriptionSentence } = this.props
+            const isPlaying = (currentState == TrackPlayer.STATE_PLAYING)
             if (transcriptionSentence) {
                 const currentProgressMs = this.state.progress * 1000
                 const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
@@ -111,7 +117,7 @@ class Player extends Component {
                     this.currentTranscriptKey = currentTranscriptObj[0]
                 }
             }
-            this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey, playing: true }, () => {
+            this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey, playing: isPlaying }, () => {
                 if (this.lastTranscriptKey != this.currentTranscriptKey) {
                     this.transcriptList && this.transcriptList.scrollToIndex({
                         animated: Platform.OS == 'android' ? false : true,
@@ -211,7 +217,7 @@ class Player extends Component {
         // this.player.stop()
         // this.player.release()
         TrackPlayer.stop()
-        TrackPlayer.reset()
+        TrackPlayer.destroy()
         AppState.removeEventListener('change', this._handleAppStateChange)
     }
 
@@ -259,18 +265,27 @@ class Player extends Component {
         return this.state.progress / this.state.duration * 100
     }
 
-    _handlePressPrevious10s = () => {
-        this.player.getCurrentTime((seconds, isPlaying) => {
-            if (!isPlaying) return
-            this.player.setCurrentTime(Math.min(seconds - 10, 0))
-        })
+    _handlePressPrevious10s = async () => {
+        // this.player.getCurrentTime((seconds, isPlaying) => {
+        //     if (!isPlaying) return
+        //     this.player.setCurrentTime(Math.min(seconds - 10, 0))
+        // })
+        let currentState = await TrackPlayer.getState()
+        const currentTime = await TrackPlayer.getPosition()
+        console.log('State', currentState, currentTime)
+        TrackPlayer.seekTo(Math.min(currentTime - 10, 0))
     }
 
-    _handlePressNext10s = () => {
-        this.player.getCurrentTime((seconds, isPlaying) => {
-            if (!isPlaying) return
-            this.player.setCurrentTime(Math.min(this.state.duration, seconds + 10))
-        })
+    _handlePressNext10s = async () => {
+        // this.player.getCurrentTime((seconds, isPlaying) => {
+        //     if (!isPlaying) return
+        //     this.player.setCurrentTime(Math.min(this.state.duration, seconds + 10))
+        // })
+
+        let currentState = await TrackPlayer.getState()
+        const currentTime = await TrackPlayer.getPosition()
+        console.log('State', currentState, currentTime)
+        TrackPlayer.seekTo(Math.min(this.state.duration, currentTime + 10))
     }
 
     _handlePressTranscriptItem = (item) => {
@@ -285,7 +300,8 @@ class Player extends Component {
                 return
             }
             const currentTime = currentTranscriptObj[1] / 1000
-            this.player.setCurrentTime(currentTime)
+            // this.player.setCurrentTime(currentTime)
+            TrackPlayer.seekTo(currentTime)
             this.setState({ progress: currentTime, currentTranscriptKey: transcriptKey }, () => {
                 setTimeout(() => {
                     this._runCheckInterval()
@@ -412,7 +428,8 @@ class Player extends Component {
     _handleSlidingComplete = (e) => {
         console.log('_handleSlidingComplete', e)
         const currentTime = e / 100 * this.state.duration
-        this.player.setCurrentTime(currentTime)
+        // this.player.setCurrentTime(currentTime)
+        TrackPlayer.seekTo(currentTime)
         this.setState({ progress: currentTime }, () => {
             this._runCheckInterval()
         })

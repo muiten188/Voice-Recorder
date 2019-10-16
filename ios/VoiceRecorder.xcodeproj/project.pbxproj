@@ -21,6 +21,7 @@
 		35CA8A68B56E8253E312FCCC /* libPods-VoiceRecorderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B70AE6794D1AB256B6D715 /* libPods-VoiceRecorderTests.a */; };
 		3E2B4BFD4A4F5327668BCA15 /* libPods-VoiceRecorder-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C27CF2876584566E3432A8 /* libPods-VoiceRecorder-tvOS.a */; };
 		4AAF43104B0240398DED4D27 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80596993B91943D8B4FF603C /* MaterialCommunityIcons.ttf */; };
+		4F98625A23577B0700AA83F2 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F98625923577B0700AA83F2 /* dummy.swift */; };
 		4FBD582222F807C90060C3F7 /* Linearicons-Free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FBD581522F807C80060C3F7 /* Linearicons-Free.ttf */; };
 		4FBD582322F807C90060C3F7 /* Linearicons-Free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FBD581522F807C80060C3F7 /* Linearicons-Free.ttf */; };
 		4FBD582422F807C90060C3F7 /* Linearicons-Free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FBD581522F807C80060C3F7 /* Linearicons-Free.ttf */; };
@@ -70,6 +71,8 @@
 		39D31718F5C78C2F63CA21BE /* Pods-VoiceRecorder-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder-tvOSTests/Pods-VoiceRecorder-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		39DF12794B71DB528F00C5F0 /* Pods-VoiceRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.debug.xcconfig"; sourceTree = "<group>"; };
 		4F21D68B22F7E83A00D81895 /* VoiceRecorder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VoiceRecorder.entitlements; path = VoiceRecorder/VoiceRecorder.entitlements; sourceTree = "<group>"; };
+		4F98625823577B0700AA83F2 /* VoiceRecorder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoiceRecorder-Bridging-Header.h"; sourceTree = "<group>"; };
+		4F98625923577B0700AA83F2 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		4FBD581522F807C80060C3F7 /* Linearicons-Free.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Linearicons-Free.ttf"; path = "../android/app/src/main/assets/fonts/Linearicons-Free.ttf"; sourceTree = "<group>"; };
 		5598C03ECE6EDCB0EFDECE9D /* libPods-VoiceRecorder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VoiceRecorder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58D7CCEC46A753D9B65B94E1 /* Pods-VoiceRecorderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderTests.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecorderTests/Pods-VoiceRecorderTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				4F98625923577B0700AA83F2 /* dummy.swift */,
+				4F98625823577B0700AA83F2 /* VoiceRecorder-Bridging-Header.h */,
 			);
 			name = VoiceRecorder;
 			sourceTree = "<group>";
@@ -345,7 +350,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = A45Q89SU23;
-						LastSwiftMigration = 1030;
+						LastSwiftMigration = 1110;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -653,6 +658,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				4F98625A23577B0700AA83F2 /* dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -706,6 +712,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B48B9F60FBD8A2B7BDC28524 /* Pods-VoiceRecorderTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -729,6 +736,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 99726AA0E9DBD3603D4C1CE9 /* Pods-VoiceRecorderTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = VoiceRecorderTests/Info.plist;
@@ -765,7 +773,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sbd.voicerecorder-fake";
 				PRODUCT_NAME = VoiceRecorder;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VoiceRecorder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -791,7 +799,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sbd.voicerecorder-fake";
 				PRODUCT_NAME = VoiceRecorder;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VoiceRecorder-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
