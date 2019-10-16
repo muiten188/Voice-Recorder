@@ -197,8 +197,9 @@ class UserInfo extends Component {
         return (
             <View style={styles.infoBlock}>
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/mail.png')} style={{ width: 22, height: 18 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
                         <Text className='textBlack s13'>{this.state.email}</Text>
@@ -206,16 +207,18 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/mail.png')} style={styles.fieldIcon} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/name.png')} style={{ width: 22, height: 21 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('username')}</Text>
                         <Text className='textBlack s13'>{this.state.username}</Text>
                     </View>
                 </View>
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/vitri.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('first_name')}</Text>
                         <Text className='textBlack s13'>{this.state.firstName}</Text>
@@ -223,8 +226,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/vitri.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('last_name')}</Text>
                         <Text className='textBlack s13'>{this.state.lastName}</Text>
@@ -232,8 +236,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/birthday.png')} style={{ width: 21, height: 21 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('date_of_birth')}</Text>
                         <Text className='textBlack s13'>{this.state.dateOfBirth ? this.state.dateOfBirth.format(I18n.t('date_format')) : ''}</Text>
@@ -241,8 +246,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/vitri.png')} style={styles.fieldIcon2} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/gender.png')} style={{ width: 22, height: 21 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('sex')}</Text>
                         <Text className='textBlack s13'>{this._getDisplaySex(this.state.sex)}</Text>
@@ -250,7 +256,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/permission.png')} style={{ width: 18, height: 24 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('role')}</Text>
                         <Text className='textBlack s13'>{this._getDisplayRole(this.state.role)}</Text>
@@ -264,11 +272,10 @@ class UserInfo extends Component {
                         <Text className='textBlack s13'>{this.state.activated ? I18n.t('active') : I18n.t('inactive')}</Text>
                     </View>
                 </View>
-
-
                 <View className='row-start pv10 ph16'>
-                    {/* <Image source={require('~/src/image/password.png')} style={styles.fieldIcon2} /> */}
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/password.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <Text className='bold s14 mb4'>{I18n.t('password')}</Text>
                         <View className='row-start'>
@@ -284,7 +291,9 @@ class UserInfo extends Component {
         return (
             <View style={styles.infoBlock}>
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/mail.png')} style={{ width: 22, height: 18 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('mail')}</Text>
                         <Text className='textBlack s13'>{this.state.email}</Text>
@@ -292,7 +301,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/name.png')} style={{ width: 22, height: 21 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('username')}</Text>
                         <Text className='textBlack s13'>{this.state.username}</Text>
@@ -300,7 +311,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/vitri.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('first_name')}
@@ -312,7 +325,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/vitri.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('last_name')}
@@ -323,7 +338,9 @@ class UserInfo extends Component {
 
                 </View>
                 <View className='ph16 pv10 row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/birthday.png')} style={{ width: 21, height: 21 }} />
+                    </View>
                     <DateInput
                         label={I18n.t('date_of_birth')}
                         value={this.state.dateOfBirth}
@@ -332,7 +349,9 @@ class UserInfo extends Component {
                     />
                 </View>
                 <View className='ph16 pv10 white row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/gender.png')} style={{ width: 22, height: 21 }} />
+                    </View>
                     <DropdownInput
                         label={I18n.t('sex')}
                         value={this.state.sex}
@@ -343,7 +362,9 @@ class UserInfo extends Component {
                     />
                 </View>
                 <View className='ph16 pv10 white row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/permission.png')} style={{ width: 18, height: 24 }} />
+                    </View>
                     <DropdownInput
                         label={I18n.t('role')}
                         value={this.state.role}
@@ -367,7 +388,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/password.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('password')}
@@ -385,7 +408,9 @@ class UserInfo extends Component {
         return (
             <View style={styles.infoBlock}>
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/mail.png')} style={{ width: 22, height: 18 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('mail')}
@@ -399,7 +424,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/name.png')} style={{ width: 22, height: 21 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('username')}
@@ -412,7 +439,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/vitri.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('first_name')}
@@ -425,7 +454,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/vitri.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('last_name')}
@@ -437,7 +468,9 @@ class UserInfo extends Component {
 
                 </View>
                 <View className='ph16 pv10 row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/birthday.png')} style={{ width: 21, height: 21 }} />
+                    </View>
                     <DateInput
                         label={I18n.t('date_of_birth')}
                         value={this.state.dateOfBirth}
@@ -447,7 +480,9 @@ class UserInfo extends Component {
                     />
                 </View>
                 <View className='ph16 pv10 white row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/gender.png')} style={{ width: 22, height: 21 }} />
+                    </View>
                     <DropdownInput
                         label={I18n.t('sex')}
                         value={this.state.sex}
@@ -458,7 +493,9 @@ class UserInfo extends Component {
                     />
                 </View>
                 <View className='ph16 pv10 white row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/permission.png')} style={{ width: 18, height: 24 }} />
+                    </View>
                     <DropdownInput
                         label={I18n.t('role')}
                         value={this.state.role}
@@ -470,7 +507,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/password.png')} style={{ width: 20, height: 23 }} />
+                    </View>
                     <View className='flex'>
                         <TextInput
                             label={I18n.t('password')}

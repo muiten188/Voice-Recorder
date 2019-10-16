@@ -63,6 +63,7 @@ export default {
     },
     leftSpace: {
         width: 47,
-        height: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }
