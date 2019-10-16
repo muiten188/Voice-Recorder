@@ -29,6 +29,7 @@ import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
 import TranscriptItem from './TranscriptItem'
+import TrackPlayer from 'react-native-track-player'
 
 class Player extends Component {
 
@@ -56,8 +57,10 @@ class Player extends Component {
     }
 
     _handleBack = () => {
-        this.player.stop()
-        this.player.release()
+        // this.player.stop()
+        // this.player.release()
+        TrackPlayer.stop()
+        TrackPlayer.reset()
         this.props.navigation.goBack()
         return true
     }
@@ -66,60 +69,100 @@ class Player extends Component {
         BackHandler.addEventListener('hardwareBackPress', this._handleBack)
     }
 
-    _play = () => {
-        this.player = new Sound(this.state.audioPath, null, (error) => {
-            if (error) {
-                // do something
-            }
-            if (this.unmounted) {
-                console.log('Already unmounted')
-                this.player.stop()
-                this.player.release()
-            }
-            console.log('Playing')
-            this.setState({ duration: this.player.getDuration(), playing: true })
-            // play when loaded
-            this.player.play()
-            this._runCheckInterval()
+    _play = async () => {
+        // this.player = new Sound(this.state.audioPath, null, (error) => {
+        //     if (error) {
+        //         // do something
+        //     }
+        //     if (this.unmounted) {
+        //         console.log('Already unmounted')
+        //         this.player.stop()
+        //         this.player.release()
+        //     }
+        //     console.log('Playing')
+        //     this.setState({ duration: this.player.getDuration(), playing: true })
+        //     // play when loaded
+        //     this.player.play()
+        //     this._runCheckInterval()
+        // })
+        await TrackPlayer.setupPlayer({
+            stopWithApp: true
         })
+        const track = {
+            id: this.meeting.id, // Must be a string, required
+            url: this.state.audioPath, // Load media from the network
+        }
+        await TrackPlayer.add(track)
+        const duration = await TrackPlayer.getDuration()
+        this.setState({ duration, playing: true })
+        TrackPlayer.play()
+        this._runCheckInterval()
     }
 
     _runCheckInterval = () => {
-        this.checkIntervalId = setInterval(() => {
-            this.player.getCurrentTime((seconds, isPlaying) => {
-                const { transcriptionSentence } = this.props
-                if (transcriptionSentence) {
-                    const currentProgressMs = this.state.progress * 1000
-                    const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
-                    if (currentTranscriptObj) {
-                        this.lastTranscriptKey = this.currentTranscriptKey
-                        this.currentTranscriptKey = currentTranscriptObj[0]
-                    }
+        this.checkIntervalId = setInterval(async () => {
+            const seconds = await TrackPlayer.getPosition()
+            const { transcriptionSentence } = this.props
+            if (transcriptionSentence) {
+                const currentProgressMs = this.state.progress * 1000
+                const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
+                if (currentTranscriptObj) {
+                    this.lastTranscriptKey = this.currentTranscriptKey
+                    this.currentTranscriptKey = currentTranscriptObj[0]
                 }
-                this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey, playing: isPlaying }, () => {
-                    if (this.lastTranscriptKey != this.currentTranscriptKey) {
-                        this.transcriptList && this.transcriptList.scrollToIndex({
-                            animated: Platform.OS == 'android' ? false : true,
-                            index: this.currentTranscriptKey,
-                            viewPosition: 0,
-                            viewOffset: 50
-                        })
-                    }
+            }
+            this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey, playing: true }, () => {
+                if (this.lastTranscriptKey != this.currentTranscriptKey) {
+                    this.transcriptList && this.transcriptList.scrollToIndex({
+                        animated: Platform.OS == 'android' ? false : true,
+                        index: this.currentTranscriptKey,
+                        viewPosition: 0,
+                        viewOffset: 50
+                    })
+                }
 
-                })
             })
         }, 250)
     }
 
+    // _runCheckInterval = () => {
+    //     this.checkIntervalId = setInterval(() => {
+    //         this.player.getCurrentTime((seconds, isPlaying) => {
+    //             const { transcriptionSentence } = this.props
+    //             if (transcriptionSentence) {
+    //                 const currentProgressMs = this.state.progress * 1000
+    //                 const currentTranscriptObj = transcriptionSentence.find(item => item[1] <= currentProgressMs && item[2] >= currentProgressMs)
+    //                 if (currentTranscriptObj) {
+    //                     this.lastTranscriptKey = this.currentTranscriptKey
+    //                     this.currentTranscriptKey = currentTranscriptObj[0]
+    //                 }
+    //             }
+    //             this.setState({ progress: seconds, currentTranscriptKey: this.currentTranscriptKey, playing: isPlaying }, () => {
+    //                 if (this.lastTranscriptKey != this.currentTranscriptKey) {
+    //                     this.transcriptList && this.transcriptList.scrollToIndex({
+    //                         animated: Platform.OS == 'android' ? false : true,
+    //                         index: this.currentTranscriptKey,
+    //                         viewPosition: 0,
+    //                         viewOffset: 50
+    //                     })
+    //                 }
+
+    //             })
+    //         })
+    //     }, 250)
+    // }
+
     _handlePressPlayPause = () => {
         if (this.state.playing) {
             console.log('Case pause')
-            this.player.pause()
+            // this.player.pause()
+            TrackPlayer.pause()
             clearInterval(this.checkIntervalId)
             this.setState({ playing: false })
         } else {
             console.log('Case play')
-            this.player.play()
+            // this.player.play()
+            TrackPlayer.play()
             this._runCheckInterval()
             this.setState({ playing: true })
         }
@@ -165,8 +208,10 @@ class Player extends Component {
         console.log('Unmounted')
         this.unmounted = true
         clearInterval(this.checkIntervalId)
-        this.player.stop()
-        this.player.release()
+        // this.player.stop()
+        // this.player.release()
+        TrackPlayer.stop()
+        TrackPlayer.reset()
         AppState.removeEventListener('change', this._handleAppStateChange)
     }
 
@@ -345,7 +390,7 @@ class Player extends Component {
                 }
                 let file = await RNHTMLtoPDF.convert(options)
                 console.log('File', file)
-                if (Platform.OS == 'ios'){
+                if (Platform.OS == 'ios') {
                     await RNFetchBlob.fs.mv(file.filePath, savePath)
                 }
                 ToastUtils.showSuccessToast(`${I18n.t('download_transcript_success')} "${savePath}"`)

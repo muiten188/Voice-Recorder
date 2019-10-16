@@ -112,6 +112,10 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
 //        missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {
