@@ -89,6 +89,14 @@ class Player extends Component {
         await TrackPlayer.updateOptions({
             stopWithApp: true
         })
+
+        TrackPlayer.addEventListener('playback-track-changed', (data) => {
+            console.log('playback-track-changed', data)
+        })
+        TrackPlayer.addEventListener('playback-state', (data) => {
+            console.log('playback-state', data)
+        })
+
         const track = {
             id: this.meeting.id,
             url: this.state.audioPath,
@@ -97,9 +105,10 @@ class Player extends Component {
         }
         console.log('Track', track)
         await TrackPlayer.add(track)
-        const duration = await TrackPlayer.getDuration()
-        this.setState({ duration, playing: true })
         await TrackPlayer.play()
+        const duration = await TrackPlayer.getDuration()
+        console.log('duration', duration)
+        this.setState({ duration, playing: true })
         this._runCheckInterval()
     }
 
