@@ -6,7 +6,6 @@ import ToastUtils from '~/src/utils/ToastUtils'
 import { addRecord } from '~/src/store/actions/localRecord'
 import { connect } from 'react-redux'
 import APIManager from '~/src/store/api/APIManager'
-import Sound from 'react-native-sound'
 import styles from './styles'
 import { MEETING_STATUS, FILE_TYPES, APP_FOLDER } from '~/src/constants'
 import { getPlayerTimeString, chainParse, prepareSaveFilePath } from '~/src/utils'
@@ -60,6 +59,7 @@ class Player extends Component {
         TrackPlayer.stop()
         TrackPlayer.destroy()
         this.props.navigation.goBack()
+        clearInterval(this.checkIntervalId)
         return true
     }
 
@@ -69,13 +69,13 @@ class Player extends Component {
 
     _play = async () => {
         // console.log('State', [
-        //     TrackPlayer.STATE_NONE, // 0
-        //     TrackPlayer.STATE_STOPPED, // 1
-        //     TrackPlayer.STATE_READY, // 2
-        //     TrackPlayer.STATE_PAUSED, // 2
-        //     TrackPlayer.STATE_PLAYING, // 3
-        //     TrackPlayer.STATE_BUFFERING, // 6
-        //     TrackPlayer.STATE_CONNECTING //8
+        //     TrackPlayer.STATE_NONE, // 0 - "idle"
+        //     TrackPlayer.STATE_STOPPED, // 1 - "idle"
+        //     TrackPlayer.STATE_READY, // 2 - "ready"
+        //     TrackPlayer.STATE_PAUSED, // 2 - "paused"
+        //     TrackPlayer.STATE_PLAYING, // 3 - "playing"
+        //     TrackPlayer.STATE_BUFFERING, // 6 - "loading"
+        //     TrackPlayer.STATE_CONNECTING //8 - undefined
         // ])
         await TrackPlayer.setupPlayer()
         await TrackPlayer.updateOptions({
@@ -87,10 +87,15 @@ class Player extends Component {
         })
         TrackPlayer.addEventListener('playback-state', (data) => {
             console.log('playback-state', data)
-            if (data.state == TrackPlayer.STATE_STOPPED){
+            if (data.state == TrackPlayer.STATE_STOPPED || data.state == TrackPlayer.STATE_PAUSED) {
                 clearInterval(this.checkIntervalId)
-                this.setState({playing: false})
+                this.setState({ playing: false })
             }
+        })
+
+        TrackPlayer.addEventListener('playback-queue-ended', data => {
+            console.log('playback-queue-ended', data)
+            TrackPlayer.stop()
         })
 
         const track = {
@@ -102,10 +107,12 @@ class Player extends Component {
         console.log('Track', track)
         await TrackPlayer.add(track)
         await TrackPlayer.play()
-        const duration = await TrackPlayer.getDuration()
-        console.log('duration', duration)
-        this.setState({ duration, playing: true })
-        this._runCheckInterval()
+        setTimeout(async () => {
+            const duration = await TrackPlayer.getDuration()
+            console.log('duration', duration)
+            this.setState({ duration, playing: true })
+            this._runCheckInterval()
+        }, 500)
     }
 
     _runCheckInterval = () => {
@@ -137,7 +144,7 @@ class Player extends Component {
         }, 250)
     }
 
-    _handlePressPlayPause = async() => {
+    _handlePressPlayPause = async () => {
         if (this.state.playing) {
             console.log('Case pause')
             TrackPlayer.pause()
@@ -146,7 +153,7 @@ class Player extends Component {
         } else {
             console.log('Case play')
             const currentState = await TrackPlayer.getState()
-            if (currentState == TrackPlayer.STATE_STOPPED){
+            if (currentState == TrackPlayer.STATE_STOPPED) {
                 await TrackPlayer.destroy()
                 this._play()
                 return
