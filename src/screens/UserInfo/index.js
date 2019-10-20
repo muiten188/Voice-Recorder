@@ -266,7 +266,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='row-start pv10 ph16'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/permission.png')} style={{ width: 18, height: 24 }} />
+                    </View>
                     <View>
                         <Text className='bold s14 mb4'>{I18n.t('status')}</Text>
                         <Text className='textBlack s13'>{this.state.activated ? I18n.t('active') : I18n.t('inactive')}</Text>
@@ -376,7 +378,9 @@ class UserInfo extends Component {
                 </View>
 
                 <View className='ph16 pv10 white row-start'>
-                    <View style={styles.leftSpace} />
+                    <View style={styles.leftSpace}>
+                        <Image source={require('~/src/image/permission.png')} style={{ width: 18, height: 24 }} />
+                    </View>
                     <DropdownInput
                         label={I18n.t('status')}
                         value={this.state.activated}
