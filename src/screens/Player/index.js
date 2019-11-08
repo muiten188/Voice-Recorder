@@ -430,7 +430,7 @@ class Player extends Component {
 
                         <FlatList
                             data={transcriptionSentence}
-                            key={this._keyExtractor}
+                            keyExtractor={this._keyExtractor}
                             renderItem={this._renderTranscriptItem}
                             ref={ref => this.transcriptList = ref}
                             contentContainerStyle={styles.transcriptContainer}
