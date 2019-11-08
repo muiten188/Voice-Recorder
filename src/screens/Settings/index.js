@@ -5,6 +5,7 @@ import I18n from '~/src/I18n'
 import { updateSetting } from '~/src/store/actions/setting'
 import { settingSelector } from '~/src/store/selectors/setting'
 import { connect } from 'react-redux'
+import APIManager from '~/src/store/api/APIManager'
 
 const CHANEL_DATA = [
     { value: 1, name: 'Mono chanel' },
@@ -33,7 +34,20 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            ip: ''
         }
+        this.willFocusListener = props.navigation.addListener(
+            "willFocus",
+            this.componentWillFocus
+        )
+    }
+
+    componentWillFocus = () => {
+        APIManager.getInstance()
+            .then(apiConfig => {
+                console.log('API config', apiConfig)
+                this.setState({ ip: apiConfig.IP })
+            })
     }
 
     _handlePressLeftMenu = () => {
@@ -66,6 +80,15 @@ class Settings extends Component {
         }
     }
 
+    _handleChangeIp = (text) => {
+        this.setState({ ip: text })
+    }
+
+    _handleIpBlur = () => {
+        console.log('_handleIpBlur', this.state.ip)
+        APIManager.saveIp(this.state.ip)
+    }
+
     render() {
         const { setting } = this.props
         return (
@@ -79,18 +102,23 @@ class Settings extends Component {
                 <ScrollView>
                     <View className='space16' />
                     <View className='ph16 pv12 white'>
-                        {/* <Text className='bold s15 mb8'>{I18n.t('phone')}</Text>
-                        <TextInput
-                            label={I18n.t('mail')}
-                            value={this.state.mail}
-                            onChangeText={text => this.setState({ mail: text })}
-                        /> */}
                         <TextInput
                             label={I18n.t('default_name')}
                             value={setting.defaultName}
                             onChangeText={this._handleChangeDefaultName}
                         />
                     </View>
+
+                    <View className='ph16 pv12 white'>
+                        <TextInput
+                            label={I18n.t('ip_address')}
+                            value={this.state.ip}
+                            onChangeText={this._handleChangeIp}
+                            keyboardType={'numeric'}
+                            onBlur={this._handleIpBlur}
+                        />
+                    </View>
+
                     <View className='ph16 pv12 white'>
                         <DropdownInput
                             label={I18n.t('chanel')}

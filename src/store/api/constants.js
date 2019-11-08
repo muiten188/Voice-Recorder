@@ -17,11 +17,14 @@ export const API_ENDPOINT = {
     'DEV': {
         name: 'DEV',
         API_URL: 'http://118.70.205.25:8888',
-        AUDIO_URL: 'http://118.70.205.25:9000/meeting/'
+        AUDIO_URL: 'http://118.70.205.25:9000/meeting/',
+        IP: '118.70.205.25'
     },
     'PROD': {
         name: 'PROD',
-        API_URL: 'http://10.0.0.1',
+        API_URL: 'http://118.70.205.25:8888',
+        AUDIO_URL: 'http://118.70.205.25:9000/meeting/',
+        IP: '118.70.205.25'
     }
 }
 

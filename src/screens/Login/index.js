@@ -24,6 +24,7 @@ import { signIn, createAccessToken } from '~/src/store/actions/auth'
 import { chainParse } from '~/src/utils'
 import ToastUtils from '~/src/utils/ToastUtils'
 import AsyncStorage from "@react-native-community/async-storage";
+import APIManager from '~/src/store/api/APIManager'
 
 class Login extends Component {
 
@@ -40,8 +41,14 @@ class Login extends Component {
             errPassword: "",
             errUserName: "",
             loading: false,
-            saveLogin: false
-        };
+            saveLogin: false,
+            ip: ''
+        }
+        APIManager.getInstance()
+            .then(apiConfig => {
+                console.log('API config', apiConfig)
+                this.setState({ ip: apiConfig.IP })
+            })
     }
 
     _handlePressSaveLogin = () => {
@@ -49,10 +56,11 @@ class Login extends Component {
     }
 
     _handleLogin = lodash.throttle(() => {
-        if (!this.state.userName || !this.state.password) return
+        if (!this.state.userName || !this.state.password || !this.state.ip) return
         const { signIn, createAccessToken } = this.props
         InteractionManager.runAfterInteractions(() => {
             this.setState({ loading: true })
+            APIManager.saveIp(this.state.ip)
             signIn(this.state.userName, this.state.password, (err, data) => {
                 console.log('signIn err', err)
                 console.log('signIn data', data)
@@ -134,6 +142,15 @@ class Login extends Component {
                             />
                         </View>
                         <View className='space56' />
+                        <RoundTextInput
+                            value={this.state.ip}
+                            error={this.state.errUserName}
+                            onChangeText={text => this.setState({ ip: text, errUserName: '' })}
+                            placeholder={I18n.t('ip_address')}
+                            autoCapitalize={'none'}
+                            keyboardType='numeric'
+                        />
+                        <View className='space16' />
                         <RoundTextInput
                             value={this.state.userName}
                             error={this.state.errUserName}

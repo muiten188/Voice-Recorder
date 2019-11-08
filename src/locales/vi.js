@@ -119,6 +119,7 @@ const language = {
     register_content: "Liên hệ quản trị VOV hotline\n84 24 22105148",
     record_file: 'Tệp ghi âm',
     delete_file_success: 'Xoá tệp "*****" thành công',
+    ip_address: 'Địa chỉ Ip',
 }
 
 // export default language;
