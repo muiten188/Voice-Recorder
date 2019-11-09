@@ -203,7 +203,7 @@ class Record extends Component {
     _stopRecord = async () => {
         try {
             const filePath = await AudioRecorder.stopRecording();
-            stopForegroundService()
+            stopForegroundService(FOREGROUND_NOTIFICATION_ID.RECORD)
             this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
             this.setState({ fileNameInput: this.fileName }, () => {
@@ -217,7 +217,7 @@ class Record extends Component {
     _handlePressCancel = async () => {
         if (this.state.recording != RECORD_STATUS.NOT_START) {
             const filePath = await AudioRecorder.stopRecording()
-            stopForegroundService()
+            stopForegroundService(FOREGROUND_NOTIFICATION_ID.RECORD)
             console.log('_handlePressCancel', filePath)
         }
         this.props.navigation.goBack()

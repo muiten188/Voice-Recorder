@@ -13,6 +13,7 @@ import {
 } from "~/src/constants";
 import ForegroundService from "@voximplant/react-native-foreground-service"
 import RNFetchBlob from 'rn-fetch-blob'
+let runningForegroundService = []
 
 export const chainParse = (obj, attrArr) => {
     if (!obj || typeof obj != "object") {
@@ -732,11 +733,18 @@ export const startForegroundService = async (id, message) => {
         notificationConfig.channelId = 'VoiceRecorder';
     }
     await ForegroundService.startService(notificationConfig)
+    runningForegroundService.push(id)
 }
 
-export const stopForegroundService = async () => {
+export const stopForegroundService = async (id) => {
     if (Platform.OS != 'android') return Promise.resolve('')
-    await ForegroundService.stopService();
+    if (runningForegroundService.length > 1) {
+        const indexOfRemovingService = runningForegroundService.findIndex(item => item == id)
+        runningForegroundService.splice(indexOfRemovingService, 1)
+    } else {
+        await ForegroundService.stopService()
+        runningForegroundService = []
+    }
 }
 
 export const prepareSaveFilePath = async (username, fileName) => {
@@ -744,7 +752,7 @@ export const prepareSaveFilePath = async (username, fileName) => {
     if (Platform.OS == 'ios') {
         const iosAppDirByUser = RNFetchBlob.fs.dirs.DocumentDir + '/' + username
         const isAppDirByUserExists = await RNFetchBlob.fs.exists(iosAppDirByUser)
-        if (!isAppDirByUserExists){
+        if (!isAppDirByUserExists) {
             await RNFetchBlob.fs.mkdir(iosAppDirByUser)
         }
         return iosAppDirByUser + fileNameWithSplash

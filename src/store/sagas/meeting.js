@@ -140,14 +140,14 @@ const _uploadRercordFile = function* (record) {
                 status: LOCAL_RECORD_STATUS.UPLOADED,
             }
             yield put(updateRecord(meetingRecordInfo))
-            yield call(stopForegroundService)
+            yield call(stopForegroundService, FOREGROUND_NOTIFICATION_ID.UPLOAD)
             return {
                 ...record,
                 ...meetingRecordInfo,
                 numberTryUpload: 0
             }
         }
-        yield call(stopForegroundService)
+        yield call(stopForegroundService, FOREGROUND_NOTIFICATION_ID.UPLOAD)
         const currentTry = record.numberTryUpload ? record.numberTryUpload + 1 : 1
         const status = currentTry >= NUMBER_TRY_UPLOAD ? LOCAL_RECORD_STATUS.FAILED : record.status
         yield put(updateRecord({
@@ -157,7 +157,7 @@ const _uploadRercordFile = function* (record) {
         }))
         return false
     } catch (error) {
-        yield call(stopForegroundService)
+        yield call(stopForegroundService, FOREGROUND_NOTIFICATION_ID.UPLOAD)
         console.log('_uploadRercordFile catch', error, record)
         const currentTry = record.numberTryUpload ? record.numberTryUpload + 1 : 1
         const status = currentTry >= NUMBER_TRY_UPLOAD ? LOCAL_RECORD_STATUS.FAILED : record.status
