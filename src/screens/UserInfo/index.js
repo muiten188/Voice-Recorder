@@ -272,7 +272,7 @@ class UserInfo extends Component {
                         <Text className='textBlack s13'>{this.state.activated ? I18n.t('active') : I18n.t('inactive')}</Text>
                     </View>
                 </View>
-                <View className='row-start pv10 ph16'>
+                {/* <View className='row-start pv10 ph16'>
                     <View style={styles.leftSpace}>
                         <Image source={require('~/src/image/password.png')} style={{ width: 20, height: 23 }} />
                     </View>
@@ -282,7 +282,7 @@ class UserInfo extends Component {
                             <Text className='textBlack flex s13 bold'>••••••</Text>
                         </View>
                     </View>
-                </View>
+                </View> */}
             </View>
         )
     }
@@ -387,7 +387,7 @@ class UserInfo extends Component {
                     />
                 </View>
 
-                <View className='row-start pv10 ph16'>
+                {/* <View className='row-start pv10 ph16'>
                     <View style={styles.leftSpace}>
                         <Image source={require('~/src/image/password.png')} style={{ width: 20, height: 23 }} />
                     </View>
@@ -399,7 +399,7 @@ class UserInfo extends Component {
                         />
                     </View>
 
-                </View>
+                </View> */}
             </View>
         )
     }
