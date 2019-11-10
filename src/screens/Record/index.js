@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { ImageBackground, Image, Platform } from 'react-native'
-import { View, Text, TouchableOpacityHitSlop, PopupConfirm, TextInputBase as TextInput } from "~/src/themes/ThemeComponent";
+import { ImageBackground, Image, Platform, FlatList, TouchableOpacity, Modal, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacityHitSlop, SmallButton, TextInputBase as TextInput } from "~/src/themes/ThemeComponent";
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE, FOREGROUND_NOTIFICATION_ID } from '~/src/constants'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
@@ -16,6 +16,8 @@ import { settingSelector } from '~/src/store/selectors/setting'
 import { connect } from 'react-redux'
 import RNFetchBlob from 'rn-fetch-blob'
 import { userInfoSelector } from '~/src/store/selectors/auth'
+import { meetingListSelector, categorySelector } from '~/src/store/selectors/meeting'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const RECORD_STATUS = {
     NOT_START: 'NOT_START',
@@ -41,7 +43,9 @@ class Record extends Component {
             permissionMicrophone: '',
             permissionStorage: '',
             fileName: '',
-            fileNameInput: ''
+            fileNameInput: '',
+            showingPopupSave: false,
+            selectedCategory: ''
         }
         this.fileName = ''
         this.audioPath = ''
@@ -206,9 +210,7 @@ class Record extends Component {
             stopForegroundService(FOREGROUND_NOTIFICATION_ID.RECORD)
             this.setState({ recording: RECORD_STATUS.STOPPED })
             console.log('_stopRecord filePath', filePath)
-            this.setState({ fileNameInput: this.fileName }, () => {
-                this.popupSave && this.popupSave.open()
-            })
+            this.setState({ fileNameInput: this.fileName, showingPopupSave: true })
         } catch (error) {
             console.error(error);
         }
@@ -288,7 +290,6 @@ class Record extends Component {
                 </TouchableOpacityHitSlop>
             </View>
         )
-
     }
 
     _onChangeFileName = (text) => {
@@ -296,49 +297,132 @@ class Record extends Component {
     }
 
     _handleYesFileName = async () => {
-        try {
-            console.log('File name input', this.state.fileNameInput)
-            console.log('Origin filename', this.fileName)
-            const originPath = `${this.basePath}/${this.fileName}.aac`
-            const newPath = `${this.basePath}/${this.state.fileNameInput}.aac`
-            if (this.fileName != this.state.fileNameInput) {
-                await RNFetchBlob.fs.mv(originPath, newPath)
+        this.setState({ showingPopupSave: false }, async () => {
+            try {
+                console.log('File name input', this.state.fileNameInput)
+                console.log('Origin filename', this.fileName)
+                const originPath = `${this.basePath}/${this.fileName}.aac`
+                const newPath = `${this.basePath}/${this.state.fileNameInput}.aac`
+                if (this.fileName != this.state.fileNameInput) {
+                    await RNFetchBlob.fs.mv(originPath, newPath)
+                }
+                const { addRecord, uploadMeetingRecord } = this.props
+                addRecord(newPath, this.state.selectedCategory)
+                ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${newPath}`)
+                setTimeout(() => {
+                    uploadMeetingRecord()
+                }, 100)
+                this.props.navigation.goBack()
+            } catch (err) {
+                console.log('_handleYesFileName err', err)
             }
-            const { addRecord, uploadMeetingRecord } = this.props
-            addRecord(newPath)
-            ToastUtils.showSuccessToast(`Đã lưu tệp ghi âm ${newPath}`)
-            setTimeout(() => {
-                uploadMeetingRecord()
-            }, 100)
-            this.props.navigation.goBack()
-        } catch (err) {
-            console.log('_handleYesFileName err', err)
-        }
+        })
     }
 
     _handlePressNoFileName = () => {
-        this.props.navigation.goBack()
+        this.setState({ showingPopupSave: false }, () => {
+            this.props.navigation.goBack()
+        })
+    }
+
+    _handlePressCategory = (item) => {
+        console.log('_handlePressCategory', item)
+        this.setState({ selectedCategory: item.id })
+    }
+
+    _renderCategoryItem = ({ item, index }) => {
+        return (
+            <TouchableOpacity onPress={() => this._handlePressCategory(item)}>
+                <View className='row-start border-bottom2 mh16'>
+                    <View className='pv16 white row-start'>
+                        <View style={{ marginRight: 5 }}>
+                            <Icon name={'check'} color={(item.id == this.state.selectedCategory) ? COLORS.GREEN : 'transparent'} size={15} />
+                        </View>
+                        <Text className='s14 textBlack'>{item.name}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
+    _categoryKeyExtractor = item => item.id
+
+    _handleRequestClose = () => {
+
+    }
+
+    _renderPopupSave = () => {
+        const { category } = this.props
+        const enableSave = this.state.fileNameInput && this.state.fileNameInput.trim() && this.state.selectedCategory
+
+        return (
+            <Modal
+                animationType={'none'}
+                visible={this.state.showingPopupSave}
+                transparent={true}
+                onRequestClose={this._handleRequestClose}
+            >
+                <View style={styles.backdrop}>
+                    <View style={styles.popupOuter}>
+                        <View style={styles.popupContainer}>
+                            <View style={styles.header}>
+                                <Image source={require('~/src/image/warning.png')}
+                                    style={styles.warningIcon}
+                                />
+                                <Text className='title'>{I18n.t('save_record')}</Text>
+                            </View>
+                            <View style={styles.popupContent}>
+                                <View className='space10' />
+                                <View className='row-start'>
+                                    <Text className='bold s13'>{I18n.t('file_name')}</Text>
+                                </View>
+                                <View className='row-start'>
+                                    <TextInput
+                                        value={this.state.fileNameInput}
+                                        onChangeText={this._onChangeFileName}
+                                        style={styles.fileNameInput}
+                                        onPressYes={this._handleYesFileName}
+                                    />
+                                </View>
+                                <View className='space16' />
+                                <View className='row-start'>
+                                    <Text className='bold s13'>{I18n.t('choose_category')}</Text>
+                                </View>
+                                <View>
+                                    <FlatList
+                                        data={category}
+                                        renderItem={this._renderCategoryItem}
+                                        keyExtractor={this._categoryKeyExtractor}
+                                        style={{ maxHeight: 250 }}
+                                        extraData={this.state}
+                                    />
+                                </View>
+                                <View style={styles.buttonBlock}>
+                                    <SmallButton
+                                        gray
+                                        text={I18n.t('cancel')}
+                                        onPress={this._handlePressNoFileName}
+                                        style={styles.buttonLeft}
+                                    />
+                                    <SmallButton
+                                        text={I18n.t('agree')}
+                                        onPress={this._handleYesFileName}
+                                        style={styles.buttonRight}
+                                        disabled={!enableSave}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+        )
     }
 
     render() {
         return (
             <View className="flex background">
-                <PopupConfirm
-                    animationType="none"
-                    title={I18n.t('save_record')}
-                    ref={ref => this.popupSave = ref}
-                    onPressYes={this._handleYesFileName}
-                    onPressNo={this._handlePressNoFileName}
-                >
-                    <View className='pv16 row-start'>
-                        <TextInput
-                            value={this.state.fileNameInput}
-                            onChangeText={this._onChangeFileName}
-                            style={styles.fileNameInput}
-                            onPressYes={this._handleYesFileName}
-                        />
-                    </View>
-                </PopupConfirm>
+                {this._renderPopupSave()}
                 <ImageBackground
                     source={require('~/src/image/bg_recording.png')}
                     style={{ width: DEVICE_WIDTH, height: scaleHeight(499) }}
@@ -361,5 +445,6 @@ class Record extends Component {
 }
 export default connect(state => ({
     setting: settingSelector(state),
-    userInfo: userInfoSelector(state)
+    userInfo: userInfoSelector(state),
+    category: categorySelector(state)
 }), { addRecord, uploadMeetingRecord })(Record)

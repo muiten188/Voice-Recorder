@@ -121,6 +121,7 @@ const language = {
     delete_file_success: 'Xoá tệp "*****" thành công',
     ip_address: 'Địa chỉ Ip',
     choose_category: 'Chọn danh mục',
+    file_name: 'Tên tệp ghi âm',
 }
 
 // export default language;
