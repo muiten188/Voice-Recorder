@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { FlatList, TouchableOpacity, Image, Platform, ActivityIndicator, AppState } from 'react-native'
-import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop, PopupConfirm } from "~/src/themes/ThemeComponent"
+import { FlatList, Platform } from 'react-native'
+import { View, GradientToolbar, PopupConfirmDelete, SelectPopup } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
@@ -12,13 +12,16 @@ import FileItem from './FileItem'
 import ToastUtils from '~/src/utils/ToastUtils'
 import { addRecord } from '~/src/store/actions/localRecord'
 import { uploadMeetingRecord } from '~/src/store/actions/meeting'
+import { categorySelector } from '~/src/store/selectors/meeting'
+import lodash from 'lodash'
 
 class Files extends Component {
     constructor(props) {
         super(props)
         this.state = {
             files: [],
-            popupDeleteContent: ''
+            popupDeleteContent: '',
+            showingCategory: false
         }
         this.filePath = ''
         this.didFocusListener = props.navigation.addListener(
@@ -95,16 +98,25 @@ class Files extends Component {
         })
     }
 
+    _handleSelectCategory = (category) => {
+        console.log('_handleSelectCategory', category)
+        this.setState({ showingCategory: false }, () => {
+            const { addRecord, uploadMeetingRecord } = this.props
+            addRecord(this.filePath, category.value)
+            setTimeout(() => {
+                uploadMeetingRecord()
+            }, 100)
+            ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), this.fileName))
+            this.props.navigation.navigate('Home')
+        })
+    }
+
     _handlePressUpload = (item) => {
         console.log('_handlePressUpload', item)
-        const { addRecord, uploadMeetingRecord } = this.props
         const filePath = this.filePath + '/' + item
-        addRecord(filePath)
-        setTimeout(() => {
-            uploadMeetingRecord()
-        }, 100)
-        ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), item))
-        this.props.navigation.navigate('Home')
+        this.filePath = filePath
+        this.fileName = item
+        this.setState({ showingCategory: true })
     }
 
 
@@ -128,12 +140,24 @@ class Files extends Component {
         )
     }
 
-
+    _getCategoryForPopup = lodash.memoize((category) => {
+        return category.map(item => ({
+            name: item.name,
+            value: item.id
+        }))
+    })
 
     render() {
-
+        const { category } = this.props
+        const categoryDateForPopup = this._getCategoryForPopup(category)
         return (
             <View className="flex white">
+                <SelectPopup
+                    values={categoryDateForPopup}
+                    popupTitle={I18n.t('choose_category')}
+                    onSelect={this._handleSelectCategory}
+                    visible={this.state.showingCategory}
+                />
                 <PopupConfirmDelete
                     ref={ref => this.popupConfirmDelete = ref}
                     title={I18n.t('delete_audio_confirm_title')}
@@ -160,5 +184,6 @@ class Files extends Component {
 }
 
 export default connect(state => ({
-    userInfo: userInfoSelector(state)
+    userInfo: userInfoSelector(state),
+    category: categorySelector(state)
 }), { addRecord, uploadMeetingRecord })(Files)
