@@ -41,3 +41,13 @@ export const setUploading = (data) => ({
     type: ACTION_TYPES.MEETING_SET_UPLOADING,
     payload: data
 })
+
+export const getCategory = (...args) => ({
+    type: ACTION_TYPES.MEETING_GET_CATEGORY,
+    args
+})
+
+export const setCategory = (data) => ({
+    type: ACTION_TYPES.MEETING_SET_CATEGORY,
+    payload: data
+})

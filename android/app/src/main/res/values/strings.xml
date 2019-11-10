@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Vov Recorder</string>
+    <string name="app_name">Voice to Text</string>
     <string name="notification_channel_id">mshop_app</string>
     <string name="sologan">RẢNH TAY QUẢN LÝ\nCÙNG MSHOP</string>
 </resources>

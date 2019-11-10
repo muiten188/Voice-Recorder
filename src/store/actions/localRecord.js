@@ -1,7 +1,7 @@
 import * as ACTION_TYPES from '~/src/store/types'
-export const addRecord = (filePath) => ({
+export const addRecord = (filePath, categoryId = '') => ({
     type: ACTION_TYPES.RECORD_ADD,
-    payload: filePath
+    payload: { filePath, categoryId }
 })
 
 

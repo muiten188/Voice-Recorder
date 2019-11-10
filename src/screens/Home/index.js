@@ -1,16 +1,16 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { FlatList, TouchableOpacity, Image, Platform, ActivityIndicator, AppState, StatusBar } from 'react-native'
-import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop, PopupConfirm } from "~/src/themes/ThemeComponent"
+import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop, PopupConfirm, SelectPopup } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
 import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
 import VoiceItem from '~/src/components/VoiceItem'
 import LoadingModal from "~/src/components/LoadingModal"
 import { setAppState } from '~/src/store/actions/common'
 import { getUserInfo } from '~/src/store/actions/auth'
-import { uploadMeetingRecord, getMeeting, deleteMeeting } from '~/src/store/actions/meeting'
+import { uploadMeetingRecord, getMeeting, deleteMeeting, getCategory } from '~/src/store/actions/meeting'
 import { addRecord, deleteRecord } from '~/src/store/actions/localRecord'
-import { meetingListSelector } from '~/src/store/selectors/meeting'
+import { meetingListSelector, categorySelector } from '~/src/store/selectors/meeting'
 import { processingLocalRecordSelector } from '~/src/store/selectors/localRecord'
 import DocumentPicker from 'react-native-document-picker'
 import Permissions from 'react-native-permissions'
@@ -40,7 +40,8 @@ class Home extends Component {
             loading: false,
             loadingFullscreen: false,
             refresing: false,
-            recordInfo: null
+            recordInfo: null,
+            showingCategory: false
         }
         this.didFocusListener = props.navigation.addListener(
             "didFocus",
@@ -135,11 +136,23 @@ class Home extends Component {
         })
     }
 
+    _handleSelectCategory = (category) => {
+        console.log('_handleSelectCategory', category)
+        this.setState({ showingCategory: false }, () => {
+            const { addRecord, uploadMeetingRecord } = this.props
+            addRecord(this.filePath, category.value)
+            setTimeout(() => {
+                uploadMeetingRecord()
+            }, 100)
+            ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), this.fileName))
+        })
+    }
+
     _handlePressImport = async () => {
         this._toggleOverlay()
         try {
             await this._requestPermission()
-            const { addRecord, uploadMeetingRecord } = this.props
+            const { category } = this.props
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
             })
@@ -150,12 +163,11 @@ class Home extends Component {
             } else {
                 filePath = decodeURIComponent(filePath).replace('file://', '')
             }
+            this.filePath = ''
+            this.fileName = res.name
             console.log('filePath', filePath)
-            addRecord(filePath)
-            setTimeout(() => {
-                uploadMeetingRecord()
-            }, 100)
-            ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), res.name))
+            console.log('category', category)
+            this.setState({ showingCategory: true })
         } catch (err) {
             console.log('Picker error', err)
         }
@@ -305,8 +317,12 @@ class Home extends Component {
 
 
     componentDidMount() {
-        const { uploadMeetingRecord, getUserInfo } = this.props
+        const { uploadMeetingRecord, getUserInfo, getCategory } = this.props
         getUserInfo()
+        getCategory((err, data) => {
+            console.log('getCategory err', err)
+            console.log('getCategory data', data)
+        })
         uploadMeetingRecord()
         BackgroundTimer.runBackgroundTimer(() => {
             uploadMeetingRecord()
@@ -378,8 +394,16 @@ class Home extends Component {
 
     _keyExtractor = item => item.id + ''
 
+    _getCategoryForPopup = lodash.memoize((category) => {
+        return category.map(item => ({
+            name: item.name,
+            value: item.id
+        }))
+    })
+
     render() {
-        const { meetingList, processingLocalRecord } = this.props
+        const { meetingList, processingLocalRecord, category } = this.props
+        const categoryDateForPopup = this._getCategoryForPopup(category)
         const meetingListData = meetingList.data || emptyArray
         const notFinishMeeting = meetingListData.find(item => item.status != MEETING_STATUS.DONE && item.status != MEETING_STATUS.FAILED && !(item.status == MEETING_STATUS.PROCESSING && item.progress == 0))
         const listData = this._getDataForList(processingLocalRecord, meetingListData)
@@ -391,6 +415,12 @@ class Home extends Component {
                     onPress={this._handleChooseFilter}
                     ref={ref => this.filterMenu = ref}
                     style={styles.contextMenu}
+                />
+                <SelectPopup
+                    values={categoryDateForPopup}
+                    popupTitle={I18n.t('choose_category')}
+                    onSelect={this._handleSelectCategory}
+                    visible={this.state.showingCategory}
                 />
                 <LoadingModal visible={this.state.loadingFullscreen} />
                 <PopupConfirmDelete
@@ -467,10 +497,11 @@ class Home extends Component {
 export default connect(state => ({
     meetingList: meetingListSelector(state),
     processingLocalRecord: processingLocalRecordSelector(state),
-    isConnect: isConnectSelector(state)
+    isConnect: isConnectSelector(state),
+    category: categorySelector(state)
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,
     deleteMeeting, deleteRecord,
-    setAppState
+    setAppState, getCategory
 })(Home)

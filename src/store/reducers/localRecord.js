@@ -7,7 +7,8 @@ export default localRecord = (state = initialState, action) => {
     const { type, payload } = action
     switch (type) {
         case ACTION_TYPES.RECORD_ADD: {
-            const filePath = payload
+            console.log('Payload RECORD_ADD', payload)
+            const { filePath, categoryId } = payload
             const newState = [...state]
             const indexOfFile = newState.findIndex(item => item.localPath == filePath)
             if (indexOfFile > 0) return state
@@ -15,6 +16,7 @@ export default localRecord = (state = initialState, action) => {
             newState.push({
                 localPath: filePath,
                 status: LOCAL_RECORD_STATUS.INITIAL,
+                categoryId,
                 create_time: Math.floor(now / 1000),
                 id: Math.floor(now),
                 name: getFileName(filePath),

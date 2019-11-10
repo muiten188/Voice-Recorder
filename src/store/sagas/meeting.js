@@ -7,7 +7,7 @@ import { isUploadingMeetingSelector } from '~/src/store/selectors/meeting'
 import { appStateSelector, isConnectSelector } from '~/src/store/selectors/info'
 import { noop } from '~/src/store/actions/common'
 import { updateRecord, deleteRecord } from '~/src/store/actions/localRecord'
-import { setMetting, getMeeting, setUploading, uploadMeetingRecord } from '~/src/store/actions/meeting'
+import { setMetting, getMeeting, setUploading, uploadMeetingRecord, setCategory } from '~/src/store/actions/meeting'
 import { LOCAL_RECORD_STATUS, FOREGROUND_NOTIFICATION_ID, NUMBER_TRY_UPLOAD } from '~/src/constants'
 import RNFetchBlob from 'rn-fetch-blob'
 import {
@@ -173,11 +173,11 @@ const _uploadRercordFile = function* (record) {
 const _createMeeting = function* (record) {
     try {
         if (record.status != LOCAL_RECORD_STATUS.UPLOADED) return false
-        const { uploadField, localPath } = record
+        const { uploadField, localPath, categoryId } = record
         const originalUploadKey = uploadField.key
         const uplodaKey = getUploadKey(originalUploadKey, localPath)
         const name = getFileName(localPath)
-        const createMeetingResponse = yield call(api.meeting.createMeeting, uplodaKey, name, 2)
+        const createMeetingResponse = yield call(api.meeting.createMeeting, uplodaKey, name, 2, categoryId)
         console.log('createMeetingResponse response', createMeetingResponse)
         const hasError = yield call(handleCommonError, createMeetingResponse)
         console.log('Has Error createMeetingResponse', hasError)
@@ -238,6 +238,20 @@ const requestUploadMeetingRecord = function* () {
     }
 }
 
+const requestGetCategory = createRequestSaga({
+    request: api.meeting.getCategory,
+    key: ACTION_TYPES.MEETING_GET_CATEGORY,
+    success: [
+        (data) => {
+            const statusCode = chainParse(data, ['httpHeaders', 'status'])
+            if (statusCode == 200) {
+                return setCategory(data)
+            }
+            return noop('')
+        }
+    ]
+})
+
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
@@ -245,7 +259,8 @@ export default function* fetchWatcher() {
         takeEvery(ACTION_TYPES.MEETING_CREATE, requestCreateMeeting),
         takeEvery(ACTION_TYPES.MEETING_GET, requestGetMeeting),
         takeEvery(ACTION_TYPES.MEETING_UPLOAD_RECORD, requestUploadMeetingRecord),
-        takeEvery(ACTION_TYPES.MEETING_DELETE, requestDeleteMeeting)
+        takeEvery(ACTION_TYPES.MEETING_DELETE, requestDeleteMeeting),
+        takeEvery(ACTION_TYPES.MEETING_GET_CATEGORY, requestGetCategory)
     ])
 }
 

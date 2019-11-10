@@ -20,6 +20,8 @@ import PopupConfirmDelete from './PopupConfirmDelete'
 import Slider from './Slider'
 import DropdownInput from './DropdownInput'
 import DateInput from './DateInput'
+import SelectPopup from './SelectPopup'
+
 export {
     RoundTextInput, TextInput,
     TouchableOpacityHitSlop,
@@ -36,6 +38,7 @@ export {
     PopupConfirmDelete,
     Slider,
     DropdownInput,
-    DateInput
+    DateInput,
+    SelectPopup
 }
 
