@@ -258,7 +258,9 @@ export const viewStyles = {
     mb10: {
         marginBottom: 10,
     },
-
+    mt8: {
+        marginTop: 8
+    },
     mt24: {
         marginTop: 24
     },

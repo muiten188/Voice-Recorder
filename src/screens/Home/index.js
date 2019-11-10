@@ -136,16 +136,24 @@ class Home extends Component {
         })
     }
 
-    _handleSelectCategory = (category) => {
-        console.log('_handleSelectCategory', category)
+    _addRecord = (categoryId) => {
         this.setState({ showingCategory: false }, () => {
             const { addRecord, uploadMeetingRecord } = this.props
-            addRecord(this.filePath, category.value)
+            addRecord(this.filePath, categoryId)
             setTimeout(() => {
                 uploadMeetingRecord()
             }, 100)
             ToastUtils.showSuccessToast(replacePatternString(I18n.t('added_record_to_queue'), this.fileName))
         })
+    }
+
+    _handleSelectCategory = (category) => {
+        console.log('_handleSelectCategory', category)
+        this._addRecord(category.value)
+    }
+
+    _handleAgree = () => {
+        this._addRecord('')
     }
 
     _handlePressImport = async () => {
@@ -421,6 +429,8 @@ class Home extends Component {
                     popupTitle={I18n.t('choose_category')}
                     onSelect={this._handleSelectCategory}
                     visible={this.state.showingCategory}
+                    showButton={true}
+                    onAgree={this._handleAgree}
                 />
                 <LoadingModal visible={this.state.loadingFullscreen} />
                 <PopupConfirmDelete

@@ -353,8 +353,8 @@ class Record extends Component {
 
     _renderPopupSave = () => {
         const { category } = this.props
-        const enableSave = this.state.fileNameInput && this.state.fileNameInput.trim() && this.state.selectedCategory
-
+        const enableSave = this.state.fileNameInput && this.state.fileNameInput.trim()
+        
         return (
             <Modal
                 animationType={'none'}

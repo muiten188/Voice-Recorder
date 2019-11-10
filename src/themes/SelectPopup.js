@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { FlatList, TouchableOpacity, Modal, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { COLORS, DEVICE_HEIGHT } from '~/src/themes/common'
-import { Container, View, Text } from '~/src/themes/ThemeComponent'
+import { View, Text, SmallButton } from '~/src/themes/ThemeComponent'
+import I18n from '~/src/I18n'
 
 export default class DropdownInput extends Component {
     constructor(props) {
@@ -34,8 +35,13 @@ export default class DropdownInput extends Component {
         onRequestClose && onRequestClose()
     }
 
+    _handlePressAgree = () => {
+        const { onAgree } = this.props
+        onAgree && onAgree()
+    }
+
     render() {
-        const { popupTitle, values, visible } = this.props
+        const { popupTitle, values, visible, showButton } = this.props
         return (
             <Modal
                 visible={visible}
@@ -55,6 +61,13 @@ export default class DropdownInput extends Component {
                                     renderItem={this.renderItem}
                                     keyExtractor={item => item.value + ""}
                                 />
+                                {showButton && <View className='row-center mt8 mb10 ph24'>
+                                    <SmallButton
+                                        text={I18n.t('agree')}
+                                        onPress={this._handlePressAgree}
+                                        style={{ flex: 1 }}
+                                    />
+                                </View>}
                             </View>
                         </View>
                     </View>
