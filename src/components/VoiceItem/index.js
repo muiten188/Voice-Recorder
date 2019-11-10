@@ -77,18 +77,11 @@ export default class VoiceItem extends PureComponent {
                     <Image source={require('~/src/image/moikhoitao.png')} style={{ width: 20, height: 16 }} />
                 </View>
             )
-        } else if (status == MEETING_STATUS.WAITING || status == MEETING_STATUS.QUEUING) {
+        } else if (status == MEETING_STATUS.WAITING) {
             return (
                 <View className='row-start'>
                     <Text className='s12 orange' style={{ marginRight: 4 }}>{I18n.t('process_queuing')}</Text>
                     <Image source={require('~/src/image/duavaohangcho.png')} style={{ width: 16, height: 16 }} />
-                </View>
-            )
-        } else if (status == MEETING_STATUS.PROCESSING) {
-            return (
-                <View className='row-start'>
-                    <Text className='s12 blue' style={{ marginRight: 4 }}>{I18n.t('processing')} <Text className='blue s14'> ({progress}%) </Text></Text>
-                    <Image source={require('~/src/image/dangcho.png')} style={{ width: 16, height: 16 }} />
                 </View>
             )
         } else if (status == MEETING_STATUS.DONE) {
@@ -148,7 +141,7 @@ export default class VoiceItem extends PureComponent {
                 <TouchableOpacity onPress={this._handlePress}>
                     <View className='row-start'>
                         <Image source={require('~/src/image/audio.png')} style={styles.audioIcon} />
-                        {(status == MEETING_STATUS.PROCESSING) ?
+                        {(status == MEETING_STATUS.PROCESSING || status == MEETING_STATUS.QUEUING) ?
                             this._renderProcessingItem()
                             :
                             <View className='pv16 border-bottom flex' style={{ paddingRight: 14 }}>

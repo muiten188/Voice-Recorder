@@ -124,7 +124,7 @@ const _uploadRercordFile = function* (record) {
     if (record.status != LOCAL_RECORD_STATUS.CREATED_MEETING_URL) return record
     try {
         const isExists = yield call(RNFetchBlob.fs.exists, record.localPath)
-        console.log('isExists', isExists)
+        console.log('isExists', isExists, record)
         if (!isExists) {
             yield put(deleteRecord(record.localPath))
             return false

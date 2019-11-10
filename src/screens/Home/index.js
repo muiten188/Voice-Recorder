@@ -163,7 +163,7 @@ class Home extends Component {
             } else {
                 filePath = decodeURIComponent(filePath).replace('file://', '')
             }
-            this.filePath = ''
+            this.filePath = filePath
             this.fileName = res.name
             console.log('filePath', filePath)
             console.log('category', category)
