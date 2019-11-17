@@ -53,7 +53,7 @@ export default {
         marginRight: 24
     },
     infoBlock: {
-        top: -40
+        // top: -40
     },
     dropdown: {
         flex: 1,

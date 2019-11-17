@@ -118,7 +118,7 @@ class Profile extends Component {
     }
 
     _handlePressLogout = () => {
-
+        this.props.logout()
     }
 
     _handlePressChangePassword = () => {
@@ -376,11 +376,11 @@ class Profile extends Component {
                         </View>
 
                     </LinearGradient>
-                    <View className='row-end ph14' style={styles.actionContainer}>
+                    {/* <View className='row-end ph14' style={styles.actionContainer}>
                         <TouchableOpacityHitSlop onPress={this._handlePressEdit}>
                             <Image source={this.state.isEditing ? require('~src/image/edit_done.png') : require('~src/image/edit.png')} style={styles.actionIcon} />
                         </TouchableOpacityHitSlop>
-                    </View>
+                    </View> */}
                     {this._render()}
 
                     {!this.state.isEditing && <View className='row-center'>
