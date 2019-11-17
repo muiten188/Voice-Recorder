@@ -122,6 +122,8 @@ const language = {
     ip_address: 'Địa chỉ Ip',
     choose_category: 'Chọn danh mục',
     file_name: 'Tên tệp ghi âm',
+    rec_role: 'Ghi âm',
+    view_role: 'Xem'
 }
 
 // export default language;

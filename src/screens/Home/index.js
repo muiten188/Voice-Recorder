@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { FlatList, TouchableOpacity, Image, Platform, ActivityIndicator, AppState, StatusBar } from 'react-native'
 import { View, Text, GradientToolbar, SearchBox, PopupConfirmDelete, TouchableOpacityHitSlop, PopupConfirm, SelectPopup } from "~/src/themes/ThemeComponent"
 import I18n from '~/src/I18n'
-import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD } from '~/src/constants'
+import { MEETING_STATUS_LIST, MEETING_STATUS_INFO, CHECK_LOCAL_RECORD_PERIOD, MEETING_STATUS, RELOAD_PROGRESS_PERIOD, ROLES } from '~/src/constants'
 import VoiceItem from '~/src/components/VoiceItem'
 import LoadingModal from "~/src/components/LoadingModal"
 import { setAppState } from '~/src/store/actions/common'
@@ -26,6 +26,7 @@ import { COLORS } from '~/src/themes/common'
 import RNGetRealPath from 'react-native-get-real-path'
 import { isConnectSelector } from '~/src/store/selectors/info'
 import moment from "moment"
+import { userInfoSelector } from '~/src/store/selectors/auth'
 
 class Home extends Component {
     constructor(props) {
@@ -106,6 +107,8 @@ class Home extends Component {
     }
 
     _renderMainFloatingButton = () => {
+        const { userInfo } = this.props
+        if (userInfo.role != ROLES.ADMIN && userInfo.role != ROLES.REC) return <View />
         if (this.state.showingFloatingOverlay) return <View />
         return (
             <TouchableOpacity
@@ -508,7 +511,8 @@ export default connect(state => ({
     meetingList: meetingListSelector(state),
     processingLocalRecord: processingLocalRecordSelector(state),
     isConnect: isConnectSelector(state),
-    category: categorySelector(state)
+    category: categorySelector(state),
+    userInfo: userInfoSelector(state),
 }), {
     getUserInfo, uploadMeetingRecord,
     getMeeting, addRecord,

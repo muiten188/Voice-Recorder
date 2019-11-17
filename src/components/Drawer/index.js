@@ -13,11 +13,11 @@ const DRAWER_MENUS = [
         label: I18n.t('home_title'),
         icon: require('~/src/image/home.png')
     },
-    {
-        key: 'UserManager',
-        label: I18n.t('user_manager_title'),
-        icon: require('~/src/image/usermanager.png')
-    },
+    // {
+    //     key: 'UserManager',
+    //     label: I18n.t('user_manager_title'),
+    //     icon: require('~/src/image/usermanager.png')
+    // },
     {
         key: 'Files',
         label: I18n.t('record_file'),

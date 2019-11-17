@@ -131,11 +131,8 @@ export const NUMBER_TRY_UPLOAD = 3
 
 export const ROLES = {
     ADMIN: 1,
-    EDITOR: 2,
-    MANAGER: 3,
-    CHAIRMAN: 4,
-    DEPUTY: 5,
-    USER: 6
+    REC: 7,
+    VIEW: 8
 }
 
 export const ROLES_LIST = [
@@ -144,25 +141,13 @@ export const ROLES_LIST = [
         name: I18n.t('role_admin')
     },
     {
-        value: ROLES.EDITOR,
-        name: I18n.t('role_editor')
+        value: ROLES.REC,
+        name: I18n.t('rec_role')
     },
     {
-        value: ROLES.MANAGER,
-        name: I18n.t('role_manager')
+        value: ROLES.VIEW,
+        name: I18n.t('view_role')
     },
-    {
-        value: ROLES.CHAIRMAN,
-        name: I18n.t('role_chairman')
-    },
-    {
-        value: ROLES.DEPUTY,
-        name: I18n.t('role_deputy')
-    },
-    {
-        value: ROLES.USER,
-        name: I18n.t('role_user')
-    }
 ]
 
 export const SEX = {
