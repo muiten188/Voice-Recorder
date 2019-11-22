@@ -32,13 +32,15 @@ export default class VoiceItem extends PureComponent {
 
 
     _renderRightAction = (progress, dragX) => {
+        const { showDelete = true } = this.props
+        const translateX = showDelete ? -120 : -60
         const scale = dragX.interpolate({
-            inputRange: [-120, 0],
+            inputRange: [translateX, 0],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         });
         const opacity = dragX.interpolate({
-            inputRange: [-120, 0],
+            inputRange: [translateX, 0],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         });
@@ -53,14 +55,16 @@ export default class VoiceItem extends PureComponent {
                             <Image source={require('~/src/image/info.png')} style={{ width: 20, height: 21 }} />
                         </View>
                     </TouchableOpacityHitSlop>
-                    <TouchableOpacityHitSlop onPress={this._handlePressDelete}>
-                        <View
-                            className='row-center'
-                            style={{ width: 60, height: 55 }}
-                        >
-                            <Image source={require('~/src/image/delete.png')} style={{ width: 20, height: 21 }} />
-                        </View>
-                    </TouchableOpacityHitSlop>
+                    {!!showDelete &&
+                        <TouchableOpacityHitSlop onPress={this._handlePressDelete}>
+                            <View
+                                className='row-center'
+                                style={{ width: 60, height: 55 }}
+                            >
+                                <Image source={require('~/src/image/delete.png')} style={{ width: 20, height: 21 }} />
+                            </View>
+                        </TouchableOpacityHitSlop>
+                    }
                 </View>
             </Animated.View>
         );

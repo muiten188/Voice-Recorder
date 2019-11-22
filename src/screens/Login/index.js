@@ -108,6 +108,10 @@ class Login extends Component {
         this.popupRegister && this.popupRegister.open()
     }
 
+    _handlePressForgotPassword = () => {
+        this.popupForgotPassword && this.popupForgotPassword.open()
+    }
+
     render() {
 
         return (
@@ -121,6 +125,21 @@ class Login extends Component {
                     <View className='column-center'>
                         <View className='pv16'>
                             <Text className='s18 lh24 bold textBlack center'>{I18n.t('register_new_account')}</Text>
+                        </View>
+                        <View className='pv16'>
+                            <Text className='s14 lh24 textBlack center'>{I18n.t('register_content')}</Text>
+                        </View>
+                    </View>
+
+                </PopupConfirm>
+                <PopupConfirm
+                    ref={ref => this.popupForgotPassword = ref}
+                    oneButton={true}
+                    showHeader={false}
+                >
+                    <View className='column-center'>
+                        <View className='pv16'>
+                            <Text className='s18 lh24 bold textBlack center'>{I18n.t('forgot_password')}</Text>
                         </View>
                         <View className='pv16'>
                             <Text className='s14 lh24 textBlack center'>{I18n.t('register_content')}</Text>
@@ -181,7 +200,7 @@ class Login extends Component {
                                 checked={this.state.saveLogin}
                                 onPress={this._handlePressSaveLogin}
                             />
-                            <TouchableOpacityHitSlop>
+                            <TouchableOpacityHitSlop onPress={this._handlePressForgotPassword}>
                                 <Text className='error s13'>{I18n.t('forgot_password_question')}</Text>
                             </TouchableOpacityHitSlop>
 

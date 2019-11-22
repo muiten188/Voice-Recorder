@@ -219,6 +219,9 @@ class Home extends Component {
     }
 
     _renderMeetingItem = ({ item, index }) => {
+        const { userInfo } = this.props
+        const showDelete = userInfo.role == ROLES.ADMIN || (userInfo.role == ROLES.REC && item.user_id == userInfo.id)
+
         return (
             <VoiceItem
                 id={item.id}
@@ -233,6 +236,7 @@ class Home extends Component {
                 onPressInfo={this._handlePressInfo}
                 onPressDelete={this._handlePressDelete}
                 onPress={this._handlePressItem}
+                showDelete={showDelete}
             />
         )
     }
