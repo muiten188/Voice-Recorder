@@ -7,6 +7,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
+import com.sbd.vovrecorder.foregroundservice.VIForegroundServicePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -21,6 +22,7 @@ public class MainApplication extends Application implements ReactApplication {
 
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
+            packages.add(new VIForegroundServicePackage());
             return packages;
         }
 

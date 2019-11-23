@@ -11,7 +11,7 @@ import {
     MAX_USERNAME_LENGTH,
     MAX_LENGTH_NAME, APP_FOLDER
 } from "~/src/constants";
-import ForegroundService from "@voximplant/react-native-foreground-service"
+import ForegroundService from "~/src/components/ForegroundService"
 import RNFetchBlob from 'rn-fetch-blob'
 let runningForegroundService = []
 
