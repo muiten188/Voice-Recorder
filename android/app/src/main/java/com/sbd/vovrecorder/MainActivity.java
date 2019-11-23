@@ -15,24 +15,6 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Setup screen orientation before call super.onCreate()
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getRealMetrics(metrics);
-
-        float density = getResources().getDisplayMetrics().density;
-        float dpHeight = metrics.heightPixels / density;
-        float dpWidth = metrics.widthPixels / density;
-        float smallestWidth = dpWidth < dpHeight ? dpWidth : dpHeight;
-        if (smallestWidth < 600.0f) {
-            Log.d("haivu", "Phone");
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else {
-            Log.d("haivu", "Table");
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-
-
         super.onCreate(savedInstanceState);
     }
 
