@@ -101,7 +101,7 @@ const _upload = function (record) {
         }, uploadBody)
             .uploadProgress((written, total) => {
                 console.log('uploaded progress', written, total, written / total)
-                const progress = written / total * 100
+                const progress = total > 0 ? parseFloat(written / total * 100).toFixed(0) : 0
                 store.dispatch(updateRecord({
                     localPath: record.localPath,
                     progress
